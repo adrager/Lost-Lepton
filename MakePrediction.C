@@ -38,7 +38,7 @@ void MakePrediction()
 // 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/QCD_HT-500To1000_13TeV-madgraph_v1_ext1/*root");
      	Effchain->SetProof();
 	//	Effchain->Process("EffMaker.C+g",0,800000);
-	Effchain->Process("/afs/desy.de/user/a/adraeger/xxl-af-cms/2015/2015_RA2/ll_macros/Prediction.C+");
+	Effchain->Process("/afs/desy.de/user/a/adraeger/2015/Prediction.C+");
 	//Effchain->Process("EffMaker.C+",0,800000);
      	Effchain->SetProof(0);
      	delete proof;

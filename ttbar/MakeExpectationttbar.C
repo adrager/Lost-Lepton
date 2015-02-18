@@ -29,7 +29,7 @@ void MakeExpectationttbar()
 	
         	Effchain->SetProof();
 	//	Effchain->Process("ExpecMaker.C+",0,80000);
-		Effchain->Process("/afs/desy.de/user/a/adraeger/xxl-af-cms/2015/2015_RA2/ll_macros/ExpecMaker.C++g");
+		Effchain->Process("/afs/desy.de/user/a/adraeger/2015/ExpecMaker.C++g");
         	Effchain->SetProof(0);
         	delete proof;
 }

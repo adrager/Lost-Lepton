@@ -28,7 +28,7 @@ const double maxDeltaRGenToRecoIsoMuon_=0.3;
 const double maxDiffPtGenToRecoIsoMuon_=0.3;
 const double minHT_=500;
 const double minMHT_=200;
-const double minNJets_=2.5;
+const double minNJets_=3.5;
 const double deltaPhi1_=0.5;
 const double deltaPhi2_=0.5;
 const double deltaPhi3_=0.3;
@@ -61,6 +61,49 @@ const double maxDiffPtRecoIsoElecToTack_ = 0.5;
 //using either oldschool th1/2 which have wrong error calculations or the updated tefficneices
 const bool UseUpdatedTEfficiencies_=true;
 
+const bool MuMTWSearchBinUse_=false; // warning overwrites UseUpdatedTEfficiencies_
+const bool MuDiLepContributionMTWAppliedEffSearchBinUse_=false;
+const bool MuIsoSearchBinUse_=false; 
+const bool MuRecoSearchBinUse_=false; 
+const bool MuAccSearchBinUse_=true;  
+
+const bool ElecMTWSearchBinUse_=false;
+const bool ElecIsoSearchBinUse_=false; 
+const bool ElecRecoSearchBinUse_=false; 
+const bool ElecAccSearchBinUse_=true; 
+const bool ElecPuritySearchBinEff_=false;
+const bool ElecDiLepContributionMTWAppliedEffSearchBinUse_=false;
+
+class Bin
+{
+public:
+	Bin(){}
+	Bin(double HTmin, double HTmax, double MHTmin, double MHTmax, int NJetsmin, int NJetsmax, int BTagsmin, int BTagsmax)
+	{
+		HTmin_=HTmin;
+		HTmax_=HTmax;
+		MHTmin_=MHTmin;
+		MHTmax_=MHTmax;
+		NJetsmin_=NJetsmin;
+		NJetsmax_=NJetsmax;
+		BTagsmin_=BTagsmin;
+		BTagsmax_=BTagsmax;
+	}
+	double HTmin_, HTmax_, MHTmin_, MHTmax_;
+	int NJetsmin_, NJetsmax_, BTagsmin_, BTagsmax_;
+	~Bin(){}
+private:
+};
+class SearchBins
+{
+public:
+	SearchBins();
+	unsigned int GetBinNumber(double HT, double MHT, int NJets, int BTags);
+	
+	~SearchBins(){}
+protected:
+	std::vector<Bin> bins_;
+};
 
 class THFeff
 {
@@ -115,6 +158,10 @@ public :
    Float_t totalWeight_, totalWeightDiLep_;
    Float_t         selectedIDIsoMuonsActivity[5];   //[selectedIDIsoMuonsNum]
    Float_t         selectedIDIsoElectronsActivity[5];   //[selectedIDIsoMuonsNum]
+   UShort_t searchBin_;
+   
+   // search bin definition
+   SearchBins* searchBinsRef_;
    
    // isolated track prediction
    bool IsolatedTracksMuMatched_, IsolatedTracksElecMatched_;
@@ -158,6 +205,22 @@ public :
 	 THFeff *ElecMTWPTActivityEff_;
 	 THFeff *ElecDiLepContributionMTWAppliedNJetsEff_;
 	 THFeff *ElecDiLepEffMTWAppliedNJetsEff_;
+	 
+	 //Search bin based efficiencies
+	 THFeff *MuMTWSearchBinEff_;
+	 THFeff *MuDiLepContributionMTWAppliedSearchBinEff_;
+	 THFeff *MuIsoSearchBinEff_;
+	 THFeff *MuRecoSearchBinEff_;
+	 THFeff *MuAccSearchBinEff_;
+	 THFeff *MuDiLepEffMTWAppliedSearchBinEff_;
+	 
+	 THFeff *ElecIsoSearchBinEff_;
+	 THFeff *ElecRecoSearchBinEff_;
+	 THFeff *ElecAccSearchBinEff_;
+	 THFeff *ElecPuritySearchBinEff_;
+	 THFeff *ElecMTWSearchBinEff_;
+	 THFeff *ElecDiLepContributionMTWAppliedSearchBinEff_;
+	 THFeff *ElecDiLepEffMTWAppliedSearchBinEff_;
 
 	 // Declaration of leaf types
 	 UInt_t          RunNum;

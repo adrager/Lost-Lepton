@@ -44,6 +44,7 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_ = new TTree("LostLeptonExpectation","a simple Tree with simple variables");
 // 	tExpectation_->SetAutoSave(10000000000);
 	//  tExpectation_->SetAutoFlush(1000000);
+	tExpectation_->Branch("EvtNum",&EvtNum,"EvtNum/i");
 	tExpectation_->Branch("HT",&HT,"HT/F");
 	tExpectation_->Branch("MHT",&MHT,"MHT/F");
 	tExpectation_->Branch("NJets",&NJets,"NJets/s");

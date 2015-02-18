@@ -8,5 +8,5 @@ void MakeEff()
 	TChain *Effchain = new TChain("LostLeptonExpectation");
 	// 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/*root");
 	Effchain->Add("Expectation.root");
-	 	Effchain->Process("EffMaker.C+");
+	Effchain->Process("/afs/desy.de/user/a/adraeger/2015/EffMaker.C+");
 }

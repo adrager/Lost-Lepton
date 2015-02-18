@@ -94,7 +94,36 @@ const int elecMTWPT2D_=9;
 double ElecMTWPT2D_[elecMTWPT2D_]={10,30,40,50,60,70,90,110,1900};
 const int elecMTWActivity2D_=9;
 double ElecMTWActivity2D_[elecMTWActivity2D_]={0,5,10,20,40,60,80,100,1600};
-
+class Bin
+{
+public:
+	Bin(){}
+	Bin(double HTmin, double HTmax, double MHTmin, double MHTmax, int NJetsmin, int NJetsmax, int BTagsmin, int BTagsmax)
+	{
+		HTmin_=HTmin;
+		HTmax_=HTmax;
+		MHTmin_=MHTmin;
+		MHTmax_=MHTmax;
+		NJetsmin_=NJetsmin;
+		NJetsmax_=NJetsmax;
+		BTagsmin_=BTagsmin;
+		BTagsmax_=BTagsmax;
+	}
+	double HTmin_, HTmax_, MHTmin_, MHTmax_;
+	int NJetsmin_, NJetsmax_, BTagsmin_, BTagsmax_;
+	~Bin(){}
+private:
+};
+class SearchBins
+{
+public:
+	SearchBins();
+	unsigned int GetBinNumber(double HT, double MHT, int NJets, int BTags);
+	
+	~SearchBins(){}
+protected:
+	std::vector<Bin> bins_;
+};
 class TH1Feff
 {
 public:
@@ -105,8 +134,15 @@ public:
 		name_=name;
 		title_=title;
 	}
+	TH1Feff(const char* name, const char* title, unsigned int nBins, double startBin, double endBin)
+	{
+		RefTH1F_ = new 	TH1F(name, title, nBins, startBin,endBin);
+		name_=name;
+		title_=title;
+	}
 	TH1F* Clone(){return RefTH1F_;}
-	void SetName(const char* title){RefTH1F_->SetName(title);}
+	void SetName(const char* title){RefTH1F_->SetName(title); }
+	void SetTitle(const char* title){RefTH1F_->SetTitle(title);}
 	void Fill(Double_t x,Double_t Weight,bool passOrFail);
 	TGraphAsymmErrors* GetEfficiency();
 	void saveResults(TDirectory* MainDirectory);
@@ -147,6 +183,38 @@ private:
 	const char* name_;
 	const char* title_;
 };
+class Efficiency : public SearchBins
+{
+public:
+	Efficiency(){}
+	Efficiency(const char* name, const char* title);
+
+	void Fill(double HT, double MHT, int NJets, int BTags, double Weight, bool passOrFail);
+
+	void saveResults(TDirectory* MainDirectory);
+	~Efficiency(){}
+private:	
+	const char* name_;
+	const char* title_;
+	TH1Feff* TH1FSearchBins_;
+	std::vector<TH1Feff*> TH1FSearchBinsSplit_;
+	unsigned int splitAfter_;
+	
+};
+class SearchBinEventCount : public SearchBins
+{
+public:
+	SearchBinEventCount(){}
+	SearchBinEventCount(const char*);
+	void Fill(double HT, double MHT, int NJets, int BTags, double Weight);
+	void saveResults(TDirectory* MainDirectory);
+	~SearchBinEventCount(){}
+private:
+	TH1F* fullTH1F_;
+	std::vector<TH1F*> splitTH1F_;
+	unsigned int splitAfter_;
+	const char* name_;
+};
 
 class EffMaker : public TSelector {
 public :	
@@ -158,6 +226,8 @@ public :
 	void SaveEfficiency(TH2F *input);
 	void SaveEfficiency(TH1F *input);
 	TTree          *fChain;   //!pointer to the analyzed TTree or TChain
+	
+	SearchBinEventCount *totalExpectation_;
 	
 	// TH efficiencies
 	//purity
@@ -661,7 +731,14 @@ public :
 	TH2Feff *ElecIsoPTActivityEff_, *ElecIsoPTActivityFailEff_;
 	TH2Feff *ElecRecoPTActivityEff_, *ElecRecoPTActivityFailEff_;
 	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Search bin efficiencies
+	Efficiency *MuAccSearchBinEff_, *MuRecoSearchBinEff_, *MuIsoSearchBinEff_, *MuMTWSearchBinEff_, *MuDiLepContributionMTWAppliedSearchBinEff_, *MuDiLepEffMTWAppliedSearchBinEff_, *MuPuritySearchBinEff_;
+	Efficiency *ElecAccSearchBinEff_, *ElecRecoSearchBinEff_, *ElecIsoSearchBinEff_, *ElecMTWSearchBinEff_, *ElecDiLepContributionMTWAppliedSearchBinEff_, *ElecDiLepEffMTWAppliedSearchBinEff_, *ElecPuritySearchBinEff_;
+	
 	// Declaration of leaf types
+	UInt_t          EvtNum;
 	Float_t         HT;
 	Float_t         MHT;
 	UShort_t        NJets;
@@ -788,6 +865,7 @@ public :
 	UShort_t        IsoTrackDiLepElec;
 	
 	// List of branches
+	TBranch        *b_EvtNum;   //!
 	TBranch        *b_HT;   //!
 	TBranch        *b_MHT;   //!
 	TBranch        *b_NJets;   //!
@@ -950,6 +1028,7 @@ void EffMaker::Init(TTree *tree)
   fChain = tree;
   fChain->SetMakeClass(1);
   
+	fChain->SetBranchAddress("EvtNum", &EvtNum, &b_EvtNum);
   fChain->SetBranchAddress("HT", &HT, &b_HT);
   fChain->SetBranchAddress("MHT", &MHT, &b_MHT);
   fChain->SetBranchAddress("NJets", &NJets, &b_NJets);

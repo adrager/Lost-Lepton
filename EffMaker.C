@@ -40,6 +40,10 @@ void EffMaker::Begin(TTree * /*tree*/)
 void EffMaker::SlaveBegin(TTree * /*tree*/)
 {
   TString option = GetOption();
+	
+	// total event count for expecation
+	
+	totalExpectation_ = new SearchBinEventCount("TotalLostLeptonExpecation");
   // purity
   // muon
   //1D
@@ -1147,12 +1151,32 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
 	IsoTrackElecMatchedToIsoElecHTEff_ = new TH1Feff("IsoTrackElecMatchedToIsoElecHT1D","IsoTrackElecMatchedToIsoElecHT1D",oneDHT_-1,OneDHT_);
 	IsoTrackElecMatchedToIsoElecMHTEff_ = new TH1Feff("IsoTrackElecMatchedToIsoElecMHT1D","IsoTrackElecMatchedToIsoElecMHT1D",oneDMHT_-1,OneDMHT_);
 	
+	// search bin efficiencies
+	MuAccSearchBinEff_ = new Efficiency("MuAccSearchBinEff","MuAccSearchBinEff");
+	MuRecoSearchBinEff_ = new Efficiency("MuRecoSearchBinEff","MuRecoSearchBinEff");
+	MuIsoSearchBinEff_ = new Efficiency("MuIsoSearchBinEff","MuIsoSearchBinEff");
+	MuMTWSearchBinEff_ = new Efficiency("MuMTWSearchBinEff","MuMTWSearchBinEff");
+	MuDiLepContributionMTWAppliedSearchBinEff_ = new Efficiency("MuDiLepContributionMTWAppliedSearchBinEff","MuDiLepContributionMTWAppliedSearchBinEff");
+	MuDiLepEffMTWAppliedSearchBinEff_ = new Efficiency("MuDiLepEffMTWAppliedSearchBinEff","MuDiLepEffMTWAppliedSearchBinEff");
+	MuPuritySearchBinEff_ = new Efficiency("MuPuritySearchBinEff","MuPuritySearchBinEff");
+	
+	ElecAccSearchBinEff_ = new Efficiency("ElecAccSearchBinEff","ElecAccSearchBinEff");
+	ElecRecoSearchBinEff_ = new Efficiency("ElecRecoSearchBinEff","ElecRecoSearchBinEff");
+	ElecIsoSearchBinEff_ = new Efficiency("ElecIsoSearchBinEff","ElecIsoSearchBinEff");
+	ElecMTWSearchBinEff_ = new Efficiency("ElecMTWSearchBinEff","ElecMTWSearchBinEff");
+	ElecDiLepContributionMTWAppliedSearchBinEff_ = new Efficiency("ElecDiLepContributionMTWAppliedSearchBinEff","ElecDiLepContributionMTWAppliedSearchBinEff");
+	ElecDiLepEffMTWAppliedSearchBinEff_ = new Efficiency("ElecDiLepEffMTWAppliedSearchBinEff","ElecDiLepEffMTWAppliedSearchBinEff");
+	ElecPuritySearchBinEff_ = new Efficiency("ElecPuritySearchBinEff","ElecPuritySearchBinEff");
+	
 	
 }
 
 Bool_t EffMaker::Process(Long64_t entry)
 {
   fChain->GetTree()->GetEntry(entry);
+	// total expectation
+	if(Expectation==1)totalExpectation_->Fill(HT,MHT,NJets,BTags,Weight);
+	
   // purity
   // single muon control sample
   if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0)
@@ -1748,6 +1772,9 @@ Bool_t EffMaker::Process(Long64_t entry)
 			MuPurityActivityEff_->Fill(RecoIsoMuonActivity[0],Weight,true);
 			//2D
 			MuonPurityMHTNJetEff_->Fill(MHT,NJets,Weight,true);
+			// search bin efficiencies
+			MuPuritySearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
+			if(MHT>750)std::cout<<"push_back("<<EvtNum<<"); // passing"<<std::endl;
 		}
 		if(RecoIsoMuonPromtMatched[0]==0)
 		{
@@ -1760,6 +1787,9 @@ Bool_t EffMaker::Process(Long64_t entry)
 			MuPurityActivityEff_->Fill(RecoIsoMuonActivity[0],Weight,false);
 			//2D
 			MuonPurityMHTNJetEff_->Fill(MHT,NJets,Weight,false);
+			// search bin efficiencies
+			MuPuritySearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
+			if(MHT>750)std::cout<<"push_back("<<EvtNum<<"); // failing"<<std::endl;
 		}
 	}
 	// single elec control sample
@@ -1776,6 +1806,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 			ElecPurityActivityEff_->Fill(RecoIsoElectronActivity[0],Weight,true);
 			//2D
 			ElecPurityMHTNJetEff_->Fill(MHT,NJets,Weight,true);
+			// search bin efficiencies
+			ElecPuritySearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 		}
 		if(RecoIsoElecPromtMatched[0]==0)
 		{
@@ -1788,6 +1820,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 			ElecPurityActivityEff_->Fill(RecoIsoElectronActivity[0],Weight,false);
 			//2D
 			ElecPurityMHTNJetEff_->Fill(MHT,NJets,Weight,false);
+			// search bin efficiencies
+			ElecPuritySearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 		}
 	}
 	// acceptance
@@ -1805,6 +1839,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuAccHTNJetsEff_->Fill(HT,NJets,Weight,true);
 		MuAccMHTNJetsEff_->Fill(MHT,NJets,Weight,true);
 		MuAccBTagNJetsEff_->Fill(BTags,NJets,Weight,true);
+		// search bin efficiencies
+		MuAccSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 	}
 	if(muAcc==0)
 	{
@@ -1819,6 +1855,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuAccHTNJetsEff_->Fill(HT,NJets,Weight,false);
 		MuAccMHTNJetsEff_->Fill(MHT,NJets,Weight,false);
 		MuAccBTagNJetsEff_->Fill(BTags,NJets,Weight,false);
+		// search bin efficiencies
+		MuAccSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 	}
 	
 	// single elecon control sample
@@ -1835,6 +1873,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ElecAccHTNJetsEff_->Fill(HT,NJets,Weight,true);
 		ElecAccMHTNJetsEff_->Fill(MHT,NJets,Weight,true);
 		ElecAccBTagNJetsEff_->Fill(BTags,NJets,Weight,true);
+		// search bin efficiencies
+		ElecAccSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 	}
 	if(elecAcc==0)
 	{
@@ -1849,6 +1889,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ElecAccHTNJetsEff_->Fill(HT,NJets,Weight,false);
 		ElecAccMHTNJetsEff_->Fill(MHT,NJets,Weight,false);
 		ElecAccBTagNJetsEff_->Fill(BTags,NJets,Weight,false);
+		// search bin efficiencies
+		ElecAccSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 	}
 	
 	// reconstruction
@@ -1864,6 +1906,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuRecoActivityEff_->Fill(GenMuonActivity[0],Weight,true);
 		//2D
 		MuRecoPTActivityEff_->Fill(GenMuPt[0],GenMuonActivity[0],Weight,true);
+		// search bin efficiencies
+		MuRecoSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 	}
 	if(muReco==0)
 	{
@@ -1876,6 +1920,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuRecoActivityEff_->Fill(GenMuonActivity[0],Weight,false);
 		//2D
 		MuRecoPTActivityEff_->Fill(GenMuPt[0],GenMuonActivity[0],Weight,false);
+		// search bin efficiencies
+		MuRecoSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 	}
 	
 	// single elecon control sample
@@ -1890,6 +1936,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ElecRecoActivityEff_->Fill(GenElecActivity[0],Weight,true);
 		//2D
 		ElecRecoPTActivityEff_->Fill(GenElecPt[0],GenElecActivity[0],Weight,true);
+		// search bin efficiencies
+		ElecRecoSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 	}
 	if(elecReco==0)
 	{
@@ -1902,6 +1950,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ElecRecoActivityEff_->Fill(GenElecActivity[0],Weight,false);
 		//2D
 		ElecRecoPTActivityEff_->Fill(GenElecPt[0],GenElecActivity[0],Weight,false);
+		// search bin efficiencies
+		ElecRecoSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 	}
 	
 	// isolation
@@ -1917,6 +1967,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuIsoActivityEff_->Fill(GenMuonActivity[0],Weight,true);
 		//2D
 		MuIsoPTActivityEff_->Fill(GenMuPt[0],GenMuonActivity[0],Weight,true);
+		// search bin efficiencies
+		MuIsoSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 	}
 	if(muIso==0)
 	{
@@ -1929,6 +1981,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuIsoActivityEff_->Fill(GenMuonActivity[0],Weight,false);
 		//2D
 		MuIsoPTActivityEff_->Fill(GenMuPt[0],GenMuonActivity[0],Weight,false);
+		// search bin efficiencies
+		MuIsoSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 	}
 	
 	// single elecon control sample
@@ -1943,6 +1997,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ElecIsoActivityEff_->Fill(GenElecActivity[0],Weight,true);
 		//2D
 		ElecIsoPTActivityEff_->Fill(GenElecPt[0],GenElecActivity[0],Weight,true);
+		// search bin efficiencies
+		ElecIsoSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 	}
 	if(elecIso==0)
 	{
@@ -1955,6 +2011,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ElecIsoActivityEff_->Fill(GenElecActivity[0],Weight,false);
 		//2D
 		ElecIsoPTActivityEff_->Fill(GenElecPt[0],GenElecActivity[0],Weight,false);
+		// search bin efficiencies
+		ElecIsoSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 	}
 	// mtw
 	// single muon control sample
@@ -1968,6 +2026,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuMTWPTEff_->Fill(selectedIDIsoMuonsPt[0],Weight,true);
 		MuMTWActivityEff_->Fill(RecoIsoMuonActivity[0],Weight,true);
 		MuMTWPTActivityEff_->Fill(selectedIDIsoMuonsPt[0],RecoIsoMuonActivity[0],Weight,true);
+		// search bin efficiencies
+		MuMTWSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 	}
 	if(muIso==2 && mtw > mtwCut_)
 	{
@@ -1979,6 +2039,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuMTWPTEff_->Fill(selectedIDIsoMuonsPt[0],Weight,false);
 		MuMTWActivityEff_->Fill(RecoIsoMuonActivity[0],Weight,false);
 		MuMTWPTActivityEff_->Fill(selectedIDIsoMuonsPt[0],RecoIsoMuonActivity[0],Weight,false);
+		// search bin efficiencies
+		MuMTWSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 	}
 	
 	// single elec control sample
@@ -1992,6 +2054,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ElecMTWPTEff_->Fill(selectedIDIsoElectronsPt[0],Weight,true);
 		ElecMTWActivityEff_->Fill(RecoIsoElectronActivity[0],Weight,true);
 		ElecMTWPTActivityEff_->Fill(selectedIDIsoElectronsPt[0],RecoIsoElectronActivity[0],Weight,true);
+		// search bin efficiencies
+		ElecMTWSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 	}
 	if(elecIso==2 && mtw > mtwCut_)
 	{
@@ -2003,6 +2067,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ElecMTWPTEff_->Fill(selectedIDIsoElectronsPt[0],Weight,false);
 		ElecMTWActivityEff_->Fill(RecoIsoElectronActivity[0],Weight,false);
 		ElecMTWPTActivityEff_->Fill(selectedIDIsoElectronsPt[0],RecoIsoElectronActivity[0],Weight,false);
+		// search bin efficiencies
+		ElecMTWSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 	}
 	// di lep contribution
 	if(MuDiLepControlSample==2)
@@ -2012,6 +2078,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuDiLepNJetsEff_->Fill(NJets,Weight,true);
 		MuDiLepHTEff_->Fill(HT,Weight,true);
 		MuDiLepMHTEff_->Fill(MHT,Weight,true);
+		// search bin efficiencies
+		MuDiLepEffMTWAppliedSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 		if(mtw <mtwCut_)
 		{
 			// 1D
@@ -2032,6 +2100,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 			MuDiLepContributionMTWNJetsEff_->Fill(NJets,Weight,true);
 			MuDiLepContributionMTWHTEff_->Fill(HT,Weight,true);
 			MuDiLepContributionMTWMHTEff_->Fill(MHT,Weight,true);
+			// search bin efficiencies
+			MuDiLepContributionMTWAppliedSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 		}
 		
 	}
@@ -2050,6 +2120,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 			MuDiLepContributionMTWNJetsEff_->Fill(NJets,Weight,false);
 			MuDiLepContributionMTWHTEff_->Fill(HT,Weight,false);
 			MuDiLepContributionMTWMHTEff_->Fill(MHT,Weight,false);
+			// search bin efficiencies
+			MuDiLepContributionMTWAppliedSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 		}
 	}
 	if(MuDiLepControlSample==0)
@@ -2065,6 +2137,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuDiLepMTWNJetsEff_->Fill(NJets,Weight,false);
 		MuDiLepMTWHTEff_->Fill(HT,Weight,false);
 		MuDiLepMTWMHTEff_->Fill(MHT,Weight,false);
+		// search bin efficiencies
+		MuDiLepEffMTWAppliedSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 	}
 	if(ElecDiLepControlSample==2)
 	{
@@ -2073,6 +2147,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ElecDiLepNJetsEff_->Fill(NJets,Weight,true);
 		ElecDiLepHTEff_->Fill(HT,Weight,true);
 		ElecDiLepMHTEff_->Fill(MHT,Weight,true);
+		// search bin efficiencies
+		ElecDiLepEffMTWAppliedSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 		if(mtw <mtwCut_)
 		{
 			// 1D
@@ -2093,6 +2169,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 			ElecDiLepContributionMTWNJetsEff_->Fill(NJets,Weight,true);
 			ElecDiLepContributionMTWHTEff_->Fill(HT,Weight,true);
 			ElecDiLepContributionMTWMHTEff_->Fill(MHT,Weight,true);
+			// search bin efficiencies
+			ElecDiLepContributionMTWAppliedSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
 		}
 		
 	}
@@ -2111,6 +2189,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 			ElecDiLepContributionMTWNJetsEff_->Fill(NJets,Weight,false);
 			ElecDiLepContributionMTWHTEff_->Fill(HT,Weight,false);
 			ElecDiLepContributionMTWMHTEff_->Fill(MHT,Weight,false);
+			// search bin efficiencies
+			ElecDiLepContributionMTWAppliedSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 		}
 	}
 	
@@ -2127,6 +2207,8 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ElecDiLepMTWNJetsEff_->Fill(NJets,Weight,false);
 		ElecDiLepMTWHTEff_->Fill(HT,Weight,false);
 		ElecDiLepMTWMHTEff_->Fill(MHT,Weight,false);
+		// search bin efficiencies
+		ElecDiLepEffMTWAppliedSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
 	}
 	
 	// isoalted track
@@ -3514,7 +3596,34 @@ void EffMaker::Terminate()
 	
 	
 	
+	outPutFile->cd();
+	outPutFile->mkdir("TEfficienciesSearchBins");
+	TDirectory *dTEfficienciesSearchBins = (TDirectory*)outPutFile->Get("TEfficienciesSearchBins");
+	dTEfficienciesSearchBins->cd();
+	MuAccSearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	MuRecoSearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	MuIsoSearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	MuMTWSearchBinEff_->saveResults(dTEfficienciesSearchBins); 
+	MuDiLepContributionMTWAppliedSearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	MuDiLepEffMTWAppliedSearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	MuPuritySearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	
+	ElecAccSearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	ElecRecoSearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	ElecIsoSearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	ElecMTWSearchBinEff_->saveResults(dTEfficienciesSearchBins); 
+	ElecDiLepContributionMTWAppliedSearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	ElecDiLepEffMTWAppliedSearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	ElecPuritySearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	
+	
+	
 // 	MuonPurityMHTNJetEff_->GetEfficiency()->Write();
+	outPutFile->cd();
+	outPutFile->mkdir("Expectation");
+	TDirectory *dExpectation = (TDirectory*)outPutFile->Get("Expectation");
+	dExpectation->cd();
+	totalExpectation_->saveResults(dExpectation);
   
 	outPutFile->Close();
 }
@@ -3669,6 +3778,8 @@ void TH1Feff::saveResults(TDirectory* MainDirectory)
 // 	dir->cd();
 	MainDirectory->cd();
 	TGraphAsymmErrors* result = GetEfficiency();
+	result->SetName(RefTH1F_->GetName());
+	result->SetTitle(RefTH1F_->GetTitle());
 	result->Write();
 }
 
@@ -3767,5 +3878,360 @@ void TH2Feff::saveResults(TDirectory* MainDirectory)
 		result[i]->SetName(temp3);
 		result[i]->SetTitle(temp2);
 		result[i]->Write();
+	}
+}
+SearchBins::SearchBins()
+{
+	
+	// HTmin,HTmax,MHTmin,MHTmax,NJetsmin,NJetsmax,BTagsmin,BTagsmax
+	// NJets 4,6 BTags=0
+	// fixed ht Njets btags all MHT bins
+	bins_.push_back( Bin(500,800,200,500,4,6,-1,0) );
+	bins_.push_back( Bin(800,1200,200,500,4,6,-1,0) );
+	bins_.push_back( Bin(1200,99999,200,500,4,6,-1,0) );
+	
+	bins_.push_back( Bin(500,1200,500,750,4,6,-1,0) );
+	bins_.push_back( Bin(1200,99999,500,750,4,6,-1,0) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,4,6,-1,0) );
+	
+	// NJewts 7,8 BTags=0
+	bins_.push_back( Bin(500,800,200,500,7,8,-1,0) );
+	bins_.push_back( Bin(800,1200,200,500,7,8,-1,0) );
+	bins_.push_back( Bin(1200,99999,200,500,7,8,-1,0) );
+	
+	bins_.push_back( Bin(500,1200,500,750,7,8,-1,0) );
+	bins_.push_back( Bin(1200,99999,500,750,7,8,-1,0) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,7,8,-1,0) );
+	
+	
+	// NJewts 9,9999 BTags=0
+	bins_.push_back( Bin(500,800,200,500,9,9999,-1,0) );
+	bins_.push_back( Bin(800,1200,200,500,9,9999,-1,0) );
+	bins_.push_back( Bin(1200,99999,200,500,9,9999,-1,0) );
+	
+	bins_.push_back( Bin(500,1200,500,750,9,9999,-1,0) );
+	bins_.push_back( Bin(1200,99999,500,750,9,9999,-1,0) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,9,9999,-1,0) );
+	
+	
+	
+	// NJets 4,6 BTags=1
+	// fixed ht Njets btags all MHT bins
+	bins_.push_back( Bin(500,800,200,500,4,6,1,1) );
+	bins_.push_back( Bin(800,1200,200,500,4,6,1,1) );
+	bins_.push_back( Bin(1200,99999,200,500,4,6,1,1) );
+	
+	bins_.push_back( Bin(500,1200,500,750,4,6,1,1) );
+	bins_.push_back( Bin(1200,99999,500,750,4,6,1,1) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,4,6,1,1) );
+	
+	// NJewts 7,8 BTags=0
+	bins_.push_back( Bin(500,800,200,500,7,8,1,1) );
+	bins_.push_back( Bin(800,1200,200,500,7,8,1,1) );
+	bins_.push_back( Bin(1200,99999,200,500,7,8,1,1) );
+	
+	bins_.push_back( Bin(500,1200,500,750,7,8,1,1) );
+	bins_.push_back( Bin(1200,99999,500,750,7,8,1,1) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,7,8,1,1) );
+	
+	
+	// NJewts 9,9999 BTags=1
+	bins_.push_back( Bin(500,800,200,500,9,9999,1,1) );
+	bins_.push_back( Bin(800,1200,200,500,9,9999,1,1) );
+	bins_.push_back( Bin(1200,99999,200,500,9,9999,1,1) );
+	
+	bins_.push_back( Bin(500,1200,500,750,9,9999,1,1) );
+	bins_.push_back( Bin(1200,99999,500,750,9,9999,1,1) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,9,9999,1,1) );
+	
+	
+	
+	// NJets 4,6 BTags=2
+	// fixed ht Njets btags all MHT bins
+	bins_.push_back( Bin(500,800,200,500,4,6,2,2) );
+	bins_.push_back( Bin(800,1200,200,500,4,6,2,2) );
+	bins_.push_back( Bin(1200,99999,200,500,4,6,2,2) );
+	
+	bins_.push_back( Bin(500,1200,500,750,4,6,2,2) );
+	bins_.push_back( Bin(1200,99999,500,750,4,6,2,2) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,4,6,2,2) );
+	
+	// NJewts 7,8 BTags=2
+	bins_.push_back( Bin(500,800,200,500,7,8,2,2) );
+	bins_.push_back( Bin(800,1200,200,500,7,8,2,2) );
+	bins_.push_back( Bin(1200,99999,200,500,7,8,2,2) );
+	
+	bins_.push_back( Bin(500,1200,500,750,7,8,2,2) );
+	bins_.push_back( Bin(1200,99999,500,750,7,8,2,2) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,7,8,2,2) );
+	
+	
+	// NJewts 9,9999 BTags=2
+	bins_.push_back( Bin(500,800,200,500,9,9999,2,2) );
+	bins_.push_back( Bin(800,1200,200,500,9,9999,2,2) );
+	bins_.push_back( Bin(1200,99999,200,500,9,9999,2,2) );
+	
+	bins_.push_back( Bin(500,1200,500,750,9,9999,2,2) );
+	bins_.push_back( Bin(1200,99999,500,750,9,9999,2,2) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,9,9999,2,2) );
+	
+	
+	// NJets 4,6 BTags=>3
+	// fixed ht Njets btags all MHT bins
+	bins_.push_back( Bin(500,800,200,500,4,6,3,9999) );
+	bins_.push_back( Bin(800,1200,200,500,4,6,3,9999) );
+	bins_.push_back( Bin(1200,99999,200,500,4,6,3,9999) );
+	
+	bins_.push_back( Bin(500,1200,500,750,4,6,3,9999) );
+	bins_.push_back( Bin(1200,99999,500,750,4,6,3,9999) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,4,6,3,9999) );
+	
+	// NJewts 7,8 BTags=>3
+	bins_.push_back( Bin(500,800,200,500,7,8,3,9999) );
+	bins_.push_back( Bin(800,1200,200,500,7,8,3,9999) );
+	bins_.push_back( Bin(1200,99999,200,500,7,8,3,9999) );
+	
+	bins_.push_back( Bin(500,1200,500,750,7,8,3,9999) );
+	bins_.push_back( Bin(1200,99999,500,750,7,8,3,9999) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,7,8,3,9999) );
+	
+	
+	// NJewts 9,9999 BTags=>3
+	bins_.push_back( Bin(500,800,200,500,9,9999,3,9999) );
+	bins_.push_back( Bin(800,1200,200,500,9,9999,3,9999) );
+	bins_.push_back( Bin(1200,99999,200,500,9,9999,3,9999) );
+	
+	bins_.push_back( Bin(500,1200,500,750,9,9999,3,9999) );
+	bins_.push_back( Bin(1200,99999,500,750,9,9999,3,9999) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,9,9999,3,9999) );
+}
+
+unsigned int SearchBins::GetBinNumber(double HT, double MHT, int NJets, int BTags)
+{
+	unsigned int result =999;
+	int match =-1;
+	for(unsigned int i=0; i<bins_.size();i++)
+	{
+// 		std::cout<<"Bin["<<i<<"]: HT["<<bins_[i].HTmin_<<","<<bins_[i].HTmax_<<"] MHT["<<bins_[i].MHTmin_<<","<<bins_[i].MHTmax_<<"] NJets["<<bins_[i].NJetsmin_<<","<<bins_[i].NJetsmax_<<"] BTags["<<bins_[i].BTagsmin_<<","<<bins_[i].BTagsmax_<<"]\n";
+		if(HT>bins_[i].HTmin_ && 
+			 HT<bins_[i].HTmax_ &&
+			 MHT>bins_[i].MHTmin_ && 
+			 MHT<bins_[i].MHTmax_ &&
+			 NJets+0.1>bins_[i].NJetsmin_ && 
+			 NJets-0.1<bins_[i].NJetsmax_ &&
+			 BTags+0.1>bins_[i].BTagsmin_ && 
+			 BTags-0.1<bins_[i].BTagsmax_
+		)
+		{
+			result=i;
+			match++;
+		}
+	}
+	if(match==-1)
+	{
+//  		std::cout<<"Error event fits in no bin!!! HT: "<<HT<<", MHT: "<<MHT<<", NJets: "<<NJets<<", BTags: "<<BTags<<std::endl;
+		result=999;
+	}
+	if(match>0)
+	{
+		std::cout<<"Error event fits in more than one bin!!!! HT: "<<HT<<", MHT: "<<MHT<<", NJets: "<<NJets<<", BTags: "<<BTags<<std::endl;
+	}
+	return result+1; // to not use the 0 bin but start counting at 1
+}
+
+Efficiency::Efficiency(const char* name, const char* title)
+{
+	TH1FSearchBins_= new TH1Feff (name,title,bins_.size(),0,bins_.size()+1);
+	name_=name;
+	title_=title;
+	splitAfter_=18;
+	unsigned int plotsNumber= bins_.size()/splitAfter_;
+// 	std::cout<<"Efficiency::Efficiency plotsNumber="<<plotsNumber<<" number of bins: "<<bins_.size()<<std::endl;
+	if(plotsNumber * splitAfter_<bins_.size() )
+	{
+
+		plotsNumber++;
+		for(unsigned int i=0; i < plotsNumber;i++)
+		{
+			
+			TString temp2 (Form ("_%d",(int)i+1));
+			TString temp1 = name;
+			temp1+=temp2;
+			temp2 = title + temp2;
+			const char* name1=temp1;
+			const char* title1=temp2;
+			
+			if(i+1==plotsNumber)
+			{
+// 				std::cout<<"titlelast["<<i<<"]: "<<temp1<<std::endl;
+				unsigned int tempBins = bins_.size() - plotsNumber * splitAfter_;
+				TH1FSearchBinsSplit_.push_back( new TH1Feff (name1,title1,tempBins,0,tempBins+1) );
+				continue;
+			}
+// 			std::cout<<"title["<<i<<"]: "<<temp1<<std::endl;
+TH1FSearchBinsSplit_.push_back( new TH1Feff (name1,title1,splitAfter_,0,splitAfter_+1) );
+		}
+	}
+	else
+	{
+		for(unsigned int i=0; i < plotsNumber;i++)
+		{
+
+			TString temp2 (Form ("_%d",(int)i+1));
+			TString temp1 = name;
+			temp1+=temp2;
+			temp2 = title + temp2;
+			const char* name1=temp1;
+			const char* title1=temp2;
+			TH1Feff* tempeff2 = new  TH1Feff (name1,title1,splitAfter_,0,splitAfter_+1);
+			TH1FSearchBinsSplit_.push_back( tempeff2 );
+		}
+	}
+}
+
+void Efficiency::saveResults(TDirectory* MainDirectory)
+{
+	MainDirectory->mkdir(name_);
+	// 	std::cout<<"name: "<<name_<<std::endl;
+	TDirectory *dir = (TDirectory*)MainDirectory->Get(name_);
+	dir->cd();
+	TH1FSearchBins_->saveResults(dir);
+// 	std::cout<<"TH1FSearchBinsSplit_.size(): "<<TH1FSearchBinsSplit_.size()<<std::endl;
+	for(unsigned int i=0; i<TH1FSearchBinsSplit_.size();i++) 
+	{
+		TString temp2 (Form ("_%d",(int)i+1));
+		TString temp1 = name_;
+		temp1+=temp2;
+		temp2 = title_ + temp2;
+		const char* name1=temp1;
+		const char* title1=temp2;
+		TH1FSearchBinsSplit_[i]->SetTitle(title1);
+		TH1FSearchBinsSplit_[i]->SetName(name1);
+		TH1FSearchBinsSplit_[i]->saveResults(dir);
+	}
+}
+
+
+void Efficiency::Fill(double HT, double MHT, int NJets, int BTags, double Weight, bool passOrFail)
+{
+	double bin = GetBinNumber(HT,MHT,NJets,BTags);
+	
+	if(bin<bins_.size()+2) 
+	{
+		TH1FSearchBins_->Fill(bin+0.01, Weight,passOrFail);
+		unsigned int splitHist=0;
+		// 	std::cout<<"bin before split: "<<bin<<std::endl;
+		for(int ii=0;bin>splitAfter_;ii++)
+		{
+			splitHist++;
+			bin = bin-splitAfter_;
+		}
+// 		if(splitHist==3)std::cout<<"BinForSplit: "<<bin<<" with splitHistNumber "<<splitHist<<" and TH1FSearchBinsSplit_.size(): "<<TH1FSearchBinsSplit_.size()<<std::endl;
+		
+		TH1FSearchBinsSplit_[splitHist]->Fill(bin+0.01, Weight,passOrFail);
+	}
+}
+SearchBinEventCount::SearchBinEventCount(const char* name)
+{
+	fullTH1F_ = new 	TH1F(name, name, bins_.size(),0,bins_.size()+1);
+	fullTH1F_->Sumw2();
+	name_=name;
+	splitAfter_=18;
+	unsigned int plotsNumber= bins_.size()/splitAfter_;
+	// 	std::cout<<"Efficiency::Efficiency plotsNumber="<<plotsNumber<<" number of bins: "<<bins_.size()<<std::endl;
+	if(plotsNumber * splitAfter_<bins_.size() )
+	{
+		
+		plotsNumber++;
+		for(unsigned int i=0; i < plotsNumber;i++)
+		{
+			
+			TString temp2 (Form ("_%d",(int)i+1));
+			TString temp1 = name;
+			temp1+=temp2;
+			temp2 = name + temp2;
+			const char* name1=temp1;
+			const char* title1=temp2;
+			
+			if(i+1==plotsNumber)
+			{
+				// 				std::cout<<"titlelast["<<i<<"]: "<<temp1<<std::endl;
+				unsigned int tempBins = bins_.size() - plotsNumber * splitAfter_;
+				splitTH1F_.push_back( new TH1F (name1,title1,tempBins,0,tempBins+1) );
+				splitTH1F_[i]->Sumw2();
+				continue;
+			}
+			// 			std::cout<<"title["<<i<<"]: "<<temp1<<std::endl;
+			splitTH1F_.push_back( new TH1F (name1,title1,splitAfter_,0,splitAfter_+1) );
+			splitTH1F_[i]->Sumw2();
+		}
+	}
+	else
+	{
+		for(unsigned int i=0; i < plotsNumber;i++)
+		{
+			
+			TString temp2 (Form ("_%d",(int)i+1));
+			TString temp1 = name;
+			temp1+=temp2;
+
+			const char* name1=temp1;
+			TH1F* tempeff2 = new  TH1F (name1,name1,splitAfter_,0,splitAfter_+1);
+			splitTH1F_.push_back( tempeff2 );
+			splitTH1F_[i]->Sumw2();
+		}
+	}
+}
+
+
+void SearchBinEventCount::Fill(double HT, double MHT, int NJets, int BTags, double Weight)
+{
+	double bin = GetBinNumber(HT,MHT,NJets,BTags);
+	
+	if(bin<bins_.size()+2) 
+	{
+		fullTH1F_->Fill(bin-0.01, Weight);
+		unsigned int splitHist=0;
+		// 	std::cout<<"bin before split: "<<bin<<std::endl;
+		for(int ii=0;bin>splitAfter_;ii++)
+		{
+			splitHist++;
+			bin = bin-splitAfter_;
+		}
+		// 		if(splitHist==3)std::cout<<"BinForSplit: "<<bin<<" with splitHistNumber "<<splitHist<<" and TH1FSearchBinsSplit_.size(): "<<TH1FSearchBinsSplit_.size()<<std::endl;
+		
+		splitTH1F_[splitHist]->Fill(bin-0.1, Weight);
+	}
+}
+void SearchBinEventCount::saveResults(TDirectory* MainDirectory)
+{
+	MainDirectory->mkdir(name_);
+	// 	std::cout<<"name: "<<name_<<std::endl;
+	TDirectory *dir = (TDirectory*)MainDirectory->Get(name_);
+	dir->cd();
+	fullTH1F_->Write();
+	for(unsigned int i=0; i<splitTH1F_.size();i++) 
+	{
+		TString temp2 (Form ("_%d",(int)i+1));
+		TString temp1 = name_;
+		temp1+=temp2;
+		temp2 = name_ + temp2;
+		const char* name1=temp1;
+		const char* title1=temp2;
+		splitTH1F_[i]->SetTitle(title1);
+		splitTH1F_[i]->SetName(name1);
+		splitTH1F_[i]->Write();
 	}
 }
