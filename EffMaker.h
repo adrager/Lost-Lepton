@@ -15,8 +15,8 @@
 
 
 // output control
-const bool saveEffToPDF_=true;
-const bool saveEffToPNG_=true;
+const bool saveEffToPDF_=false;
+const bool saveEffToPNG_=false;
 // cuts
 
 const double mtwCut_ = 100;
@@ -131,12 +131,14 @@ public:
 	TH1Feff(const char* name, const char* title, Int_t nbinsx, const double* xbins)
 	{
 		RefTH1F_ = new 	TH1F(name, title, nbinsx, xbins);
+		RefTH1F_->Sumw2();
 		name_=name;
 		title_=title;
 	}
 	TH1Feff(const char* name, const char* title, unsigned int nBins, double startBin, double endBin)
 	{
 		RefTH1F_ = new 	TH1F(name, title, nBins, startBin,endBin);
+		RefTH1F_->Sumw2();
 		name_=name;
 		title_=title;
 	}
@@ -145,6 +147,7 @@ public:
 	void SetTitle(const char* title){RefTH1F_->SetTitle(title);}
 	void Fill(Double_t x,Double_t Weight,bool passOrFail);
 	TGraphAsymmErrors* GetEfficiency();
+	TH1F* GetSanityCheckTH1F(){return RefTH1F_;}
 	void saveResults(TDirectory* MainDirectory);
 	~TH1Feff(){}
 private:
@@ -162,6 +165,7 @@ public:
 	TH2Feff(const char* name, const char* title, Int_t nbinsx, const Double_t* xbins, Int_t nbinsy, const Double_t* ybins)
 	{
 		RefTH2F_ = new 	TH2F(name, title, nbinsx, xbins,nbinsy,ybins);
+		RefTH2F_->Sumw2();
 		nbinsx_=nbinsx; xbins_=xbins;
 		nbinsy_=nbinsy; ybins_=ybins;
 		name_=name;
@@ -171,6 +175,7 @@ public:
 	void SetName(const char* title){RefTH2F_->SetName(title);}
 	void Fill(Double_t x, Double_t y, Double_t Weight,bool passOrFail);
 	std::vector<TGraphAsymmErrors*> GetEfficiency();
+	TH2F* GetSanityCheckTH2F(){return RefTH2F_;}
 	void saveResults(TDirectory* MainDirectory);
 	~TH2Feff(){}
 private:

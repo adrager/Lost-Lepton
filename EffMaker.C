@@ -1774,7 +1774,7 @@ Bool_t EffMaker::Process(Long64_t entry)
 			MuonPurityMHTNJetEff_->Fill(MHT,NJets,Weight,true);
 			// search bin efficiencies
 			MuPuritySearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
-			if(MHT>750)std::cout<<"push_back("<<EvtNum<<"); // passing"<<std::endl;
+// 			if(MHT>750)std::cout<<"push_back("<<EvtNum<<"); // passing"<<std::endl;
 		}
 		if(RecoIsoMuonPromtMatched[0]==0)
 		{
@@ -1789,7 +1789,7 @@ Bool_t EffMaker::Process(Long64_t entry)
 			MuonPurityMHTNJetEff_->Fill(MHT,NJets,Weight,false);
 			// search bin efficiencies
 			MuPuritySearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
-			if(MHT>750)std::cout<<"push_back("<<EvtNum<<"); // failing"<<std::endl;
+// 			if(MHT>750)std::cout<<"push_back("<<EvtNum<<"); // failing"<<std::endl;
 		}
 	}
 	// single elec control sample
@@ -3730,8 +3730,10 @@ void TH1Feff::Fill(Double_t x,Double_t Weight, bool passOrFail)
 	}
 	if(matched==-1)
 	{
-		TH1FPass_.push_back((TH1F*) RefTH1F_->Clone() );
-		TH1FFail_.push_back((TH1F*) RefTH1F_->Clone() );
+		TH1F* tempPass = (TH1F*) RefTH1F_->Clone();
+		TH1F* tempFail = (TH1F*) RefTH1F_->Clone();
+		TH1FPass_.push_back(tempPass );
+		TH1FFail_.push_back(tempFail );
 
 		if(passOrFail)
 		{
@@ -3750,6 +3752,16 @@ void TH1Feff::Fill(Double_t x,Double_t Weight, bool passOrFail)
 TGraphAsymmErrors* TH1Feff::GetEfficiency()
 {
 	TList* myList = new TList(); 
+	// compute th1 for sanity check
+	TH1F* sumRef = (TH1F*) RefTH1F_->Clone();
+	sumRef->Sumw2();
+	for(unsigned int i=0; i< TH1FFail_.size();i++)
+	{
+		sumRef->Add(TH1FPass_[i],weights_[i]);
+		RefTH1F_->Add(TH1FPass_[i],weights_[i]);
+		sumRef->Add(TH1FFail_[i],weights_[i]);
+	}
+	RefTH1F_->Divide(RefTH1F_,sumRef,1,1,"B");
 	for(unsigned int i=0; i<weights_.size();i++)
 	{
 		TH1FFail_[i]->Sumw2();
@@ -3758,13 +3770,17 @@ TGraphAsymmErrors* TH1Feff::GetEfficiency()
 		
 		sum->Add(TH1FPass_[i]);
 		TEfficiency* myEff = new TEfficiency(*TH1FPass_[i],*sum);
+// 		std::cout<<"Eff["<<i<<"]: "<<myEff->GetEfficiency(14)<<" +"<<myEff->GetEfficiencyErrorUp(14)<<" - "<<myEff->GetEfficiencyErrorLow(14)<<" passed: "<<myEff->GetPassedHistogram()->GetBinContent(14)<<" totalN: "<<myEff->GetTotalHistogram()->GetBinContent(14)<<" Weight: "<<weights_[i]<<" xCenter: "<<myEff->GetPassedHistogram()->GetBinCenter(14)<<"\n";
 // 		myEff->SetWeight(weights_[i]);
 		myList->Add(myEff);
 	}
 	const Int_t size=weights_.size();
 	Double_t weightArray[size];
 	for(int i=0; i<size;i++)weightArray[i]=weights_[i];
-	TGraphAsymmErrors* result= TEfficiency::Combine ((TCollection*)&*myList,(Option_t*)"kFCP",(Int_t)weights_.size(),weightArray);
+	
+	TGraphAsymmErrors* result= TEfficiency::Combine ((TCollection*)&*myList,(Option_t*)"kBUniform",(Int_t)weights_.size(),weightArray);
+// 	std::cout<<"Total Eff: "<<result->GetY()[13]<<" + "<<result->GetEYhigh()[13]<<" - "<<result->GetErrorYlow(13)<<" x value: "<<result->GetX()[13]<<"\n";
+// 	std::cout<<"-----------------------------------------------------------------Name: "<<name_ <<"\n";
 	result->SetName(name_);
 	result->SetTitle(title_);
 	return result;
@@ -3781,6 +3797,14 @@ void TH1Feff::saveResults(TDirectory* MainDirectory)
 	result->SetName(RefTH1F_->GetName());
 	result->SetTitle(RefTH1F_->GetTitle());
 	result->Write();
+	TString tempName = RefTH1F_->GetName();
+	tempName+="_SanityCheck";
+	MainDirectory->mkdir(tempName);
+	// 	std::cout<<"name: "<<name_<<std::endl;
+	TDirectory *sanityDir = (TDirectory*)MainDirectory->Get(tempName);
+	sanityDir->cd();
+	RefTH1F_->Write();
+	
 }
 
 
@@ -3793,8 +3817,12 @@ void TH2Feff::Fill(Double_t x, Double_t y, Double_t Weight, bool passOrFail)
 	}
 	if(matched==-1)
 	{
-		TH2FPass_.push_back((TH2F*) RefTH2F_->Clone() );
-		TH2FFail_.push_back((TH2F*) RefTH2F_->Clone() );
+		TH2F* tempPass = (TH2F*) RefTH2F_->Clone();
+		tempPass->Sumw2();
+		TH2F* tempFail = (TH2F*) RefTH2F_->Clone();
+		tempFail->Sumw2();
+		TH2FPass_.push_back(tempPass );
+		TH2FFail_.push_back(tempFail );
 		
 		if(passOrFail)	TH2FPass_[weights_.size()]->Fill(x,y);
 		else TH2FFail_[weights_.size()]->Fill(x,y);
@@ -3813,6 +3841,17 @@ std::vector<TGraphAsymmErrors*> TH2Feff::GetEfficiency()
 	std::cout<<"Number of binsY: "<<nBinsY<<std::endl;
 	std::vector<std::vector<TH1F*> > th1PassVec, th1FailVec;
 	std::vector<TList*> myLists;
+	// reference sum th2f
+	TH2F* sumTH2ftemp = (TH2F*) RefTH2F_->Clone();
+	sumTH2ftemp->Sumw2();
+
+	for(unsigned int i=0; i < TH2FPass_.size();i++)
+	{
+		RefTH2F_->Add(TH2FPass_[i],weights_[i]);
+		sumTH2ftemp->Add(TH2FPass_[i],weights_[i]);
+		sumTH2ftemp->Add(TH2FFail_[i],weights_[i]);
+	}
+	RefTH2F_->Divide(RefTH2F_,sumTH2ftemp,1,1,"B");
 	for(int i=0; i<nBinsY;i++)
 	{
 		myLists.push_back(new TList());
@@ -3854,7 +3893,7 @@ std::vector<TGraphAsymmErrors*> TH2Feff::GetEfficiency()
 	std::vector<TGraphAsymmErrors*> result; //= TEfficiency::Combine ((TCollection*)&*myList,(Option_t*)"kFCP",(Int_t)weights_.size(),weightArray);
 	for(int i=0; i<nBinsY;i++)
 	{
-		result.push_back(TEfficiency::Combine ((TCollection*)&*myLists[i],(Option_t*)"kFCP",(Int_t)weights_.size(),weightArray) );
+		result.push_back(TEfficiency::Combine ((TCollection*)&*myLists[i],(Option_t*)"kBUniform",(Int_t)weights_.size(),weightArray) );
 	}
 	
 	return result;
@@ -3879,6 +3918,11 @@ void TH2Feff::saveResults(TDirectory* MainDirectory)
 		result[i]->SetTitle(temp2);
 		result[i]->Write();
 	}
+	dir->mkdir("SanityCheck");
+	// 	std::cout<<"name: "<<name_<<std::endl;
+	TDirectory *sanityDir = (TDirectory*)dir->Get("SanityCheck");
+	sanityDir->cd();
+	RefTH2F_->Write();
 }
 SearchBins::SearchBins()
 {
