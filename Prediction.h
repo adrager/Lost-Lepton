@@ -155,7 +155,8 @@ public :
    Float_t elecAccEff_, elecAccWeight_;
    Float_t elecTotalWeight_, totalElectrons_;
 	 Float_t muDiLepEffMTWAppliedEff_, elecDiLepEffMTWAppliedEff_;
-   Float_t totalWeight_, totalWeightDiLep_;
+	 Float_t expectationReductionIsoTrackNJetsEff_;
+	 Float_t totalWeight_, totalWeightDiLep_, totalWeightDiLepIsoTrackReduced_;
    Float_t         selectedIDIsoMuonsActivity[5];   //[selectedIDIsoMuonsNum]
    Float_t         selectedIDIsoElectronsActivity[5];   //[selectedIDIsoMuonsNum]
    UShort_t searchBin_;
@@ -205,6 +206,8 @@ public :
 	 THFeff *ElecMTWPTActivityEff_;
 	 THFeff *ElecDiLepContributionMTWAppliedNJetsEff_;
 	 THFeff *ElecDiLepEffMTWAppliedNJetsEff_;
+	 
+	 THFeff *ExpectationReductionIsoTrackNJetsEff_;
 	 
 	 //Search bin based efficiencies
 	 THFeff *MuMTWSearchBinEff_;

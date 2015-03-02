@@ -105,6 +105,11 @@ void ResultPlot()
 	SearchBinEventCount * totalPredictionMu_ = new SearchBinEventCount("TotalLostLeptonPredictionMu");
 	SearchBinEventCount * totalPredictionElec_ = new SearchBinEventCount("TotalLostLeptonPredictionElec");
 	
+	SearchBinEventCount * totalExpectationIsoTrackReduction_ = new SearchBinEventCount("TotalLostLeptonExpecationIsoTrackReduction");
+	SearchBinEventCount * totalPredictionIsoTrackReduction_ = new SearchBinEventCount("TotalLostLeptonPredictionIsoTrackReduction");
+	SearchBinEventCount * totalPredictionMuIsoTrackReduction_ = new SearchBinEventCount("TotalLostLeptonPredictionMuIsoTrackReduction");
+	SearchBinEventCount * totalPredictionElecIsoTrackReduction_ = new SearchBinEventCount("TotalLostLeptonPredictionElecIsoTrackReduction");
+	
 	// separted closure
 	SearchBinEventCount * totalExpectationMuAcc_ = new SearchBinEventCount("TotalLostLeptonExpecationMuAcc");
 	SearchBinEventCount * totalPredictionMuCSMuAcc_ = new SearchBinEventCount("TotalLostLeptonPredictionMuCSMuAcc");
@@ -153,6 +158,7 @@ void ResultPlot()
 	UShort_t        elecIso;
 	UShort_t        IsolatedTracksNum;
 	UShort_t        ExpectationDiLep;
+	UShort_t        ExpectationReductionIsoTrack;
 	
 	// Set branch addresses.
 	LostLeptonExpectation->SetBranchAddress("HT",&HT);
@@ -162,6 +168,7 @@ void ResultPlot()
 	LostLeptonExpectation->SetBranchAddress("Weight",&Weight);
 	
 	LostLeptonExpectation->SetBranchAddress("Expectation",&Expectation);
+	LostLeptonExpectation->SetBranchAddress("ExpectationReductionIsoTrack",&ExpectationReductionIsoTrack);
 	LostLeptonExpectation->SetBranchAddress("muAcc",&muAcc);
 	LostLeptonExpectation->SetBranchAddress("muReco",&muReco);
 	LostLeptonExpectation->SetBranchAddress("muIso",&muIso);
@@ -187,6 +194,10 @@ void ResultPlot()
 						totalExpectation_->Fill(HT,MHT,NJets,BTags,Weight);
 						totalExp+=Weight;
 						totalExpError+= Weight*Weight;
+					}
+					if(Expectation==1 && ExpectationReductionIsoTrack==0)
+					{
+						totalExpectationIsoTrackReduction_->Fill(HT,MHT,NJets,BTags,Weight);
 					}
 					if(muAcc==0)
 					{
@@ -228,6 +239,7 @@ void ResultPlot()
 	UShort_t        selectedIDIsoElectronsNum;
 	
 	Float_t         totalWeightDiLep;
+	Float_t         totalWeightDiLepIsoTrackReduced;
 	
 	Float_t         muIsoWeight;
 	Float_t         muRecoWeight;
@@ -249,6 +261,7 @@ void ResultPlot()
 	LostLeptonPrediction->SetBranchAddress("selectedIDIsoMuonsNum",&selectedIDIsoMuonsNum);
 	LostLeptonPrediction->SetBranchAddress("selectedIDIsoElectronsNum",&selectedIDIsoElectronsNum);
 	LostLeptonPrediction->SetBranchAddress("totalWeightDiLep",&totalWeightDiLep);
+	LostLeptonPrediction->SetBranchAddress("totalWeightDiLepIsoTrackReduced",&totalWeightDiLepIsoTrackReduced);
 	
 	LostLeptonPrediction->SetBranchAddress("muIsoWeight",&muIsoWeight);
 	LostLeptonPrediction->SetBranchAddress("muRecoWeight",&muRecoWeight);
@@ -278,6 +291,9 @@ void ResultPlot()
 			totalPreError+= totalWeightDiLep*totalWeightDiLep;
 			totalPreMu+=totalWeightDiLep;
 			totalPreMuError+= totalWeightDiLep*totalWeightDiLep;
+			// isotrackveto applied
+			totalPredictionIsoTrackReduction_->Fill(HT,MHT,NJets,BTags,totalWeightDiLepIsoTrackReduced/2);
+			totalPredictionMuIsoTrackReduction_->Fill(HT,MHT,NJets,BTags,totalWeightDiLepIsoTrackReduced);
 			// separted closure
 			totalPredictionMuCSMuAcc_->Fill(HT,MHT,NJets,BTags,muAccWeight);
 			totalPredictionMuCSMuReco_->Fill(HT,MHT,NJets,BTags,muRecoWeight);
@@ -297,7 +313,9 @@ void ResultPlot()
 			totalPreError+= totalWeightDiLep*totalWeightDiLep;
 			totalPreElec+=totalWeightDiLep;
 			totalPreElecError+= totalWeightDiLep*totalWeightDiLep;
-			
+			// isotrackveto applied
+			totalPredictionIsoTrackReduction_->Fill(HT,MHT,NJets,BTags,totalWeightDiLepIsoTrackReduced/2);
+			totalPredictionElecIsoTrackReduction_->Fill(HT,MHT,NJets,BTags,totalWeightDiLepIsoTrackReduced);
 			// separted closure
 			totalPredictionElecCSMuAcc_->Fill(HT,MHT,NJets,BTags,muAccWeight);
 			totalPredictionElecCSMuReco_->Fill(HT,MHT,NJets,BTags,muRecoWeight);
@@ -355,6 +373,11 @@ void ResultPlot()
 	SaveClosure(totalPredictionElecCSElecAcc_->getFullTH1F(), totalExpectationElecAcc_->getFullTH1F(), dClosures);
 	SaveClosure(totalPredictionElecCSElecReco_->getFullTH1F(), totalExpectationElecReco_->getFullTH1F(), dClosures);
 	SaveClosure(totalPredictionElecCSElecIso_->getFullTH1F(), totalExpectationElecIso_->getFullTH1F(), dClosures);
+	
+	SaveClosure(totalPredictionIsoTrackReduction_->getFullTH1F(), totalExpectationIsoTrackReduction_->getFullTH1F(), dClosures);
+	SaveClosure(totalPredictionMuIsoTrackReduction_->getFullTH1F(), totalExpectationIsoTrackReduction_->getFullTH1F(), dClosures);
+	SaveClosure(totalPredictionElecIsoTrackReduction_->getFullTH1F(), totalExpectationIsoTrackReduction_->getFullTH1F(), dClosures);
+	
 	
 	outPutFile->mkdir("Expectation");
 	TDirectory *dExpectation = (TDirectory*)outPutFile->Get("Expectation");

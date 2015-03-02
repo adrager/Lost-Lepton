@@ -736,11 +736,20 @@ public :
 	TH2Feff *ElecIsoPTActivityEff_, *ElecIsoPTActivityFailEff_;
 	TH2Feff *ElecRecoPTActivityEff_, *ElecRecoPTActivityFailEff_;
 	
+	// ExpectationReductionIsoTrack 
+	//1D
+	TH1Feff *ExpectationReductionIsoTrackBTagEff_, *ExpectationReductionIsoTrackBTagFailEff_;
+	TH1Feff *ExpectationReductionIsoTrackNJetsEff_, *ExpectationReductionIsoTrackNJetsFailEff_;
+	TH1Feff *ExpectationReductionIsoTrackHTEff_, *ExpectationReductionIsoTrackHTFailEff_;
+	TH1Feff *ExpectationReductionIsoTrackMHTEff_, *ExpectationReductionIsoTrackMHTFailEff_;
+	
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Search bin efficiencies
 	Efficiency *MuAccSearchBinEff_, *MuRecoSearchBinEff_, *MuIsoSearchBinEff_, *MuMTWSearchBinEff_, *MuDiLepContributionMTWAppliedSearchBinEff_, *MuDiLepEffMTWAppliedSearchBinEff_, *MuPuritySearchBinEff_;
 	Efficiency *ElecAccSearchBinEff_, *ElecRecoSearchBinEff_, *ElecIsoSearchBinEff_, *ElecMTWSearchBinEff_, *ElecDiLepContributionMTWAppliedSearchBinEff_, *ElecDiLepEffMTWAppliedSearchBinEff_, *ElecPuritySearchBinEff_;
+	
+	Efficiency *ExpectationReductionIsoTrack_;
 	
 	// Declaration of leaf types
 	UInt_t          EvtNum;
@@ -778,6 +787,7 @@ public :
 	UShort_t        GenTauIsoTrackMatched[2];   //[GenTauNum]
 	Float_t         GenTauActivity[2];   //[GenTauNum]
 	UShort_t        Expectation;
+	UShort_t        ExpectationReductionIsoTrack;
 	UShort_t        muAcc;
 	UShort_t        muReco;
 	UShort_t        muIso;
@@ -905,6 +915,7 @@ public :
 	TBranch        *b_GenTauIsoTrackMatched;   //!
 	TBranch        *b_GenTauActivity;   //!
 	TBranch        *b_Expectation;   //!
+	TBranch        *b_ExpectationReductionIsoTrack;   //!
 	TBranch        *b_muAcc;   //!
 	TBranch        *b_muReco;   //!
 	TBranch        *b_muIso;   //!
@@ -1068,6 +1079,7 @@ void EffMaker::Init(TTree *tree)
   fChain->SetBranchAddress("GenTauIsoTrackMatched", GenTauIsoTrackMatched, &b_GenTauIsoTrackMatched);
   fChain->SetBranchAddress("GenTauActivity", GenTauActivity, &b_GenTauActivity);
   fChain->SetBranchAddress("Expectation", &Expectation, &b_Expectation);
+	fChain->SetBranchAddress("ExpectationReductionIsoTrack", &ExpectationReductionIsoTrack, &b_ExpectationReductionIsoTrack);
   fChain->SetBranchAddress("muAcc", &muAcc, &b_muAcc);
   fChain->SetBranchAddress("muReco", &muReco, &b_muReco);
   fChain->SetBranchAddress("muIso", &muIso, &b_muIso);

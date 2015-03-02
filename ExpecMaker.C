@@ -82,6 +82,7 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("GenTauIsoTrackMatched", GenTauIsoTrackMatched, "GenTauIsoTrackMatched[GenTauNum]/s"); 
 	tExpectation_->Branch("GenTauActivity", GenTauActivity,"GenTauActivity[GenTauNum]/F");
 	tExpectation_->Branch("Expectation",&Expectation,"Expectation/s");  
+	tExpectation_->Branch("ExpectationReductionIsoTrack",&ExpectationReductionIsoTrack,"ExpectationReductionIsoTrack/s");
 	tExpectation_->Branch("muAcc",&muAcc,"muAcc/s");  
 	tExpectation_->Branch("muReco",&muReco,"muReco/s");  
 	tExpectation_->Branch("muIso",&muIso,"muIso/s");  
@@ -830,6 +831,11 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 	{
 		IsoTrackActivity[i]=IsoTrackActivityCalc(IsolatedTracksEta[i],IsolatedTracksPhi[i],isoTrackActivityMethod_);
 	}
+	// check weather a background event according to plane lepton veto gets rejected by the isolated track veto with MT cut applied
+	if(isoTracks==1 && Expectation==1)
+	{
+		ExpectationReductionIsoTrack=1;
+	}
 	tExpectation_->Fill();
 	return kTRUE;
 }
@@ -858,6 +864,7 @@ void ExpecMaker::resetValues()
 {
 	isoTrackMTW_=-5;
 	Expectation=0;
+	ExpectationReductionIsoTrack=0;
 	muIso =1;
 	muIsoTrack=1;
 	muIsoTrackMTW=1;

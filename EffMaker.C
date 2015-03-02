@@ -1168,6 +1168,14 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
 	ElecDiLepEffMTWAppliedSearchBinEff_ = new Efficiency("ElecDiLepEffMTWAppliedSearchBinEff","ElecDiLepEffMTWAppliedSearchBinEff");
 	ElecPuritySearchBinEff_ = new Efficiency("ElecPuritySearchBinEff","ElecPuritySearchBinEff");
 	
+	// ExpectationReductionIsoTrack
+	ExpectationReductionIsoTrackBTagEff_ = new TH1Feff("ExpectationReductionIsoTrackBTag1D","ExpectationReductionIsoTrackBTag1D",oneDBJets_-1,OneDBJets_);
+	ExpectationReductionIsoTrackNJetsEff_ = new TH1Feff("ExpectationReductionIsoTrackNJets1D","ExpectationReductionIsoTrackNJets1D",oneDNJets_-1,OneDNJets_);
+	ExpectationReductionIsoTrackHTEff_ = new TH1Feff("ExpectationReductionIsoTrackHT1D","ExpectationReductionIsoTrackHT1D",oneDHT_-1,OneDHT_);
+	ExpectationReductionIsoTrackMHTEff_ = new TH1Feff("ExpectationReductionIsoTrackMHT1D","ExpectationReductionIsoTrackMHT1D",oneDMHT_-1,OneDMHT_);
+	
+	ExpectationReductionIsoTrack_ = new Efficiency("ExpectationReductionIsoTrack","ExpectationReductionIsoTrack");
+	
 	
 }
 
@@ -2380,7 +2388,25 @@ Bool_t EffMaker::Process(Long64_t entry)
 			// passing: POINT3
 		}
 	}
-	//
+	// ExpectationReductionIsoTrack
+	if(Expectation==1 && ExpectationReductionIsoTrack==0)
+	{
+		ExpectationReductionIsoTrackBTagEff_->Fill(BTags,Weight,false);
+		ExpectationReductionIsoTrackNJetsEff_->Fill(NJets,Weight,false);
+		ExpectationReductionIsoTrackHTEff_->Fill(HT,Weight,false);
+		ExpectationReductionIsoTrackMHTEff_->Fill(MHT,Weight,false);
+		// search bin efficiencies
+		ExpectationReductionIsoTrack_->Fill(HT,MHT,NJets,BTags,Weight,false);
+	}
+	if(Expectation==1 && ExpectationReductionIsoTrack==1)
+	{
+		ExpectationReductionIsoTrackBTagEff_->Fill(BTags,Weight,true);
+		ExpectationReductionIsoTrackNJetsEff_->Fill(NJets,Weight,true);
+		ExpectationReductionIsoTrackHTEff_->Fill(HT,Weight,true);
+		ExpectationReductionIsoTrackMHTEff_->Fill(MHT,Weight,true);
+		// search bin efficiencies
+		ExpectationReductionIsoTrack_->Fill(HT,MHT,NJets,BTags,Weight,true);
+	}
   
   
   return kTRUE;
@@ -3594,6 +3620,12 @@ void EffMaker::Terminate()
 	IsoTrackElecMatchedToIsoElecHTEff_->saveResults(dTEfficiencies);
 	IsoTrackElecMatchedToIsoElecMHTEff_->saveResults(dTEfficiencies);
 	
+	// ExpectationReductionIsoTrack
+	ExpectationReductionIsoTrackBTagEff_->saveResults(dTEfficiencies);
+	ExpectationReductionIsoTrackNJetsEff_->saveResults(dTEfficiencies);
+	ExpectationReductionIsoTrackHTEff_->saveResults(dTEfficiencies);
+	ExpectationReductionIsoTrackMHTEff_->saveResults(dTEfficiencies);
+	
 	
 	
 	outPutFile->cd();
@@ -3615,6 +3647,8 @@ void EffMaker::Terminate()
 	ElecDiLepContributionMTWAppliedSearchBinEff_->saveResults(dTEfficienciesSearchBins);
 	ElecDiLepEffMTWAppliedSearchBinEff_->saveResults(dTEfficienciesSearchBins);
 	ElecPuritySearchBinEff_->saveResults(dTEfficienciesSearchBins);
+	
+	ExpectationReductionIsoTrack_->saveResults(dTEfficienciesSearchBins);
 	
 	
 	

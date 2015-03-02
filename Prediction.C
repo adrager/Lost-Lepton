@@ -93,6 +93,8 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
 	 ElecDiLepContributionMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ElecDiLepContributionMTWNJets1D"));
 	 ElecDiLepEffMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ElecDiLepMTWNJets1D"));
 	 
+	 ExpectationReductionIsoTrackNJetsEff_ =  new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ExpectationReductionIsoTrackNJets1D"));
+	 
 	 // load search variables bined efficiencies
 	 searchBinsRef_ = new SearchBins();
 	 TDirectory *TEffSearchBinsInputFolder =   (TDirectory*)effInput->Get("TEfficienciesSearchBins");
@@ -154,6 +156,7 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
    tPrediction_->Branch("mtwCorrectedWeight",&mtwCorrectedWeight_,"mtwCorrectedWeight/F");
    tPrediction_->Branch("muDiLepContributionMTWAppliedEff",&muDiLepContributionMTWAppliedEff_,"muDiLepContributionMTWAppliedEff/F");
    tPrediction_->Branch("mtwDiLepCorrectedWeight",&mtwDiLepCorrectedWeight_,"mtwDiLepCorrectedWeight/F");
+	 tPrediction_->Branch("totalWeightDiLepIsoTrackReduced",&totalWeightDiLepIsoTrackReduced_,"totalWeightDiLepIsoTrackReduced/F");
    tPrediction_->Branch("muIsoWeight",&muIsoWeight_,"muIsoWeight/F");
    tPrediction_->Branch("muIsoEff",&muIsoEff_,"muIsoEff/F");
    tPrediction_->Branch("muRecoWeight",&muRecoWeight_,"muRecoWeight/F");
@@ -170,6 +173,7 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
    tPrediction_->Branch("elecIsoEff",&elecIsoEff_,"elecIsoEff/F");
    tPrediction_->Branch("elecTotalWeight",&elecTotalWeight_,"elecTotalWeight/F");
 	 tPrediction_->Branch("totalElectrons",&totalElectrons_,"totalElectrons/F");
+	 tPrediction_->Branch("expectationReductionIsoTrackNJetsEff",&expectationReductionIsoTrackNJetsEff_,"expectationReductionIsoTrackNJetsEff/F");
    tPrediction_->Branch("totalWeight",&totalWeight_,"totalWeight/F");
 	 tPrediction_->Branch("muDiLepEffMTWAppliedEff",&muDiLepEffMTWAppliedEff_,"muDiLepEffMTWAppliedEff/F");
 	 tPrediction_->Branch("elecDiLepEffMTWAppliedEff",&elecDiLepEffMTWAppliedEff_,"elecDiLepEffMTWAppliedEff/F");
@@ -196,6 +200,7 @@ Bool_t Prediction::Process(Long64_t entry)
 	if(applyFilters_ &&  !FiltersPass() ) return kTRUE;
 // 	if((GenMuNum+GenElecNum)!=1) return kTRUE;
 	searchBin_ = searchBinsRef_->GetBinNumber(HT,MHT,NJets,BTags);
+	expectationReductionIsoTrackNJetsEff_= ExpectationReductionIsoTrackNJetsEff_->GetEff(NJets);
 	if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0)
 	{
 	  mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoMuonsPt[0], selectedIDIsoMuonsPhi[0]);
@@ -249,6 +254,7 @@ Bool_t Prediction::Process(Long64_t entry)
 		else muDiLepEffMTWAppliedEff_= MuDiLepContributionMTWAppliedNJetsEff_->GetEff(NJets);
 		if(MuDiLepContributionMTWAppliedEffSearchBinUse_)muDiLepEffMTWAppliedEff_=MuDiLepEffMTWAppliedSearchBinEff_->GetEff(searchBin_+0.01);
 		totalWeightDiLep_ = totalWeight_ + (1-muDiLepContributionMTWAppliedEff_) * mtwCorrectedWeight_ * (1-muDiLepEffMTWAppliedEff_)/muDiLepEffMTWAppliedEff_;
+		totalWeightDiLepIsoTrackReduced_ = totalWeightDiLep_ * (1 - expectationReductionIsoTrackNJetsEff_);
 	  
 	}	
 	else if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1)
@@ -307,6 +313,7 @@ Bool_t Prediction::Process(Long64_t entry)
 		else elecDiLepEffMTWAppliedEff_ = ElecDiLepEffMTWAppliedNJetsEff_->GetEff(NJets);
 		if(ElecDiLepContributionMTWAppliedEffSearchBinUse_)elecDiLepEffMTWAppliedEff_=ElecDiLepContributionMTWAppliedSearchBinEff_->GetEff(searchBin_+0.01);
 		totalWeightDiLep_ = totalWeight_ + (1-elecDiLepContributionMTWAppliedEff_) * mtwCorrectedWeight_ * (1-elecDiLepEffMTWAppliedEff_)/elecDiLepEffMTWAppliedEff_;
+		totalWeightDiLepIsoTrackReduced_ = totalWeightDiLep_ * (1 - expectationReductionIsoTrackNJetsEff_);
 	}
 
 	if(IsolatedTracksNum==1)
@@ -388,6 +395,7 @@ void Prediction::resetValues()
 	muDiLepEffMTWAppliedEff_=0.;
 	elecDiLepEffMTWAppliedEff_=0.;
 	totalWeightDiLep_=0.;
+	totalWeightDiLepIsoTrackReduced_=0.;
 	// isolated track prediction
 	IsolatedTracksMuMatched_=false;
 	IsolatedTracksElecMatched_=false;

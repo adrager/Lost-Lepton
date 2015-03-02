@@ -91,6 +91,7 @@ public :
 	TTree	*tExpectation_;
 	// eff variables fot the tree
 	UShort_t Expectation;
+	UShort_t ExpectationReductionIsoTrack;
 	UShort_t FallsVetoLep, FallsVetoIsoTrack;
 	UShort_t FallsVetoIsoTrackPT10, FallsVetoIsoTrackPT10IsoCut08, FallsVetoIsoTrackPT10IsoCut12;
 	UShort_t muIso, muReco, muAcc, muMTW, muTotal;
