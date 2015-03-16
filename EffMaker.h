@@ -15,7 +15,7 @@
 
 
 // output control
-const bool saveEffToPDF_=false;
+const bool saveEffToPDF_=true;
 const bool saveEffToPNG_=false;
 // cuts
 

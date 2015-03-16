@@ -48,8 +48,8 @@ const double MuAccUncertaintyDown_ = 9;  // pdf
 const double maxDeltaRMuActivity_=1.0;
 const double maxDeltaRElecActivity_=1.0;
 const double maxDeltaRIsoTrackActivity_=1.0;
-const unsigned int elecActivityMethod_=0;
-const unsigned int muActivityMethod_=0;
+const unsigned int elecActivityMethod_=3;               // ###############
+const unsigned int muActivityMethod_=3;                 // ###############
 const unsigned int isoTrackActivityMethod_=0;
 
 // isolated track prediction
@@ -59,7 +59,7 @@ const double maxDiffPtRecoIsoMuToTack_ = 0.5;
 const double maxDeltaRRecoIsoElecToTack_ = 0.3;
 const double maxDiffPtRecoIsoElecToTack_ = 0.5;
 //using either oldschool th1/2 which have wrong error calculations or the updated tefficneices
-const bool UseUpdatedTEfficiencies_=true;
+const bool UseUpdatedTEfficiencies_=false;
 
 const bool MuMTWSearchBinUse_=false; // warning overwrites UseUpdatedTEfficiencies_
 const bool MuDiLepContributionMTWAppliedEffSearchBinUse_=false;
@@ -99,10 +99,12 @@ class SearchBins
 public:
 	SearchBins();
 	unsigned int GetBinNumber(double HT, double MHT, int NJets, int BTags);
+	void PrintUsed();
 	
 	~SearchBins(){}
 protected:
 	std::vector<Bin> bins_;
+	std::vector<int> usedBin_;
 };
 
 class THFeff
@@ -142,6 +144,7 @@ public :
 	 double IsoTrackActivityCalc( double isoTrackEta, double isoTrackPhi, unsigned int method);
    // output variables
    TTree *tPrediction_;
+   SearchBins *SearchBins_;
    Float_t mtw;
 	 Float_t muMTWEff_, elecMTWEff_, mtwCorrectedWeight_;
    Float_t muDiLepContributionMTWAppliedEff_, mtwDiLepCorrectedWeight_;
@@ -155,11 +158,11 @@ public :
    Float_t elecAccEff_, elecAccWeight_;
    Float_t elecTotalWeight_, totalElectrons_;
 	 Float_t muDiLepEffMTWAppliedEff_, elecDiLepEffMTWAppliedEff_;
-	 Float_t expectationReductionIsoTrackNJetsEff_;
+	 Float_t expectationReductionIsoTrackEff_;
 	 Float_t totalWeight_, totalWeightDiLep_, totalWeightDiLepIsoTrackReduced_;
    Float_t         selectedIDIsoMuonsActivity[5];   //[selectedIDIsoMuonsNum]
    Float_t         selectedIDIsoElectronsActivity[5];   //[selectedIDIsoMuonsNum]
-   UShort_t searchBin_;
+   UShort_t searchBin_, Bin_;
    
    // search bin definition
    SearchBins* searchBinsRef_;
@@ -168,7 +171,8 @@ public :
    bool IsolatedTracksMuMatched_, IsolatedTracksElecMatched_;
    
    // Effiecineices
-   TH2F *MuMTWPTActivity_;
+//    TH2F *MuMTWPTActivity_;
+	 TH1F *MuMTWNJets_;
    TH1F *MuDiLepContributionMTWAppliedNJets_;
    TH2F *MuIsoPTActivity_;
 //    TH1F *MuRecoActivitiy_;
@@ -185,14 +189,16 @@ public :
 // 	 TH2F *ElecAccBTagNJets_;
 	 TH2F *ElecAccMHTNJets_;
 	 TH2F *ElecPurityMHTNJets_;
-	 TH2F *ElecMTWPTActivity_;
+// 	 TH2F *ElecMTWPTActivity_;
+	 TH1F *ElecMTWNJets_;
 	 TH1F *ElecDiLepContributionMTWAppliedNJets_;
 	 TH1F *ElecDiLepEffMTWAppliedNJets_;
 	 
 	 UShort_t elecActivityMethod, muActivityMethod, isoTrackActivityMethod;
 	 
 	 // TEfficiency objects
-	 THFeff *MuMTWPTActivityEff_;
+// 	 THFeff *MuMTWPTActivityEff_;
+	 THFeff *MuMTWNJetsEff_;
 	 THFeff *MuDiLepContributionMTWAppliedNJetsEff_;
 	 THFeff *MuIsoPTActivityEff_;
 	 THFeff *MuRecoPTActivityEff_;
@@ -203,11 +209,13 @@ public :
 	 THFeff *ElecRecoPTActivityEff_;
 	 THFeff *ElecAccMHTNJetsEff_;
 	 THFeff *ElecPurityMHTNJetsEff_;
-	 THFeff *ElecMTWPTActivityEff_;
+// 	 THFeff *ElecMTWPTActivityEff_;
+	 THFeff *ElecMTWNJetsEff_;
 	 THFeff *ElecDiLepContributionMTWAppliedNJetsEff_;
 	 THFeff *ElecDiLepEffMTWAppliedNJetsEff_;
 	 
-	 THFeff *ExpectationReductionIsoTrackNJetsEff_;
+// 	 THFeff *ExpectationReductionIsoTrackNJetsEff_;
+	 THFeff *ExpectationReductionIsoTrackMHTEff_;
 	 
 	 //Search bin based efficiencies
 	 THFeff *MuMTWSearchBinEff_;

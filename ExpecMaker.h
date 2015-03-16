@@ -33,8 +33,8 @@ const double maxTauEta_=2.4;
 const double maxDeltaRMuActivity_=1.0;
 const double maxDeltaRElecActivity_=1.0;
 const double maxDeltaRIsoTrackActivity_=1.0;
-const unsigned int elecActivityMethod_=0;
-const unsigned int muActivityMethod_=0;
+const unsigned int elecActivityMethod_=3;               // ###############
+const unsigned int muActivityMethod_=3;                 // ###############
 const unsigned int isoTrackActivityMethod_=0;
 
 // lepton matching
@@ -76,6 +76,40 @@ const double maxDiffPtIsoTrackToMu_= 0.5;
 
 const double maxDeltaRIsoTrackToElec_= 0.3;
 const double maxDiffPtIsoTrackToElec_= 0.5;
+// search bins
+class Bin
+{
+public:
+  Bin(){}
+  Bin(double HTmin, double HTmax, double MHTmin, double MHTmax, int NJetsmin, int NJetsmax, int BTagsmin, int BTagsmax)
+  {
+    HTmin_=HTmin;
+    HTmax_=HTmax;
+    MHTmin_=MHTmin;
+    MHTmax_=MHTmax;
+    NJetsmin_=NJetsmin;
+    NJetsmax_=NJetsmax;
+    BTagsmin_=BTagsmin;
+    BTagsmax_=BTagsmax;
+  }
+  double HTmin_, HTmax_, MHTmin_, MHTmax_;
+  int NJetsmin_, NJetsmax_, BTagsmin_, BTagsmax_;
+  ~Bin(){}
+private:
+};
+class SearchBins
+{
+public:
+  SearchBins();
+  unsigned int GetBinNumber(double HT, double MHT, int NJets, int BTags);
+  void PrintUsed();
+  
+  
+  ~SearchBins(){}
+protected:
+  std::vector<Bin> bins_;
+  std::vector<int> usedBin_;
+};
 class ExpecMaker : public TSelector {
 public :
 	void resetValues();
@@ -89,6 +123,8 @@ public :
 	TTree          *fChain;   //!pointer to the analyzed TTree or TChain
 	// Storing stuff
 	TTree	*tExpectation_;
+	
+	SearchBins *SearchBins_;
 	// eff variables fot the tree
 	UShort_t Expectation;
 	UShort_t ExpectationReductionIsoTrack;
@@ -150,6 +186,8 @@ public :
 	
 	Float_t IsoTrackActivity[40], GenTauActivity[40];
 	UShort_t elecActivityMethod, muActivityMethod, isoTrackActivityMethod;
+	
+	UShort_t Bin_;
 	
 	
 	

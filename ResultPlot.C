@@ -89,13 +89,54 @@ private:
 
 void ResultPlot()
 {
+	
+
 	//Reset ROOT and connect tree file
 	gROOT->Reset();
 	TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("Expectation.root");
 	if (!f) {
 		f = new TFile("Expectation.root");
 	}
+	// output tree
+	TFile *outPutFile = new TFile("Closure.root","RECREATE"); 
+	outPutFile->cd();
+	TTree* OutPutTreeExp_ = new TTree("ResultExp","Result Lost-Lepton Tree for plotting tool");
+	TTree* OutPutTreePre_ = new TTree("ResultPre","Result Lost-Lepton Tree for plotting tool");
+	UShort_t Bin=0;
+	Float_t Weight_=0, PredictionWeight_=0; 
+	
+	OutPutTreeExp_->Branch("Weight", &Weight_, "Weight/F");
+	OutPutTreePre_->Branch("Weight", &Weight_, "Weight/F");
+	OutPutTreePre_->Branch("totalWeightDiLep", &PredictionWeight_, "totalWeightDiLep/F");
+	OutPutTreeExp_->Branch("Bin",&Bin,"Bin/s");
+	OutPutTreePre_->Branch("Bin",&Bin,"Bin/s");
+	//
+	UShort_t muAcc_=0, muIso_=0, muReco_=0;
+	OutPutTreeExp_->Branch("muAcc",&muAcc_,"muAcc/s");
+	OutPutTreeExp_->Branch("muReco",&muReco_,"muReco/s");
+	OutPutTreeExp_->Branch("muIso",&muIso_,"muIso/s");
+	
+	UShort_t elecAcc_=0, elecIso_=0, elecReco_=0;
+	OutPutTreeExp_->Branch("elecAcc",&elecAcc_,"elecAcc/s");
+	OutPutTreeExp_->Branch("elecReco",&elecReco_,"elecReco/s");
+	OutPutTreeExp_->Branch("elecIso",&elecIso_,"elecIso/s");
+	//
+	Float_t muIsoWeight_=0, muRecoWeight_=0, muAccWeight_=0;
+	OutPutTreePre_->Branch("muIsoWeight", &muIsoWeight_, "muIsoWeight/F");
+	OutPutTreePre_->Branch("muRecoWeight", &muRecoWeight_, "muRecoWeight/F");
+	OutPutTreePre_->Branch("muAccWeight", &muAccWeight_, "muAccWeight/F");
+	
+	Float_t elecIsoWeight_=0, elecRecoWeight_=0, elecAccWeight_=0;
+	OutPutTreePre_->Branch("elecIsoWeight", &elecIsoWeight_, "elecIsoWeight/F");
+	OutPutTreePre_->Branch("elecRecoWeight", &elecRecoWeight_, "elecRecoWeight/F");
+	OutPutTreePre_->Branch("elecAccWeight", &elecAccWeight_, "elecAccWeight/F");
+	
+	UShort_t selectedIDIsoMuonsNum_=0, selectedIDIsoElectronsNum_=0;
+	OutPutTreePre_->Branch("selectedIDIsoMuonsNum",&selectedIDIsoMuonsNum_,"selectedIDIsoMuonsNum/s");
+	OutPutTreePre_->Branch("selectedIDIsoElectronsNum",&selectedIDIsoElectronsNum_,"selectedIDIsoElectronsNum/s");
+	
 	TTree* LostLeptonExpectation = (TTree*) f->Get("LostLeptonExpectation");
+
 	
 	SearchBinEventCount * ControlSampleMu_ = new SearchBinEventCount("ControlSampleMu");
 	SearchBinEventCount * ControlSampleElec_ = new SearchBinEventCount("ControlSampleElec");
@@ -142,6 +183,15 @@ void ResultPlot()
 	double totalPreMu=0, totalPreMuError=0;
 	double totalPreElec=0, totalPreElecError=0;
 	
+	double totalExpMuAcc=0, totalExpMuReco=0, totalExpMuIso=0;
+	
+	double totalPreMuAcc=0, totalPreMuReco=0, totalPreMuIso=0;
+	
+	
+	double totalExpElecAcc=0, totalExpElecReco=0, totalExpElecIso=0;
+	
+	double totalPreElecAcc=0, totalPreElecReco=0, totalPreElecIso=0;
+	
 	//Declaration of leaves types
 	Float_t         HT;
 	Float_t         MHT;
@@ -182,6 +232,8 @@ void ResultPlot()
 	
 	
 	Long64_t nentries = LostLeptonExpectation->GetEntries();
+	
+	SearchBins *SearchBins_ = new SearchBins();
 
 	
 	Long64_t nbytes = 0;
@@ -194,6 +246,10 @@ void ResultPlot()
 						totalExpectation_->Fill(HT,MHT,NJets,BTags,Weight);
 						totalExp+=Weight;
 						totalExpError+= Weight*Weight;
+						Bin = SearchBins_->GetBinNumber(HT,MHT,NJets,BTags);
+						Weight_=Weight;
+						muAcc_=muAcc; muReco_=muReco; muIso_=muIso; elecAcc_=elecAcc; elecReco_=elecReco; elecIso_=elecIso;
+						OutPutTreeExp_->Fill();
 					}
 					if(Expectation==1 && ExpectationReductionIsoTrack==0)
 					{
@@ -202,27 +258,33 @@ void ResultPlot()
 					if(muAcc==0)
 					{
 						totalExpectationMuAcc_->Fill(HT,MHT,NJets,BTags,Weight);
+						totalExpMuAcc+=Weight;
 					}
 					if(muReco==0)
 					{
 						totalExpectationMuReco_->Fill(HT,MHT,NJets,BTags,Weight);
+						totalExpMuReco+=Weight;
 					}
 					if(muIso==0)
 					{
 						totalExpectationMuIso_->Fill(HT,MHT,NJets,BTags,Weight);
+						totalExpMuIso+=Weight;
 					}
 					
 					if(elecAcc==0)
 					{
 						totalExpectationElecAcc_->Fill(HT,MHT,NJets,BTags,Weight);
+						totalExpElecAcc+=Weight;
 					}
 					if(elecReco==0)
 					{
 						totalExpectationElecReco_->Fill(HT,MHT,NJets,BTags,Weight);
+						totalExpElecReco+=Weight;
 					}
 					if(elecIso==0)
 					{
 						totalExpectationElecIso_->Fill(HT,MHT,NJets,BTags,Weight);
+						totalExpElecIso+=Weight;
 					}
 	   }
 	   
@@ -281,6 +343,10 @@ void ResultPlot()
 		nbytes += LostLeptonPrediction->GetEntry(i);
 		// total expectation
 		if(MTW>100 || NJets<3.7)continue;
+		Bin = SearchBins_->GetBinNumber(HT,MHT,NJets,BTags);
+		Weight_=Weight;
+		selectedIDIsoMuonsNum_=selectedIDIsoMuonsNum;
+		selectedIDIsoElectronsNum_=selectedIDIsoElectronsNum;
 		if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0)
 		{
 			ControlSampleMu_->Fill(HT,MHT,NJets,BTags,Weight);
@@ -296,12 +362,21 @@ void ResultPlot()
 			totalPredictionMuIsoTrackReduction_->Fill(HT,MHT,NJets,BTags,totalWeightDiLepIsoTrackReduced);
 			// separted closure
 			totalPredictionMuCSMuAcc_->Fill(HT,MHT,NJets,BTags,muAccWeight);
+			totalPreMuAcc+=muAccWeight;
 			totalPredictionMuCSMuReco_->Fill(HT,MHT,NJets,BTags,muRecoWeight);
+			totalPreMuReco+=muRecoWeight;
 			totalPredictionMuCSMuIso_->Fill(HT,MHT,NJets,BTags,muIsoWeight);
+			totalPreMuIso+=muIsoWeight;
 			
 			totalPredictionMuCSElecAcc_->Fill(HT,MHT,NJets,BTags,elecAccWeight);
+			totalPreElecAcc+=elecAccWeight;
 			totalPredictionMuCSElecReco_->Fill(HT,MHT,NJets,BTags,elecRecoWeight);
+			totalPreElecReco+=elecRecoWeight;
 			totalPredictionMuCSElecIso_->Fill(HT,MHT,NJets,BTags,elecIsoWeight);
+			totalPreElecIso+=elecIsoWeight;
+			muIsoWeight_=muIsoWeight; muRecoWeight_=muRecoWeight; muAccWeight_=muAccWeight;  elecIsoWeight_=elecIsoWeight; elecRecoWeight_=elecRecoWeight; elecAccWeight_=elecAccWeight; 
+			PredictionWeight_= totalWeightDiLep;
+			OutPutTreePre_->Fill();
 		}
 		if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1)
 		{
@@ -324,6 +399,8 @@ void ResultPlot()
 			totalPredictionElecCSElecAcc_->Fill(HT,MHT,NJets,BTags,elecAccWeight);
 			totalPredictionElecCSElecReco_->Fill(HT,MHT,NJets,BTags,elecRecoWeight);
 			totalPredictionElecCSElecIso_->Fill(HT,MHT,NJets,BTags,elecIsoWeight);
+			PredictionWeight_= totalWeightDiLep;
+			OutPutTreePre_->Fill();
 		}
 	}
 	
@@ -347,12 +424,19 @@ void ResultPlot()
 	FullClosureElec->SetTitle("Closure of lost-lepton method elec control-sample");
 
 	std::cout<<"Result:\n TotalExpectation: "<<totalExp<<" +- " << sqrt(totalExpError)<<"\n TotalPrediction: "<<totalPre/2<<" +- "<<sqrt(totalPreError)/2<<std::endl;
-	std::cout<<"TotalExpectation: "<<totalExp<<" +- " << sqrt(totalExpError)<<"\n TotalPredictionMu: "<<totalPreMu<<" +- "<<sqrt(totalPreMuError)/2<<std::endl;
-	std::cout<<"TotalExpectation: "<<totalExp<<" +- " << sqrt(totalExpError)<<"\n TotalPredictionElec: "<<totalPreElec<<" +- "<<sqrt(totalPreElecError)/2<<std::endl;
+	std::cout<<"TotalExpectation: "<<totalExp<<" +- " << sqrt(totalExpError)<<"\n TotalPredictionMu: "<<totalPreMu<<" +- "<<sqrt(totalPreMuError)<<std::endl;
+	std::cout<<"TotalExpectation: "<<totalExp<<" +- " << sqrt(totalExpError)<<"\n TotalPredictionElec: "<<totalPreElec<<" +- "<<sqrt(totalPreElecError)<<std::endl;
+	std::cout<<"--------------------------------------------------------------------------------------------------------------------------\n";
+	std::cout<<"MuAccExp: "<<totalExpMuAcc<<"\n MuAccPre: "<<totalPreMuAcc<<std::endl;
+	std::cout<<"MuRecoExp: "<<totalExpMuReco<<"\n MuRecoPre: "<<totalPreMuReco<<std::endl;
+	std::cout<<"MuIsoExp: "<<totalExpMuIso<<"\n MuIsoPre: "<<totalPreMuIso<<std::endl;
+	std::cout<<"ElecAccExp: "<<totalExpElecAcc<<"\n ElecAccPre: "<<totalPreElecAcc<<std::endl;
+	std::cout<<"ElecRecoExp: "<<totalExpElecReco<<"\n ElecRecoPre: "<<totalPreElecReco<<std::endl;
+	std::cout<<"ElecIsoExp: "<<totalExpElecIso<<"\n ElecIsoPre: "<<totalPreElecIso<<std::endl;
 	
-	TFile *outPutFile = new TFile("Closure.root","RECREATE"); 
 	outPutFile->cd();
-	outPutFile->cd();
+	OutPutTreeExp_->Write();
+	OutPutTreePre_->Write();
 	FullClosure->Write();
 	FullClosureMu->Write();
 	FullClosureElec->Write();
@@ -561,9 +645,13 @@ unsigned int SearchBins::GetBinNumber(double HT, double MHT, int NJets, int BTag
 	}
 	if(match==-1)
 	{
-		//  		std::cout<<"Error event fits in no bin!!! HT: "<<HT<<", MHT: "<<MHT<<", NJets: "<<NJets<<", BTags: "<<BTags<<std::endl;
+		  		std::cout<<"Error event fits in no bin!!! HT: "<<HT<<", MHT: "<<MHT<<", NJets: "<<NJets<<", BTags: "<<BTags<<std::endl;
 		result=999;
 	}
+// 	if(result<18 && result>16)
+// 	{
+// 		std::cout<<"ResultBin: "<<result+1<<" HT: "<<HT<<", MHT: "<<MHT<<", NJets: "<<NJets<<", BTags: "<<BTags<<std::endl;
+// 	}
 	if(match>0)
 	{
 		std::cout<<"Error event fits in more than one bin!!!! HT: "<<HT<<", MHT: "<<MHT<<", NJets: "<<NJets<<", BTags: "<<BTags<<std::endl;

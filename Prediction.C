@@ -48,7 +48,8 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
 
   TFile *effInput = new TFile("/afs/desy.de/user/a/adraeger/2015/Efficiencies.root","UPDATE");
    TDirectory *EffInputFolder =   (TDirectory*)effInput->Get("Efficiencies");
-   MuMTWPTActivity_ = (TH2F*) EffInputFolder->Get("MuMTWPTActivity");
+//    MuMTWPTActivity_ = (TH2F*) EffInputFolder->Get("MuMTWPTActivity");
+	 MuMTWNJets_ = (TH1F*) EffInputFolder->Get("MuMTWNJets1D");
    MuDiLepContributionMTWAppliedNJets_ = (TH1F*) EffInputFolder->Get("MuDiLepContributionMTWNJets1D");
 	 MuDiLepEffMTWAppliedNJets_ = (TH1F*) EffInputFolder->Get("MuDiLepMTWNJets1D");
    MuIsoPTActivity_ = (TH2F*)EffInputFolder->Get("MuIsoPTActivity");
@@ -65,7 +66,8 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
 	 ElecAccMHTNJets_ = (TH2F*)EffInputFolder->Get("ElecAccMHTNJets");
 	 
 	 ElecPurityMHTNJets_ = (TH2F*)EffInputFolder->Get("ElecPurity");
-	 ElecMTWPTActivity_ = (TH2F*)EffInputFolder->Get("ElecMTWPTActivity");
+// 	 ElecMTWPTActivity_ = (TH2F*)EffInputFolder->Get("ElecMTWPTActivity");
+	 ElecMTWNJets_ = (TH1F*) EffInputFolder->Get("ElecMTWNJets1D");
 	 ElecDiLepContributionMTWAppliedNJets_ = (TH1F*) EffInputFolder->Get("ElecDiLepContributionMTWNJets1D");
 	 ElecDiLepEffMTWAppliedNJets_ = (TH1F*) EffInputFolder->Get("ElecDiLepMTWNJets1D");
 	 
@@ -77,7 +79,8 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
 	 MuDiLepContributionMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("MuDiLepContributionMTWNJets1D") );
 	 
 	 
-	 MuMTWPTActivityEff_ =  new THFeff(TEffInputFolder,"MuMTWPTActivity");
+// 	 MuMTWPTActivityEff_ =  new THFeff(TEffInputFolder,"MuMTWPTActivity");
+	 MuMTWNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("MuMTWNJets1D"));
 	 MuDiLepContributionMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("MuDiLepContributionMTWNJets1D"));
 	 MuDiLepEffMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("MuDiLepMTWNJets1D"));
 	 MuIsoPTActivityEff_ =  new THFeff(TEffInputFolder,"MuIsoPTActivity");
@@ -89,11 +92,13 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
 	 ElecAccMHTNJetsEff_ =  new THFeff(TEffInputFolder,"ElecAccMHTNJets");
 	 
 	 ElecPurityMHTNJetsEff_ =  new THFeff(TEffInputFolder,"ElecPurity");
-	 ElecMTWPTActivityEff_ =  new THFeff(TEffInputFolder,"ElecMTWPTActivity");
+// 	 ElecMTWPTActivityEff_ =  new THFeff(TEffInputFolder,"ElecMTWPTActivity");
+	 ElecMTWNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ElecMTWNJets1D"));
 	 ElecDiLepContributionMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ElecDiLepContributionMTWNJets1D"));
 	 ElecDiLepEffMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ElecDiLepMTWNJets1D"));
 	 
-	 ExpectationReductionIsoTrackNJetsEff_ =  new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ExpectationReductionIsoTrackNJets1D"));
+// 	 ExpectationReductionIsoTrackNJetsEff_ =  new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ExpectationReductionIsoTrackNJets1D"));
+	 ExpectationReductionIsoTrackMHTEff_ =  new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ExpectationReductionIsoTrackMHT1D"));
 	 
 	 // load search variables bined efficiencies
 	 searchBinsRef_ = new SearchBins();
@@ -122,6 +127,7 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
    tPrediction_->Branch("NJets",&NJets,"NJets/s");
    tPrediction_->Branch("BTags",&BTags,"BTags/s");
    tPrediction_->Branch("NVtx",&NVtx,"NVtx/s");
+   tPrediction_->Branch("Bin",&Bin_,"Bin/s");
    tPrediction_->Branch("DeltaPhi1",&DeltaPhi1,"DeltaPhi1/F");
    tPrediction_->Branch("DeltaPhi2",&DeltaPhi2,"DeltaPhi2/F");
    tPrediction_->Branch("DeltaPhi3",&DeltaPhi3,"DeltaPhi3/F");
@@ -173,7 +179,7 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
    tPrediction_->Branch("elecIsoEff",&elecIsoEff_,"elecIsoEff/F");
    tPrediction_->Branch("elecTotalWeight",&elecTotalWeight_,"elecTotalWeight/F");
 	 tPrediction_->Branch("totalElectrons",&totalElectrons_,"totalElectrons/F");
-	 tPrediction_->Branch("expectationReductionIsoTrackNJetsEff",&expectationReductionIsoTrackNJetsEff_,"expectationReductionIsoTrackNJetsEff/F");
+	 tPrediction_->Branch("expectationReductionIsoTrackEff",&expectationReductionIsoTrackEff_,"expectationReductionIsoTrackEff/F");
    tPrediction_->Branch("totalWeight",&totalWeight_,"totalWeight/F");
 	 tPrediction_->Branch("muDiLepEffMTWAppliedEff",&muDiLepEffMTWAppliedEff_,"muDiLepEffMTWAppliedEff/F");
 	 tPrediction_->Branch("elecDiLepEffMTWAppliedEff",&elecDiLepEffMTWAppliedEff_,"elecDiLepEffMTWAppliedEff/F");
@@ -187,6 +193,7 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
 	 tPrediction_->Branch("IsolatedTracksMuMatched", &IsolatedTracksMuMatched_, "IsolatedTracksMuMatched/b");
 	 tPrediction_->Branch("IsolatedTracksElecMatched", &IsolatedTracksElecMatched_, "IsolatedTracksElecMatched/b");
    GetOutputList()->Add(tPrediction_);
+   SearchBins_ = new SearchBins();
 }
 
 Bool_t Prediction::Process(Long64_t entry)
@@ -197,16 +204,19 @@ Bool_t Prediction::Process(Long64_t entry)
 	// 	if(DeltaPhi1 < deltaPhi1_ || DeltaPhi2 < deltaPhi2_ || DeltaPhi3 < deltaPhi3_ )return kTRUE;
 	if(minDeltaPhiN<minDeltaPhiN_) return kTRUE;
 	if(applyFilters_ &&  !FiltersPass() ) return kTRUE;
-	if(applyFilters_ &&  !FiltersPass() ) return kTRUE;
+	Bin_ = SearchBins_->GetBinNumber(HT,MHT,NJets,BTags);
 // 	if((GenMuNum+GenElecNum)!=1) return kTRUE;
 	searchBin_ = searchBinsRef_->GetBinNumber(HT,MHT,NJets,BTags);
-	expectationReductionIsoTrackNJetsEff_= ExpectationReductionIsoTrackNJetsEff_->GetEff(NJets);
+	expectationReductionIsoTrackEff_= ExpectationReductionIsoTrackMHTEff_->GetEff(MHT);
+// 	expectationReductionIsoTrackEff_= ExpectationReductionIsoTrackNJetsEff_->GetEff(NJets);
 	if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0)
 	{
 	  mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoMuonsPt[0], selectedIDIsoMuonsPhi[0]);
 		selectedIDIsoMuonsActivity[0]=MuActivity(selectedIDIsoMuonsEta[0], selectedIDIsoMuonsPhi[0],muActivityMethod_);
-		if(!UseUpdatedTEfficiencies_) muMTWEff_ = getEff(MuMTWPTActivity_,selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
-		else muMTWEff_ = MuMTWPTActivityEff_->GetEff(selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
+// 		if(!UseUpdatedTEfficiencies_) muMTWEff_ = getEff(MuMTWPTActivity_,selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
+		if(!UseUpdatedTEfficiencies_) muMTWEff_ = getEff(MuMTWNJets_,NJets);
+// 		else muMTWEff_ = MuMTWPTActivityEff_->GetEff(selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
+		else muMTWEff_ = MuMTWNJetsEff_->GetEff(NJets);
 		if(MuMTWSearchBinUse_)muMTWEff_=MuMTWSearchBinEff_->GetEff(searchBin_+0.01);
 	  mtwCorrectedWeight_ = Weight / muMTWEff_;
 		if(!UseUpdatedTEfficiencies_) muDiLepContributionMTWAppliedEff_ = getEff(MuDiLepContributionMTWAppliedNJets_,NJets);
@@ -216,7 +226,8 @@ Bool_t Prediction::Process(Long64_t entry)
 		if(!UseUpdatedTEfficiencies_) muIsoEff_ = getEff(MuIsoPTActivity_, selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
 		else muIsoEff_ = MuIsoPTActivityEff_->GetEff( selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
 		if(MuIsoSearchBinUse_)muIsoEff_=MuIsoSearchBinEff_->GetEff(searchBin_+0.01);
- 	  muIsoWeight_ = mtwDiLepCorrectedWeight_* (1 - muIsoEff_)/muIsoEff_;
+// 		mtwDiLepCorrectedWeight_=Weight;
+		muIsoWeight_ = mtwDiLepCorrectedWeight_* (1 - muIsoEff_)/muIsoEff_; 
 // 		muIsoWeight_ = Weight* (1 - muIsoEff_)/muIsoEff_;
 //  	  muRecoEff_ = getEff(MuRecoActivitiy_,selectedIDIsoMuonsActivity[0]);
 		if(!UseUpdatedTEfficiencies_) muRecoEff_ = getEff(MuRecoPTActivity_,selectedIDIsoMuonsPt[0],selectedIDIsoMuonsActivity[0]);
@@ -254,7 +265,7 @@ Bool_t Prediction::Process(Long64_t entry)
 		else muDiLepEffMTWAppliedEff_= MuDiLepContributionMTWAppliedNJetsEff_->GetEff(NJets);
 		if(MuDiLepContributionMTWAppliedEffSearchBinUse_)muDiLepEffMTWAppliedEff_=MuDiLepEffMTWAppliedSearchBinEff_->GetEff(searchBin_+0.01);
 		totalWeightDiLep_ = totalWeight_ + (1-muDiLepContributionMTWAppliedEff_) * mtwCorrectedWeight_ * (1-muDiLepEffMTWAppliedEff_)/muDiLepEffMTWAppliedEff_;
-		totalWeightDiLepIsoTrackReduced_ = totalWeightDiLep_ * (1 - expectationReductionIsoTrackNJetsEff_);
+		totalWeightDiLepIsoTrackReduced_ = totalWeightDiLep_ * (1 - expectationReductionIsoTrackEff_);
 	  
 	}	
 	else if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1)
@@ -264,8 +275,10 @@ Bool_t Prediction::Process(Long64_t entry)
 		if(!UseUpdatedTEfficiencies_) elecPurityCorrection_ =  getEff(ElecPurityMHTNJets_,MHT,NJets);
 		else elecPurityCorrection_ = ElecRecoPTActivityEff_->GetEff(MHT,NJets);
 		if(ElecPuritySearchBinEff_) elecPurityCorrection_ = ElecPuritySearchBinEff_->GetEff(searchBin_+0.01);
-		if(!UseUpdatedTEfficiencies_) elecMTWEff_ = getEff(ElecMTWPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
-		else elecMTWEff_= ElecMTWPTActivityEff_->GetEff(selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+// 		if(!UseUpdatedTEfficiencies_) elecMTWEff_ = getEff(ElecMTWPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		if(!UseUpdatedTEfficiencies_) elecMTWEff_ = getEff(ElecMTWNJets_,NJets);
+// 		else elecMTWEff_= ElecMTWPTActivityEff_->GetEff(selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
+		else elecMTWEff_ = ElecMTWNJetsEff_->GetEff(NJets);
 		if(ElecMTWSearchBinUse_)elecMTWEff_=ElecMTWSearchBinEff_->GetEff(searchBin_+0.01);
 		if(!UseUpdatedTEfficiencies_) elecIsoEff_ =  getEff(ElecIsoPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
 		else elecIsoEff_ = ElecIsoPTActivityEff_->GetEff(selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
@@ -313,7 +326,7 @@ Bool_t Prediction::Process(Long64_t entry)
 		else elecDiLepEffMTWAppliedEff_ = ElecDiLepEffMTWAppliedNJetsEff_->GetEff(NJets);
 		if(ElecDiLepContributionMTWAppliedEffSearchBinUse_)elecDiLepEffMTWAppliedEff_=ElecDiLepContributionMTWAppliedSearchBinEff_->GetEff(searchBin_+0.01);
 		totalWeightDiLep_ = totalWeight_ + (1-elecDiLepContributionMTWAppliedEff_) * mtwCorrectedWeight_ * (1-elecDiLepEffMTWAppliedEff_)/elecDiLepEffMTWAppliedEff_;
-		totalWeightDiLepIsoTrackReduced_ = totalWeightDiLep_ * (1 - expectationReductionIsoTrackNJetsEff_);
+		totalWeightDiLepIsoTrackReduced_ = totalWeightDiLep_ * (1 - expectationReductionIsoTrackEff_);
 	}
 
 	if(IsolatedTracksNum==1)
@@ -355,6 +368,7 @@ void Prediction::SlaveTerminate()
    // The SlaveTerminate() function is called after all entries or objects
    // have been processed. When running with PROOF SlaveTerminate() is called
    // on each slave server.
+  SearchBins_->PrintUsed();
 
 }
 
@@ -366,6 +380,7 @@ void Prediction::Terminate()
   TFile *outPutFile = new TFile("Prediction.root","RECREATE"); ;
    outPutFile->cd();
    tPrediction_->Write();
+	 outPutFile->Close();
 
 }
 void Prediction::resetValues()
@@ -529,6 +544,15 @@ double Prediction::MuActivity( double muEta, double muPhi, unsigned int method)
 			result+=SelectedPFCandidatesPt[i];
 		}
 	}
+	if(method==3)
+	{
+		for(unsigned int i=0; i< SelectedPFCandidatesNum; i++)
+		{
+			if(SelectedPFCandidates_Charge[i]!=0) continue;
+			if(deltaR(muEta,muPhi,SelectedPFCandidatesEta[i],SelectedPFCandidatesPhi[i])>maxDeltaRElecActivity_ ) continue;
+			result+=SelectedPFCandidatesPt[i];
+		}
+	}
 	return result;
 	
 }
@@ -540,7 +564,8 @@ double Prediction::ElecActivity( double elecEta, double elecPhi, unsigned int me
 		for (unsigned int i=0; i < JetsNum ; i++)
 		{
 			if(deltaR(elecEta,elecPhi,JetsEta[i],JetsPhi[i])>maxDeltaRElecActivity_ ) continue;
-			result+=JetsPt[i] * (Jets_chargedHadronEnergyFraction[i]);
+  			result+=JetsPt[i] * (Jets_chargedHadronEnergyFraction[i]);
+//  			result+=JetsPt[i] * (Jets_chargedEmEnergyFraction[i] + Jets_chargedHadronEnergyFraction[i]);
 		}
 	}
 	if(method==1)
@@ -555,6 +580,15 @@ double Prediction::ElecActivity( double elecEta, double elecPhi, unsigned int me
 	{
 		for(unsigned int i=0; i< SelectedPFCandidatesNum; i++)
 		{
+			if(deltaR(elecEta,elecPhi,SelectedPFCandidatesEta[i],SelectedPFCandidatesPhi[i])>maxDeltaRElecActivity_ ) continue;
+			result+=SelectedPFCandidatesPt[i];
+		}
+	}
+	if(method==3)
+	{
+		for(unsigned int i=0; i< SelectedPFCandidatesNum; i++)
+		{
+			if(SelectedPFCandidates_Charge[i]!=0) continue;
 			if(deltaR(elecEta,elecPhi,SelectedPFCandidatesEta[i],SelectedPFCandidatesPhi[i])>maxDeltaRElecActivity_ ) continue;
 			result+=SelectedPFCandidatesPt[i];
 		}
@@ -866,6 +900,11 @@ SearchBins::SearchBins()
 	bins_.push_back( Bin(1200,99999,500,750,9,9999,3,9999) );
 	
 	bins_.push_back( Bin(800,99999,750,9999,9,9999,3,9999) );
+	std::cout<<"Loaded bins: "<<bins_.size()<<std::endl;
+	for(unsigned int i=0; i<bins_.size();i++)
+	{
+	  usedBin_.push_back(0); 
+	}
 }
 
 unsigned int SearchBins::GetBinNumber(double HT, double MHT, int NJets, int BTags)
@@ -887,6 +926,7 @@ unsigned int SearchBins::GetBinNumber(double HT, double MHT, int NJets, int BTag
 		{
 			result=i;
 			match++;
+			usedBin_[i]=usedBin_[i]+1;
 		}
 	}
 	if(match==-1)
@@ -900,4 +940,7 @@ unsigned int SearchBins::GetBinNumber(double HT, double MHT, int NJets, int BTag
 	}
 	return result+1; // to not use the 0 bin but start counting at 1
 }
-
+void SearchBins::PrintUsed()
+{
+  for(unsigned int i=0; i< usedBin_.size();i++) std::cout<<"Bin["<<i<<"] has been used: "<<usedBin_[i]<<std::endl; 
+}
