@@ -1,0 +1,36 @@
+#!/bin/bash
+# My first script
+
+echo "starting"
+rm *.pdf
+rm *root
+rm  ttbar/*root
+rm  wpj/*root
+rm  T1tttt_2J_mGl-1200_mLSP-800/*root
+rm  T1tttt_2J_mGl-1500_mLSP-100/*root
+rm qcd/*root
+wait
+root -l -b -q MakeExpectation.C
+wait
+root -l -b -q MakeEff.C
+wait
+root -l -b -q MakePrediction.C
+root -l -b -q ResultPlot.C
+wait
+cd ttbar
+root -l -b -q  MakeExpectation.C
+cd ../wpj
+root -l -b -q  MakeExpectation.C
+cd ../ttbar
+root -l -b -q  MakePrediction.C
+cd ../wpj
+root -l -b -q  MakePrediction.C
+cd ../T1tttt_2J_mGl-1200_mLSP-800
+root -l -b -q  MakePrediction.C
+cd ../T1tttt_2J_mGl-1500_mLSP-100
+root -l -b -q MakePrediction.C
+cd ../qcd
+root -l -b -q MakeExpectation.C
+root -l -b -q MakePrediction.C
+wait
+echo "done"

@@ -14,7 +14,7 @@
 // cuts baseline
 const double minHT_=500;
 const double minMHT_=200;
-const double minNJets_=2.9;
+const double minNJets_=3.4;
 const double deltaPhi1_=0.5;
 const double deltaPhi2_=0.5;
 const double deltaPhi3_=0.3;
@@ -33,8 +33,8 @@ const double maxTauEta_=2.4;
 const double maxDeltaRMuActivity_=1.0;
 const double maxDeltaRElecActivity_=1.0;
 const double maxDeltaRIsoTrackActivity_=1.0;
-const unsigned int elecActivityMethod_=3;               // ###############
-const unsigned int muActivityMethod_=3;                 // ###############
+const unsigned int elecActivityMethod_=0;               // ###############
+const unsigned int muActivityMethod_=0;                 // ###############
 const unsigned int isoTrackActivityMethod_=0;
 
 // lepton matching
