@@ -20,6 +20,7 @@ const double deltaPhi2_=0.5;
 const double deltaPhi3_=0.3;
 const double minDeltaPhiN_=4.0;
 const bool applyFilters_=false;
+const bool DY_=true;
 // lepton cuts
 const double minMuPt_=10;
 const double maxMuEta_=2.4;
@@ -186,6 +187,7 @@ public :
 	
 	Float_t IsoTrackActivity[40], GenTauActivity[40];
 	UShort_t elecActivityMethod, muActivityMethod, isoTrackActivityMethod;
+	bool DY;
 	
 	UShort_t Bin_;
 	

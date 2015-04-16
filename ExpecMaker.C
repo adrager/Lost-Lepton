@@ -50,6 +50,8 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("NJets",&NJets,"NJets/s");
 	tExpectation_->Branch("BTags",&BTags,"BTags/s");
 	tExpectation_->Branch("Leptons",&Leptons,"Leptons/s");
+	DY=DY_;
+	tExpectation_->Branch("DY",&DY,"DY/b");
 	tExpectation_->Branch("Bin",&Bin_,"Bin/s");
 	tExpectation_->Branch("NVtx",&NVtx,"NVtx/s");
 	tExpectation_->Branch("DeltaPhi1",&DeltaPhi1,"DeltaPhi1/F");
@@ -138,6 +140,8 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("selectedIDElectronsE", selectedIDElectronsE, "selectedIDElectronsE[selectedIDElectronsNum]/F");
 	tExpectation_->Branch("RecoElectronActivity", RecoElectronActivity, "RecoElectronActivity[selectedIDElectronsNum]/F");
 	
+	if(!DY_)
+	{
 	tExpectation_->Branch("IsolatedTracksNum",&IsolatedTracksNum,"IsolatedTracksNum/s");
 	tExpectation_->Branch("FallsVetoIsoTrack",&FallsVetoIsoTrack,"FallsVetoIsoTrack/s");
 	tExpectation_->Branch("IsolatedTracksPt", IsolatedTracksPt, "IsolatedTracksPt[IsolatedTracksNum]/F");
@@ -186,6 +190,7 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("IsoTrackDiLepElec",&IsoTrackDiLepElec_,"IsoTrackDiLepElec/s");
 	//   tExpectation_->Branch("maxDeltaRMuActivity",&maxDeltaRMuActivity_,"maxDeltaRMuActivity/F");
 	//   tExpectation_->Branch("maxDeltaRElecActivity",&maxDeltaRElecActivity_,"maxDeltaRElecActivity/F");
+	}
 	GetOutputList()->Add(tExpectation_);
 	SearchBins_ = new SearchBins();
 }
@@ -193,14 +198,19 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 {
 	resetValues();
 	fChain->GetTree()->GetEntry(entry);
-	if(HT<minHT_ || MHT< minMHT_ || NJets < minNJets_  ) return kTRUE;
+	if(!DY_) if(HT<minHT_ || MHT< minMHT_ || NJets < minNJets_  )
+	{
+		return kTRUE;
+	}
+	
 // 	if(DeltaPhi1 < deltaPhi1_ || DeltaPhi2 < deltaPhi2_ || DeltaPhi3 < deltaPhi3_ )return kTRUE;
-	if(minDeltaPhiN<minDeltaPhiN_) return kTRUE;
+	if(!DY_) if(minDeltaPhiN<minDeltaPhiN_) return kTRUE;
 	if(applyFilters_ &&  !FiltersPass() ) return kTRUE;
+  	if(DY_ && ( HT<minHT_ || NJets < minNJets_) ) return kTRUE;
 	Bin_ = SearchBins_->GetBinNumber(HT,MHT,NJets,BTags);
 	
 	// compute efficiencies 1 lepton
-	if(GenMuNum==1 && GenElecNum==0)
+	if( (GenMuNum==1 && GenElecNum==0) || (DY_ && GenMuNum==2) )
 	{
 		if ( GenMuPt[0] < minMuPt_ || std::abs(GenMuEta[0]) > maxMuEta_)
 		{
@@ -212,7 +222,7 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 		{
 			muAcc=2;
 			bool RecoNotMatched=true;
-			for (UShort_t i=0; i<IsolatedTracksNum; i++)
+			if(!DY_)for (UShort_t i=0; i<IsolatedTracksNum; i++)
 			{
 				if(deltaR(GenMuEta[0],GenMuPhi[0],IsolatedTracksEta[i],IsolatedTracksPhi[i])<maxDeltaRGenToRecoIsoTrack_ && std::abs(GenMuPt[0]-IsolatedTracksPt[i])/GenMuPt[0] <maxDiffPtGenToRecoIsoTrack_)
 				{
@@ -243,7 +253,7 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 							muIso=2;
 							muIsoMatched[i]=1;
 							Expectation=2;
-							mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoMuonsPt[ii], selectedIDIsoMuonsPhi[ii]);
+							if(!DY_)mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoMuonsPt[ii], selectedIDIsoMuonsPhi[ii]);
 							MuDiLepControlSample_=2;
 						}
 					}
@@ -262,7 +272,7 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 		}
 	} 
 	// analyse gen electrons consider only single elec events
-	if(GenMuNum==0 && GenElecNum==1)
+	if( (GenMuNum==0 && GenElecNum==1) || (DY_ && GenElecNum==2) )
 	{
 		if ( GenElecPt[0] < minElecPt_ || std::abs(GenElecEta[0]) > maxElecEta_)
 		{
@@ -273,7 +283,7 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 		{
 			elecAcc=2;
 			bool RecoNotMatched=true;
-			for (UShort_t i=0; i<IsolatedTracksNum; i++)
+			if(!DY_)for (UShort_t i=0; i<IsolatedTracksNum; i++)
 			{
 				if(deltaR(GenElecEta[0],GenElecPhi[0],IsolatedTracksEta[i],IsolatedTracksPhi[i])<maxDeltaRGenToRecoIsoTrack_ && std::abs(GenElecPt[0]-IsolatedTracksPt[i])/GenElecPt[0] <maxDiffPtGenToRecoIsoTrack_)
 				{
@@ -304,7 +314,7 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 							elecIso=2;
 							elecIsoMatched[i]=1;
 							Expectation=2;
-							mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoElectronsPt[ii], selectedIDIsoElectronsPhi[ii]);
+							if(!DY_) mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoElectronsPt[ii], selectedIDIsoElectronsPhi[ii]);
 							ElecDiLepControlSample_=2;
 						}
 					}
@@ -323,7 +333,37 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 			}
 		}
 	} 
-	// di leptonic events
+	// loop over all reco iso gen leptons and isotrack for specific variable calculations
+	for(unsigned int i=0; i< GenMuNum;i++)
+	{
+		GenMuonActivity[i]=MuActivity(GenMuEta[i],GenMuPhi[i],muActivityMethod_);
+	}
+	for(unsigned int i=0; i< selectedIDMuonsNum;i++)
+	{
+		RecoMuonActivity[i]=MuActivity(selectedIDMuonsEta[i],selectedIDMuonsPhi[i],muActivityMethod_);
+	}
+	for(unsigned int i=0; i< selectedIDIsoMuonsNum;i++)
+	{
+		RecoIsoMuonActivity[i]=MuActivity(selectedIDIsoMuonsEta[i],selectedIDIsoMuonsPhi[i],muActivityMethod_);
+	}
+	for(unsigned int i=0; i< GenElecNum;i++)
+	{
+		GenElecActivity[i]=ElecActivity(GenElecEta[i],GenElecPhi[i],elecActivityMethod_);
+	}
+	for(unsigned int i=0; i< selectedIDElectronsNum;i++)
+	{
+		RecoElectronActivity[i]=ElecActivity(selectedIDElectronsEta[i],selectedIDElectronsPhi[i],elecActivityMethod_);
+	}
+	for(unsigned int i=0; i< selectedIDIsoElectronsNum;i++)
+	{
+		RecoIsoElectronActivity[i]=ElecActivity(selectedIDIsoElectronsEta[i],selectedIDIsoElectronsPhi[i],elecActivityMethod_);
+	}
+ 	if(DY_)
+ 	{
+ 		tExpectation_->Fill();
+ 		return kTRUE;
+ 	}
+// di leptonic events
 	if( (GenMuNum+GenElecNum)==2)
 	{
 		if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0)
@@ -806,31 +846,6 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 			}
 		}
 	}
-	// loop over all reco iso gen leptons and isotrack for specific variable calculations
-	for(unsigned int i=0; i< GenMuNum;i++)
-	{
-		GenMuonActivity[i]=MuActivity(GenMuEta[i],GenMuPhi[i],muActivityMethod_);
-	}
-	for(unsigned int i=0; i< selectedIDMuonsNum;i++)
-	{
-		RecoMuonActivity[i]=MuActivity(selectedIDMuonsEta[i],selectedIDMuonsPhi[i],muActivityMethod_);
-	}
-	for(unsigned int i=0; i< selectedIDIsoMuonsNum;i++)
-	{
-		RecoIsoMuonActivity[i]=MuActivity(selectedIDIsoMuonsEta[i],selectedIDIsoMuonsPhi[i],muActivityMethod_);
-	}
-	for(unsigned int i=0; i< GenElecNum;i++)
-	{
-		GenElecActivity[i]=ElecActivity(GenElecEta[i],GenElecPhi[i],elecActivityMethod_);
-	}
-	for(unsigned int i=0; i< selectedIDElectronsNum;i++)
-	{
-		RecoElectronActivity[i]=ElecActivity(selectedIDElectronsEta[i],selectedIDElectronsPhi[i],elecActivityMethod_);
-	}
-	for(unsigned int i=0; i< selectedIDIsoElectronsNum;i++)
-	{
-		RecoIsoElectronActivity[i]=ElecActivity(selectedIDIsoElectronsEta[i],selectedIDIsoElectronsPhi[i],elecActivityMethod_);
-	}
 	for(unsigned int i=0; i<IsolatedTracksNum;i++)
 	{
 		IsoTrackActivity[i]=IsoTrackActivityCalc(IsolatedTracksEta[i],IsolatedTracksPhi[i],isoTrackActivityMethod_);
@@ -1287,7 +1302,7 @@ unsigned int SearchBins::GetBinNumber(double HT, double MHT, int NJets, int BTag
       usedBin_[i]=usedBin_[i]+1;
     }
   }
-  if(match==-1)
+  if(match==-1 && !DY_)
   {
     std::cout<<"Error event fits in no bin!!! HT: "<<HT<<", MHT: "<<MHT<<", NJets: "<<NJets<<", BTags: "<<BTags<<std::endl;
     result=999;
