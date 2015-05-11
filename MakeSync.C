@@ -21,7 +21,7 @@ void MakeSync()
     	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/SMS-T1tttt_2J_mGl-1500_mLSP-100/*root");
   // 	Effchain->SetProof();
   //	Effchain->Process("ExpecMaker.C+",0,80000);
-  Effchain->Process("SyncMaker.C+");
+  Effchain->Process("SyncMaker.C++g");
   // 	Effchain->SetProof(0);
   // 	delete proof;
 }

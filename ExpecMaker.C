@@ -95,6 +95,8 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("elecReco",&elecReco,"elecReco/s");  
 	tExpectation_->Branch("elecIso",&elecIso,"elecIso/s");  
 	tExpectation_->Branch("muIsoTrack",&muIsoTrack,"muIsoTrack/s");  
+	tExpectation_->Branch("MuPurity",&MuPurity_,"MuPurity/s"); 
+	tExpectation_->Branch("ElecPurity",&ElecPurity_,"ElecPurity/s"); 
 	muActivityMethod=muActivityMethod_;
 	elecActivityMethod=elecActivityMethod_;
 	isoTrackActivityMethod=isoTrackActivityMethod_;
@@ -193,6 +195,7 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	}
 	GetOutputList()->Add(tExpectation_);
 	SearchBins_ = new SearchBins();
+	std::cout<<"Applying filters: "<<applyFilters_<<std::endl;
 }
 Bool_t ExpecMaker::Process(Long64_t entry)
 {
@@ -520,6 +523,26 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 		}
 	}
 	// purity studies:
+	// new purity studies
+	if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0 && (GenMuNum+ GenElecNum)<2)
+	{
+// 	  if(muIso!=2)
+	    if(GenMuNum<1)
+	  {
+	    MuPurity_=0;
+	  }
+	  else MuPurity_=2;
+	}
+	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1 && (GenMuNum+ GenElecNum)<2)
+	{
+// 	  if(elecIso!=2)
+	    if(GenElecNum<1)
+	  {
+	    ElecPurity_=0;
+	  }
+	  else ElecPurity_=2;
+	}
+	//old purity calculations
 	for (UShort_t i=0; i< selectedIDIsoMuonsNum;i++)
 	{
 		if(selectedIDIsoMuonsNum>1 || MTWCalculator(METPt,METPhi, selectedIDIsoMuonsPt[0], selectedIDIsoMuonsPhi[0])>mtwCut_) break;
@@ -907,6 +930,9 @@ void ExpecMaker::resetValues()
 	ExpectationDiLep_=0;
 	MuDiLepControlSample_=1;
 	ElecDiLepControlSample_=1;
+	// new purity
+	MuPurity_=1;
+	ElecPurity_=1;
 	
 	//stand alone isolatedtrack studies
 	StandAloneGenMuIsoTrackMatched_=1;
@@ -1000,6 +1026,7 @@ bool ExpecMaker::FiltersPass()
 {
 	bool result=true;
 	// if(Filter_HBHENoiseFilterRA2==0) result=false;
+	if(!JetID) result=false;
 	return result;
 }
 double ExpecMaker::deltaR(double eta1, double phi1, double eta2, double phi2)

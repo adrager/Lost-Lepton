@@ -19,10 +19,10 @@
 #include "TCanvas.h"
 
 // cuts baseline
-const double minHT_=500;
+const double minHT_=400;
 const double minNJets_=3.4;
-const double minDeltaPhiN_=-99999;
-const bool applyFilters_=false;
+const double minDeltaPhiN_=-9999;
+const bool applyFilters_=true;
 
 // actity around lepton
 const double maxDeltaRMuActivity_=1.0;
@@ -48,7 +48,7 @@ public :
 	 Int_t Probe_PassingOrFail_;
 	 Float_t Probe_InvariantMass_, ProbePt_, ProbeEta_, ProbePhi_, ProbeActivity_;
 
-   // Declaration of leaf types
+	 // Declaration of leaf types
 	 UInt_t          RunNum;
 	 UInt_t          LumiBlockNum;
 	 UInt_t          EvtNum;
@@ -74,47 +74,48 @@ public :
 	 Float_t         MuID_minDeltaPhiN;
 	 Float_t         ElecIso_minDeltaPhiN;
 	 Float_t         ElecID_minDeltaPhiN;
+	 UChar_t         JetID;
 	 UShort_t        TagIsoMuonNum;
-	 Float_t         TagIsoMuonPt[1];   //[TagIsoMuonNum]
-	 Float_t         TagIsoMuonEta[1];   //[TagIsoMuonNum]
-	 Float_t         TagIsoMuonPhi[1];   //[TagIsoMuonNum]
-	 Float_t         TagIsoMuonE[1];   //[TagIsoMuonNum]
+	 Float_t         TagIsoMuonPt[1000];   //[TagIsoMuonNum]
+	 Float_t         TagIsoMuonEta[1000];   //[TagIsoMuonNum]
+	 Float_t         TagIsoMuonPhi[1000];   //[TagIsoMuonNum]
+	 Float_t         TagIsoMuonE[1000];   //[TagIsoMuonNum]
 	 UShort_t        ProbeIsoMuonNum;
-	 Float_t         ProbeIsoMuonPt[2];   //[ProbeIsoMuonNum]
-	 Float_t         ProbeIsoMuonEta[2];   //[ProbeIsoMuonNum]
-	 Float_t         ProbeIsoMuonPhi[2];   //[ProbeIsoMuonNum]
-	 Float_t         ProbeIsoMuonE[2];   //[ProbeIsoMuonNum]
-	 Float_t         ProbeIsoMuon_InvariantMass[2];   //[ProbeIsoMuonNum]
-	 Int_t           ProbeIsoMuon_PassingOrFail[2];   //[ProbeIsoMuonNum]
+	 Float_t         ProbeIsoMuonPt[100];   //[ProbeIsoMuonNum]
+	 Float_t         ProbeIsoMuonEta[100];   //[ProbeIsoMuonNum]
+	 Float_t         ProbeIsoMuonPhi[100];   //[ProbeIsoMuonNum]
+	 Float_t         ProbeIsoMuonE[100];   //[ProbeIsoMuonNum]
+	 Float_t         ProbeIsoMuon_InvariantMass[100];   //[ProbeIsoMuonNum]
+	 Int_t           ProbeIsoMuon_PassingOrFail[100];   //[ProbeIsoMuonNum]
 	 UShort_t        TagIDMuonNum;
-	 Float_t         TagIDMuonPt[1];   //[TagIDMuonNum]
-	 Float_t         TagIDMuonEta[1];   //[TagIDMuonNum]
-	 Float_t         TagIDMuonPhi[1];   //[TagIDMuonNum]
-	 Float_t         TagIDMuonE[1];   //[TagIDMuonNum]
+	 Float_t         TagIDMuonPt[1000];   //[TagIDMuonNum]
+	 Float_t         TagIDMuonEta[1000];   //[TagIDMuonNum]
+	 Float_t         TagIDMuonPhi[1000];   //[TagIDMuonNum]
+	 Float_t         TagIDMuonE[1000];   //[TagIDMuonNum]
 	 UShort_t        ProbeIDMuonNum;
-	 Float_t         ProbeIDMuonPt[8];   //[ProbeIDMuonNum]
-	 Float_t         ProbeIDMuonEta[8];   //[ProbeIDMuonNum]
-	 Float_t         ProbeIDMuonPhi[8];   //[ProbeIDMuonNum]
-	 Float_t         ProbeIDMuonE[8];   //[ProbeIDMuonNum]
-	 Float_t         ProbeIDMuon_InvariantMass[8];   //[ProbeIDMuonNum]
-	 Int_t           ProbeIDMuon_PassingOrFail[8];   //[ProbeIDMuonNum]
+	 Float_t         ProbeIDMuonPt[1000];   //[ProbeIDMuonNum]
+	 Float_t         ProbeIDMuonEta[1000];   //[ProbeIDMuonNum]
+	 Float_t         ProbeIDMuonPhi[1000];   //[ProbeIDMuonNum]
+	 Float_t         ProbeIDMuonE[1000];   //[ProbeIDMuonNum]
+	 Float_t         ProbeIDMuon_InvariantMass[1000];   //[ProbeIDMuonNum]
+	 Int_t           ProbeIDMuon_PassingOrFail[1000];   //[ProbeIDMuonNum]
 	 UShort_t        TagIsoElectronNum;
-	 Float_t         TagIsoElectronPt[1];   //[TagIsoElectronNum]
-	 Float_t         TagIsoElectronEta[1];   //[TagIsoElectronNum]
-	 Float_t         TagIsoElectronPhi[1];   //[TagIsoElectronNum]
-	 Float_t         TagIsoElectronE[1];   //[TagIsoElectronNum]
+	 Float_t         TagIsoElectronPt[1000];   //[TagIsoElectronNum]
+	 Float_t         TagIsoElectronEta[1000];   //[TagIsoElectronNum]
+	 Float_t         TagIsoElectronPhi[1000];   //[TagIsoElectronNum]
+	 Float_t         TagIsoElectronE[1000];   //[TagIsoElectronNum]
 	 UShort_t        ProbeIsoElectronNum;
-	 Float_t         ProbeIsoElectronPt[2];   //[ProbeIsoElectronNum]
-	 Float_t         ProbeIsoElectronEta[2];   //[ProbeIsoElectronNum]
-	 Float_t         ProbeIsoElectronPhi[2];   //[ProbeIsoElectronNum]
-	 Float_t         ProbeIsoElectronE[2];   //[ProbeIsoElectronNum]
-	 Float_t         ProbeIsoElectron_InvariantMass[2];   //[ProbeIsoElectronNum]
-	 Int_t           ProbeIsoElectron_PassingOrFail[2];   //[ProbeIsoElectronNum]
+	 Float_t         ProbeIsoElectronPt[1000];   //[ProbeIsoElectronNum]
+	 Float_t         ProbeIsoElectronEta[1000];   //[ProbeIsoElectronNum]
+	 Float_t         ProbeIsoElectronPhi[1000];   //[ProbeIsoElectronNum]
+	 Float_t         ProbeIsoElectronE[1000];   //[ProbeIsoElectronNum]
+	 Float_t         ProbeIsoElectron_InvariantMass[1000];   //[ProbeIsoElectronNum]
+	 Int_t           ProbeIsoElectron_PassingOrFail[1000];   //[ProbeIsoElectronNum]
 	 UShort_t        TagIDElectronNum;
-	 Float_t         TagIDElectronPt[1];   //[TagIDElectronNum]
-	 Float_t         TagIDElectronEta[1];   //[TagIDElectronNum]
-	 Float_t         TagIDElectronPhi[1];   //[TagIDElectronNum]
-	 Float_t         TagIDElectronE[1];   //[TagIDElectronNum]
+	 Float_t         TagIDElectronPt[1000];   //[TagIDElectronNum]
+	 Float_t         TagIDElectronEta[1000];   //[TagIDElectronNum]
+	 Float_t         TagIDElectronPhi[1000];   //[TagIDElectronNum]
+	 Float_t         TagIDElectronE[1000];   //[TagIDElectronNum]
 	 UShort_t        ProbeIDElectronNum;
 	 Float_t         ProbeIDElectronPt[5];   //[ProbeIDElectronNum]
 	 Float_t         ProbeIDElectronEta[5];   //[ProbeIDElectronNum]
@@ -123,63 +124,95 @@ public :
 	 Float_t         ProbeIDElectron_InvariantMass[5];   //[ProbeIDElectronNum]
 	 Int_t           ProbeIDElectron_PassingOrFail[5];   //[ProbeIDElectronNum]
 	 UShort_t        JetsNum;
-	 Float_t         JetsPt[12];   //[JetsNum]
-	 Float_t         JetsEta[12];   //[JetsNum]
-	 Float_t         JetsPhi[12];   //[JetsNum]
-	 Float_t         JetsE[12];   //[JetsNum]
-	 Float_t         Jets_bDiscriminator[12];   //[JetsNum]
-	 Float_t         Jets_chargedEmEnergyFraction[12];   //[JetsNum]
-	 Float_t         Jets_chargedHadronEnergyFraction[12];   //[JetsNum]
-	 Int_t           Jets_chargedHadronMultiplicity[12];   //[JetsNum]
-	 Int_t           Jets_electronMultiplicity[12];   //[JetsNum]
-	 Float_t         Jets_jetArea[12];   //[JetsNum]
-	 Float_t         Jets_muonEnergyFraction[12];   //[JetsNum]
-	 Int_t           Jets_muonMultiplicity[12];   //[JetsNum]
-	 Float_t         Jets_neutralEmEnergyFraction[12];   //[JetsNum]
-	 Int_t           Jets_neutralHadronMultiplicity[12];   //[JetsNum]
-	 Float_t         Jets_photonEnergyFraction[12];   //[JetsNum]
-	 Int_t           Jets_photonMultiplicity[12];   //[JetsNum]
+	 Float_t         JetsPt[1000];   //[JetsNum]
+	 Float_t         JetsEta[1000];   //[JetsNum]
+	 Float_t         JetsPhi[1000];   //[JetsNum]
+	 Float_t         JetsE[1000];   //[JetsNum]
+	 Float_t         Jets_bDiscriminator[1000];   //[JetsNum]
+	 Float_t         Jets_chargedEmEnergyFraction[1000];   //[JetsNum]
+	 Float_t         Jets_chargedHadronEnergyFraction[1000];   //[JetsNum]
+	 Int_t           Jets_chargedHadronMultiplicity[1000];   //[JetsNum]
+	 Int_t           Jets_electronMultiplicity[1000];   //[JetsNum]
+	 Float_t         Jets_jetArea[1000];   //[JetsNum]
+	 Float_t         Jets_muonEnergyFraction[1000];   //[JetsNum]
+	 Int_t           Jets_muonMultiplicity[1000];   //[JetsNum]
+	 Float_t         Jets_neutralEmEnergyFraction[1000];   //[JetsNum]
+	 Int_t           Jets_neutralHadronMultiplicity[1000];   //[JetsNum]
+	 Float_t         Jets_photonEnergyFraction[1000];   //[JetsNum]
+	 Int_t           Jets_photonMultiplicity[1000];   //[JetsNum]
 	 UShort_t        SelectedPFCandidatesNum;
-	 Float_t         SelectedPFCandidatesPt[123];   //[SelectedPFCandidatesNum]
-	 Float_t         SelectedPFCandidatesEta[123];   //[SelectedPFCandidatesNum]
-	 Float_t         SelectedPFCandidatesPhi[123];   //[SelectedPFCandidatesNum]
-	 Float_t         SelectedPFCandidatesE[123];   //[SelectedPFCandidatesNum]
-	 Int_t           SelectedPFCandidates_Charge[123];   //[SelectedPFCandidatesNum]
-	 Int_t           SelectedPFCandidates_Typ[123];   //[SelectedPFCandidatesNum]
+	 Float_t         SelectedPFCandidatesPt[1000];   //[SelectedPFCandidatesNum]
+	 Float_t         SelectedPFCandidatesEta[1000];   //[SelectedPFCandidatesNum]
+	 Float_t         SelectedPFCandidatesPhi[1000];   //[SelectedPFCandidatesNum]
+	 Float_t         SelectedPFCandidatesE[1000];   //[SelectedPFCandidatesNum]
+	 Int_t           SelectedPFCandidates_Charge[1000];   //[SelectedPFCandidatesNum]
+	 Int_t           SelectedPFCandidates_Typ[1000];   //[SelectedPFCandidatesNum]
 	 UShort_t        GenBosonNum;
-	 Float_t         GenBosonPt[1];   //[GenBosonNum]
-	 Float_t         GenBosonEta[1];   //[GenBosonNum]
-	 Float_t         GenBosonPhi[1];   //[GenBosonNum]
-	 Float_t         GenBosonE[1];   //[GenBosonNum]
-	 Int_t           GenBoson_GenBosonPDGId[1];   //[GenBosonNum]
+	 Float_t         GenBosonPt[1000];   //[GenBosonNum]
+	 Float_t         GenBosonEta[1000];   //[GenBosonNum]
+	 Float_t         GenBosonPhi[1000];   //[GenBosonNum]
+	 Float_t         GenBosonE[1000];   //[GenBosonNum]
+	 Int_t           GenBoson_GenBosonPDGId[1000];   //[GenBosonNum]
 	 UShort_t        GenMuNum;
-	 Float_t         GenMuPt[2];   //[GenMuNum]
-	 Float_t         GenMuEta[2];   //[GenMuNum]
-	 Float_t         GenMuPhi[2];   //[GenMuNum]
-	 Float_t         GenMuE[2];   //[GenMuNum]
-	 Int_t           GenMu_GenMuFromTau[2];   //[GenMuNum]
+	 Float_t         GenMuPt[1000];   //[GenMuNum]
+	 Float_t         GenMuEta[1000];   //[GenMuNum]
+	 Float_t         GenMuPhi[1000];   //[GenMuNum]
+	 Float_t         GenMuE[1000];   //[GenMuNum]
+	 Int_t           GenMu_GenMuFromTau[1000];   //[GenMuNum]
 	 UShort_t        GenElecNum;
-	 Float_t         GenElecPt[2];   //[GenElecNum]
-	 Float_t         GenElecEta[2];   //[GenElecNum]
-	 Float_t         GenElecPhi[2];   //[GenElecNum]
-	 Float_t         GenElecE[2];   //[GenElecNum]
-	 Int_t           GenElec_GenElecFromTau[2];   //[GenElecNum]
+	 Float_t         GenElecPt[1000];   //[GenElecNum]
+	 Float_t         GenElecEta[1000];   //[GenElecNum]
+	 Float_t         GenElecPhi[1000];   //[GenElecNum]
+	 Float_t         GenElecE[1000];   //[GenElecNum]
+	 Int_t           GenElec_GenElecFromTau[1000];   //[GenElecNum]
 	 UShort_t        GenTauNum;
-	 Float_t         GenTauPt[2];   //[GenTauNum]
-	 Float_t         GenTauEta[2];   //[GenTauNum]
-	 Float_t         GenTauPhi[2];   //[GenTauNum]
-	 Float_t         GenTauE[2];   //[GenTauNum]
-	 Int_t           GenTau_GenTauHad[2];   //[GenTauNum]
+	 Float_t         GenTauPt[1000];   //[GenTauNum]
+	 Float_t         GenTauEta[1000];   //[GenTauNum]
+	 Float_t         GenTauPhi[1000];   //[GenTauNum]
+	 Float_t         GenTauE[1000];   //[GenTauNum]
+	 Int_t           GenTau_GenTauHad[1000];   //[GenTauNum]
+	 UShort_t        IsolatedTracksNum;
+	 Float_t         IsolatedTracksPt[1000];   //[IsolatedTracksNum]
+	 Float_t         IsolatedTracksEta[1000];   //[IsolatedTracksNum]
+	 Float_t         IsolatedTracksPhi[1000];   //[IsolatedTracksNum]
+	 Float_t         IsolatedTracksE[1000];   //[IsolatedTracksNum]
+	 UShort_t        selectedIDIsoMuonsNum;
+	 Float_t         selectedIDIsoMuonsPt[100];   //[selectedIDIsoMuonsNum]
+	 Float_t         selectedIDIsoMuonsEta[100];   //[selectedIDIsoMuonsNum]
+	 Float_t         selectedIDIsoMuonsPhi[100];   //[selectedIDIsoMuonsNum]
+	 Float_t         selectedIDIsoMuonsE[100];   //[selectedIDIsoMuonsNum]
+	 UShort_t        selectedIDMuonsNum;
+	 Float_t         selectedIDMuonsPt[1000];   //[selectedIDMuonsNum]
+	 Float_t         selectedIDMuonsEta[1000];   //[selectedIDMuonsNum]
+	 Float_t         selectedIDMuonsPhi[1000];   //[selectedIDMuonsNum]
+	 Float_t         selectedIDMuonsE[1000];   //[selectedIDMuonsNum]
+	 UShort_t        selectedIDIsoElectronsNum;
+	 Float_t         selectedIDIsoElectronsPt[100];   //[selectedIDIsoElectronsNum]
+	 Float_t         selectedIDIsoElectronsEta[100];   //[selectedIDIsoElectronsNum]
+	 Float_t         selectedIDIsoElectronsPhi[100];   //[selectedIDIsoElectronsNum]
+	 Float_t         selectedIDIsoElectronsE[100];   //[selectedIDIsoElectronsNum]
+	 UShort_t        selectedIDElectronsNum;
+	 Float_t         selectedIDElectronsPt[1000];   //[selectedIDElectronsNum]
+	 Float_t         selectedIDElectronsEta[1000];   //[selectedIDElectronsNum]
+	 Float_t         selectedIDElectronsPhi[1000];   //[selectedIDElectronsNum]
+	 Float_t         selectedIDElectronsE[1000];   //[selectedIDElectronsNum]
+	 UShort_t        SelectedPFCandidates_1Num;
+	 Float_t         SelectedPFCandidates_1Pt[1000];   //[SelectedPFCandidates_1Num]
+	 Float_t         SelectedPFCandidates_1Eta[1000];   //[SelectedPFCandidates_1Num]
+	 Float_t         SelectedPFCandidates_1Phi[1000];   //[SelectedPFCandidates_1Num]
+	 Float_t         SelectedPFCandidates_1E[1000];   //[SelectedPFCandidates_1Num]
+	 Int_t           SelectedPFCandidates_1_Charge[1000];   //[SelectedPFCandidates_1Num]
+	 Int_t           SelectedPFCandidates_1_Typ[1000];   //[SelectedPFCandidates_1Num]
 	 UShort_t        MuonsNum;
-	 Float_t         MuonsPt[2];   //[MuonsNum]
-	 Float_t         MuonsEta[2];   //[MuonsNum]
-	 Float_t         MuonsPhi[2];   //[MuonsNum]
-	 Float_t         MuonsE[2];   //[MuonsNum]
+	 Float_t         MuonsPt[100];   //[MuonsNum]
+	 Float_t         MuonsEta[100];   //[MuonsNum]
+	 Float_t         MuonsPhi[100];   //[MuonsNum]
+	 Float_t         MuonsE[100];   //[MuonsNum]
 	 UShort_t        ElectronsNum;
-	 Float_t         ElectronsPt[3];   //[ElectronsNum]
-	 Float_t         ElectronsEta[3];   //[ElectronsNum]
-	 Float_t         ElectronsPhi[3];   //[ElectronsNum]
-	 Float_t         ElectronsE[3];   //[ElectronsNum]
+	 Float_t         ElectronsPt[100];   //[ElectronsNum]
+	 Float_t         ElectronsEta[100];   //[ElectronsNum]
+	 Float_t         ElectronsPhi[100];   //[ElectronsNum]
+	 Float_t         ElectronsE[100];   //[ElectronsNum]
 	 
 	 // List of branches
 	 TBranch        *b_RunNum;   //!
@@ -207,6 +240,7 @@ public :
 	 TBranch        *b_MuID_minDeltaPhiN;   //!
 	 TBranch        *b_ElecIso_minDeltaPhiN;   //!
 	 TBranch        *b_ElecID_minDeltaPhiN;   //!
+	 TBranch        *b_JetID;   //!
 	 TBranch        *b_TagIsoMuonNum;   //!
 	 TBranch        *b_TagIsoMuonPt;   //!
 	 TBranch        *b_TagIsoMuonEta;   //!
@@ -303,6 +337,38 @@ public :
 	 TBranch        *b_GenTauPhi;   //!
 	 TBranch        *b_GenTauE;   //!
 	 TBranch        *b_GenTau_GenTauHad;   //!
+	 TBranch        *b_IsolatedTracksNum;   //!
+	 TBranch        *b_IsolatedTracksPt;   //!
+	 TBranch        *b_IsolatedTracksEta;   //!
+	 TBranch        *b_IsolatedTracksPhi;   //!
+	 TBranch        *b_IsolatedTracksE;   //!
+	 TBranch        *b_selectedIDIsoMuonsNum;   //!
+	 TBranch        *b_selectedIDIsoMuonsPt;   //!
+	 TBranch        *b_selectedIDIsoMuonsEta;   //!
+	 TBranch        *b_selectedIDIsoMuonsPhi;   //!
+	 TBranch        *b_selectedIDIsoMuonsE;   //!
+	 TBranch        *b_selectedIDMuonsNum;   //!
+	 TBranch        *b_selectedIDMuonsPt;   //!
+	 TBranch        *b_selectedIDMuonsEta;   //!
+	 TBranch        *b_selectedIDMuonsPhi;   //!
+	 TBranch        *b_selectedIDMuonsE;   //!
+	 TBranch        *b_selectedIDIsoElectronsNum;   //!
+	 TBranch        *b_selectedIDIsoElectronsPt;   //!
+	 TBranch        *b_selectedIDIsoElectronsEta;   //!
+	 TBranch        *b_selectedIDIsoElectronsPhi;   //!
+	 TBranch        *b_selectedIDIsoElectronsE;   //!
+	 TBranch        *b_selectedIDElectronsNum;   //!
+	 TBranch        *b_selectedIDElectronsPt;   //!
+	 TBranch        *b_selectedIDElectronsEta;   //!
+	 TBranch        *b_selectedIDElectronsPhi;   //!
+	 TBranch        *b_selectedIDElectronsE;   //!
+	 TBranch        *b_SelectedPFCandidates_1Num;   //!
+	 TBranch        *b_SelectedPFCandidates_1Pt;   //!
+	 TBranch        *b_SelectedPFCandidates_1Eta;   //!
+	 TBranch        *b_SelectedPFCandidates_1Phi;   //!
+	 TBranch        *b_SelectedPFCandidates_1E;   //!
+	 TBranch        *b_SelectedPFCandidates_1_Charge;   //!
+	 TBranch        *b_SelectedPFCandidates_1_Typ;   //!
 	 TBranch        *b_MuonsNum;   //!
 	 TBranch        *b_MuonsPt;   //!
 	 TBranch        *b_MuonsEta;   //!
@@ -338,150 +404,183 @@ public :
 #ifdef TagAndProbe_cxx
 void TagAndProbe::Init(TTree *tree)
 {
-	// The Init() function is called when the selector needs to initialize
-	// a new tree or chain. Typically here the branch addresses and branch
-	// pointers of the tree will be set.
-	// It is normally not necessary to make changes to the generated
-	// code, but the routine can be extended by the user if needed.
-	// Init() will be called many times when running on PROOF
-	// (once per file to be processed).
-	
-	// Set branch addresses and branch pointers
-	if (!tree) return;
-	fChain = tree;
-	fChain->SetMakeClass(1);
-	
-	fChain->SetBranchAddress("RunNum", &RunNum, &b_RunNum);
-	fChain->SetBranchAddress("LumiBlockNum", &LumiBlockNum, &b_LumiBlockNum);
-	fChain->SetBranchAddress("EvtNum", &EvtNum, &b_EvtNum);
-	fChain->SetBranchAddress("NVtx", &NVtx, &b_NVtx);
-	fChain->SetBranchAddress("isoTracks", &isoTracks, &b_isoTracks);
-	fChain->SetBranchAddress("Leptons", &Leptons, &b_Leptons);
-	fChain->SetBranchAddress("LeptonsNoMiniIsolation", &LeptonsNoMiniIsolation, &b_LeptonsNoMiniIsolation);
-	fChain->SetBranchAddress("NJets", &NJets, &b_NJets);
-	fChain->SetBranchAddress("BTags", &BTags, &b_BTags);
-	fChain->SetBranchAddress("Weight", &Weight, &b_Weight);
-	fChain->SetBranchAddress("HT", &HT, &b_HT);
-	fChain->SetBranchAddress("MHT", &MHT, &b_MHT);
-	fChain->SetBranchAddress("DeltaPhi1", &DeltaPhi1, &b_DeltaPhi1);
-	fChain->SetBranchAddress("DeltaPhi2", &DeltaPhi2, &b_DeltaPhi2);
-	fChain->SetBranchAddress("DeltaPhi3", &DeltaPhi3, &b_DeltaPhi3);
-	fChain->SetBranchAddress("minDeltaPhiN", &minDeltaPhiN, &b_minDeltaPhiN);
-	fChain->SetBranchAddress("DeltaPhiN1", &DeltaPhiN1, &b_DeltaPhiN1);
-	fChain->SetBranchAddress("DeltaPhiN2", &DeltaPhiN2, &b_DeltaPhiN2);
-	fChain->SetBranchAddress("DeltaPhiN3", &DeltaPhiN3, &b_DeltaPhiN3);
-	fChain->SetBranchAddress("METPt", &METPt, &b_METPt);
-	fChain->SetBranchAddress("METPhi", &METPhi, &b_METPhi);
-	fChain->SetBranchAddress("MuIso_minDeltaPhiN", &MuIso_minDeltaPhiN, &b_MuIso_minDeltaPhiN);
-	fChain->SetBranchAddress("MuID_minDeltaPhiN", &MuID_minDeltaPhiN, &b_MuID_minDeltaPhiN);
-	fChain->SetBranchAddress("ElecIso_minDeltaPhiN", &ElecIso_minDeltaPhiN, &b_ElecIso_minDeltaPhiN);
-	fChain->SetBranchAddress("ElecID_minDeltaPhiN", &ElecID_minDeltaPhiN, &b_ElecID_minDeltaPhiN);
-	fChain->SetBranchAddress("TagIsoMuonNum", &TagIsoMuonNum, &b_TagIsoMuonNum);
-	fChain->SetBranchAddress("TagIsoMuonPt", TagIsoMuonPt, &b_TagIsoMuonPt);
-	fChain->SetBranchAddress("TagIsoMuonEta", TagIsoMuonEta, &b_TagIsoMuonEta);
-	fChain->SetBranchAddress("TagIsoMuonPhi", TagIsoMuonPhi, &b_TagIsoMuonPhi);
-	fChain->SetBranchAddress("TagIsoMuonE", TagIsoMuonE, &b_TagIsoMuonE);
-	fChain->SetBranchAddress("ProbeIsoMuonNum", &ProbeIsoMuonNum, &b_ProbeIsoMuonNum);
-	fChain->SetBranchAddress("ProbeIsoMuonPt", ProbeIsoMuonPt, &b_ProbeIsoMuonPt);
-	fChain->SetBranchAddress("ProbeIsoMuonEta", ProbeIsoMuonEta, &b_ProbeIsoMuonEta);
-	fChain->SetBranchAddress("ProbeIsoMuonPhi", ProbeIsoMuonPhi, &b_ProbeIsoMuonPhi);
-	fChain->SetBranchAddress("ProbeIsoMuonE", ProbeIsoMuonE, &b_ProbeIsoMuonE);
-	fChain->SetBranchAddress("ProbeIsoMuon_InvariantMass", ProbeIsoMuon_InvariantMass, &b_ProbeIsoMuon_InvariantMass);
-	fChain->SetBranchAddress("ProbeIsoMuon_PassingOrFail", ProbeIsoMuon_PassingOrFail, &b_ProbeIsoMuon_PassingOrFail);
-	fChain->SetBranchAddress("TagIDMuonNum", &TagIDMuonNum, &b_TagIDMuonNum);
-	fChain->SetBranchAddress("TagIDMuonPt", TagIDMuonPt, &b_TagIDMuonPt);
-	fChain->SetBranchAddress("TagIDMuonEta", TagIDMuonEta, &b_TagIDMuonEta);
-	fChain->SetBranchAddress("TagIDMuonPhi", TagIDMuonPhi, &b_TagIDMuonPhi);
-	fChain->SetBranchAddress("TagIDMuonE", TagIDMuonE, &b_TagIDMuonE);
-	fChain->SetBranchAddress("ProbeIDMuonNum", &ProbeIDMuonNum, &b_ProbeIDMuonNum);
-	fChain->SetBranchAddress("ProbeIDMuonPt", ProbeIDMuonPt, &b_ProbeIDMuonPt);
-	fChain->SetBranchAddress("ProbeIDMuonEta", ProbeIDMuonEta, &b_ProbeIDMuonEta);
-	fChain->SetBranchAddress("ProbeIDMuonPhi", ProbeIDMuonPhi, &b_ProbeIDMuonPhi);
-	fChain->SetBranchAddress("ProbeIDMuonE", ProbeIDMuonE, &b_ProbeIDMuonE);
-	fChain->SetBranchAddress("ProbeIDMuon_InvariantMass", ProbeIDMuon_InvariantMass, &b_ProbeIDMuon_InvariantMass);
-	fChain->SetBranchAddress("ProbeIDMuon_PassingOrFail", ProbeIDMuon_PassingOrFail, &b_ProbeIDMuon_PassingOrFail);
-	fChain->SetBranchAddress("TagIsoElectronNum", &TagIsoElectronNum, &b_TagIsoElectronNum);
-	fChain->SetBranchAddress("TagIsoElectronPt", TagIsoElectronPt, &b_TagIsoElectronPt);
-	fChain->SetBranchAddress("TagIsoElectronEta", TagIsoElectronEta, &b_TagIsoElectronEta);
-	fChain->SetBranchAddress("TagIsoElectronPhi", TagIsoElectronPhi, &b_TagIsoElectronPhi);
-	fChain->SetBranchAddress("TagIsoElectronE", TagIsoElectronE, &b_TagIsoElectronE);
-	fChain->SetBranchAddress("ProbeIsoElectronNum", &ProbeIsoElectronNum, &b_ProbeIsoElectronNum);
-	fChain->SetBranchAddress("ProbeIsoElectronPt", ProbeIsoElectronPt, &b_ProbeIsoElectronPt);
-	fChain->SetBranchAddress("ProbeIsoElectronEta", ProbeIsoElectronEta, &b_ProbeIsoElectronEta);
-	fChain->SetBranchAddress("ProbeIsoElectronPhi", ProbeIsoElectronPhi, &b_ProbeIsoElectronPhi);
-	fChain->SetBranchAddress("ProbeIsoElectronE", ProbeIsoElectronE, &b_ProbeIsoElectronE);
-	fChain->SetBranchAddress("ProbeIsoElectron_InvariantMass", ProbeIsoElectron_InvariantMass, &b_ProbeIsoElectron_InvariantMass);
-	fChain->SetBranchAddress("ProbeIsoElectron_PassingOrFail", ProbeIsoElectron_PassingOrFail, &b_ProbeIsoElectron_PassingOrFail);
-	fChain->SetBranchAddress("TagIDElectronNum", &TagIDElectronNum, &b_TagIDElectronNum);
-	fChain->SetBranchAddress("TagIDElectronPt", TagIDElectronPt, &b_TagIDElectronPt);
-	fChain->SetBranchAddress("TagIDElectronEta", TagIDElectronEta, &b_TagIDElectronEta);
-	fChain->SetBranchAddress("TagIDElectronPhi", TagIDElectronPhi, &b_TagIDElectronPhi);
-	fChain->SetBranchAddress("TagIDElectronE", TagIDElectronE, &b_TagIDElectronE);
-	fChain->SetBranchAddress("ProbeIDElectronNum", &ProbeIDElectronNum, &b_ProbeIDElectronNum);
-	fChain->SetBranchAddress("ProbeIDElectronPt", ProbeIDElectronPt, &b_ProbeIDElectronPt);
-	fChain->SetBranchAddress("ProbeIDElectronEta", ProbeIDElectronEta, &b_ProbeIDElectronEta);
-	fChain->SetBranchAddress("ProbeIDElectronPhi", ProbeIDElectronPhi, &b_ProbeIDElectronPhi);
-	fChain->SetBranchAddress("ProbeIDElectronE", ProbeIDElectronE, &b_ProbeIDElectronE);
-	fChain->SetBranchAddress("ProbeIDElectron_InvariantMass", ProbeIDElectron_InvariantMass, &b_ProbeIDElectron_InvariantMass);
-	fChain->SetBranchAddress("ProbeIDElectron_PassingOrFail", ProbeIDElectron_PassingOrFail, &b_ProbeIDElectron_PassingOrFail);
-	fChain->SetBranchAddress("JetsNum", &JetsNum, &b_JetsNum);
-	fChain->SetBranchAddress("JetsPt", JetsPt, &b_JetsPt);
-	fChain->SetBranchAddress("JetsEta", JetsEta, &b_JetsEta);
-	fChain->SetBranchAddress("JetsPhi", JetsPhi, &b_JetsPhi);
-	fChain->SetBranchAddress("JetsE", JetsE, &b_JetsE);
-	fChain->SetBranchAddress("Jets_bDiscriminator", Jets_bDiscriminator, &b_Jets_bDiscriminator);
-	fChain->SetBranchAddress("Jets_chargedEmEnergyFraction", Jets_chargedEmEnergyFraction, &b_Jets_chargedEmEnergyFraction);
-	fChain->SetBranchAddress("Jets_chargedHadronEnergyFraction", Jets_chargedHadronEnergyFraction, &b_Jets_chargedHadronEnergyFraction);
-	fChain->SetBranchAddress("Jets_chargedHadronMultiplicity", Jets_chargedHadronMultiplicity, &b_Jets_chargedHadronMultiplicity);
-	fChain->SetBranchAddress("Jets_electronMultiplicity", Jets_electronMultiplicity, &b_Jets_electronMultiplicity);
-	fChain->SetBranchAddress("Jets_jetArea", Jets_jetArea, &b_Jets_jetArea);
-	fChain->SetBranchAddress("Jets_muonEnergyFraction", Jets_muonEnergyFraction, &b_Jets_muonEnergyFraction);
-	fChain->SetBranchAddress("Jets_muonMultiplicity", Jets_muonMultiplicity, &b_Jets_muonMultiplicity);
-	fChain->SetBranchAddress("Jets_neutralEmEnergyFraction", Jets_neutralEmEnergyFraction, &b_Jets_neutralEmEnergyFraction);
-	fChain->SetBranchAddress("Jets_neutralHadronMultiplicity", Jets_neutralHadronMultiplicity, &b_Jets_neutralHadronMultiplicity);
-	fChain->SetBranchAddress("Jets_photonEnergyFraction", Jets_photonEnergyFraction, &b_Jets_photonEnergyFraction);
-	fChain->SetBranchAddress("Jets_photonMultiplicity", Jets_photonMultiplicity, &b_Jets_photonMultiplicity);
-	fChain->SetBranchAddress("SelectedPFCandidatesNum", &SelectedPFCandidatesNum, &b_SelectedPFCandidatesNum);
-	fChain->SetBranchAddress("SelectedPFCandidatesPt", SelectedPFCandidatesPt, &b_SelectedPFCandidatesPt);
-	fChain->SetBranchAddress("SelectedPFCandidatesEta", SelectedPFCandidatesEta, &b_SelectedPFCandidatesEta);
-	fChain->SetBranchAddress("SelectedPFCandidatesPhi", SelectedPFCandidatesPhi, &b_SelectedPFCandidatesPhi);
-	fChain->SetBranchAddress("SelectedPFCandidatesE", SelectedPFCandidatesE, &b_SelectedPFCandidatesE);
-	fChain->SetBranchAddress("SelectedPFCandidates_Charge", SelectedPFCandidates_Charge, &b_SelectedPFCandidates_Charge);
-	fChain->SetBranchAddress("SelectedPFCandidates_Typ", SelectedPFCandidates_Typ, &b_SelectedPFCandidates_Typ);
-	fChain->SetBranchAddress("GenBosonNum", &GenBosonNum, &b_GenBosonNum);
-	fChain->SetBranchAddress("GenBosonPt", GenBosonPt, &b_GenBosonPt);
-	fChain->SetBranchAddress("GenBosonEta", GenBosonEta, &b_GenBosonEta);
-	fChain->SetBranchAddress("GenBosonPhi", GenBosonPhi, &b_GenBosonPhi);
-	fChain->SetBranchAddress("GenBosonE", GenBosonE, &b_GenBosonE);
-	fChain->SetBranchAddress("GenBoson_GenBosonPDGId", GenBoson_GenBosonPDGId, &b_GenBoson_GenBosonPDGId);
-	fChain->SetBranchAddress("GenMuNum", &GenMuNum, &b_GenMuNum);
-	fChain->SetBranchAddress("GenMuPt", GenMuPt, &b_GenMuPt);
-	fChain->SetBranchAddress("GenMuEta", GenMuEta, &b_GenMuEta);
-	fChain->SetBranchAddress("GenMuPhi", GenMuPhi, &b_GenMuPhi);
-	fChain->SetBranchAddress("GenMuE", GenMuE, &b_GenMuE);
-	fChain->SetBranchAddress("GenMu_GenMuFromTau", GenMu_GenMuFromTau, &b_GenMu_GenMuFromTau);
-	fChain->SetBranchAddress("GenElecNum", &GenElecNum, &b_GenElecNum);
-	fChain->SetBranchAddress("GenElecPt", GenElecPt, &b_GenElecPt);
-	fChain->SetBranchAddress("GenElecEta", GenElecEta, &b_GenElecEta);
-	fChain->SetBranchAddress("GenElecPhi", GenElecPhi, &b_GenElecPhi);
-	fChain->SetBranchAddress("GenElecE", GenElecE, &b_GenElecE);
-	fChain->SetBranchAddress("GenElec_GenElecFromTau", GenElec_GenElecFromTau, &b_GenElec_GenElecFromTau);
-	fChain->SetBranchAddress("GenTauNum", &GenTauNum, &b_GenTauNum);
-	fChain->SetBranchAddress("GenTauPt", GenTauPt, &b_GenTauPt);
-	fChain->SetBranchAddress("GenTauEta", GenTauEta, &b_GenTauEta);
-	fChain->SetBranchAddress("GenTauPhi", GenTauPhi, &b_GenTauPhi);
-	fChain->SetBranchAddress("GenTauE", GenTauE, &b_GenTauE);
-	fChain->SetBranchAddress("GenTau_GenTauHad", GenTau_GenTauHad, &b_GenTau_GenTauHad);
-	fChain->SetBranchAddress("MuonsNum", &MuonsNum, &b_MuonsNum);
-	fChain->SetBranchAddress("MuonsPt", MuonsPt, &b_MuonsPt);
-	fChain->SetBranchAddress("MuonsEta", MuonsEta, &b_MuonsEta);
-	fChain->SetBranchAddress("MuonsPhi", MuonsPhi, &b_MuonsPhi);
-	fChain->SetBranchAddress("MuonsE", MuonsE, &b_MuonsE);
-	fChain->SetBranchAddress("ElectronsNum", &ElectronsNum, &b_ElectronsNum);
-	fChain->SetBranchAddress("ElectronsPt", ElectronsPt, &b_ElectronsPt);
-	fChain->SetBranchAddress("ElectronsEta", ElectronsEta, &b_ElectronsEta);
-	fChain->SetBranchAddress("ElectronsPhi", ElectronsPhi, &b_ElectronsPhi);
-	fChain->SetBranchAddress("ElectronsE", ElectronsE, &b_ElectronsE);
+  // The Init() function is called when the selector needs to initialize
+  // a new tree or chain. Typically here the branch addresses and branch
+  // pointers of the tree will be set.
+  // It is normally not necessary to make changes to the generated
+  // code, but the routine can be extended by the user if needed.
+  // Init() will be called many times when running on PROOF
+  // (once per file to be processed).
+  
+  // Set branch addresses and branch pointers
+  if (!tree) return;
+  fChain = tree;
+  fChain->SetMakeClass(1);
+  
+  fChain->SetBranchAddress("RunNum", &RunNum, &b_RunNum);
+  fChain->SetBranchAddress("LumiBlockNum", &LumiBlockNum, &b_LumiBlockNum);
+  fChain->SetBranchAddress("EvtNum", &EvtNum, &b_EvtNum);
+  fChain->SetBranchAddress("NVtx", &NVtx, &b_NVtx);
+  fChain->SetBranchAddress("isoTracks", &isoTracks, &b_isoTracks);
+  fChain->SetBranchAddress("Leptons", &Leptons, &b_Leptons);
+  fChain->SetBranchAddress("LeptonsNoMiniIsolation", &LeptonsNoMiniIsolation, &b_LeptonsNoMiniIsolation);
+  fChain->SetBranchAddress("NJets", &NJets, &b_NJets);
+  fChain->SetBranchAddress("BTags", &BTags, &b_BTags);
+  fChain->SetBranchAddress("Weight", &Weight, &b_Weight);
+  fChain->SetBranchAddress("HT", &HT, &b_HT);
+  fChain->SetBranchAddress("MHT", &MHT, &b_MHT);
+  fChain->SetBranchAddress("DeltaPhi1", &DeltaPhi1, &b_DeltaPhi1);
+  fChain->SetBranchAddress("DeltaPhi2", &DeltaPhi2, &b_DeltaPhi2);
+  fChain->SetBranchAddress("DeltaPhi3", &DeltaPhi3, &b_DeltaPhi3);
+  fChain->SetBranchAddress("minDeltaPhiN", &minDeltaPhiN, &b_minDeltaPhiN);
+  fChain->SetBranchAddress("DeltaPhiN1", &DeltaPhiN1, &b_DeltaPhiN1);
+  fChain->SetBranchAddress("DeltaPhiN2", &DeltaPhiN2, &b_DeltaPhiN2);
+  fChain->SetBranchAddress("DeltaPhiN3", &DeltaPhiN3, &b_DeltaPhiN3);
+  fChain->SetBranchAddress("METPt", &METPt, &b_METPt);
+  fChain->SetBranchAddress("METPhi", &METPhi, &b_METPhi);
+  fChain->SetBranchAddress("MuIso_minDeltaPhiN", &MuIso_minDeltaPhiN, &b_MuIso_minDeltaPhiN);
+  fChain->SetBranchAddress("MuID_minDeltaPhiN", &MuID_minDeltaPhiN, &b_MuID_minDeltaPhiN);
+  fChain->SetBranchAddress("ElecIso_minDeltaPhiN", &ElecIso_minDeltaPhiN, &b_ElecIso_minDeltaPhiN);
+  fChain->SetBranchAddress("ElecID_minDeltaPhiN", &ElecID_minDeltaPhiN, &b_ElecID_minDeltaPhiN);
+  fChain->SetBranchAddress("JetID", &JetID, &b_JetID);
+  fChain->SetBranchAddress("TagIsoMuonNum", &TagIsoMuonNum, &b_TagIsoMuonNum);
+  fChain->SetBranchAddress("TagIsoMuonPt", TagIsoMuonPt, &b_TagIsoMuonPt);
+  fChain->SetBranchAddress("TagIsoMuonEta", TagIsoMuonEta, &b_TagIsoMuonEta);
+  fChain->SetBranchAddress("TagIsoMuonPhi", TagIsoMuonPhi, &b_TagIsoMuonPhi);
+  fChain->SetBranchAddress("TagIsoMuonE", TagIsoMuonE, &b_TagIsoMuonE);
+  fChain->SetBranchAddress("ProbeIsoMuonNum", &ProbeIsoMuonNum, &b_ProbeIsoMuonNum);
+  fChain->SetBranchAddress("ProbeIsoMuonPt", ProbeIsoMuonPt, &b_ProbeIsoMuonPt);
+  fChain->SetBranchAddress("ProbeIsoMuonEta", ProbeIsoMuonEta, &b_ProbeIsoMuonEta);
+  fChain->SetBranchAddress("ProbeIsoMuonPhi", ProbeIsoMuonPhi, &b_ProbeIsoMuonPhi);
+  fChain->SetBranchAddress("ProbeIsoMuonE", ProbeIsoMuonE, &b_ProbeIsoMuonE);
+  fChain->SetBranchAddress("ProbeIsoMuon_InvariantMass", ProbeIsoMuon_InvariantMass, &b_ProbeIsoMuon_InvariantMass);
+  fChain->SetBranchAddress("ProbeIsoMuon_PassingOrFail", ProbeIsoMuon_PassingOrFail, &b_ProbeIsoMuon_PassingOrFail);
+  fChain->SetBranchAddress("TagIDMuonNum", &TagIDMuonNum, &b_TagIDMuonNum);
+  fChain->SetBranchAddress("TagIDMuonPt", TagIDMuonPt, &b_TagIDMuonPt);
+  fChain->SetBranchAddress("TagIDMuonEta", TagIDMuonEta, &b_TagIDMuonEta);
+  fChain->SetBranchAddress("TagIDMuonPhi", TagIDMuonPhi, &b_TagIDMuonPhi);
+  fChain->SetBranchAddress("TagIDMuonE", TagIDMuonE, &b_TagIDMuonE);
+  fChain->SetBranchAddress("ProbeIDMuonNum", &ProbeIDMuonNum, &b_ProbeIDMuonNum);
+  fChain->SetBranchAddress("ProbeIDMuonPt", ProbeIDMuonPt, &b_ProbeIDMuonPt);
+  fChain->SetBranchAddress("ProbeIDMuonEta", ProbeIDMuonEta, &b_ProbeIDMuonEta);
+  fChain->SetBranchAddress("ProbeIDMuonPhi", ProbeIDMuonPhi, &b_ProbeIDMuonPhi);
+  fChain->SetBranchAddress("ProbeIDMuonE", ProbeIDMuonE, &b_ProbeIDMuonE);
+  fChain->SetBranchAddress("ProbeIDMuon_InvariantMass", ProbeIDMuon_InvariantMass, &b_ProbeIDMuon_InvariantMass);
+  fChain->SetBranchAddress("ProbeIDMuon_PassingOrFail", ProbeIDMuon_PassingOrFail, &b_ProbeIDMuon_PassingOrFail);
+  fChain->SetBranchAddress("TagIsoElectronNum", &TagIsoElectronNum, &b_TagIsoElectronNum);
+  fChain->SetBranchAddress("TagIsoElectronPt", TagIsoElectronPt, &b_TagIsoElectronPt);
+  fChain->SetBranchAddress("TagIsoElectronEta", TagIsoElectronEta, &b_TagIsoElectronEta);
+  fChain->SetBranchAddress("TagIsoElectronPhi", TagIsoElectronPhi, &b_TagIsoElectronPhi);
+  fChain->SetBranchAddress("TagIsoElectronE", TagIsoElectronE, &b_TagIsoElectronE);
+  fChain->SetBranchAddress("ProbeIsoElectronNum", &ProbeIsoElectronNum, &b_ProbeIsoElectronNum);
+  fChain->SetBranchAddress("ProbeIsoElectronPt", ProbeIsoElectronPt, &b_ProbeIsoElectronPt);
+  fChain->SetBranchAddress("ProbeIsoElectronEta", ProbeIsoElectronEta, &b_ProbeIsoElectronEta);
+  fChain->SetBranchAddress("ProbeIsoElectronPhi", ProbeIsoElectronPhi, &b_ProbeIsoElectronPhi);
+  fChain->SetBranchAddress("ProbeIsoElectronE", ProbeIsoElectronE, &b_ProbeIsoElectronE);
+  fChain->SetBranchAddress("ProbeIsoElectron_InvariantMass", ProbeIsoElectron_InvariantMass, &b_ProbeIsoElectron_InvariantMass);
+  fChain->SetBranchAddress("ProbeIsoElectron_PassingOrFail", ProbeIsoElectron_PassingOrFail, &b_ProbeIsoElectron_PassingOrFail);
+  fChain->SetBranchAddress("TagIDElectronNum", &TagIDElectronNum, &b_TagIDElectronNum);
+  fChain->SetBranchAddress("TagIDElectronPt", TagIDElectronPt, &b_TagIDElectronPt);
+  fChain->SetBranchAddress("TagIDElectronEta", TagIDElectronEta, &b_TagIDElectronEta);
+  fChain->SetBranchAddress("TagIDElectronPhi", TagIDElectronPhi, &b_TagIDElectronPhi);
+  fChain->SetBranchAddress("TagIDElectronE", TagIDElectronE, &b_TagIDElectronE);
+  fChain->SetBranchAddress("ProbeIDElectronNum", &ProbeIDElectronNum, &b_ProbeIDElectronNum);
+  fChain->SetBranchAddress("ProbeIDElectronPt", ProbeIDElectronPt, &b_ProbeIDElectronPt);
+  fChain->SetBranchAddress("ProbeIDElectronEta", ProbeIDElectronEta, &b_ProbeIDElectronEta);
+  fChain->SetBranchAddress("ProbeIDElectronPhi", ProbeIDElectronPhi, &b_ProbeIDElectronPhi);
+  fChain->SetBranchAddress("ProbeIDElectronE", ProbeIDElectronE, &b_ProbeIDElectronE);
+  fChain->SetBranchAddress("ProbeIDElectron_InvariantMass", ProbeIDElectron_InvariantMass, &b_ProbeIDElectron_InvariantMass);
+  fChain->SetBranchAddress("ProbeIDElectron_PassingOrFail", ProbeIDElectron_PassingOrFail, &b_ProbeIDElectron_PassingOrFail);
+  fChain->SetBranchAddress("JetsNum", &JetsNum, &b_JetsNum);
+  fChain->SetBranchAddress("JetsPt", JetsPt, &b_JetsPt);
+  fChain->SetBranchAddress("JetsEta", JetsEta, &b_JetsEta);
+  fChain->SetBranchAddress("JetsPhi", JetsPhi, &b_JetsPhi);
+  fChain->SetBranchAddress("JetsE", JetsE, &b_JetsE);
+  fChain->SetBranchAddress("Jets_bDiscriminator", Jets_bDiscriminator, &b_Jets_bDiscriminator);
+  fChain->SetBranchAddress("Jets_chargedEmEnergyFraction", Jets_chargedEmEnergyFraction, &b_Jets_chargedEmEnergyFraction);
+  fChain->SetBranchAddress("Jets_chargedHadronEnergyFraction", Jets_chargedHadronEnergyFraction, &b_Jets_chargedHadronEnergyFraction);
+  fChain->SetBranchAddress("Jets_chargedHadronMultiplicity", Jets_chargedHadronMultiplicity, &b_Jets_chargedHadronMultiplicity);
+  fChain->SetBranchAddress("Jets_electronMultiplicity", Jets_electronMultiplicity, &b_Jets_electronMultiplicity);
+  fChain->SetBranchAddress("Jets_jetArea", Jets_jetArea, &b_Jets_jetArea);
+  fChain->SetBranchAddress("Jets_muonEnergyFraction", Jets_muonEnergyFraction, &b_Jets_muonEnergyFraction);
+  fChain->SetBranchAddress("Jets_muonMultiplicity", Jets_muonMultiplicity, &b_Jets_muonMultiplicity);
+  fChain->SetBranchAddress("Jets_neutralEmEnergyFraction", Jets_neutralEmEnergyFraction, &b_Jets_neutralEmEnergyFraction);
+  fChain->SetBranchAddress("Jets_neutralHadronMultiplicity", Jets_neutralHadronMultiplicity, &b_Jets_neutralHadronMultiplicity);
+  fChain->SetBranchAddress("Jets_photonEnergyFraction", Jets_photonEnergyFraction, &b_Jets_photonEnergyFraction);
+  fChain->SetBranchAddress("Jets_photonMultiplicity", Jets_photonMultiplicity, &b_Jets_photonMultiplicity);
+  fChain->SetBranchAddress("SelectedPFCandidatesNum", &SelectedPFCandidatesNum, &b_SelectedPFCandidatesNum);
+  fChain->SetBranchAddress("SelectedPFCandidatesPt", SelectedPFCandidatesPt, &b_SelectedPFCandidatesPt);
+  fChain->SetBranchAddress("SelectedPFCandidatesEta", SelectedPFCandidatesEta, &b_SelectedPFCandidatesEta);
+  fChain->SetBranchAddress("SelectedPFCandidatesPhi", SelectedPFCandidatesPhi, &b_SelectedPFCandidatesPhi);
+  fChain->SetBranchAddress("SelectedPFCandidatesE", SelectedPFCandidatesE, &b_SelectedPFCandidatesE);
+  fChain->SetBranchAddress("SelectedPFCandidates_Charge", SelectedPFCandidates_Charge, &b_SelectedPFCandidates_Charge);
+  fChain->SetBranchAddress("SelectedPFCandidates_Typ", SelectedPFCandidates_Typ, &b_SelectedPFCandidates_Typ);
+  fChain->SetBranchAddress("GenBosonNum", &GenBosonNum, &b_GenBosonNum);
+  fChain->SetBranchAddress("GenBosonPt", GenBosonPt, &b_GenBosonPt);
+  fChain->SetBranchAddress("GenBosonEta", GenBosonEta, &b_GenBosonEta);
+  fChain->SetBranchAddress("GenBosonPhi", GenBosonPhi, &b_GenBosonPhi);
+  fChain->SetBranchAddress("GenBosonE", GenBosonE, &b_GenBosonE);
+  fChain->SetBranchAddress("GenBoson_GenBosonPDGId", GenBoson_GenBosonPDGId, &b_GenBoson_GenBosonPDGId);
+  fChain->SetBranchAddress("GenMuNum", &GenMuNum, &b_GenMuNum);
+  fChain->SetBranchAddress("GenMuPt", GenMuPt, &b_GenMuPt);
+  fChain->SetBranchAddress("GenMuEta", GenMuEta, &b_GenMuEta);
+  fChain->SetBranchAddress("GenMuPhi", GenMuPhi, &b_GenMuPhi);
+  fChain->SetBranchAddress("GenMuE", GenMuE, &b_GenMuE);
+  fChain->SetBranchAddress("GenMu_GenMuFromTau", GenMu_GenMuFromTau, &b_GenMu_GenMuFromTau);
+  fChain->SetBranchAddress("GenElecNum", &GenElecNum, &b_GenElecNum);
+  fChain->SetBranchAddress("GenElecPt", GenElecPt, &b_GenElecPt);
+  fChain->SetBranchAddress("GenElecEta", GenElecEta, &b_GenElecEta);
+  fChain->SetBranchAddress("GenElecPhi", GenElecPhi, &b_GenElecPhi);
+  fChain->SetBranchAddress("GenElecE", GenElecE, &b_GenElecE);
+  fChain->SetBranchAddress("GenElec_GenElecFromTau", GenElec_GenElecFromTau, &b_GenElec_GenElecFromTau);
+  fChain->SetBranchAddress("GenTauNum", &GenTauNum, &b_GenTauNum);
+  fChain->SetBranchAddress("GenTauPt", GenTauPt, &b_GenTauPt);
+  fChain->SetBranchAddress("GenTauEta", GenTauEta, &b_GenTauEta);
+  fChain->SetBranchAddress("GenTauPhi", GenTauPhi, &b_GenTauPhi);
+  fChain->SetBranchAddress("GenTauE", GenTauE, &b_GenTauE);
+  fChain->SetBranchAddress("GenTau_GenTauHad", GenTau_GenTauHad, &b_GenTau_GenTauHad);
+  fChain->SetBranchAddress("IsolatedTracksNum", &IsolatedTracksNum, &b_IsolatedTracksNum);
+  fChain->SetBranchAddress("IsolatedTracksPt", IsolatedTracksPt, &b_IsolatedTracksPt);
+  fChain->SetBranchAddress("IsolatedTracksEta", IsolatedTracksEta, &b_IsolatedTracksEta);
+  fChain->SetBranchAddress("IsolatedTracksPhi", IsolatedTracksPhi, &b_IsolatedTracksPhi);
+  fChain->SetBranchAddress("IsolatedTracksE", IsolatedTracksE, &b_IsolatedTracksE);
+  fChain->SetBranchAddress("selectedIDIsoMuonsNum", &selectedIDIsoMuonsNum, &b_selectedIDIsoMuonsNum);
+  fChain->SetBranchAddress("selectedIDIsoMuonsPt", selectedIDIsoMuonsPt, &b_selectedIDIsoMuonsPt);
+  fChain->SetBranchAddress("selectedIDIsoMuonsEta", selectedIDIsoMuonsEta, &b_selectedIDIsoMuonsEta);
+  fChain->SetBranchAddress("selectedIDIsoMuonsPhi", selectedIDIsoMuonsPhi, &b_selectedIDIsoMuonsPhi);
+  fChain->SetBranchAddress("selectedIDIsoMuonsE", selectedIDIsoMuonsE, &b_selectedIDIsoMuonsE);
+  fChain->SetBranchAddress("selectedIDMuonsNum", &selectedIDMuonsNum, &b_selectedIDMuonsNum);
+  fChain->SetBranchAddress("selectedIDMuonsPt", selectedIDMuonsPt, &b_selectedIDMuonsPt);
+  fChain->SetBranchAddress("selectedIDMuonsEta", selectedIDMuonsEta, &b_selectedIDMuonsEta);
+  fChain->SetBranchAddress("selectedIDMuonsPhi", selectedIDMuonsPhi, &b_selectedIDMuonsPhi);
+  fChain->SetBranchAddress("selectedIDMuonsE", selectedIDMuonsE, &b_selectedIDMuonsE);
+  fChain->SetBranchAddress("selectedIDIsoElectronsNum", &selectedIDIsoElectronsNum, &b_selectedIDIsoElectronsNum);
+  fChain->SetBranchAddress("selectedIDIsoElectronsPt", selectedIDIsoElectronsPt, &b_selectedIDIsoElectronsPt);
+  fChain->SetBranchAddress("selectedIDIsoElectronsEta", selectedIDIsoElectronsEta, &b_selectedIDIsoElectronsEta);
+  fChain->SetBranchAddress("selectedIDIsoElectronsPhi", selectedIDIsoElectronsPhi, &b_selectedIDIsoElectronsPhi);
+  fChain->SetBranchAddress("selectedIDIsoElectronsE", selectedIDIsoElectronsE, &b_selectedIDIsoElectronsE);
+  fChain->SetBranchAddress("selectedIDElectronsNum", &selectedIDElectronsNum, &b_selectedIDElectronsNum);
+  fChain->SetBranchAddress("selectedIDElectronsPt", selectedIDElectronsPt, &b_selectedIDElectronsPt);
+  fChain->SetBranchAddress("selectedIDElectronsEta", selectedIDElectronsEta, &b_selectedIDElectronsEta);
+  fChain->SetBranchAddress("selectedIDElectronsPhi", selectedIDElectronsPhi, &b_selectedIDElectronsPhi);
+  fChain->SetBranchAddress("selectedIDElectronsE", selectedIDElectronsE, &b_selectedIDElectronsE);
+  fChain->SetBranchAddress("SelectedPFCandidates_1Num", &SelectedPFCandidates_1Num, &b_SelectedPFCandidates_1Num);
+  fChain->SetBranchAddress("SelectedPFCandidates_1Pt", SelectedPFCandidates_1Pt, &b_SelectedPFCandidates_1Pt);
+  fChain->SetBranchAddress("SelectedPFCandidates_1Eta", SelectedPFCandidates_1Eta, &b_SelectedPFCandidates_1Eta);
+  fChain->SetBranchAddress("SelectedPFCandidates_1Phi", SelectedPFCandidates_1Phi, &b_SelectedPFCandidates_1Phi);
+  fChain->SetBranchAddress("SelectedPFCandidates_1E", SelectedPFCandidates_1E, &b_SelectedPFCandidates_1E);
+  fChain->SetBranchAddress("SelectedPFCandidates_1_Charge", SelectedPFCandidates_1_Charge, &b_SelectedPFCandidates_1_Charge);
+  fChain->SetBranchAddress("SelectedPFCandidates_1_Typ", SelectedPFCandidates_1_Typ, &b_SelectedPFCandidates_1_Typ);
+  fChain->SetBranchAddress("MuonsNum", &MuonsNum, &b_MuonsNum);
+  fChain->SetBranchAddress("MuonsPt", MuonsPt, &b_MuonsPt);
+  fChain->SetBranchAddress("MuonsEta", MuonsEta, &b_MuonsEta);
+  fChain->SetBranchAddress("MuonsPhi", MuonsPhi, &b_MuonsPhi);
+  fChain->SetBranchAddress("MuonsE", MuonsE, &b_MuonsE);
+  fChain->SetBranchAddress("ElectronsNum", &ElectronsNum, &b_ElectronsNum);
+  fChain->SetBranchAddress("ElectronsPt", ElectronsPt, &b_ElectronsPt);
+  fChain->SetBranchAddress("ElectronsEta", ElectronsEta, &b_ElectronsEta);
+  fChain->SetBranchAddress("ElectronsPhi", ElectronsPhi, &b_ElectronsPhi);
+  fChain->SetBranchAddress("ElectronsE", ElectronsE, &b_ElectronsE);
 }
 
 Bool_t TagAndProbe::Notify()

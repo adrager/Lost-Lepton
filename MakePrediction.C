@@ -22,6 +22,11 @@ void MakePrediction()
 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/WJetsToLNu_HT-200to400/*root");
 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/WJetsToLNu_HT-400to600/*root");
 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/WJetsToLNu_HT-600toInf/*root");
+	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/TBarToLeptons_s-channel-CSA14_Tune4C_13TeV-aMCatNLO-tauola/*.root");
+	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/TBarToLeptons_t-channel_Tune4C_CSA14_13TeV-aMCatNLO-tauola/*.root");
+	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/TToLeptons_s-channel-CSA14_Tune4C_13TeV-aMCatNLO-tauola/*.root");
+	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/TToLeptons_t-channel-CSA14_Tune4C_13TeV-aMCatNLO-tauola/*.root");
+	
 	
 
 	//    	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/SMS-T1bbbb_2J_mGl-1000_mLSP-900/*root");

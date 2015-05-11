@@ -4,7 +4,7 @@
 //#include "EffMaker.h"
 void MakeTagAndProbe()
 {
-	  	TProof *proof = TProof::Open("workers=10");
+ 	  	TProof *proof = TProof::Open("workers=10");
 	// 	TString connect = gSystem.GetFromPipe("pod-info -c");
 	// 	TProof *proof = TProof::Open(connect);
 	// 	TProof *proof = TProof::Open("workers=20");
@@ -28,9 +28,9 @@ void MakeTagAndProbe()
 	// 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/QCD_HT-500To1000_13TeV-madgraph_v1/*root");
 	// 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/QCD_HT-500To1000_13TeV-madgraph_v1_ext1/*root");
 	
-	         	Effchain->SetProof();
+ 	         	Effchain->SetProof();
 //  	Effchain->Process("/afs/desy.de/user/a/adraeger/2015/TagAndProbe.C++g",0,800000);
  	Effchain->Process("/afs/desy.de/user/a/adraeger/2015/TagAndProbe.C++g");
-	         	Effchain->SetProof(0);
-	        	delete proof;
+ 	         	Effchain->SetProof(0);
+ 	        	delete proof;
 }

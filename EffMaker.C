@@ -110,6 +110,71 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
   ElecPurityMHTNJetFail->SetName("ElecPurityFail");
   //GetOutputList()->Add(ElecPurityMHTNJetFail); 
   
+  //
+  
+  MuPurityCheckBTag_ = new TH1F("MuPurityCheckBTag1D","MuPurityCheckBTag1D",oneDBJets_-1,OneDBJets_);
+  //GetOutputList()->Add(MuPurityCheckBTag_);
+  MuPurityCheckBTagFail_ = (TH1F*)MuPurityCheckBTag_->Clone();
+  MuPurityCheckBTagFail_->SetName("MuPurityCheckBTag1DFail");
+  //GetOutputList()->Add(MuPurityCheckBTagFail_); 
+  
+  MuPurityCheckNJets_ = new TH1F("MuPurityCheckNJets1D","MuPurityCheckNJets1D",oneDNJets_-1,OneDNJets_);
+  //GetOutputList()->Add(MuPurityCheckNJets_);
+  MuPurityCheckNJetsFail_ = (TH1F*)MuPurityCheckNJets_->Clone();
+  MuPurityCheckNJetsFail_->SetName("MuPurityCheckNJets1DFail");
+  //GetOutputList()->Add(MuPurityCheckNJetsFail_); 
+  
+  MuPurityCheckHT_ = new TH1F("MuPurityCheckHT1D","MuPurityCheckHT1D",oneDHT_-1,OneDHT_);
+  //GetOutputList()->Add(MuPurityCheckHT_);
+  MuPurityCheckHTFail_ = (TH1F*)MuPurityCheckHT_->Clone();
+  MuPurityCheckHTFail_->SetName("MuPurityCheckHT1DFail");
+  //GetOutputList()->Add(MuPurityCheckHTFail_); 
+  
+  MuPurityCheckMHT_ = new TH1F("MuPurityCheckMHT1D","MuPurityCheckMHT1D",oneDMHT_-1,OneDMHT_);
+  //GetOutputList()->Add(MuPurityCheckMHT_);
+  MuPurityCheckMHTFail_ = (TH1F*)MuPurityCheckMHT_->Clone();
+  MuPurityCheckMHTFail_->SetName("MuPurityCheckMHT1DFail");
+  //GetOutputList()->Add(MuPurityCheckMHTFail_); 
+  //2D
+  MuonPurityCheckMHTNJet = new TH2F("MuonPurityCheck","MuonPurityCheck",mupurityMHT_-1,muPurityMHT_,mupurityNJet_-1,muPurityNJet_);
+  //GetOutputList()->Add(MuonPurityCheckMHTNJet);
+  MuonPurityCheckMHTNJetFail = (TH2F*)MuonPurityCheckMHTNJet->Clone();
+  MuonPurityCheckMHTNJetFail->SetName("MuonPurityCheckFail");
+  //GetOutputList()->Add(MuonPurityCheckMHTNJetFail);  
+  // electron
+  //1D
+  ElecPurityCheckBTag_ = new TH1F("ElecPurityCheckBTag1D","ElecPurityCheckBTag1D",oneDBJets_-1,OneDBJets_);
+  //GetOutputList()->Add(ElecPurityCheckBTag_);
+  ElecPurityCheckBTagFail_ = (TH1F*)ElecPurityCheckBTag_->Clone();
+  ElecPurityCheckBTagFail_->SetName("ElecPurityCheckBTag1DFail");
+  //GetOutputList()->Add(ElecPurityCheckBTagFail_); 
+  
+  ElecPurityCheckNJets_ = new TH1F("ElecPurityCheckNJets1D","ElecPurityCheckNJets1D",oneDNJets_-1,OneDNJets_);
+  //GetOutputList()->Add(ElecPurityCheckNJets_);
+  ElecPurityCheckNJetsFail_ = (TH1F*)ElecPurityCheckNJets_->Clone();
+  ElecPurityCheckNJetsFail_->SetName("ElecPurityCheckNJets1DFail");
+  //GetOutputList()->Add(ElecPurityCheckNJetsFail_); 
+  
+  ElecPurityCheckHT_ = new TH1F("ElecPurityCheckHT1D","ElecPurityCheckHT1D",oneDHT_-1,OneDHT_);
+  //GetOutputList()->Add(ElecPurityCheckHT_);
+  ElecPurityCheckHTFail_ = (TH1F*)ElecPurityCheckHT_->Clone();
+  ElecPurityCheckHTFail_->SetName("ElecPurityCheckHT1DFail");
+  //GetOutputList()->Add(ElecPurityCheckHTFail_); 
+  
+  ElecPurityCheckMHT_ = new TH1F("ElecPurityCheckMHT1D","ElecPurityCheckMHT1D",oneDMHT_-1,OneDMHT_);
+  //GetOutputList()->Add(ElecPurityCheckMHT_);
+  ElecPurityCheckMHTFail_ = (TH1F*)ElecPurityCheckMHT_->Clone();
+  ElecPurityCheckMHTFail_->SetName("ElecPurityCheckMHT1DFail");
+  //GetOutputList()->Add(ElecPurityCheckMHTFail_); 
+  //2D
+  std::cout<<"POin5"<<std::endl;
+  ElecPurityCheckMHTNJet = new TH2F("ElecPurityCheck","ElecPurityCheck",mupurityMHT_-1,muPurityMHT_,mupurityNJet_-1,muPurityNJet_);
+  //GetOutputList()->Add(ElecPurityCheckMHTNJet);
+  ElecPurityCheckMHTNJetFail = (TH2F*)ElecPurityCheckMHTNJet->Clone();
+  ElecPurityCheckMHTNJetFail->SetName("ElecPurityCheckFail");
+  //GetOutputList()->Add(ElecPurityCheckMHTNJetFail); 
+  
+  
   // acceptance
   //muon
   //1D
@@ -158,6 +223,16 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
 	
 	MuAccBTagNJetsEff_= new TH2Feff("MuAccBTagNJets","MuAccBTagNJets",muaccBTags_-1,muAccBTags_, muaccNJets_-1, muAccNJets_);
 	//GetOutputList()->Add(MuAccBTagNJetsFail_); 
+	
+	MuAccMHTNJetsB0_ = new TH2F("MuAccMHTNJetsB0","MuAccMHTNJetsB0",muaccMHT_-1,muAccMHT_, muaccNJets_-1, muAccNJets_);
+	//GetOutputList()->Add(MuAccMHTNJets_);
+	MuAccMHTNJetsB0Fail_ = (TH2F*)MuAccMHTNJetsB0_->Clone();
+	MuAccMHTNJetsB0Fail_->SetName("MuAccMHTNJetsB0Fail");
+	
+	MuAccMHTNJetsB1_Inf_ = new TH2F("MuAccMHTNJetsB1_Inf","MuAccMHTNJetsB1_Inf",muaccMHT_-1,muAccMHT_, muaccNJets_-1, muAccNJets_);
+	//GetOutputList()->Add(MuAccMHTNJets_);
+	MuAccMHTNJetsB1_InfFail_ = (TH2F*)MuAccMHTNJetsB1_Inf_->Clone();
+	MuAccMHTNJetsB1_InfFail_->SetName("MuAccMHTNJetsB1_InfFail");
   
   //muon
   //1D
@@ -203,6 +278,16 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
 	ElecAccBTagNJetsFail_ = (TH2F*)ElecAccBTagNJets_->Clone();
 	ElecAccBTagNJetsFail_->SetName("ElecAccBTagNJetsFail");
 	//GetOutputList()->Add(ElecAccBTagNJetsFail_); 
+	
+	ElecAccMHTNJetsB0_ = new TH2F("ElecAccMHTNJetsB0","ElecAccMHTNJetsB0",elecaccMHT_-1,elecAccMHT_, elecaccNJets_-1, elecAccNJets_);
+	//GetOutputList()->Add(ElecAccMHTNJets_);
+	ElecAccMHTNJetsB0Fail_ = (TH2F*)ElecAccMHTNJetsB0_->Clone();
+	ElecAccMHTNJetsB0Fail_->SetName("ElecAccMHTNJetsB0Fail");
+	
+	ElecAccMHTNJetsB1_Inf_ = new TH2F("ElecAccMHTNJetsB1_Inf","ElecAccMHTNJetsB1_Inf",elecaccMHT_-1,elecAccMHT_, elecaccNJets_-1, elecAccNJets_);
+	//GetOutputList()->Add(ElecAccMHTNJets_);
+	ElecAccMHTNJetsB1_InfFail_ = (TH2F*)ElecAccMHTNJetsB1_Inf_->Clone();
+	ElecAccMHTNJetsB1_InfFail_->SetName("ElecAccMHTNJetsB1_InfFail");
   
   // reconstruction
   //muon
@@ -1176,6 +1261,49 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
 	
 	ExpectationReductionIsoTrack_ = new Efficiency("ExpectationReductionIsoTrack","ExpectationReductionIsoTrack");
 	
+	//1D
+	ExpectationReductionIsoTrackBTagEff = new TH1F("ExpectationReductionIsoTrackBTagEff","ExpectationReductionIsoTrackBTagEff",isotrackreductionBTags_-1,isoTrackReductionBTags_);
+	//GetOutputList()->Add(IsoTrackReductionHTNJets_);
+	ExpectationReductionIsoTrackBTagEffFail = (TH1F*)ExpectationReductionIsoTrackBTagEff->Clone();
+	ExpectationReductionIsoTrackBTagEffFail->SetName("ExpectationReductionIsoTrackBTagEffFail");
+	//GetOutputList()->Add(IsoTrackReductionHTNJetsFail_); 
+	
+	ExpectationReductionIsoTrackNJetsEff = new TH1F("ExpectationReductionIsoTrackNJetsEff","ExpectationReductionIsoTrackNJetsEff",isotrackreductionNJets_-1,isoTrackReductionNJets_);
+	//GetOutputList()->Add(IsoTrackReductionHTNJets_);
+	ExpectationReductionIsoTrackNJetsEffFail = (TH1F*)ExpectationReductionIsoTrackNJetsEff->Clone();
+	ExpectationReductionIsoTrackNJetsEffFail->SetName("ExpectationReductionIsoTrackNJetsEffFail");
+	//GetOutputList()->Add(IsoTrackReductionHTNJetsFail_); 
+	
+	ExpectationReductionIsoTrackHTEff = new TH1F("ExpectationReductionIsoTrackHTEff","ExpectationReductionIsoTrackHTEff",isotrackreductionHT_-1,isoTrackReductionHT_);
+	//GetOutputList()->Add(IsoTrackReductionHTNJets_);
+	ExpectationReductionIsoTrackHTEffFail = (TH1F*)ExpectationReductionIsoTrackHTEff->Clone();
+	ExpectationReductionIsoTrackHTEffFail->SetName("ExpectationReductionIsoTrackHTEffFail");
+	//GetOutputList()->Add(IsoTrackReductionHTNJetsFail_); 
+	
+	ExpectationReductionIsoTrackMHTEff = new TH1F("ExpectationReductionIsoTrackMHTEff","ExpectationReductionIsoTrackMHTEff",isotrackreductionMHT_-1,isoTrackReductionMHT_);
+	//GetOutputList()->Add(IsoTrackReductionHTNJets_);
+	ExpectationReductionIsoTrackMHTEffFail = (TH1F*)ExpectationReductionIsoTrackMHTEff->Clone();
+	ExpectationReductionIsoTrackMHTEffFail->SetName("ExpectationReductionIsoTrackMHTEffFail");
+	//GetOutputList()->Add(IsoTrackReductionHTNJetsFail_); 
+	
+	//2D
+	IsoTrackReductionHTNJets_ = new TH2F("IsoTrackReductionHTNJets","IsoTrackReductionHTNJets",isotrackreductionHT_-1,isoTrackReductionHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
+	//GetOutputList()->Add(IsoTrackReductionHTNJets_);
+	IsoTrackReductionHTNJetsFail_ = (TH2F*)IsoTrackReductionHTNJets_->Clone();
+	IsoTrackReductionHTNJetsFail_->SetName("IsoTrackReductionHTNJetsFail");
+	//GetOutputList()->Add(IsoTrackReductionHTNJetsFail_); 
+	
+	IsoTrackReductionMHTNJets_ = new TH2F("IsoTrackReductionMHTNJets","IsoTrackReductionMHTNJets",isotrackreductionMHT_-1,isoTrackReductionMHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
+	//GetOutputList()->Add(IsoTrackReductionMHTNJets_);
+	IsoTrackReductionMHTNJetsFail_ = (TH2F*)IsoTrackReductionMHTNJets_->Clone();
+	IsoTrackReductionMHTNJetsFail_->SetName("IsoTrackReductionMHTNJetsFail");
+	//GetOutputList()->Add(IsoTrackReductionMHTNJetsFail_); 
+	
+	IsoTrackReductionBTagNJets_ = new TH2F("IsoTrackReductionBTagNJets","IsoTrackReductionBTagNJets",isotrackreductionBTags2D_-1,isoTrackReductionBTags2D_, isotrackreductionNJets2D_-1, isoTrackReductionNJets2D_);
+	//GetOutputList()->Add(IsoTrackReductionBTagNJets_);
+	IsoTrackReductionBTagNJetsFail_ = (TH2F*)IsoTrackReductionBTagNJets_->Clone();
+	IsoTrackReductionBTagNJetsFail_->SetName("IsoTrackReductionBTagNJetsFail");
+	
 	
 }
 
@@ -1187,6 +1315,47 @@ Bool_t EffMaker::Process(Long64_t entry)
 	
   // purity
   // single muon control sample
+  // x-check
+  if(MuPurity==2)
+  {
+    //1D
+    MuPurityCheckBTag_->Fill(BTags,Weight);
+    MuPurityCheckNJets_->Fill(NJets,Weight);
+    MuPurityCheckHT_->Fill(HT,Weight);
+    MuPurityCheckMHT_->Fill(MHT,Weight);
+    //2D
+    MuonPurityCheckMHTNJet->Fill(MHT,NJets,Weight);
+  }
+  if(MuPurity==0)
+  {
+    //1D
+    MuPurityCheckBTagFail_->Fill(BTags,Weight);
+    MuPurityCheckNJetsFail_->Fill(NJets,Weight);
+    MuPurityCheckHTFail_->Fill(HT,Weight);
+    MuPurityCheckMHTFail_->Fill(MHT,Weight);
+    //2D
+    MuonPurityCheckMHTNJetFail->Fill(MHT,NJets,Weight);
+  }
+  if(ElecPurity==2)
+  {
+    //1D
+    ElecPurityCheckBTag_->Fill(BTags,Weight);
+    ElecPurityCheckNJets_->Fill(NJets,Weight);
+    ElecPurityCheckHT_->Fill(HT,Weight);
+    ElecPurityCheckMHT_->Fill(MHT,Weight);
+    //2D
+    ElecPurityCheckMHTNJet->Fill(MHT,NJets,Weight);
+  }
+  if(ElecPurity==0)
+  {
+    //1D
+    ElecPurityCheckBTagFail_->Fill(BTags,Weight);
+    ElecPurityCheckNJetsFail_->Fill(NJets,Weight);
+    ElecPurityCheckHTFail_->Fill(HT,Weight);
+    ElecPurityCheckMHTFail_->Fill(MHT,Weight);
+    //2D
+    ElecPurityCheckMHTNJetFail->Fill(MHT,NJets,Weight);
+  }
   if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0)
   {
     if(RecoIsoMuonPromtMatched[0]==1)
@@ -1261,6 +1430,14 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuAccBTagNJets_->Fill(BTags,NJets,Weight);
 		MuAccMHTNJetsEff_->Fill(MHT,NJets,Weight,true);
 		MuAccBTagNJetsEff_->Fill(BTags,NJets,Weight,true);
+		if(BTags==0)
+		{
+			MuAccMHTNJetsB0_->Fill(MHT,NJets,Weight);
+		}
+		else
+		{
+			MuAccMHTNJetsB1_Inf_->Fill(MHT,NJets,Weight);
+		}
   }
   if(muAcc==0)
   {
@@ -1277,6 +1454,14 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuAccBTagNJetsFail_->Fill(BTags,NJets,Weight);
 		MuAccMHTNJetsEff_->Fill(MHT,NJets,Weight,false);
 		MuAccBTagNJetsEff_->Fill(BTags,NJets,Weight,false);
+		if(BTags==0)
+		{
+			MuAccMHTNJetsB0Fail_->Fill(MHT,NJets,Weight);
+		}
+		else
+		{
+			MuAccMHTNJetsB1_InfFail_->Fill(MHT,NJets,Weight);
+		}
   }
   
   // single elecon control sample
@@ -1293,6 +1478,14 @@ Bool_t EffMaker::Process(Long64_t entry)
     ElecAccHTNJets_->Fill(HT,NJets,Weight);
 		ElecAccMHTNJets_->Fill(MHT,NJets,Weight);
 		ElecAccBTagNJets_->Fill(BTags,NJets,Weight);
+		if(BTags==0)
+		{
+			ElecAccMHTNJetsB0_->Fill(MHT,NJets,Weight);
+		}
+		else
+		{
+			ElecAccMHTNJetsB1_Inf_->Fill(MHT,NJets,Weight);
+		}
   }
   if(elecAcc==0)
   {
@@ -1307,6 +1500,14 @@ Bool_t EffMaker::Process(Long64_t entry)
     ElecAccHTNJetsFail_->Fill(HT,NJets,Weight);
 		ElecAccMHTNJetsFail_->Fill(MHT,NJets,Weight);
 		ElecAccBTagNJetsFail_->Fill(BTags,NJets,Weight);
+		if(BTags==0)
+		{
+			ElecAccMHTNJetsB0Fail_->Fill(MHT,NJets,Weight);
+		}
+		else
+		{
+			ElecAccMHTNJetsB1_InfFail_->Fill(MHT,NJets,Weight);
+		}
   }
   
   // reconstruction
@@ -2397,6 +2598,16 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ExpectationReductionIsoTrackMHTEff_->Fill(MHT,Weight,false);
 		// search bin efficiencies
 		ExpectationReductionIsoTrack_->Fill(HT,MHT,NJets,BTags,Weight,false);
+		
+		ExpectationReductionIsoTrackBTagEffFail->Fill(BTags,Weight);
+		ExpectationReductionIsoTrackNJetsEffFail->Fill(NJets,Weight);
+		ExpectationReductionIsoTrackHTEffFail->Fill(HT,Weight);
+		ExpectationReductionIsoTrackMHTEffFail->Fill(MHT,Weight);
+		//2D
+		IsoTrackReductionHTNJetsFail_->Fill(HT,NJets,Weight);
+		IsoTrackReductionMHTNJetsFail_->Fill(MHT,NJets,Weight);
+		IsoTrackReductionBTagNJetsFail_->Fill(BTags,NJets,Weight);
+
 	}
 	if(Expectation==1 && ExpectationReductionIsoTrack==1)
 	{
@@ -2406,6 +2617,17 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ExpectationReductionIsoTrackMHTEff_->Fill(MHT,Weight,true);
 		// search bin efficiencies
 		ExpectationReductionIsoTrack_->Fill(HT,MHT,NJets,BTags,Weight,true);
+		
+		ExpectationReductionIsoTrackBTagEff->Fill(BTags,Weight);
+		ExpectationReductionIsoTrackNJetsEff->Fill(NJets,Weight);
+		ExpectationReductionIsoTrackHTEff->Fill(HT,Weight);
+		ExpectationReductionIsoTrackMHTEff->Fill(MHT,Weight);
+		
+		//2D
+		IsoTrackReductionHTNJets_->Fill(HT,NJets,Weight);
+		IsoTrackReductionMHTNJets_->Fill(MHT,NJets,Weight);
+		IsoTrackReductionBTagNJets_->Fill(BTags,NJets,Weight);
+
 	}
   
   
@@ -2508,7 +2730,77 @@ void EffMaker::Terminate()
   ElecPurityMHTNJet->Write();
   SaveEfficiency(ElecPurityMHTNJet);
   
+  MuPurityBTag_ = ratioCalculator(MuPurityBTag_,MuPurityBTagFail_);   
+  MuPurityBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; B_{Tags}");
+  MuPurityBTag_->SetMarkerSize(2.0);
+  MuPurityBTag_->UseCurrentStyle();
+  MuPurityBTag_->Write();
+  SaveEfficiency(MuPurityBTag_);
   
+  MuPurityCheckNJets_ = ratioCalculator(MuPurityCheckNJets_,MuPurityCheckNJetsFail_);   
+  MuPurityCheckNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; N_{Jets}");
+  MuPurityCheckNJets_->SetMarkerSize(2.0);
+  MuPurityCheckNJets_->UseCurrentStyle();
+  MuPurityCheckNJets_->Write();
+  SaveEfficiency(MuPurityCheckNJets_);
+  
+  MuPurityCheckHT_ = ratioCalculator(MuPurityCheckHT_,MuPurityCheckHTFail_);   
+  MuPurityCheckHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; H_{T} [GeV]");
+  MuPurityCheckHT_->SetMarkerSize(2.0);
+  MuPurityCheckHT_->UseCurrentStyle();
+  MuPurityCheckHT_->Write();
+  SaveEfficiency(MuPurityCheckHT_);
+  
+  MuPurityCheckMHT_ = ratioCalculator(MuPurityCheckMHT_,MuPurityCheckMHTFail_);   
+  MuPurityCheckMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; #slash{H}_{T} [GeV]");
+  MuPurityCheckMHT_->SetMarkerSize(2.0);
+  MuPurityCheckMHT_->UseCurrentStyle();
+  MuPurityCheckMHT_->Write();
+  SaveEfficiency(MuPurityCheckMHT_);
+  //2D
+  MuonPurityCheckMHTNJet = ratioCalculator(MuonPurityCheckMHTNJet,MuonPurityCheckMHTNJetFail);   
+  MuonPurityCheckMHTNJet->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; #slash{H}_{T} [GeV]; N_{Jets}");
+  MuonPurityCheckMHTNJet->SetMarkerSize(2.0);
+  MuonPurityCheckMHTNJet->UseCurrentStyle();
+  MuonPurityCheckMHTNJet->Write();
+  SaveEfficiency(MuonPurityCheckMHTNJet);
+  
+  //elec
+  //1D
+  ElecPurityCheckBTag_ = ratioCalculator(ElecPurityCheckBTag_,ElecPurityCheckBTagFail_);   
+  ElecPurityCheckBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; B_{Tags}");
+  ElecPurityCheckBTag_->SetMarkerSize(2.0);
+  ElecPurityCheckBTag_->UseCurrentStyle();
+  ElecPurityCheckBTag_->Write();
+  SaveEfficiency(ElecPurityCheckBTag_);
+  
+  ElecPurityCheckNJets_ = ratioCalculator(ElecPurityCheckNJets_,ElecPurityCheckNJetsFail_);   
+  ElecPurityCheckNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; N_{Jets}");
+  ElecPurityCheckNJets_->SetMarkerSize(2.0);
+  ElecPurityCheckNJets_->UseCurrentStyle();
+  ElecPurityCheckNJets_->Write();
+  SaveEfficiency(ElecPurityCheckNJets_);
+  
+  ElecPurityCheckHT_ = ratioCalculator(ElecPurityCheckHT_,ElecPurityCheckHTFail_);   
+  ElecPurityCheckHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; H_{T} [GeV]");
+  ElecPurityCheckHT_->SetMarkerSize(2.0);
+  ElecPurityCheckHT_->UseCurrentStyle();
+  ElecPurityCheckHT_->Write();
+  SaveEfficiency(ElecPurityCheckHT_);
+  
+  ElecPurityCheckMHT_ = ratioCalculator(ElecPurityCheckMHT_,ElecPurityCheckMHTFail_);   
+  ElecPurityCheckMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; #slash{H}_{T} [GeV]");
+  ElecPurityCheckMHT_->SetMarkerSize(2.0);
+  ElecPurityCheckMHT_->UseCurrentStyle();
+  ElecPurityCheckMHT_->Write();
+  SaveEfficiency(ElecPurityCheckMHT_);
+  //2D
+  ElecPurityCheckMHTNJet = ratioCalculator(ElecPurityCheckMHTNJet,ElecPurityCheckMHTNJetFail);   
+  ElecPurityCheckMHTNJet->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; #slash{H}_{T} [GeV]; N_{Jets}");
+  ElecPurityCheckMHTNJet->SetMarkerSize(2.0);
+  ElecPurityCheckMHTNJet->UseCurrentStyle();
+  ElecPurityCheckMHTNJet->Write();
+  SaveEfficiency(ElecPurityCheckMHTNJet);
   
   
   
@@ -2564,6 +2856,20 @@ void EffMaker::Terminate()
 	MuAccBTagNJets_->UseCurrentStyle();
 	MuAccBTagNJets_->Write();
 	SaveEfficiency(MuAccBTagNJets_);
+	
+	MuAccMHTNJetsB0_ = ratioCalculator(MuAccMHTNJetsB0_,MuAccMHTNJetsB0Fail_);   
+	MuAccMHTNJetsB0_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc B_{Tags}=0; #slash{H}_{T} [GeV]; N_{Jets}");
+	MuAccMHTNJetsB0_->SetMarkerSize(2.0);
+	MuAccMHTNJetsB0_->UseCurrentStyle();
+	MuAccMHTNJetsB0_->Write();
+	SaveEfficiency(MuAccMHTNJetsB0_);
+	
+	MuAccMHTNJetsB1_Inf_ = ratioCalculator(MuAccMHTNJetsB1_Inf_,MuAccMHTNJetsB1_InfFail_);   
+	MuAccMHTNJetsB1_Inf_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc B_{Tags}#geq1; #slash{H}_{T} [GeV]; N_{Jets}");
+	MuAccMHTNJetsB1_Inf_->SetMarkerSize(2.0);
+	MuAccMHTNJetsB1_Inf_->UseCurrentStyle();
+	MuAccMHTNJetsB1_Inf_->Write();
+	SaveEfficiency(MuAccMHTNJetsB1_Inf_);
   
   //elec
   //1D
@@ -2616,6 +2922,20 @@ void EffMaker::Terminate()
 	ElecAccBTagNJets_->UseCurrentStyle();
 	ElecAccBTagNJets_->Write();
 	SaveEfficiency(ElecAccBTagNJets_);
+	
+	ElecAccMHTNJetsB0_ = ratioCalculator(ElecAccMHTNJetsB0_,ElecAccMHTNJetsB0Fail_);   
+	ElecAccMHTNJetsB0_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc B_{Tags}=0; #slash{H}_{T} [GeV]; N_{Jets}");
+	ElecAccMHTNJetsB0_->SetMarkerSize(2.0);
+	ElecAccMHTNJetsB0_->UseCurrentStyle();
+	ElecAccMHTNJetsB0_->Write();
+	SaveEfficiency(ElecAccMHTNJetsB0_);
+	
+	ElecAccMHTNJetsB1_Inf_ = ratioCalculator(ElecAccMHTNJetsB1_Inf_,ElecAccMHTNJetsB1_InfFail_);   
+	ElecAccMHTNJetsB1_Inf_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc B_{Tags}#geq1; #slash{H}_{T} [GeV]; N_{Jets}");
+	ElecAccMHTNJetsB1_Inf_->SetMarkerSize(2.0);
+	ElecAccMHTNJetsB1_Inf_->UseCurrentStyle();
+	ElecAccMHTNJetsB1_Inf_->Write();
+	SaveEfficiency(ElecAccMHTNJetsB1_Inf_);
   
   
   
@@ -3412,6 +3732,59 @@ void EffMaker::Terminate()
   ElecIsoPTActivity_->UseCurrentStyle();
   ElecIsoPTActivity_->Write();
   SaveEfficiency(ElecIsoPTActivity_);
+	
+	
+	//1D
+	ExpectationReductionIsoTrackBTagEff = ratioCalculator(ExpectationReductionIsoTrackBTagEff,ExpectationReductionIsoTrackBTagEffFail);   
+	ExpectationReductionIsoTrackBTagEff->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; B_{Tags}");
+	ExpectationReductionIsoTrackBTagEff->SetMarkerSize(2.0);
+	ExpectationReductionIsoTrackBTagEff->UseCurrentStyle();
+	ExpectationReductionIsoTrackBTagEff->Write();
+	SaveEfficiency(ExpectationReductionIsoTrackBTagEff);
+	
+	ExpectationReductionIsoTrackNJetsEff = ratioCalculator(ExpectationReductionIsoTrackNJetsEff,ExpectationReductionIsoTrackNJetsEffFail);   
+	ExpectationReductionIsoTrackNJetsEff->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; N_{Jets}");
+	ExpectationReductionIsoTrackNJetsEff->SetMarkerSize(2.0);
+	ExpectationReductionIsoTrackNJetsEff->UseCurrentStyle();
+	ExpectationReductionIsoTrackNJetsEff->Write();
+	SaveEfficiency(ExpectationReductionIsoTrackNJetsEff);
+	
+	ExpectationReductionIsoTrackHTEff = ratioCalculator(ExpectationReductionIsoTrackHTEff,ExpectationReductionIsoTrackHTEffFail);   
+	ExpectationReductionIsoTrackHTEff->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; H_{T}");
+	ExpectationReductionIsoTrackHTEff->SetMarkerSize(2.0);
+	ExpectationReductionIsoTrackHTEff->UseCurrentStyle();
+	ExpectationReductionIsoTrackHTEff->Write();
+	SaveEfficiency(ExpectationReductionIsoTrackHTEff);
+	
+	ExpectationReductionIsoTrackMHTEff = ratioCalculator(ExpectationReductionIsoTrackMHTEff,ExpectationReductionIsoTrackMHTEffFail);   
+	ExpectationReductionIsoTrackMHTEff->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; #slash{H}_{T} [GeV]");
+	ExpectationReductionIsoTrackMHTEff->SetMarkerSize(2.0);
+	ExpectationReductionIsoTrackMHTEff->UseCurrentStyle();
+	ExpectationReductionIsoTrackMHTEff->Write();
+	SaveEfficiency(ExpectationReductionIsoTrackMHTEff);
+	
+	//2D
+	IsoTrackReductionHTNJets_ = ratioCalculator(IsoTrackReductionHTNJets_,IsoTrackReductionHTNJetsFail_);   
+	IsoTrackReductionHTNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; H_{T} [GeV]; N_{Jets}");
+	IsoTrackReductionHTNJets_->SetMarkerSize(2.0);
+	IsoTrackReductionHTNJets_->UseCurrentStyle();
+	IsoTrackReductionHTNJets_->Write();
+	SaveEfficiency(IsoTrackReductionHTNJets_);
+	
+	IsoTrackReductionMHTNJets_ = ratioCalculator(IsoTrackReductionMHTNJets_,IsoTrackReductionMHTNJetsFail_);   
+	IsoTrackReductionMHTNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; #slash{H}_{T} [GeV]; N_{Jets}");
+	IsoTrackReductionMHTNJets_->SetMarkerSize(2.0);
+	IsoTrackReductionMHTNJets_->UseCurrentStyle();
+	IsoTrackReductionMHTNJets_->Write();
+	SaveEfficiency(IsoTrackReductionMHTNJets_);
+	
+	
+	IsoTrackReductionBTagNJets_ = ratioCalculator(IsoTrackReductionBTagNJets_,IsoTrackReductionBTagNJetsFail_);   
+	IsoTrackReductionBTagNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; B_{Tags}; N_{Jets}");
+	IsoTrackReductionBTagNJets_->SetMarkerSize(2.0);
+	IsoTrackReductionBTagNJets_->UseCurrentStyle();
+	IsoTrackReductionBTagNJets_->Write();
+	SaveEfficiency(IsoTrackReductionBTagNJets_);
 	
 	
 	

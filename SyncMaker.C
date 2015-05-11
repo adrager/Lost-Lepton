@@ -71,6 +71,7 @@ void SyncMaker::SlaveBegin(TTree * /*tree*/)
 	 tOut_->Branch("selectedIDIsoMuonsNum",&selectedIDIsoMuonsNum,"selectedIDIsoMuonsNum/s");
 	 tOut_->Branch("selectedIDIsoElectronsNum",&selectedIDIsoElectronsNum,"selectedIDIsoElectronsNum/s");
 	 ResetVariables();
+	 std::cout<<"Applying filters: "<<applyFilters_<<std::endl;
 	 std::cout<<"************************************\n"
 	 <<"*    Row   *     event *     mht30 *\n"
 	 <<"************************************\n";
@@ -80,6 +81,7 @@ void SyncMaker::SlaveBegin(TTree * /*tree*/)
 Bool_t SyncMaker::Process(Long64_t entry)
 {
 	fChain->GetTree()->GetEntry(entry);
+	if(applyFilters_ &&  !FiltersPass() ) return kTRUE;
 	all++;
 	alld+=Weight;
 	if(EvtNum==124734)std::cout<<"NJets: "<<NJets <<" HT: "<<HT<<" MHT: "<<MHT<<"\n";
@@ -141,6 +143,62 @@ Bool_t SyncMaker::Process(Long64_t entry)
 		  
 		}
 	}
+	if(GenMuNum>0)
+	{
+		for(unsigned int i=0; i<GenMuNum;i++)
+		{
+			if(GenMuPt[i]>10 && abs(GenMuEta[i])<2.4)
+			{
+				GenMuonPtEtaCut++;
+				GenMuonPtEtaCutd+=Weight;
+			}
+			
+		}
+	}
+	if(slimmedMuonsNum>0)
+	{
+	  for(unsigned int i=0; i<slimmedMuonsNum;i++)
+	  {
+	    if(slimmedMuonsPt[i]>10 && abs(slimmedMuonsEta[i])<2.4)
+	    {
+	      muonPtEtaCut++;
+	      muonPtEtaCutd+=Weight;
+	      break;
+	    }
+	  }
+	  if(selectedIDMuonsNum>0)
+	  {
+	    muonID++;
+	    muonIDd+=Weight;
+	  }
+	  if(selectedIDIsoMuonsNum>0)
+	  {
+	    muonIso++;
+	    muonIsod+=Weight;
+	  }
+	}
+	if(slimmedElectronsNum>0)
+	{
+	  for(unsigned int i=0; i<slimmedElectronsNum;i++)
+	  {
+	    if(slimmedElectronsPt[i]>10 && abs(slimmedElectronsEta[i])<2.5)
+	    {
+	      elecPtEtaCut++;
+	      elecPtEtaCutd+=Weight;
+	      break;
+	    }
+	  }
+	  if(selectedIDElectronsNum>0)
+	  {
+	    elecID++;
+	    elecIDd+=Weight;
+	  }
+	  if(selectedIDIsoElectronsNum>0)
+	  {
+	    elecIso++;
+	    elecIsod+=Weight;
+	  }
+	}
 	tOut_->Fill();
 
 
@@ -155,6 +213,13 @@ void SyncMaker::SlaveTerminate()
    // on each slave server.
 
 }
+bool SyncMaker::FiltersPass()
+{
+  bool result = true;
+  if(!JetID) result=false;
+  return result;
+}
+
 
 void SyncMaker::Terminate()
 {
@@ -175,6 +240,16 @@ void SyncMaker::Terminate()
 	std::cout<<"btag=1:                "<<btag1d<<" ("<<btag1<<")"<<std::endl;
 	std::cout<<"btag=2:                "<<btag2d<<" ("<<btag2<<")"<<std::endl;
 	std::cout<<"btag>=3:               "<<btag3d<<" ("<<btag3<<")"<<std::endl;
+	std::cout<<"-------------------------------------------------"<<std::endl;
+	std::cout<<"Muon:               "<<std::endl;
+	std::cout<<"Gen pt eta cut:            "<<GenMuonPtEtaCutd<<" ("<<GenMuonPtEtaCut<<")"<<std::endl;
+	std::cout<<"pt eta cut:            "<<muonPtEtaCutd<<" ("<<muonPtEtaCut<<")"<<std::endl;
+	std::cout<<"ID:                    "<<muonIDd<<" ("<<muonID<<")"<<std::endl;
+	std::cout<<"miniIso:               "<<muonIsod<<" ("<<muonIso<<")"<<std::endl;
+	std::cout<<"Electron:               "<<std::endl;
+	std::cout<<"pt eta cut:            "<<elecPtEtaCutd<<" ("<<elecPtEtaCut<<")"<<std::endl;
+	std::cout<<"ID:                    "<<elecIDd<<" ("<<elecID<<")"<<std::endl;
+	std::cout<<"miniIso:               "<<elecIsod<<" ("<<elecIso<<")"<<std::endl;
 }
 void SyncMaker::ResetVariables()
 {
@@ -203,4 +278,19 @@ void SyncMaker::ResetVariables()
 	btag1d=0.;
 	btag2d=0.;
 	btag3d=0.;
+	
+	muonPtEtaCut=0;
+	muonID=0;
+	muonIso=0;
+	muonPtEtaCutd=0.;
+	muonIDd=0.;
+	muonIsod=0.;
+	
+	elecPtEtaCut=0;
+	elecID=0;
+	elecIso=0;
+	elecPtEtaCutd=0.;
+	elecIDd=0.;
+	elecIsod=0.;
+
 }

@@ -154,6 +154,7 @@ void TagAndProbe::SlaveBegin(TTree * /*tree*/)
 	 tTagAndProbeElecReco_->Branch("Phi", &ProbePhi_, "Phi/F");
 	 tTagAndProbeElecReco_->Branch("Activity", &ProbeActivity_, "Activity/F");
 	 GetOutputList()->Add(tTagAndProbeElecReco_);
+	 std::cout<<"Applying filters: "<<applyFilters_<<std::endl;
 	 
 
 }
@@ -166,7 +167,7 @@ Bool_t TagAndProbe::Process(Long64_t entry)
  	if(HT < minHT_ && NJets<minNJets_) return kTRUE;
 	if(ProbeIsoMuonNum>0 && MuIso_minDeltaPhiN>minDeltaPhiN_)
 	{
-		for (unsigned int i=0; i<ProbeIsoMuonNum;i++)
+		for (unsigned int i=0; i<1;i++)
 		{
 // 		  if(ProbeIsoMuonPt[0]<50) continue;
 			ProbeActivity_=MuActivity(ProbeIsoMuonEta[i],ProbeIsoMuonPhi[i],muActivityMethod_);
@@ -174,6 +175,7 @@ Bool_t TagAndProbe::Process(Long64_t entry)
 			ProbeEta_=ProbeIsoMuonEta[i];
 			ProbePhi_=ProbeIsoMuonPhi[i];
 			Probe_PassingOrFail_=ProbeIsoMuon_PassingOrFail[i];
+			if(Probe_PassingOrFail_==2)std::cout<<"This should not happen..."<<std::endl;
 			Probe_InvariantMass_=ProbeIsoMuon_InvariantMass[i];
 			tTagAndProbeMuIso_->Fill();
 		}
@@ -181,7 +183,7 @@ Bool_t TagAndProbe::Process(Long64_t entry)
 	resetValues();
 	if(ProbeIDMuonNum>0 && MuID_minDeltaPhiN>minDeltaPhiN_)
 	{
-		for (unsigned int i=0; i<ProbeIDMuonNum;i++)
+		for (unsigned int i=0; i<1;i++)
 		{
 // 		  if(ProbeIDMuonPt[0]<50) continue;
 			ProbeActivity_=MuActivity(ProbeIDMuonEta[i],ProbeIDMuonPhi[i],muActivityMethod_);
@@ -196,7 +198,7 @@ Bool_t TagAndProbe::Process(Long64_t entry)
 	resetValues();
 	if(ProbeIsoElectronNum>0 && ElecIso_minDeltaPhiN>minDeltaPhiN_)
 	{
-		for (unsigned int i=0; i<ProbeIsoElectronNum;i++)
+		for (unsigned int i=0; i<1;i++)
 		{
 // 		  if(ProbeIsoElectronPt[0]<50) continue;
 			ProbeActivity_=MuActivity(ProbeIsoElectronEta[i],ProbeIsoElectronPhi[i],elecActivityMethod_);
@@ -211,7 +213,7 @@ Bool_t TagAndProbe::Process(Long64_t entry)
 	resetValues();
 	if(ProbeIDElectronNum>0 && ElecID_minDeltaPhiN>minDeltaPhiN_)
 	{
-		for (unsigned int i=0; i<ProbeIDElectronNum;i++)
+		for (unsigned int i=0; i<1;i++)
 		{
 // 		  if(ProbeIDElectronPt[0]<50) continue;
 		  
@@ -241,7 +243,7 @@ void TagAndProbe::Terminate()
 {
 	GetOutputList()->Print();
 	tTagAndProbeMuIso_ = dynamic_cast<TTree*>(GetOutputList()->FindObject("TagAndProbeMuIso"));
-	TFile *outPutFile = new TFile("TagAndProbe.root","RECREATE"); 
+ 	TFile *outPutFile = new TFile("TagAndProbe_HT400_NJets3_4_MinDeltaPhi-9999_activity0DR1_Only1ProbeEachEvent.root","RECREATE"); 
 	outPutFile->cd();
 	outPutFile->mkdir("MuIso");
 	TDirectory *dMuIso = (TDirectory*)outPutFile->Get("MuIso");
@@ -276,7 +278,9 @@ void TagAndProbe::resetValues()
 }
 bool TagAndProbe::FiltersPass()
 {
-	return true;
+	bool result=true;
+  if(!JetID) result=false;
+	return result;
 }
 double TagAndProbe::deltaR(double eta1, double phi1, double eta2, double phi2)
 {

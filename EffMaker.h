@@ -33,14 +33,19 @@ const int oneDBJets_=6;
 double OneDBJets_[oneDBJets_] = {0,1,2,3,5,10};
 const int oneDDeltaR_=17;
 double OneDDeltaR_[oneDDeltaR_]={0 ,0.1 ,0.2 ,0.3 ,0.4 ,0.5 ,0.6 ,0.7 ,0.8 ,0.9 ,1.0 ,1.1 ,1.3 ,1.5 ,1.8 ,2.0 , 5.0 };
-const int oneDPT_=12;
-double OneDPT_[oneDPT_]={10,15,20,25,30,40,50,60,70,90,110,1900};
 const int oneDPTRel_=17;
 double OneDPTRel_[oneDPTRel_]={0 ,0.1 ,0.2 ,0.3 ,0.4 ,0.5 ,0.6 ,0.7 ,0.8 ,0.9 ,1.0 ,1.1 ,1.3 ,1.5 ,1.8 ,2.0 , 5.0 };
-  
-const int oneDActivity_=9;
-double OneDActivity_[oneDActivity_]={0,5,10,20,40,60,80,100,1600};
 
+// used for closure
+// const int oneDPT_=12;
+// double OneDPT_[oneDPT_]={10,15,20,25,30,40,50,60,70,90,110,1900};
+// const int oneDActivity_=9;
+// double OneDActivity_[oneDActivity_]={0,5,10,20,40,60,80,100,1600};
+// used to compare with tag and probe eff.
+const int oneDPT_=7;
+double OneDPT_[oneDPT_]={10,20,25,30,40,50,200};
+const int oneDActivity_=6;
+double OneDActivity_[oneDActivity_]={0,20,40,60,150,1600};
 
 // purity
 //mu
@@ -94,6 +99,23 @@ const int elecMTWPT2D_=9;
 double ElecMTWPT2D_[elecMTWPT2D_]={10,30,40,50,60,70,90,110,1900};
 const int elecMTWActivity2D_=9;
 double ElecMTWActivity2D_[elecMTWActivity2D_]={0,5,10,20,40,60,80,100,1600};
+
+// isotrack reduction
+// 1D
+const int isotrackreductionHT_ = 3;
+double isoTrackReductionHT_ [isotrackreductionHT_] = {500,1300,2500};
+const int isotrackreductionMHT_ = 7;
+double isoTrackReductionMHT_ [isotrackreductionMHT_] = {200,250,300,500,700,900,2500};
+const int isotrackreductionBTags_ = 5;
+double isoTrackReductionBTags_[isotrackreductionBTags_] = {0,1,2,3,10};
+const int isotrackreductionNJets_ = 8;
+double isoTrackReductionNJets_ [isotrackreductionNJets_] = {2,3,4,5,6,8,11,20};
+// 2D
+const int isotrackreductionBTags2D_ = 3;
+double isoTrackReductionBTags2D_[isotrackreductionBTags2D_] = {0,1,10};
+const int isotrackreductionNJets2D_ = 5;
+double isoTrackReductionNJets2D_ [isotrackreductionNJets2D_] = {4,6,8,10,20};
+
 class Bin
 {
 public:
@@ -260,6 +282,29 @@ public :
 	//2D
 	TH2F *ElecPurityMHTNJet, *ElecPurityMHTNJetFail;
 	
+	// x-check of purity
+	
+	TH1F *MuPurityCheckBTag_, *MuPurityCheckBTagFail_;
+	TH1F *MuPurityCheckNJets_, *MuPurityCheckNJetsFail_;
+	TH1F *MuPurityCheckHT_, *MuPurityCheckHTFail_;
+	TH1F *MuPurityCheckMHT_, *MuPurityCheckMHTFail_;
+	TH1F *MuPurityCheckPT_, *MuPurityCheckPTFail_;
+	TH1F *MuPurityCheckActivity_, *MuPurityCheckActivityFail_;
+	//2D
+	TH2F *MuonPurityCheckMHTNJet, *MuonPurityCheckMHTNJetFail;
+	
+	//elec
+	//1D
+	TH1F *ElecPurityCheckBTag_, *ElecPurityCheckBTagFail_;
+	TH1F *ElecPurityCheckNJets_, *ElecPurityCheckNJetsFail_;
+	TH1F *ElecPurityCheckHT_, *ElecPurityCheckHTFail_;
+	TH1F *ElecPurityCheckMHT_, *ElecPurityCheckMHTFail_;
+	TH1F *ElecPurityCheckPT_, *ElecPurityCheckPTFail_;
+	TH1F *ElecPurityCheckActivity_, *ElecPurityCheckActivityFail_;
+	//2D
+	TH2F *ElecPurityCheckMHTNJet, *ElecPurityCheckMHTNJetFail;
+	
+	
 	// Acceptance
 	// mu 
 	//1D
@@ -273,6 +318,8 @@ public :
 	TH2F *MuAccHTNJets_, *MuAccHTNJetsFail_; 
 	TH2F *MuAccMHTNJets_, *MuAccMHTNJetsFail_;
 	TH2F *MuAccBTagNJets_, *MuAccBTagNJetsFail_;
+	TH2F *MuAccMHTNJetsB0_, *MuAccMHTNJetsB0Fail_;
+	TH2F *MuAccMHTNJetsB1_Inf_, *MuAccMHTNJetsB1_InfFail_;
 	
 	// elec
 	//1D
@@ -287,6 +334,8 @@ public :
 	TH2F *ElecAccHTNJets_, *ElecAccHTNJetsFail_; 
 	TH2F *ElecAccMHTNJets_, *ElecAccMHTNJetsFail_;
 	TH2F *ElecAccBTagNJets_, *ElecAccBTagNJetsFail_;
+	TH2F *ElecAccMHTNJetsB0_, *ElecAccMHTNJetsB0Fail_;
+	TH2F *ElecAccMHTNJetsB1_Inf_, *ElecAccMHTNJetsB1_InfFail_;
 	
 	// Recoeptance
 	// mu 
@@ -743,6 +792,16 @@ public :
 	TH1Feff *ExpectationReductionIsoTrackHTEff_, *ExpectationReductionIsoTrackHTFailEff_;
 	TH1Feff *ExpectationReductionIsoTrackMHTEff_, *ExpectationReductionIsoTrackMHTFailEff_;
 	
+	TH1F *ExpectationReductionIsoTrackBTagEff, *ExpectationReductionIsoTrackBTagEffFail;
+	TH1F *ExpectationReductionIsoTrackNJetsEff, *ExpectationReductionIsoTrackNJetsEffFail;
+	TH1F *ExpectationReductionIsoTrackHTEff, *ExpectationReductionIsoTrackHTEffFail;
+	TH1F *ExpectationReductionIsoTrackMHTEff, *ExpectationReductionIsoTrackMHTEffFail;
+	//2D
+	// 2D
+	TH2F *IsoTrackReductionHTNJets_, *IsoTrackReductionHTNJetsFail_; 
+	TH2F *IsoTrackReductionMHTNJets_, *IsoTrackReductionMHTNJetsFail_;
+	TH2F *IsoTrackReductionBTagNJets_, *IsoTrackReductionBTagNJetsFail_;
+	
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Search bin efficiencies
@@ -797,6 +856,8 @@ public :
 	UShort_t        elecReco;
 	UShort_t        elecIso;
 	UShort_t        muIsoTrack;
+	UShort_t	MuPurity;
+	UShort_t	ElecPurity;
 	UShort_t        elecIsoTrack;
 	UShort_t        FallsVetoLep;
 	UShort_t        selectedIDIsoMuonsNum;
@@ -925,6 +986,8 @@ public :
 	TBranch        *b_elecReco;   //!
 	TBranch        *b_elecIso;   //!
 	TBranch        *b_muIsoTrack;   //!
+	TBranch        *b_MuPurity;   //!
+	TBranch        *b_ElecPurity;   //!
 	TBranch        *b_elecIsoTrack;   //!
 	TBranch        *b_FallsVetoLep;   //!
 	TBranch        *b_selectedIDIsoMuonsNum;   //!
@@ -1089,6 +1152,8 @@ void EffMaker::Init(TTree *tree)
   fChain->SetBranchAddress("elecReco", &elecReco, &b_elecReco);
   fChain->SetBranchAddress("elecIso", &elecIso, &b_elecIso);
   fChain->SetBranchAddress("muIsoTrack", &muIsoTrack, &b_muIsoTrack);
+  fChain->SetBranchAddress("MuPurity", &MuPurity, &b_MuPurity);
+  fChain->SetBranchAddress("ElecPurity", &ElecPurity, &b_ElecPurity);
   fChain->SetBranchAddress("elecIsoTrack", &elecIsoTrack, &b_elecIsoTrack);
   fChain->SetBranchAddress("FallsVetoLep", &FallsVetoLep, &b_FallsVetoLep);
   fChain->SetBranchAddress("selectedIDIsoMuonsNum", &selectedIDIsoMuonsNum, &b_selectedIDIsoMuonsNum);
