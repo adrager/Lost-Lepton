@@ -197,6 +197,10 @@ public :
 	
 	Float_t mtw, isoTrackMTW_;
 	
+	// w pt spectrum extrapolation studies
+	Float_t GenMuWPt_, GenElecWPt_;
+	Float_t GenMuWPhi_, GenElecWPhi_;
+	
 	// Declaration of leaf types
 	UInt_t          RunNum;
 	UInt_t          LumiBlockNum;

@@ -50,6 +50,7 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("NJets",&NJets,"NJets/s");
 	tExpectation_->Branch("BTags",&BTags,"BTags/s");
 	tExpectation_->Branch("Leptons",&Leptons,"Leptons/s");
+	tExpectation_->Branch("isoTracks",&isoTracks,"isoTracks/s");
 	DY=DY_;
 	tExpectation_->Branch("DY",&DY,"DY/b");
 	tExpectation_->Branch("Bin",&Bin_,"Bin/s");
@@ -193,6 +194,15 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	//   tExpectation_->Branch("maxDeltaRMuActivity",&maxDeltaRMuActivity_,"maxDeltaRMuActivity/F");
 	//   tExpectation_->Branch("maxDeltaRElecActivity",&maxDeltaRElecActivity_,"maxDeltaRElecActivity/F");
 	}
+	// w pt spectrum extrapolation studies
+	tExpectation_->Branch("GenMuWPt",&GenMuWPt_,"GenMuWPt/F");
+	tExpectation_->Branch("GenMuWPhi",&GenMuWPhi_,"GenMuWPhi/F");
+	tExpectation_->Branch("GenElecWPt",&GenElecWPt_,"GenElecWPt/F");
+	tExpectation_->Branch("GenElecWPhi",&GenElecWPhi_,"GenElecWPhi/F");
+	tExpectation_->Branch("GenBosonNum",&GenBosonNum,"GenBosonNum/s");
+	tExpectation_->Branch("GenBosonPt", GenBosonPt, "GenBosonPt[GenBosonNum]/F");
+	tExpectation_->Branch("GenBosonPhi", GenBosonPhi, "GenBosonPhi[GenBosonNum]/F");
+	
 	GetOutputList()->Add(tExpectation_);
 	SearchBins_ = new SearchBins();
 	std::cout<<"Applying filters: "<<applyFilters_<<std::endl;
@@ -215,6 +225,9 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 	// compute efficiencies 1 lepton
 	if( (GenMuNum==1 && GenElecNum==0) || (DY_ && GenMuNum==2) )
 	{
+		// compute W pt from gen lepton and reco MET
+		GenMuWPt_ = GenMuPt[0] + MHT * deltaR(0,METPhi,0,GenMuPhi[0]);
+		
 		if ( GenMuPt[0] < minMuPt_ || std::abs(GenMuEta[0]) > maxMuEta_)
 		{
 			muAcc=0;
@@ -277,6 +290,8 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 	// analyse gen electrons consider only single elec events
 	if( (GenMuNum==0 && GenElecNum==1) || (DY_ && GenElecNum==2) )
 	{
+		// compute W pt from gen lepton and reco MET
+		GenElecWPt_ = GenElecPt[0] + MHT * deltaR(0,METPhi,0,GenElecPhi[0]);
 		if ( GenElecPt[0] < minElecPt_ || std::abs(GenElecEta[0]) > maxElecEta_)
 		{
 			elecAcc=0;
@@ -1021,6 +1036,11 @@ void ExpecMaker::resetValues()
 		GenTauActivity[i]=0;
 		
 	}
+	// w pt spectrum extrapolation studies
+	GenMuWPt_=-1.;
+	GenMuWPhi_=-1.;
+	GenElecWPt_=-1.;
+	GenElecWPhi_=-1.;
 }
 bool ExpecMaker::FiltersPass()
 {

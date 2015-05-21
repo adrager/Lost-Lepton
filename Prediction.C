@@ -48,11 +48,14 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
 
   TFile *effInput = new TFile("/afs/desy.de/user/a/adraeger/2015/Efficiencies.root","UPDATE");
    TDirectory *EffInputFolder =   (TDirectory*)effInput->Get("Efficiencies");
+   if(UseTagAndProbeEff_)
+   {
 	 TDirectory *EffTagAndProbeInputFolder =   (TDirectory*)effInput->Get("TagAndProbe");
 	 MuIsoPTActivityTAPMC_ = (TH2F*)EffTagAndProbeInputFolder->Get("MuIsoTagAndProbeMC");
 	 MuRecoPTActivityTAPMC_ = (TH2F*)EffTagAndProbeInputFolder->Get("MuRecoTagAndProbeMC");
 	 ElecIsoPTActivityTAPMC_ = (TH2F*)EffTagAndProbeInputFolder->Get("ElecIsoTagAndProbeMC");
 	 ElecRecoPTActivityTAPMC_ = (TH2F*)EffTagAndProbeInputFolder->Get("ElecRecoTagAndProbeMC");
+   }
 //    MuMTWPTActivity_ = (TH2F*) EffInputFolder->Get("MuMTWPTActivity");
 	 MuMTWNJets_ = (TH1F*) EffInputFolder->Get("MuMTWNJets1D");
    MuDiLepContributionMTWAppliedNJets_ = (TH1F*) EffInputFolder->Get("MuDiLepContributionMTWNJets1D");
@@ -137,6 +140,8 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
    tPrediction_->Branch("BTags",&BTags,"BTags/s");
    tPrediction_->Branch("NVtx",&NVtx,"NVtx/s");
    tPrediction_->Branch("Bin",&Bin_,"Bin/s");
+	 tPrediction_->Branch("isoTracks",&isoTracks,"isoTracks/s");
+	 tPrediction_->Branch("Leptons",&Leptons,"Leptons/s");
    tPrediction_->Branch("DeltaPhi1",&DeltaPhi1,"DeltaPhi1/F");
    tPrediction_->Branch("DeltaPhi2",&DeltaPhi2,"DeltaPhi2/F");
    tPrediction_->Branch("DeltaPhi3",&DeltaPhi3,"DeltaPhi3/F");
@@ -204,6 +209,10 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
    GetOutputList()->Add(tPrediction_);
    SearchBins_ = new SearchBins();
 	 std::cout<<"Applying filters: "<<applyFilters_<<std::endl;
+	 std::cout<<"----------------"<<std::endl;
+	 std::cout<<"UseUpdatedTEfficiencies: "<<UseUpdatedTEfficiencies_<<std::endl;
+	 std::cout<<"UseTagAndProbeEff: "<<UseTagAndProbeEff_<<std::endl;
+	 
 }
 
 Bool_t Prediction::Process(Long64_t entry)
