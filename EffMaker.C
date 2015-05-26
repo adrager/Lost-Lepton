@@ -1395,7 +1395,7 @@ Bool_t EffMaker::Process(Long64_t entry)
       ElecPurityNJets_->Fill(NJets,Weight);
       ElecPurityHT_->Fill(HT,Weight);
       ElecPurityMHT_->Fill(MHT,Weight);
-      ElecPurityPT_->Fill(selectedIDIsoMuonsPt[0],Weight);
+      ElecPurityPT_->Fill(selectedIDIsoElectronsPt[0],Weight);
       ElecPurityActivity_->Fill(RecoIsoElectronActivity[0],Weight);
       //2D
       ElecPurityMHTNJet->Fill(MHT,NJets,Weight);
@@ -1407,7 +1407,7 @@ Bool_t EffMaker::Process(Long64_t entry)
       ElecPurityNJetsFail_->Fill(NJets,Weight);
       ElecPurityHTFail_->Fill(HT,Weight);
       ElecPurityMHTFail_->Fill(MHT,Weight);
-      ElecPurityPTFail_->Fill(selectedIDIsoMuonsPt[0],Weight);
+      ElecPurityPTFail_->Fill(selectedIDIsoElectronsPt[0],Weight);
       ElecPurityActivityFail_->Fill(RecoIsoElectronActivity[0],Weight);
       //2D
       ElecPurityMHTNJetFail->Fill(MHT,NJets,Weight);
@@ -2659,35 +2659,35 @@ void EffMaker::Terminate()
   //muon
   //1D
   MuPurityBTag_ = ratioCalculator(MuPurityBTag_,MuPurityBTagFail_);   
-  MuPurityBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; B_{Tags}");
+  MuPurityBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu purity; B_{Tags}");
   MuPurityBTag_->SetMarkerSize(2.0);
   MuPurityBTag_->UseCurrentStyle();
   MuPurityBTag_->Write();
   SaveEfficiency(MuPurityBTag_);
   
   MuPurityNJets_ = ratioCalculator(MuPurityNJets_,MuPurityNJetsFail_);   
-  MuPurityNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; N_{Jets}");
+  MuPurityNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu purity; N_{Jets}");
   MuPurityNJets_->SetMarkerSize(2.0);
   MuPurityNJets_->UseCurrentStyle();
   MuPurityNJets_->Write();
   SaveEfficiency(MuPurityNJets_);
   
   MuPurityHT_ = ratioCalculator(MuPurityHT_,MuPurityHTFail_);   
-  MuPurityHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; H_{T} [GeV]");
+  MuPurityHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu purity; H_{T} [GeV]");
   MuPurityHT_->SetMarkerSize(2.0);
   MuPurityHT_->UseCurrentStyle();
   MuPurityHT_->Write();
   SaveEfficiency(MuPurityHT_);
   
   MuPurityMHT_ = ratioCalculator(MuPurityMHT_,MuPurityMHTFail_);   
-  MuPurityMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; #slash{H}_{T} [GeV]");
+  MuPurityMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu purity; #slash{H}_{T} [GeV]");
   MuPurityMHT_->SetMarkerSize(2.0);
   MuPurityMHT_->UseCurrentStyle();
   MuPurityMHT_->Write();
   SaveEfficiency(MuPurityMHT_);
   //2D
   MuonPurityMHTNJet = ratioCalculator(MuonPurityMHTNJet,MuonPurityMHTNJetFail);   
-  MuonPurityMHTNJet->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; #slash{H}_{T} [GeV]; N_{Jets}");
+  MuonPurityMHTNJet->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu purity; #slash{H}_{T} [GeV]; N_{Jets}");
   MuonPurityMHTNJet->SetMarkerSize(2.0);
   MuonPurityMHTNJet->UseCurrentStyle();
   MuonPurityMHTNJet->Write();
@@ -2696,70 +2696,70 @@ void EffMaker::Terminate()
   //elec
   //1D
   ElecPurityBTag_ = ratioCalculator(ElecPurityBTag_,ElecPurityBTagFail_);   
-  ElecPurityBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; B_{Tags}");
+  ElecPurityBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e purity; B_{Tags}");
   ElecPurityBTag_->SetMarkerSize(2.0);
   ElecPurityBTag_->UseCurrentStyle();
   ElecPurityBTag_->Write();
   SaveEfficiency(ElecPurityBTag_);
   
   ElecPurityNJets_ = ratioCalculator(ElecPurityNJets_,ElecPurityNJetsFail_);   
-  ElecPurityNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; N_{Jets}");
+  ElecPurityNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e purity; N_{Jets}");
   ElecPurityNJets_->SetMarkerSize(2.0);
   ElecPurityNJets_->UseCurrentStyle();
   ElecPurityNJets_->Write();
   SaveEfficiency(ElecPurityNJets_);
   
   ElecPurityHT_ = ratioCalculator(ElecPurityHT_,ElecPurityHTFail_);   
-  ElecPurityHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; H_{T} [GeV]");
+  ElecPurityHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e purity; H_{T} [GeV]");
   ElecPurityHT_->SetMarkerSize(2.0);
   ElecPurityHT_->UseCurrentStyle();
   ElecPurityHT_->Write();
   SaveEfficiency(ElecPurityHT_);
   
   ElecPurityMHT_ = ratioCalculator(ElecPurityMHT_,ElecPurityMHTFail_);   
-  ElecPurityMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; #slash{H}_{T} [GeV]");
+  ElecPurityMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e purity; #slash{H}_{T} [GeV]");
   ElecPurityMHT_->SetMarkerSize(2.0);
   ElecPurityMHT_->UseCurrentStyle();
   ElecPurityMHT_->Write();
   SaveEfficiency(ElecPurityMHT_);
   //2D
   ElecPurityMHTNJet = ratioCalculator(ElecPurityMHTNJet,ElecPurityMHTNJetFail);   
-  ElecPurityMHTNJet->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; #slash{H}_{T} [GeV]; N_{Jets}");
+  ElecPurityMHTNJet->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e purity; #slash{H}_{T} [GeV]; N_{Jets}");
   ElecPurityMHTNJet->SetMarkerSize(2.0);
   ElecPurityMHTNJet->UseCurrentStyle();
   ElecPurityMHTNJet->Write();
   SaveEfficiency(ElecPurityMHTNJet);
   
   MuPurityBTag_ = ratioCalculator(MuPurityBTag_,MuPurityBTagFail_);   
-  MuPurityBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; B_{Tags}");
+  MuPurityBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu purity; B_{Tags}");
   MuPurityBTag_->SetMarkerSize(2.0);
   MuPurityBTag_->UseCurrentStyle();
   MuPurityBTag_->Write();
   SaveEfficiency(MuPurityBTag_);
   
   MuPurityCheckNJets_ = ratioCalculator(MuPurityCheckNJets_,MuPurityCheckNJetsFail_);   
-  MuPurityCheckNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; N_{Jets}");
+  MuPurityCheckNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu purity; N_{Jets}");
   MuPurityCheckNJets_->SetMarkerSize(2.0);
   MuPurityCheckNJets_->UseCurrentStyle();
   MuPurityCheckNJets_->Write();
   SaveEfficiency(MuPurityCheckNJets_);
   
   MuPurityCheckHT_ = ratioCalculator(MuPurityCheckHT_,MuPurityCheckHTFail_);   
-  MuPurityCheckHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; H_{T} [GeV]");
+  MuPurityCheckHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu purity; H_{T} [GeV]");
   MuPurityCheckHT_->SetMarkerSize(2.0);
   MuPurityCheckHT_->UseCurrentStyle();
   MuPurityCheckHT_->Write();
   SaveEfficiency(MuPurityCheckHT_);
   
   MuPurityCheckMHT_ = ratioCalculator(MuPurityCheckMHT_,MuPurityCheckMHTFail_);   
-  MuPurityCheckMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; #slash{H}_{T} [GeV]");
+  MuPurityCheckMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu purity; #slash{H}_{T} [GeV]");
   MuPurityCheckMHT_->SetMarkerSize(2.0);
   MuPurityCheckMHT_->UseCurrentStyle();
   MuPurityCheckMHT_->Write();
   SaveEfficiency(MuPurityCheckMHT_);
   //2D
   MuonPurityCheckMHTNJet = ratioCalculator(MuonPurityCheckMHTNJet,MuonPurityCheckMHTNJetFail);   
-  MuonPurityCheckMHTNJet->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; #slash{H}_{T} [GeV]; N_{Jets}");
+  MuonPurityCheckMHTNJet->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu purity; #slash{H}_{T} [GeV]; N_{Jets}");
   MuonPurityCheckMHTNJet->SetMarkerSize(2.0);
   MuonPurityCheckMHTNJet->UseCurrentStyle();
   MuonPurityCheckMHTNJet->Write();
@@ -2768,35 +2768,35 @@ void EffMaker::Terminate()
   //elec
   //1D
   ElecPurityCheckBTag_ = ratioCalculator(ElecPurityCheckBTag_,ElecPurityCheckBTagFail_);   
-  ElecPurityCheckBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; B_{Tags}");
+  ElecPurityCheckBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e purity; B_{Tags}");
   ElecPurityCheckBTag_->SetMarkerSize(2.0);
   ElecPurityCheckBTag_->UseCurrentStyle();
   ElecPurityCheckBTag_->Write();
   SaveEfficiency(ElecPurityCheckBTag_);
   
   ElecPurityCheckNJets_ = ratioCalculator(ElecPurityCheckNJets_,ElecPurityCheckNJetsFail_);   
-  ElecPurityCheckNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; N_{Jets}");
+  ElecPurityCheckNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e purity; N_{Jets}");
   ElecPurityCheckNJets_->SetMarkerSize(2.0);
   ElecPurityCheckNJets_->UseCurrentStyle();
   ElecPurityCheckNJets_->Write();
   SaveEfficiency(ElecPurityCheckNJets_);
   
   ElecPurityCheckHT_ = ratioCalculator(ElecPurityCheckHT_,ElecPurityCheckHTFail_);   
-  ElecPurityCheckHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; H_{T} [GeV]");
+  ElecPurityCheckHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e purity; H_{T} [GeV]");
   ElecPurityCheckHT_->SetMarkerSize(2.0);
   ElecPurityCheckHT_->UseCurrentStyle();
   ElecPurityCheckHT_->Write();
   SaveEfficiency(ElecPurityCheckHT_);
   
   ElecPurityCheckMHT_ = ratioCalculator(ElecPurityCheckMHT_,ElecPurityCheckMHTFail_);   
-  ElecPurityCheckMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; #slash{H}_{T} [GeV]");
+  ElecPurityCheckMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e purity; #slash{H}_{T} [GeV]");
   ElecPurityCheckMHT_->SetMarkerSize(2.0);
   ElecPurityCheckMHT_->UseCurrentStyle();
   ElecPurityCheckMHT_->Write();
   SaveEfficiency(ElecPurityCheckMHT_);
   //2D
   ElecPurityCheckMHTNJet = ratioCalculator(ElecPurityCheckMHTNJet,ElecPurityCheckMHTNJetFail);   
-  ElecPurityCheckMHTNJet->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; #slash{H}_{T} [GeV]; N_{Jets}");
+  ElecPurityCheckMHTNJet->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e purity; #slash{H}_{T} [GeV]; N_{Jets}");
   ElecPurityCheckMHTNJet->SetMarkerSize(2.0);
   ElecPurityCheckMHTNJet->UseCurrentStyle();
   ElecPurityCheckMHTNJet->Write();
@@ -2808,28 +2808,28 @@ void EffMaker::Terminate()
   //muon
   //1D
   MuAccBTag_ = ratioCalculator(MuAccBTag_,MuAccBTagFail_);   
-  MuAccBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc; B_{Tags}");
+  MuAccBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu acc; B_{Tags}");
   MuAccBTag_->SetMarkerSize(2.0);
   MuAccBTag_->UseCurrentStyle();
   MuAccBTag_->Write();
   SaveEfficiency(MuAccBTag_);
   
   MuAccNJets_ = ratioCalculator(MuAccNJets_,MuAccNJetsFail_);   
-  MuAccNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc; N_{Jets}");
+  MuAccNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu acc; N_{Jets}");
   MuAccNJets_->SetMarkerSize(2.0);
   MuAccNJets_->UseCurrentStyle();
   MuAccNJets_->Write();
   SaveEfficiency(MuAccNJets_);
   
   MuAccHT_ = ratioCalculator(MuAccHT_,MuAccHTFail_);   
-  MuAccHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc; H_{T} [GeV]");
+  MuAccHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu acc; H_{T} [GeV]");
   MuAccHT_->SetMarkerSize(2.0);
   MuAccHT_->UseCurrentStyle();
   MuAccHT_->Write();
   SaveEfficiency(MuAccHT_);
   
   MuAccMHT_ = ratioCalculator(MuAccMHT_,MuAccMHTFail_);   
-  MuAccMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc; #slash{H}_{T} [GeV]");
+  MuAccMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu acc; #slash{H}_{T} [GeV]");
   MuAccMHT_->SetMarkerSize(2.0);
   MuAccMHT_->UseCurrentStyle();
   MuAccMHT_->Write();
@@ -2837,35 +2837,35 @@ void EffMaker::Terminate()
   
   // 2D 
   MuAccHTNJets_ = ratioCalculator(MuAccHTNJets_,MuAccHTNJetsFail_);   
-  MuAccHTNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc; H_{T} [GeV]; N_{Jets}");
+  MuAccHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu acc; H_{T} [GeV]; N_{Jets}");
   MuAccHTNJets_->SetMarkerSize(2.0);
   MuAccHTNJets_->UseCurrentStyle();
   MuAccHTNJets_->Write();
   SaveEfficiency(MuAccHTNJets_);
 	
 	MuAccMHTNJets_ = ratioCalculator(MuAccMHTNJets_,MuAccMHTNJetsFail_);   
-	MuAccMHTNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc; #slash{H}_{T} [GeV]; N_{Jets}");
+	MuAccMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu acc; #slash{H}_{T} [GeV]; N_{Jets}");
 	MuAccMHTNJets_->SetMarkerSize(2.0);
 	MuAccMHTNJets_->UseCurrentStyle();
 	MuAccMHTNJets_->Write();
 	SaveEfficiency(MuAccMHTNJets_);
 	
 	MuAccBTagNJets_ = ratioCalculator(MuAccBTagNJets_,MuAccBTagNJetsFail_);   
-	MuAccBTagNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc; B_{Tags}; N_{Jets}");
+	MuAccBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu acc; B_{Tags}; N_{Jets}");
 	MuAccBTagNJets_->SetMarkerSize(2.0);
 	MuAccBTagNJets_->UseCurrentStyle();
 	MuAccBTagNJets_->Write();
 	SaveEfficiency(MuAccBTagNJets_);
 	
 	MuAccMHTNJetsB0_ = ratioCalculator(MuAccMHTNJetsB0_,MuAccMHTNJetsB0Fail_);   
-	MuAccMHTNJetsB0_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc B_{Tags}=0; #slash{H}_{T} [GeV]; N_{Jets}");
+	MuAccMHTNJetsB0_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu acc B_{Tags}=0; #slash{H}_{T} [GeV]; N_{Jets}");
 	MuAccMHTNJetsB0_->SetMarkerSize(2.0);
 	MuAccMHTNJetsB0_->UseCurrentStyle();
 	MuAccMHTNJetsB0_->Write();
 	SaveEfficiency(MuAccMHTNJetsB0_);
 	
 	MuAccMHTNJetsB1_Inf_ = ratioCalculator(MuAccMHTNJetsB1_Inf_,MuAccMHTNJetsB1_InfFail_);   
-	MuAccMHTNJetsB1_Inf_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc B_{Tags}#geq1; #slash{H}_{T} [GeV]; N_{Jets}");
+	MuAccMHTNJetsB1_Inf_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu acc B_{Tags}#geq1; #slash{H}_{T} [GeV]; N_{Jets}");
 	MuAccMHTNJetsB1_Inf_->SetMarkerSize(2.0);
 	MuAccMHTNJetsB1_Inf_->UseCurrentStyle();
 	MuAccMHTNJetsB1_Inf_->Write();
@@ -2874,28 +2874,28 @@ void EffMaker::Terminate()
   //elec
   //1D
   ElecAccBTag_ = ratioCalculator(ElecAccBTag_,ElecAccBTagFail_);   
-  ElecAccBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc; B_{Tags}");
+  ElecAccBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e acc; B_{Tags}");
   ElecAccBTag_->SetMarkerSize(2.0);
   ElecAccBTag_->UseCurrentStyle();
   ElecAccBTag_->Write();
   SaveEfficiency(ElecAccBTag_);
   
   ElecAccNJets_ = ratioCalculator(ElecAccNJets_,ElecAccNJetsFail_);   
-  ElecAccNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc; N_{Jets}");
+  ElecAccNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e acc; N_{Jets}");
   ElecAccNJets_->SetMarkerSize(2.0);
   ElecAccNJets_->UseCurrentStyle();
   ElecAccNJets_->Write();
   SaveEfficiency(ElecAccNJets_);
   
   ElecAccHT_ = ratioCalculator(ElecAccHT_,ElecAccHTFail_);   
-  ElecAccHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc; H_{T} [GeV]");
+  ElecAccHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e acc; H_{T} [GeV]");
   ElecAccHT_->SetMarkerSize(2.0);
   ElecAccHT_->UseCurrentStyle();
   ElecAccHT_->Write();
   SaveEfficiency(ElecAccHT_);
   
   ElecAccMHT_ = ratioCalculator(ElecAccMHT_,ElecAccMHTFail_);   
-  ElecAccMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc; #slash{H}_{T} [GeV]");
+  ElecAccMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e acc; #slash{H}_{T} [GeV]");
   ElecAccMHT_->SetMarkerSize(2.0);
   ElecAccMHT_->UseCurrentStyle();
   ElecAccMHT_->Write();
@@ -2903,35 +2903,35 @@ void EffMaker::Terminate()
   
   // 2D 
   ElecAccHTNJets_ = ratioCalculator(ElecAccHTNJets_,ElecAccHTNJetsFail_);   
-  ElecAccHTNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc; H_{T} [GeV]; N_{Jets}");
+  ElecAccHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e acc; H_{T} [GeV]; N_{Jets}");
   ElecAccHTNJets_->SetMarkerSize(2.0);
   ElecAccHTNJets_->UseCurrentStyle();
   ElecAccHTNJets_->Write();
   SaveEfficiency(ElecAccHTNJets_);
 	
 	ElecAccMHTNJets_ = ratioCalculator(ElecAccMHTNJets_,ElecAccMHTNJetsFail_);   
-	ElecAccMHTNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc; #slash{H}_{T} [GeV]; N_{Jets}");
+	ElecAccMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e acc; #slash{H}_{T} [GeV]; N_{Jets}");
 	ElecAccMHTNJets_->SetMarkerSize(2.0);
 	ElecAccMHTNJets_->UseCurrentStyle();
 	ElecAccMHTNJets_->Write();
 	SaveEfficiency(ElecAccMHTNJets_);
 	
 	ElecAccBTagNJets_ = ratioCalculator(ElecAccBTagNJets_,ElecAccBTagNJetsFail_);   
-	ElecAccBTagNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc; B_{Tags}; N_{Jets}");
+	ElecAccBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e acc; B_{Tags}; N_{Jets}");
 	ElecAccBTagNJets_->SetMarkerSize(2.0);
 	ElecAccBTagNJets_->UseCurrentStyle();
 	ElecAccBTagNJets_->Write();
 	SaveEfficiency(ElecAccBTagNJets_);
 	
 	ElecAccMHTNJetsB0_ = ratioCalculator(ElecAccMHTNJetsB0_,ElecAccMHTNJetsB0Fail_);   
-	ElecAccMHTNJetsB0_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc B_{Tags}=0; #slash{H}_{T} [GeV]; N_{Jets}");
+	ElecAccMHTNJetsB0_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e acc B_{Tags}=0; #slash{H}_{T} [GeV]; N_{Jets}");
 	ElecAccMHTNJetsB0_->SetMarkerSize(2.0);
 	ElecAccMHTNJetsB0_->UseCurrentStyle();
 	ElecAccMHTNJetsB0_->Write();
 	SaveEfficiency(ElecAccMHTNJetsB0_);
 	
 	ElecAccMHTNJetsB1_Inf_ = ratioCalculator(ElecAccMHTNJetsB1_Inf_,ElecAccMHTNJetsB1_InfFail_);   
-	ElecAccMHTNJetsB1_Inf_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc B_{Tags}#geq1; #slash{H}_{T} [GeV]; N_{Jets}");
+	ElecAccMHTNJetsB1_Inf_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e acc B_{Tags}#geq1; #slash{H}_{T} [GeV]; N_{Jets}");
 	ElecAccMHTNJetsB1_Inf_->SetMarkerSize(2.0);
 	ElecAccMHTNJetsB1_Inf_->UseCurrentStyle();
 	ElecAccMHTNJetsB1_Inf_->Write();
@@ -2943,28 +2943,28 @@ void EffMaker::Terminate()
   //muon
   //1D
   MuRecoBTag_ = ratioCalculator(MuRecoBTag_,MuRecoBTagFail_);   
-  MuRecoBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu reco; B_{Tags}");
+  MuRecoBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco; B_{Tags}");
   MuRecoBTag_->SetMarkerSize(2.0);
   MuRecoBTag_->UseCurrentStyle();
   MuRecoBTag_->Write();
   SaveEfficiency(MuRecoBTag_);
   
   MuRecoNJets_ = ratioCalculator(MuRecoNJets_,MuRecoNJetsFail_);   
-  MuRecoNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu reco; N_{Jets}");
+  MuRecoNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco; N_{Jets}");
   MuRecoNJets_->SetMarkerSize(2.0);
   MuRecoNJets_->UseCurrentStyle();
   MuRecoNJets_->Write();
   SaveEfficiency(MuRecoNJets_);
   
   MuRecoHT_ = ratioCalculator(MuRecoHT_,MuRecoHTFail_);   
-  MuRecoHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu reco; H_{T} [GeV]");
+  MuRecoHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco; H_{T} [GeV]");
   MuRecoHT_->SetMarkerSize(2.0);
   MuRecoHT_->UseCurrentStyle();
   MuRecoHT_->Write();
   SaveEfficiency(MuRecoHT_);
   
   MuRecoMHT_ = ratioCalculator(MuRecoMHT_,MuRecoMHTFail_);   
-  MuRecoMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu reco; #slash{H}_{T} [GeV]");
+  MuRecoMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco; #slash{H}_{T} [GeV]");
   MuRecoMHT_->SetMarkerSize(2.0);
   MuRecoMHT_->UseCurrentStyle();
   MuRecoMHT_->Write();
@@ -2973,28 +2973,28 @@ void EffMaker::Terminate()
   //elec
   //1D
   ElecRecoBTag_ = ratioCalculator(ElecRecoBTag_,ElecRecoBTagFail_);   
-  ElecRecoBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e reco; B_{Tags}");
+  ElecRecoBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco; B_{Tags}");
   ElecRecoBTag_->SetMarkerSize(2.0);
   ElecRecoBTag_->UseCurrentStyle();
   ElecRecoBTag_->Write();
   SaveEfficiency(ElecRecoBTag_);
   
   ElecRecoNJets_ = ratioCalculator(ElecRecoNJets_,ElecRecoNJetsFail_);   
-  ElecRecoNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e reco; N_{Jets}");
+  ElecRecoNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco; N_{Jets}");
   ElecRecoNJets_->SetMarkerSize(2.0);
   ElecRecoNJets_->UseCurrentStyle();
   ElecRecoNJets_->Write();
   SaveEfficiency(ElecRecoNJets_);
   
   ElecRecoHT_ = ratioCalculator(ElecRecoHT_,ElecRecoHTFail_);   
-  ElecRecoHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e reco; H_{T} [GeV]");
+  ElecRecoHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco; H_{T} [GeV]");
   ElecRecoHT_->SetMarkerSize(2.0);
   ElecRecoHT_->UseCurrentStyle();
   ElecRecoHT_->Write();
   SaveEfficiency(ElecRecoHT_);
   
   ElecRecoMHT_ = ratioCalculator(ElecRecoMHT_,ElecRecoMHTFail_);   
-  ElecRecoMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e reco; #slash{H}_{T} [GeV]");
+  ElecRecoMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco; #slash{H}_{T} [GeV]");
   ElecRecoMHT_->SetMarkerSize(2.0);
   ElecRecoMHT_->UseCurrentStyle();
   ElecRecoMHT_->Write();
@@ -3006,28 +3006,28 @@ void EffMaker::Terminate()
   //muon
   //1D
   MuIsoBTag_ = ratioCalculator(MuIsoBTag_,MuIsoBTagFail_);   
-  MuIsoBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu iso; B_{Tags}");
+  MuIsoBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso; B_{Tags}");
   MuIsoBTag_->SetMarkerSize(2.0);
   MuIsoBTag_->UseCurrentStyle();
   MuIsoBTag_->Write();
   SaveEfficiency(MuIsoBTag_);
   
   MuIsoNJets_ = ratioCalculator(MuIsoNJets_,MuIsoNJetsFail_);   
-  MuIsoNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu iso; N_{Jets}");
+  MuIsoNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso; N_{Jets}");
   MuIsoNJets_->SetMarkerSize(2.0);
   MuIsoNJets_->UseCurrentStyle();
   MuIsoNJets_->Write();
   SaveEfficiency(MuIsoNJets_);
   
   MuIsoHT_ = ratioCalculator(MuIsoHT_,MuIsoHTFail_);   
-  MuIsoHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu iso; H_{T} [GeV]");
+  MuIsoHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso; H_{T} [GeV]");
   MuIsoHT_->SetMarkerSize(2.0);
   MuIsoHT_->UseCurrentStyle();
   MuIsoHT_->Write();
   SaveEfficiency(MuIsoHT_);
   
   MuIsoMHT_ = ratioCalculator(MuIsoMHT_,MuIsoMHTFail_);   
-  MuIsoMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu iso; #slash{H}_{T} [GeV]");
+  MuIsoMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso; #slash{H}_{T} [GeV]");
   MuIsoMHT_->SetMarkerSize(2.0);
   MuIsoMHT_->UseCurrentStyle();
   MuIsoMHT_->Write();
@@ -3036,28 +3036,28 @@ void EffMaker::Terminate()
   //elec
   //1D
   ElecIsoBTag_ = ratioCalculator(ElecIsoBTag_,ElecIsoBTagFail_);   
-  ElecIsoBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e iso; B_{Tags}");
+  ElecIsoBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso; B_{Tags}");
   ElecIsoBTag_->SetMarkerSize(2.0);
   ElecIsoBTag_->UseCurrentStyle();
   ElecIsoBTag_->Write();
   SaveEfficiency(ElecIsoBTag_);
   
   ElecIsoNJets_ = ratioCalculator(ElecIsoNJets_,ElecIsoNJetsFail_);   
-  ElecIsoNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e iso; N_{Jets}");
+  ElecIsoNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso; N_{Jets}");
   ElecIsoNJets_->SetMarkerSize(2.0);
   ElecIsoNJets_->UseCurrentStyle();
   ElecIsoNJets_->Write();
   SaveEfficiency(ElecIsoNJets_);
   
   ElecIsoHT_ = ratioCalculator(ElecIsoHT_,ElecIsoHTFail_);   
-  ElecIsoHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e iso; H_{T} [GeV]");
+  ElecIsoHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso; H_{T} [GeV]");
   ElecIsoHT_->SetMarkerSize(2.0);
   ElecIsoHT_->UseCurrentStyle();
   ElecIsoHT_->Write();
   SaveEfficiency(ElecIsoHT_);
   
   ElecIsoMHT_ = ratioCalculator(ElecIsoMHT_,ElecIsoMHTFail_);   
-  ElecIsoMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e iso; #slash{H}_{T} [GeV]");
+  ElecIsoMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso; #slash{H}_{T} [GeV]");
   ElecIsoMHT_->SetMarkerSize(2.0);
   ElecIsoMHT_->UseCurrentStyle();
   ElecIsoMHT_->Write();
@@ -3068,35 +3068,35 @@ void EffMaker::Terminate()
   //muon
   //1D
   MuMTWBTag_ = ratioCalculator(MuMTWBTag_,MuMTWBTagFail_);   
-  MuMTWBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu m_{T}(w); B_{Tags}");
+  MuMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu m_{T}(w); B_{Tags}");
   MuMTWBTag_->SetMarkerSize(2.0);
   MuMTWBTag_->UseCurrentStyle();
   MuMTWBTag_->Write();
   SaveEfficiency(MuMTWBTag_);
   
   MuMTWNJets_ = ratioCalculator(MuMTWNJets_,MuMTWNJetsFail_);   
-  MuMTWNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu m_{T}(w); N_{Jets}");
+  MuMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu m_{T}(w); N_{Jets}");
   MuMTWNJets_->SetMarkerSize(2.0);
   MuMTWNJets_->UseCurrentStyle();
   MuMTWNJets_->Write();
   SaveEfficiency(MuMTWNJets_);
   
   MuMTWHT_ = ratioCalculator(MuMTWHT_,MuMTWHTFail_);   
-  MuMTWHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu m_{T}(w); H_{T} [GeV]");
+  MuMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu m_{T}(w); H_{T} [GeV]");
   MuMTWHT_->SetMarkerSize(2.0);
   MuMTWHT_->UseCurrentStyle();
   MuMTWHT_->Write();
   SaveEfficiency(MuMTWHT_);
   
   MuMTWMHT_ = ratioCalculator(MuMTWMHT_,MuMTWMHTFail_);   
-  MuMTWMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu m_{T}(w); #slash{H}_{T} [GeV]");
+  MuMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu m_{T}(w); #slash{H}_{T} [GeV]");
   MuMTWMHT_->SetMarkerSize(2.0);
   MuMTWMHT_->UseCurrentStyle();
   MuMTWMHT_->Write();
   SaveEfficiency(MuMTWMHT_);
 	
 	MuMTWPTActivity_ = ratioCalculator(MuMTWPTActivity_,MuMTWPTActivityFail_);   
-	MuMTWPTActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu m_{T}(w); #mu p_{T} [GeV]; Activity [GeV]");
+	MuMTWPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu m_{T}(w); #mu p_{T} [GeV]; Activity [GeV]");
 	MuMTWPTActivity_->SetMarkerSize(2.0);
 	MuMTWPTActivity_->UseCurrentStyle();
 	MuMTWPTActivity_->Write();
@@ -3105,56 +3105,56 @@ void EffMaker::Terminate()
   //muon
   //1D
   MuDiLepBTag_ = ratioCalculator(MuDiLepBTag_,MuDiLepBTagFail_);   
-  MuDiLepBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep; B_{Tags}");
+  MuDiLepBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; B_{Tags}");
   MuDiLepBTag_->SetMarkerSize(2.0);
   MuDiLepBTag_->UseCurrentStyle();
   MuDiLepBTag_->Write();
   SaveEfficiency(MuDiLepBTag_);
   
   MuDiLepNJets_ = ratioCalculator(MuDiLepNJets_,MuDiLepNJetsFail_);   
-  MuDiLepNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep; N_{Jets}");
+  MuDiLepNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; N_{Jets}");
   MuDiLepNJets_->SetMarkerSize(2.0);
   MuDiLepNJets_->UseCurrentStyle();
   MuDiLepNJets_->Write();
   SaveEfficiency(MuDiLepNJets_);
   
   MuDiLepHT_ = ratioCalculator(MuDiLepHT_,MuDiLepHTFail_);   
-  MuDiLepHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep; H_{T} [GeV]");
+  MuDiLepHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; H_{T} [GeV]");
   MuDiLepHT_->SetMarkerSize(2.0);
   MuDiLepHT_->UseCurrentStyle();
   MuDiLepHT_->Write();
   SaveEfficiency(MuDiLepHT_);
   
   MuDiLepMHT_ = ratioCalculator(MuDiLepMHT_,MuDiLepMHTFail_);   
-  MuDiLepMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep; #slash{H}_{T} [GeV]");
+  MuDiLepMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; #slash{H}_{T} [GeV]");
   MuDiLepMHT_->SetMarkerSize(2.0);
   MuDiLepMHT_->UseCurrentStyle();
   MuDiLepMHT_->Write();
   SaveEfficiency(MuDiLepMHT_);
   
   MuDiLepMTWBTag_ = ratioCalculator(MuDiLepMTWBTag_,MuDiLepMTWBTagFail_);   
-  MuDiLepMTWBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep; B_{Tags}");
+  MuDiLepMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; B_{Tags}");
   MuDiLepMTWBTag_->SetMarkerSize(2.0);
   MuDiLepMTWBTag_->UseCurrentStyle();
   MuDiLepMTWBTag_->Write();
   SaveEfficiency(MuDiLepMTWBTag_);
   
   MuDiLepMTWNJets_ = ratioCalculator(MuDiLepMTWNJets_,MuDiLepMTWNJetsFail_);   
-  MuDiLepMTWNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep; N_{Jets}");
+  MuDiLepMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; N_{Jets}");
   MuDiLepMTWNJets_->SetMarkerSize(2.0);
   MuDiLepMTWNJets_->UseCurrentStyle();
   MuDiLepMTWNJets_->Write();
   SaveEfficiency(MuDiLepMTWNJets_);
   
   MuDiLepMTWHT_ = ratioCalculator(MuDiLepMTWHT_,MuDiLepMTWHTFail_);   
-  MuDiLepMTWHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep; H_{T} [GeV]");
+  MuDiLepMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; H_{T} [GeV]");
   MuDiLepMTWHT_->SetMarkerSize(2.0);
   MuDiLepMTWHT_->UseCurrentStyle();
   MuDiLepMTWHT_->Write();
   SaveEfficiency(MuDiLepMTWHT_);
   
   MuDiLepMTWMHT_ = ratioCalculator(MuDiLepMTWMHT_,MuDiLepMTWMHTFail_);   
-  MuDiLepMTWMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep; #slash{H}_{T} [GeV]");
+  MuDiLepMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; #slash{H}_{T} [GeV]");
   MuDiLepMTWMHT_->SetMarkerSize(2.0);
   MuDiLepMTWMHT_->UseCurrentStyle();
   MuDiLepMTWMHT_->Write();
@@ -3163,56 +3163,56 @@ void EffMaker::Terminate()
   //muon
   //1D
   MuDiLepContributionBTag_ = ratioCalculator(MuDiLepContributionBTag_,MuDiLepContributionBTagFail_);   
-  MuDiLepContributionBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep contri contri; B_{Tags}");
+  MuDiLepContributionBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; B_{Tags}");
   MuDiLepContributionBTag_->SetMarkerSize(2.0);
   MuDiLepContributionBTag_->UseCurrentStyle();
   MuDiLepContributionBTag_->Write();
   SaveEfficiency(MuDiLepContributionBTag_);
   
   MuDiLepContributionNJets_ = ratioCalculator(MuDiLepContributionNJets_,MuDiLepContributionNJetsFail_);   
-  MuDiLepContributionNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep contri contri; N_{Jets}");
+  MuDiLepContributionNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; N_{Jets}");
   MuDiLepContributionNJets_->SetMarkerSize(2.0);
   MuDiLepContributionNJets_->UseCurrentStyle();
   MuDiLepContributionNJets_->Write();
   SaveEfficiency(MuDiLepContributionNJets_);
   
   MuDiLepContributionHT_ = ratioCalculator(MuDiLepContributionHT_,MuDiLepContributionHTFail_);   
-  MuDiLepContributionHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep contri contri; H_{T} [GeV]");
+  MuDiLepContributionHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; H_{T} [GeV]");
   MuDiLepContributionHT_->SetMarkerSize(2.0);
   MuDiLepContributionHT_->UseCurrentStyle();
   MuDiLepContributionHT_->Write();
   SaveEfficiency(MuDiLepContributionHT_);
   
   MuDiLepContributionMHT_ = ratioCalculator(MuDiLepContributionMHT_,MuDiLepContributionMHTFail_);   
-  MuDiLepContributionMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep contri contri; #slash{H}_{T} [GeV]");
+  MuDiLepContributionMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; #slash{H}_{T} [GeV]");
   MuDiLepContributionMHT_->SetMarkerSize(2.0);
   MuDiLepContributionMHT_->UseCurrentStyle();
   MuDiLepContributionMHT_->Write();
   SaveEfficiency(MuDiLepContributionMHT_);
   
   MuDiLepContributionMTWBTag_ = ratioCalculator(MuDiLepContributionMTWBTag_,MuDiLepContributionMTWBTagFail_);   
-  MuDiLepContributionMTWBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep contri contri; B_{Tags}");
+  MuDiLepContributionMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; B_{Tags}");
   MuDiLepContributionMTWBTag_->SetMarkerSize(2.0);
   MuDiLepContributionMTWBTag_->UseCurrentStyle();
   MuDiLepContributionMTWBTag_->Write();
   SaveEfficiency(MuDiLepContributionMTWBTag_);
   
   MuDiLepContributionMTWNJets_ = ratioCalculator(MuDiLepContributionMTWNJets_,MuDiLepContributionMTWNJetsFail_);   
-  MuDiLepContributionMTWNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep contri contri; N_{Jets}");
+  MuDiLepContributionMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; N_{Jets}");
   MuDiLepContributionMTWNJets_->SetMarkerSize(2.0);
   MuDiLepContributionMTWNJets_->UseCurrentStyle();
   MuDiLepContributionMTWNJets_->Write();
   SaveEfficiency(MuDiLepContributionMTWNJets_);
   
   MuDiLepContributionMTWHT_ = ratioCalculator(MuDiLepContributionMTWHT_,MuDiLepContributionMTWHTFail_);   
-  MuDiLepContributionMTWHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep contri contri; H_{T} [GeV]");
+  MuDiLepContributionMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; H_{T} [GeV]");
   MuDiLepContributionMTWHT_->SetMarkerSize(2.0);
   MuDiLepContributionMTWHT_->UseCurrentStyle();
   MuDiLepContributionMTWHT_->Write();
   SaveEfficiency(MuDiLepContributionMTWHT_);
   
   MuDiLepContributionMTWMHT_ = ratioCalculator(MuDiLepContributionMTWMHT_,MuDiLepContributionMTWMHTFail_);   
-  MuDiLepContributionMTWMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu di lep contri contri; #slash{H}_{T} [GeV]");
+  MuDiLepContributionMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; #slash{H}_{T} [GeV]");
   MuDiLepContributionMTWMHT_->SetMarkerSize(2.0);
   MuDiLepContributionMTWMHT_->UseCurrentStyle();
   MuDiLepContributionMTWMHT_->Write();
@@ -3223,91 +3223,91 @@ void EffMaker::Terminate()
   //elec
   //1D
   ElecMTWBTag_ = ratioCalculator(ElecMTWBTag_,ElecMTWBTagFail_);   
-  ElecMTWBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e m_{T}(w); B_{Tags}");
+  ElecMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e m_{T}(w); B_{Tags}");
   ElecMTWBTag_->SetMarkerSize(2.0);
   ElecMTWBTag_->UseCurrentStyle();
   ElecMTWBTag_->Write();
   SaveEfficiency(ElecMTWBTag_);
   
   ElecMTWNJets_ = ratioCalculator(ElecMTWNJets_,ElecMTWNJetsFail_);   
-  ElecMTWNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e m_{T}(w); N_{Jets}");
+  ElecMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e m_{T}(w); N_{Jets}");
   ElecMTWNJets_->SetMarkerSize(2.0);
   ElecMTWNJets_->UseCurrentStyle();
   ElecMTWNJets_->Write();
   SaveEfficiency(ElecMTWNJets_);
   
   ElecMTWHT_ = ratioCalculator(ElecMTWHT_,ElecMTWHTFail_);   
-  ElecMTWHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e m_{T}(w); H_{T} [GeV]");
+  ElecMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e m_{T}(w); H_{T} [GeV]");
   ElecMTWHT_->SetMarkerSize(2.0);
   ElecMTWHT_->UseCurrentStyle();
   ElecMTWHT_->Write();
   SaveEfficiency(ElecMTWHT_);
   
   ElecMTWMHT_ = ratioCalculator(ElecMTWMHT_,ElecMTWMHTFail_);   
-  ElecMTWMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e m_{T}(w); #slash{H}_{T} [GeV]");
+  ElecMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e m_{T}(w); #slash{H}_{T} [GeV]");
   ElecMTWMHT_->SetMarkerSize(2.0);
   ElecMTWMHT_->UseCurrentStyle();
   ElecMTWMHT_->Write();
   SaveEfficiency(ElecMTWMHT_);
   
   ElecDiLepBTag_ = ratioCalculator(ElecDiLepBTag_,ElecDiLepBTagFail_);   
-  ElecDiLepBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep; B_{Tags}");
+  ElecDiLepBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; B_{Tags}");
   ElecDiLepBTag_->SetMarkerSize(2.0);
   ElecDiLepBTag_->UseCurrentStyle();
   ElecDiLepBTag_->Write();
   SaveEfficiency(ElecDiLepBTag_);
   
   ElecDiLepNJets_ = ratioCalculator(ElecDiLepNJets_,ElecDiLepNJetsFail_);   
-  ElecDiLepNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep; N_{Jets}");
+  ElecDiLepNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; N_{Jets}");
   ElecDiLepNJets_->SetMarkerSize(2.0);
   ElecDiLepNJets_->UseCurrentStyle();
   ElecDiLepNJets_->Write();
   SaveEfficiency(ElecDiLepNJets_);
   
   ElecDiLepHT_ = ratioCalculator(ElecDiLepHT_,ElecDiLepHTFail_);   
-  ElecDiLepHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep; H_{T} [GeV]");
+  ElecDiLepHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; H_{T} [GeV]");
   ElecDiLepHT_->SetMarkerSize(2.0);
   ElecDiLepHT_->UseCurrentStyle();
   ElecDiLepHT_->Write();
   SaveEfficiency(ElecDiLepHT_);
   
   ElecDiLepMHT_ = ratioCalculator(ElecDiLepMHT_,ElecDiLepMHTFail_);   
-  ElecDiLepMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep; #slash{H}_{T} [GeV]");
+  ElecDiLepMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; #slash{H}_{T} [GeV]");
   ElecDiLepMHT_->SetMarkerSize(2.0);
   ElecDiLepMHT_->UseCurrentStyle();
   ElecDiLepMHT_->Write();
   SaveEfficiency(ElecDiLepMHT_);
   
   ElecDiLepMTWBTag_ = ratioCalculator(ElecDiLepMTWBTag_,ElecDiLepMTWBTagFail_);   
-  ElecDiLepMTWBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep; B_{Tags}");
+  ElecDiLepMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; B_{Tags}");
   ElecDiLepMTWBTag_->SetMarkerSize(2.0);
   ElecDiLepMTWBTag_->UseCurrentStyle();
   ElecDiLepMTWBTag_->Write();
   SaveEfficiency(ElecDiLepMTWBTag_);
   
   ElecDiLepMTWNJets_ = ratioCalculator(ElecDiLepMTWNJets_,ElecDiLepMTWNJetsFail_);   
-  ElecDiLepMTWNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep; N_{Jets}");
+  ElecDiLepMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; N_{Jets}");
   ElecDiLepMTWNJets_->SetMarkerSize(2.0);
   ElecDiLepMTWNJets_->UseCurrentStyle();
   ElecDiLepMTWNJets_->Write();
   SaveEfficiency(ElecDiLepMTWNJets_);
   
   ElecDiLepMTWHT_ = ratioCalculator(ElecDiLepMTWHT_,ElecDiLepMTWHTFail_);   
-  ElecDiLepMTWHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep; H_{T} [GeV]");
+  ElecDiLepMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; H_{T} [GeV]");
   ElecDiLepMTWHT_->SetMarkerSize(2.0);
   ElecDiLepMTWHT_->UseCurrentStyle();
   ElecDiLepMTWHT_->Write();
   SaveEfficiency(ElecDiLepMTWHT_);
   
   ElecDiLepMTWMHT_ = ratioCalculator(ElecDiLepMTWMHT_,ElecDiLepMTWMHTFail_);   
-  ElecDiLepMTWMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep; #slash{H}_{T} [GeV]");
+  ElecDiLepMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; #slash{H}_{T} [GeV]");
   ElecDiLepMTWMHT_->SetMarkerSize(2.0);
   ElecDiLepMTWMHT_->UseCurrentStyle();
   ElecDiLepMTWMHT_->Write();
   SaveEfficiency(ElecDiLepMTWMHT_);
 	
 	ElecMTWPTActivity_ = ratioCalculator(ElecMTWPTActivity_,ElecMTWPTActivityFail_);   
-	ElecMTWPTActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e m_{T}(w); e p_{T} [GeV]; Activity [GeV]");
+	ElecMTWPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e m_{T}(w); e p_{T} [GeV]; Activity [GeV]");
 	ElecMTWPTActivity_->SetMarkerSize(2.0);
 	ElecMTWPTActivity_->UseCurrentStyle();
 	ElecMTWPTActivity_->Write();
@@ -3316,56 +3316,56 @@ void EffMaker::Terminate()
   //muon
   //1D
   ElecDiLepContributionBTag_ = ratioCalculator(ElecDiLepContributionBTag_,ElecDiLepContributionBTagFail_);   
-  ElecDiLepContributionBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep contri contri; B_{Tags}");
+  ElecDiLepContributionBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; B_{Tags}");
   ElecDiLepContributionBTag_->SetMarkerSize(2.0);
   ElecDiLepContributionBTag_->UseCurrentStyle();
   ElecDiLepContributionBTag_->Write();
   SaveEfficiency(ElecDiLepContributionBTag_);
   
   ElecDiLepContributionNJets_ = ratioCalculator(ElecDiLepContributionNJets_,ElecDiLepContributionNJetsFail_);   
-  ElecDiLepContributionNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep contri contri; N_{Jets}");
+  ElecDiLepContributionNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; N_{Jets}");
   ElecDiLepContributionNJets_->SetMarkerSize(2.0);
   ElecDiLepContributionNJets_->UseCurrentStyle();
   ElecDiLepContributionNJets_->Write();
   SaveEfficiency(ElecDiLepContributionNJets_);
   
   ElecDiLepContributionHT_ = ratioCalculator(ElecDiLepContributionHT_,ElecDiLepContributionHTFail_);   
-  ElecDiLepContributionHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep contri contri; H_{T} [GeV]");
+  ElecDiLepContributionHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; H_{T} [GeV]");
   ElecDiLepContributionHT_->SetMarkerSize(2.0);
   ElecDiLepContributionHT_->UseCurrentStyle();
   ElecDiLepContributionHT_->Write();
   SaveEfficiency(ElecDiLepContributionHT_);
   
   ElecDiLepContributionMHT_ = ratioCalculator(ElecDiLepContributionMHT_,ElecDiLepContributionMHTFail_);   
-  ElecDiLepContributionMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep contri contri; #slash{H}_{T} [GeV]");
+  ElecDiLepContributionMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; #slash{H}_{T} [GeV]");
   ElecDiLepContributionMHT_->SetMarkerSize(2.0);
   ElecDiLepContributionMHT_->UseCurrentStyle();
   ElecDiLepContributionMHT_->Write();
   SaveEfficiency(ElecDiLepContributionMHT_);
   
   ElecDiLepContributionMTWBTag_ = ratioCalculator(ElecDiLepContributionMTWBTag_,ElecDiLepContributionMTWBTagFail_);   
-  ElecDiLepContributionMTWBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep contri contri; B_{Tags}");
+  ElecDiLepContributionMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; B_{Tags}");
   ElecDiLepContributionMTWBTag_->SetMarkerSize(2.0);
   ElecDiLepContributionMTWBTag_->UseCurrentStyle();
   ElecDiLepContributionMTWBTag_->Write();
   SaveEfficiency(ElecDiLepContributionMTWBTag_);
   
   ElecDiLepContributionMTWNJets_ = ratioCalculator(ElecDiLepContributionMTWNJets_,ElecDiLepContributionMTWNJetsFail_);   
-  ElecDiLepContributionMTWNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep contri contri; N_{Jets}");
+  ElecDiLepContributionMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; N_{Jets}");
   ElecDiLepContributionMTWNJets_->SetMarkerSize(2.0);
   ElecDiLepContributionMTWNJets_->UseCurrentStyle();
   ElecDiLepContributionMTWNJets_->Write();
   SaveEfficiency(ElecDiLepContributionMTWNJets_);
   
   ElecDiLepContributionMTWHT_ = ratioCalculator(ElecDiLepContributionMTWHT_,ElecDiLepContributionMTWHTFail_);   
-  ElecDiLepContributionMTWHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep contri contri; H_{T} [GeV]");
+  ElecDiLepContributionMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; H_{T} [GeV]");
   ElecDiLepContributionMTWHT_->SetMarkerSize(2.0);
   ElecDiLepContributionMTWHT_->UseCurrentStyle();
   ElecDiLepContributionMTWHT_->Write();
   SaveEfficiency(ElecDiLepContributionMTWHT_);
   
   ElecDiLepContributionMTWMHT_ = ratioCalculator(ElecDiLepContributionMTWMHT_,ElecDiLepContributionMTWMHTFail_);   
-  ElecDiLepContributionMTWMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e di lep contri contri; #slash{H}_{T} [GeV]");
+  ElecDiLepContributionMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; #slash{H}_{T} [GeV]");
   ElecDiLepContributionMTWMHT_->SetMarkerSize(2.0);
   ElecDiLepContributionMTWMHT_->UseCurrentStyle();
   ElecDiLepContributionMTWMHT_->Write();
@@ -3376,28 +3376,28 @@ void EffMaker::Terminate()
   //muon
   //1D
   IsoTrackMuBTag_ = ratioCalculator(IsoTrackMuBTag_,IsoTrackMuBTagFail_);   
-  IsoTrackMuBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenMu; B_{Tags}");
+  IsoTrackMuBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenMu; B_{Tags}");
   IsoTrackMuBTag_->SetMarkerSize(2.0);
   IsoTrackMuBTag_->UseCurrentStyle();
   IsoTrackMuBTag_->Write();
   SaveEfficiency(IsoTrackMuBTag_);
   
   IsoTrackMuNJets_ = ratioCalculator(IsoTrackMuNJets_,IsoTrackMuNJetsFail_);   
-  IsoTrackMuNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenMu; N_{Jets}");
+  IsoTrackMuNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenMu; N_{Jets}");
   IsoTrackMuNJets_->SetMarkerSize(2.0);
   IsoTrackMuNJets_->UseCurrentStyle();
   IsoTrackMuNJets_->Write();
   SaveEfficiency(IsoTrackMuNJets_);
   
   IsoTrackMuHT_ = ratioCalculator(IsoTrackMuHT_,IsoTrackMuHTFail_);   
-  IsoTrackMuHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenMu; H_{T} [GeV]");
+  IsoTrackMuHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenMu; H_{T} [GeV]");
   IsoTrackMuHT_->SetMarkerSize(2.0);
   IsoTrackMuHT_->UseCurrentStyle();
   IsoTrackMuHT_->Write();
   SaveEfficiency(IsoTrackMuHT_);
   
   IsoTrackMuMHT_ = ratioCalculator(IsoTrackMuMHT_,IsoTrackMuMHTFail_);   
-  IsoTrackMuMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenMu; #slash{H}_{T} [GeV]");
+  IsoTrackMuMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenMu; #slash{H}_{T} [GeV]");
   IsoTrackMuMHT_->SetMarkerSize(2.0);
   IsoTrackMuMHT_->UseCurrentStyle();
   IsoTrackMuMHT_->Write();
@@ -3405,28 +3405,28 @@ void EffMaker::Terminate()
   
   
   IsoTrackMuMatchedToIsoMuBTag_ = ratioCalculator(IsoTrackMuMatchedToIsoMuBTag_,IsoTrackMuMatchedToIsoMuBTagFail_);   
-  IsoTrackMuMatchedToIsoMuBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenMuMatchedToIsoMu; B_{Tags}");
+  IsoTrackMuMatchedToIsoMuBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenMuMatchedToIsoMu; B_{Tags}");
   IsoTrackMuMatchedToIsoMuBTag_->SetMarkerSize(2.0);
   IsoTrackMuMatchedToIsoMuBTag_->UseCurrentStyle();
   IsoTrackMuMatchedToIsoMuBTag_->Write();
   SaveEfficiency(IsoTrackMuMatchedToIsoMuBTag_);
   
   IsoTrackMuMatchedToIsoMuNJets_ = ratioCalculator(IsoTrackMuMatchedToIsoMuNJets_,IsoTrackMuMatchedToIsoMuNJetsFail_);   
-  IsoTrackMuMatchedToIsoMuNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenMuMatchedToIsoMu; N_{Jets}");
+  IsoTrackMuMatchedToIsoMuNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenMuMatchedToIsoMu; N_{Jets}");
   IsoTrackMuMatchedToIsoMuNJets_->SetMarkerSize(2.0);
   IsoTrackMuMatchedToIsoMuNJets_->UseCurrentStyle();
   IsoTrackMuMatchedToIsoMuNJets_->Write();
   SaveEfficiency(IsoTrackMuMatchedToIsoMuNJets_);
   
   IsoTrackMuMatchedToIsoMuHT_ = ratioCalculator(IsoTrackMuMatchedToIsoMuHT_,IsoTrackMuMatchedToIsoMuHTFail_);   
-  IsoTrackMuMatchedToIsoMuHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenMuMatchedToIsoMu; H_{T} [GeV]");
+  IsoTrackMuMatchedToIsoMuHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenMuMatchedToIsoMu; H_{T} [GeV]");
   IsoTrackMuMatchedToIsoMuHT_->SetMarkerSize(2.0);
   IsoTrackMuMatchedToIsoMuHT_->UseCurrentStyle();
   IsoTrackMuMatchedToIsoMuHT_->Write();
   SaveEfficiency(IsoTrackMuMatchedToIsoMuHT_);
   
   IsoTrackMuMatchedToIsoMuMHT_ = ratioCalculator(IsoTrackMuMatchedToIsoMuMHT_,IsoTrackMuMatchedToIsoMuMHTFail_);   
-  IsoTrackMuMatchedToIsoMuMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenMuMatchedToIsoMu; #slash{H}_{T} [GeV]");
+  IsoTrackMuMatchedToIsoMuMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenMuMatchedToIsoMu; #slash{H}_{T} [GeV]");
   IsoTrackMuMatchedToIsoMuMHT_->SetMarkerSize(2.0);
   IsoTrackMuMatchedToIsoMuMHT_->UseCurrentStyle();
   IsoTrackMuMatchedToIsoMuMHT_->Write();
@@ -3435,56 +3435,56 @@ void EffMaker::Terminate()
   //elec
   //1D
   IsoTrackElecBTag_ = ratioCalculator(IsoTrackElecBTag_,IsoTrackElecBTagFail_);   
-  IsoTrackElecBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenElec; B_{Tags}");
+  IsoTrackElecBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenElec; B_{Tags}");
   IsoTrackElecBTag_->SetMarkerSize(2.0);
   IsoTrackElecBTag_->UseCurrentStyle();
   IsoTrackElecBTag_->Write();
   SaveEfficiency(IsoTrackElecBTag_);
   
   IsoTrackElecNJets_ = ratioCalculator(IsoTrackElecNJets_,IsoTrackElecNJetsFail_);   
-  IsoTrackElecNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenElec; N_{Jets}");
+  IsoTrackElecNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenElec; N_{Jets}");
   IsoTrackElecNJets_->SetMarkerSize(2.0);
   IsoTrackElecNJets_->UseCurrentStyle();
   IsoTrackElecNJets_->Write();
   SaveEfficiency(IsoTrackElecNJets_);
   
   IsoTrackElecHT_ = ratioCalculator(IsoTrackElecHT_,IsoTrackElecHTFail_);   
-  IsoTrackElecHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenElec; H_{T} [GeV]");
+  IsoTrackElecHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenElec; H_{T} [GeV]");
   IsoTrackElecHT_->SetMarkerSize(2.0);
   IsoTrackElecHT_->UseCurrentStyle();
   IsoTrackElecHT_->Write();
   SaveEfficiency(IsoTrackElecHT_);
   
   IsoTrackElecMHT_ = ratioCalculator(IsoTrackElecMHT_,IsoTrackElecMHTFail_);   
-  IsoTrackElecMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenElec; #slash{H}_{T} [GeV]");
+  IsoTrackElecMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenElec; #slash{H}_{T} [GeV]");
   IsoTrackElecMHT_->SetMarkerSize(2.0);
   IsoTrackElecMHT_->UseCurrentStyle();
   IsoTrackElecMHT_->Write();
   SaveEfficiency(IsoTrackElecMHT_);
   
   IsoTrackElecMatchedToIsoElecBTag_ = ratioCalculator(IsoTrackElecMatchedToIsoElecBTag_,IsoTrackElecMatchedToIsoElecBTagFail_);   
-  IsoTrackElecMatchedToIsoElecBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenElecMatchedToIsoElec; B_{Tags}");
+  IsoTrackElecMatchedToIsoElecBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenElecMatchedToIsoElec; B_{Tags}");
   IsoTrackElecMatchedToIsoElecBTag_->SetMarkerSize(2.0);
   IsoTrackElecMatchedToIsoElecBTag_->UseCurrentStyle();
   IsoTrackElecMatchedToIsoElecBTag_->Write();
   SaveEfficiency(IsoTrackElecMatchedToIsoElecBTag_);
   
   IsoTrackElecMatchedToIsoElecNJets_ = ratioCalculator(IsoTrackElecMatchedToIsoElecNJets_,IsoTrackElecMatchedToIsoElecNJetsFail_);   
-  IsoTrackElecMatchedToIsoElecNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenElecMatchedToIsoElec; N_{Jets}");
+  IsoTrackElecMatchedToIsoElecNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenElecMatchedToIsoElec; N_{Jets}");
   IsoTrackElecMatchedToIsoElecNJets_->SetMarkerSize(2.0);
   IsoTrackElecMatchedToIsoElecNJets_->UseCurrentStyle();
   IsoTrackElecMatchedToIsoElecNJets_->Write();
   SaveEfficiency(IsoTrackElecMatchedToIsoElecNJets_);
   
   IsoTrackElecMatchedToIsoElecHT_ = ratioCalculator(IsoTrackElecMatchedToIsoElecHT_,IsoTrackElecMatchedToIsoElecHTFail_);   
-  IsoTrackElecMatchedToIsoElecHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenElecMatchedToIsoElec; H_{T} [GeV]");
+  IsoTrackElecMatchedToIsoElecHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenElecMatchedToIsoElec; H_{T} [GeV]");
   IsoTrackElecMatchedToIsoElecHT_->SetMarkerSize(2.0);
   IsoTrackElecMatchedToIsoElecHT_->UseCurrentStyle();
   IsoTrackElecMatchedToIsoElecHT_->Write();
   SaveEfficiency(IsoTrackElecMatchedToIsoElecHT_);
   
   IsoTrackElecMatchedToIsoElecMHT_ = ratioCalculator(IsoTrackElecMatchedToIsoElecMHT_,IsoTrackElecMatchedToIsoElecMHTFail_);   
-  IsoTrackElecMatchedToIsoElecMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenElecMatchedToIsoElec; #slash{H}_{T} [GeV]");
+  IsoTrackElecMatchedToIsoElecMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenElecMatchedToIsoElec; #slash{H}_{T} [GeV]");
   IsoTrackElecMatchedToIsoElecMHT_->SetMarkerSize(2.0);
   IsoTrackElecMatchedToIsoElecMHT_->UseCurrentStyle();
   IsoTrackElecMatchedToIsoElecMHT_->Write();
@@ -3493,28 +3493,28 @@ void EffMaker::Terminate()
   //muon
   //1D
   IsoTrackMuMTWBTag_ = ratioCalculator(IsoTrackMuMTWBTag_,IsoTrackMuMTWBTagFail_);   
-  IsoTrackMuMTWBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenMu; B_{Tags}");
+  IsoTrackMuMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenMu; B_{Tags}");
   IsoTrackMuMTWBTag_->SetMarkerSize(2.0);
   IsoTrackMuMTWBTag_->UseCurrentStyle();
   IsoTrackMuMTWBTag_->Write();
   SaveEfficiency(IsoTrackMuMTWBTag_);
   
   IsoTrackMuMTWNJets_ = ratioCalculator(IsoTrackMuMTWNJets_,IsoTrackMuMTWNJetsFail_);   
-  IsoTrackMuMTWNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenMu; N_{Jets}");
+  IsoTrackMuMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenMu; N_{Jets}");
   IsoTrackMuMTWNJets_->SetMarkerSize(2.0);
   IsoTrackMuMTWNJets_->UseCurrentStyle();
   IsoTrackMuMTWNJets_->Write();
   SaveEfficiency(IsoTrackMuMTWNJets_);
   
   IsoTrackMuMTWHT_ = ratioCalculator(IsoTrackMuMTWHT_,IsoTrackMuMTWHTFail_);   
-  IsoTrackMuMTWHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenMu; H_{T} [GeV]");
+  IsoTrackMuMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenMu; H_{T} [GeV]");
   IsoTrackMuMTWHT_->SetMarkerSize(2.0);
   IsoTrackMuMTWHT_->UseCurrentStyle();
   IsoTrackMuMTWHT_->Write();
   SaveEfficiency(IsoTrackMuMTWHT_);
   
   IsoTrackMuMTWMHT_ = ratioCalculator(IsoTrackMuMTWMHT_,IsoTrackMuMTWMHTFail_);   
-  IsoTrackMuMTWMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenMu; #slash{H}_{T} [GeV]");
+  IsoTrackMuMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenMu; #slash{H}_{T} [GeV]");
   IsoTrackMuMTWMHT_->SetMarkerSize(2.0);
   IsoTrackMuMTWMHT_->UseCurrentStyle();
   IsoTrackMuMTWMHT_->Write();
@@ -3523,28 +3523,28 @@ void EffMaker::Terminate()
   //elec
   //1D
   IsoTrackElecMTWBTag_ = ratioCalculator(IsoTrackElecMTWBTag_,IsoTrackElecMTWBTagFail_);   
-  IsoTrackElecMTWBTag_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenElec; B_{Tags}");
+  IsoTrackElecMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenElec; B_{Tags}");
   IsoTrackElecMTWBTag_->SetMarkerSize(2.0);
   IsoTrackElecMTWBTag_->UseCurrentStyle();
   IsoTrackElecMTWBTag_->Write();
   SaveEfficiency(IsoTrackElecMTWBTag_);
   
   IsoTrackElecMTWNJets_ = ratioCalculator(IsoTrackElecMTWNJets_,IsoTrackElecMTWNJetsFail_);   
-  IsoTrackElecMTWNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenElec; N_{Jets}");
+  IsoTrackElecMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenElec; N_{Jets}");
   IsoTrackElecMTWNJets_->SetMarkerSize(2.0);
   IsoTrackElecMTWNJets_->UseCurrentStyle();
   IsoTrackElecMTWNJets_->Write();
   SaveEfficiency(IsoTrackElecMTWNJets_);
   
   IsoTrackElecMTWHT_ = ratioCalculator(IsoTrackElecMTWHT_,IsoTrackElecMTWHTFail_);   
-  IsoTrackElecMTWHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenElec; H_{T} [GeV]");
+  IsoTrackElecMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenElec; H_{T} [GeV]");
   IsoTrackElecMTWHT_->SetMarkerSize(2.0);
   IsoTrackElecMTWHT_->UseCurrentStyle();
   IsoTrackElecMTWHT_->Write();
   SaveEfficiency(IsoTrackElecMTWHT_);
   
   IsoTrackElecMTWMHT_ = ratioCalculator(IsoTrackElecMTWMHT_,IsoTrackElecMTWMHTFail_);   
-  IsoTrackElecMTWMHT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV isotrack GenElec; #slash{H}_{T} [GeV]");
+  IsoTrackElecMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV isotrack GenElec; #slash{H}_{T} [GeV]");
   IsoTrackElecMTWMHT_->SetMarkerSize(2.0);
   IsoTrackElecMTWMHT_->UseCurrentStyle();
   IsoTrackElecMTWMHT_->Write();
@@ -3553,14 +3553,14 @@ void EffMaker::Terminate()
   // pt and activity
   
   MuPurityPT_ = ratioCalculator(MuPurityPT_,MuPurityPTFail_);   
-  MuPurityPT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; #mu p_{T} [GeV]");
+  MuPurityPT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu purity; #mu p_{T} [GeV]");
   MuPurityPT_->SetMarkerSize(2.0);
   MuPurityPT_->UseCurrentStyle();
   MuPurityPT_->Write();
   SaveEfficiency(MuPurityPT_);
   
   MuPurityActivity_ = ratioCalculator(MuPurityActivity_,MuPurityActivityFail_);   
-  MuPurityActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu purity; Activity [GeV]");
+  MuPurityActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu purity; Activity [GeV]");
   MuPurityActivity_->SetMarkerSize(2.0);
   MuPurityActivity_->UseCurrentStyle();
   MuPurityActivity_->Write();
@@ -3568,14 +3568,14 @@ void EffMaker::Terminate()
   
   
   MuAccPT_ = ratioCalculator(MuAccPT_,MuAccPTFail_);   
-  MuAccPT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc; #mu p_{T} [GeV]");
+  MuAccPT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu acc; #mu p_{T} [GeV]");
   MuAccPT_->SetMarkerSize(2.0);
   MuAccPT_->UseCurrentStyle();
   MuAccPT_->Write();
   SaveEfficiency(MuAccPT_);
   
   MuAccActivity_ = ratioCalculator(MuAccActivity_,MuAccActivityFail_);   
-  MuAccActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc; Activity [GeV]");
+  MuAccActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu acc; Activity [GeV]");
   MuAccActivity_->SetMarkerSize(2.0);
   MuAccActivity_->UseCurrentStyle();
   MuAccActivity_->Write();
@@ -3583,21 +3583,21 @@ void EffMaker::Terminate()
   
   
   MuRecoPT_ = ratioCalculator(MuRecoPT_,MuRecoPTFail_);   
-  MuRecoPT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu reco; #mu p_{T} [GeV]");
+  MuRecoPT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco; #mu p_{T} [GeV]");
   MuRecoPT_->SetMarkerSize(2.0);
   MuRecoPT_->UseCurrentStyle();
   MuRecoPT_->Write();
   SaveEfficiency(MuRecoPT_);
   
   MuRecoActivity_ = ratioCalculator(MuRecoActivity_,MuRecoActivityFail_);   
-  MuRecoActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu reco; Activity [GeV]");
+  MuRecoActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco; Activity [GeV]");
   MuRecoActivity_->SetMarkerSize(2.0);
   MuRecoActivity_->UseCurrentStyle();
   MuRecoActivity_->Write();
   SaveEfficiency(MuRecoActivity_);
 	
 	MuRecoPTActivity_ = ratioCalculator(MuRecoPTActivity_,MuRecoPTActivityFail_);   
-	MuRecoPTActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu reco; #mu p_{T} [GeV];Activity [GeV]");
+	MuRecoPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco; #mu p_{T} [GeV];Activity [GeV]");
 	MuRecoPTActivity_->SetMarkerSize(2.0);
 	MuRecoPTActivity_->UseCurrentStyle();
 	MuRecoPTActivity_->Write();
@@ -3605,14 +3605,14 @@ void EffMaker::Terminate()
   
   
   MuIsoPT_ = ratioCalculator(MuIsoPT_,MuIsoPTFail_);   
-  MuIsoPT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu iso; #mu p_{T} [GeV]");
+  MuIsoPT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso; #mu p_{T} [GeV]");
   MuIsoPT_->SetMarkerSize(2.0);
   MuIsoPT_->UseCurrentStyle();
   MuIsoPT_->Write();
   SaveEfficiency(MuIsoPT_);
   
   MuIsoActivity_ = ratioCalculator(MuIsoActivity_,MuIsoActivityFail_);   
-  MuIsoActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu iso; Activity [GeV]");
+  MuIsoActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso; Activity [GeV]");
   MuIsoActivity_->SetMarkerSize(2.0);
   MuIsoActivity_->UseCurrentStyle();
   MuIsoActivity_->Write();
@@ -3620,21 +3620,21 @@ void EffMaker::Terminate()
   
   
   MuMTWPT_ = ratioCalculator(MuMTWPT_,MuMTWPTFail_);   
-  MuMTWPT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu m_{T}(w); #mu p_{T} [GeV]");
+  MuMTWPT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu m_{T}(w); #mu p_{T} [GeV]");
   MuMTWPT_->SetMarkerSize(2.0);
   MuMTWPT_->UseCurrentStyle();
   MuMTWPT_->Write();
   SaveEfficiency(MuMTWPT_);
   
   MuMTWActivity_ = ratioCalculator(MuMTWActivity_,MuMTWActivityFail_);   
-  MuMTWActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu m_{T}(w); Activity [GeV]");
+  MuMTWActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu m_{T}(w); Activity [GeV]");
   MuMTWActivity_->SetMarkerSize(2.0);
   MuMTWActivity_->UseCurrentStyle();
   MuMTWActivity_->Write();
   SaveEfficiency(MuMTWActivity_);
   
   MuIsoPTActivity_ = ratioCalculator(MuIsoPTActivity_,MuIsoPTActivityFail_);   
-  MuIsoPTActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu Iso; #mu p_{T}[GeV]; Activity [GeV]");
+  MuIsoPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu Iso; #mu p_{T}[GeV]; Activity [GeV]");
   MuIsoPTActivity_->SetMarkerSize(2.0);
   MuIsoPTActivity_->UseCurrentStyle();
   MuIsoPTActivity_->Write();
@@ -3643,14 +3643,14 @@ void EffMaker::Terminate()
   
   
   ElecPurityPT_ = ratioCalculator(ElecPurityPT_,ElecPurityPTFail_);   
-  ElecPurityPT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; e p_{T} [GeV]");
+  ElecPurityPT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e purity; e p_{T} [GeV]");
   ElecPurityPT_->SetMarkerSize(2.0);
   ElecPurityPT_->UseCurrentStyle();
   ElecPurityPT_->Write();
   SaveEfficiency(ElecPurityPT_);
   
   ElecPurityActivity_ = ratioCalculator(ElecPurityActivity_,ElecPurityActivityFail_);   
-  ElecPurityActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e purity; Activity [GeV]");
+  ElecPurityActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e purity; Activity [GeV]");
   ElecPurityActivity_->SetMarkerSize(2.0);
   ElecPurityActivity_->UseCurrentStyle();
   ElecPurityActivity_->Write();
@@ -3658,14 +3658,14 @@ void EffMaker::Terminate()
   
   
   ElecAccPT_ = ratioCalculator(ElecAccPT_,ElecAccPTFail_);   
-  ElecAccPT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc; e p_{T} [GeV]");
+  ElecAccPT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e acc; e p_{T} [GeV]");
   ElecAccPT_->SetMarkerSize(2.0);
   ElecAccPT_->UseCurrentStyle();
   ElecAccPT_->Write();
   SaveEfficiency(ElecAccPT_);
   
   ElecAccActivity_ = ratioCalculator(ElecAccActivity_,ElecAccActivityFail_);   
-  ElecAccActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc; Activity [GeV]");
+  ElecAccActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e acc; Activity [GeV]");
   ElecAccActivity_->SetMarkerSize(2.0);
   ElecAccActivity_->UseCurrentStyle();
   ElecAccActivity_->Write();
@@ -3673,21 +3673,21 @@ void EffMaker::Terminate()
   
   
   ElecRecoPT_ = ratioCalculator(ElecRecoPT_,ElecRecoPTFail_);   
-  ElecRecoPT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e reco; e p_{T} [GeV]");
+  ElecRecoPT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco; e p_{T} [GeV]");
   ElecRecoPT_->SetMarkerSize(2.0);
   ElecRecoPT_->UseCurrentStyle();
   ElecRecoPT_->Write();
   SaveEfficiency(ElecRecoPT_);
   
   ElecRecoActivity_ = ratioCalculator(ElecRecoActivity_,ElecRecoActivityFail_);   
-  ElecRecoActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e reco; Activity [GeV]");
+  ElecRecoActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco; Activity [GeV]");
   ElecRecoActivity_->SetMarkerSize(2.0);
   ElecRecoActivity_->UseCurrentStyle();
   ElecRecoActivity_->Write();
   SaveEfficiency(ElecRecoActivity_);
 	
 	ElecRecoPTActivity_ = ratioCalculator(ElecRecoPTActivity_,ElecRecoPTActivityFail_);   
-	ElecRecoPTActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e reco; e p_{T} [GeV];Activity [GeV]");
+	ElecRecoPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco; e p_{T} [GeV];Activity [GeV]");
 	ElecRecoPTActivity_->SetMarkerSize(2.0);
 	ElecRecoPTActivity_->UseCurrentStyle();
 	ElecRecoPTActivity_->Write();
@@ -3695,7 +3695,7 @@ void EffMaker::Terminate()
   
   
   ElecIsoPT_ = ratioCalculator(ElecIsoPT_,ElecIsoPTFail_);   
-  ElecIsoPT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e iso; e p_{T} [GeV]");
+  ElecIsoPT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso; e p_{T} [GeV]");
   ElecIsoPT_->SetMarkerSize(2.0);
   ElecIsoPT_->UseCurrentStyle();
   ElecIsoPT_->Write();
@@ -3705,7 +3705,7 @@ void EffMaker::Terminate()
    tempTeff->Write();
   
   ElecIsoActivity_ = ratioCalculator(ElecIsoActivity_,ElecIsoActivityFail_);   
-  ElecIsoActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e iso; Activity [GeV]");
+  ElecIsoActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso; Activity [GeV]");
   ElecIsoActivity_->SetMarkerSize(2.0);
   ElecIsoActivity_->UseCurrentStyle();
   ElecIsoActivity_->Write();
@@ -3713,21 +3713,21 @@ void EffMaker::Terminate()
   
   
   ElecMTWPT_ = ratioCalculator(ElecMTWPT_,ElecMTWPTFail_);   
-  ElecMTWPT_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e m_{T}(w); e p_{T} [GeV]");
+  ElecMTWPT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e m_{T}(w); e p_{T} [GeV]");
   ElecMTWPT_->SetMarkerSize(2.0);
   ElecMTWPT_->UseCurrentStyle();
   ElecMTWPT_->Write();
   SaveEfficiency(ElecMTWPT_);
   
   ElecMTWActivity_ = ratioCalculator(ElecMTWActivity_,ElecMTWActivityFail_);   
-  ElecMTWActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e m_{T}(w); Activity [GeV]");
+  ElecMTWActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e m_{T}(w); Activity [GeV]");
   ElecMTWActivity_->SetMarkerSize(2.0);
   ElecMTWActivity_->UseCurrentStyle();
   ElecMTWActivity_->Write();
   SaveEfficiency(ElecMTWActivity_);
   
   ElecIsoPTActivity_ = ratioCalculator(ElecIsoPTActivity_,ElecIsoPTActivityFail_);   
-  ElecIsoPTActivity_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e Iso; e p_{T}[GeV]; Activity [GeV]");
+  ElecIsoPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e Iso; e p_{T}[GeV]; Activity [GeV]");
   ElecIsoPTActivity_->SetMarkerSize(2.0);
   ElecIsoPTActivity_->UseCurrentStyle();
   ElecIsoPTActivity_->Write();
@@ -3736,28 +3736,28 @@ void EffMaker::Terminate()
 	
 	//1D
 	ExpectationReductionIsoTrackBTagEff = ratioCalculator(ExpectationReductionIsoTrackBTagEff,ExpectationReductionIsoTrackBTagEffFail);   
-	ExpectationReductionIsoTrackBTagEff->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; B_{Tags}");
+	ExpectationReductionIsoTrackBTagEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV iso track expec. reduction; B_{Tags}");
 	ExpectationReductionIsoTrackBTagEff->SetMarkerSize(2.0);
 	ExpectationReductionIsoTrackBTagEff->UseCurrentStyle();
 	ExpectationReductionIsoTrackBTagEff->Write();
 	SaveEfficiency(ExpectationReductionIsoTrackBTagEff);
 	
 	ExpectationReductionIsoTrackNJetsEff = ratioCalculator(ExpectationReductionIsoTrackNJetsEff,ExpectationReductionIsoTrackNJetsEffFail);   
-	ExpectationReductionIsoTrackNJetsEff->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; N_{Jets}");
+	ExpectationReductionIsoTrackNJetsEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV iso track expec. reduction; N_{Jets}");
 	ExpectationReductionIsoTrackNJetsEff->SetMarkerSize(2.0);
 	ExpectationReductionIsoTrackNJetsEff->UseCurrentStyle();
 	ExpectationReductionIsoTrackNJetsEff->Write();
 	SaveEfficiency(ExpectationReductionIsoTrackNJetsEff);
 	
 	ExpectationReductionIsoTrackHTEff = ratioCalculator(ExpectationReductionIsoTrackHTEff,ExpectationReductionIsoTrackHTEffFail);   
-	ExpectationReductionIsoTrackHTEff->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; H_{T}");
+	ExpectationReductionIsoTrackHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV iso track expec. reduction; H_{T}");
 	ExpectationReductionIsoTrackHTEff->SetMarkerSize(2.0);
 	ExpectationReductionIsoTrackHTEff->UseCurrentStyle();
 	ExpectationReductionIsoTrackHTEff->Write();
 	SaveEfficiency(ExpectationReductionIsoTrackHTEff);
 	
 	ExpectationReductionIsoTrackMHTEff = ratioCalculator(ExpectationReductionIsoTrackMHTEff,ExpectationReductionIsoTrackMHTEffFail);   
-	ExpectationReductionIsoTrackMHTEff->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; #slash{H}_{T} [GeV]");
+	ExpectationReductionIsoTrackMHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV iso track expec. reduction; #slash{H}_{T} [GeV]");
 	ExpectationReductionIsoTrackMHTEff->SetMarkerSize(2.0);
 	ExpectationReductionIsoTrackMHTEff->UseCurrentStyle();
 	ExpectationReductionIsoTrackMHTEff->Write();
@@ -3765,14 +3765,14 @@ void EffMaker::Terminate()
 	
 	//2D
 	IsoTrackReductionHTNJets_ = ratioCalculator(IsoTrackReductionHTNJets_,IsoTrackReductionHTNJetsFail_);   
-	IsoTrackReductionHTNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; H_{T} [GeV]; N_{Jets}");
+	IsoTrackReductionHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV iso track expec. reduction; H_{T} [GeV]; N_{Jets}");
 	IsoTrackReductionHTNJets_->SetMarkerSize(2.0);
 	IsoTrackReductionHTNJets_->UseCurrentStyle();
 	IsoTrackReductionHTNJets_->Write();
 	SaveEfficiency(IsoTrackReductionHTNJets_);
 	
 	IsoTrackReductionMHTNJets_ = ratioCalculator(IsoTrackReductionMHTNJets_,IsoTrackReductionMHTNJetsFail_);   
-	IsoTrackReductionMHTNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; #slash{H}_{T} [GeV]; N_{Jets}");
+	IsoTrackReductionMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV iso track expec. reduction; #slash{H}_{T} [GeV]; N_{Jets}");
 	IsoTrackReductionMHTNJets_->SetMarkerSize(2.0);
 	IsoTrackReductionMHTNJets_->UseCurrentStyle();
 	IsoTrackReductionMHTNJets_->Write();
@@ -3780,7 +3780,7 @@ void EffMaker::Terminate()
 	
 	
 	IsoTrackReductionBTagNJets_ = ratioCalculator(IsoTrackReductionBTagNJets_,IsoTrackReductionBTagNJetsFail_);   
-	IsoTrackReductionBTagNJets_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV iso track expec. reduction; B_{Tags}; N_{Jets}");
+	IsoTrackReductionBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV iso track expec. reduction; B_{Tags}; N_{Jets}");
 	IsoTrackReductionBTagNJets_->SetMarkerSize(2.0);
 	IsoTrackReductionBTagNJets_->UseCurrentStyle();
 	IsoTrackReductionBTagNJets_->Write();
