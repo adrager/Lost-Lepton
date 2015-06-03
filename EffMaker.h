@@ -31,10 +31,10 @@ const int oneDNJets_=6;
 double OneDNJets_[oneDNJets_] = {4,5,6,8,11,20};
 const int oneDBJets_=5;
 double OneDBJets_[oneDBJets_] = {0,1,2,3,10};
-const int oneDDeltaR_=17;
-double OneDDeltaR_[oneDDeltaR_]={0 ,0.1 ,0.2 ,0.3 ,0.4 ,0.5 ,0.6 ,0.7 ,0.8 ,0.9 ,1.0 ,1.1 ,1.3 ,1.5 ,1.8 ,2.0 , 5.0 };
-const int oneDPTRel_=17;
-double OneDPTRel_[oneDPTRel_]={0 ,0.1 ,0.2 ,0.3 ,0.4 ,0.5 ,0.6 ,0.7 ,0.8 ,0.9 ,1.0 ,1.1 ,1.3 ,1.5 ,1.8 ,2.0 , 5.0 };
+const int oneDDeltaR_=12;
+double OneDDeltaR_[oneDDeltaR_]={0 ,0.4 ,0.7 ,0.8 ,0.9 ,1.0 ,1.1 ,1.3 ,1.5 ,1.8 ,2.0 , 5.0 };
+const int oneDPTRel_=14;
+double OneDPTRel_[oneDPTRel_]={0 ,0.1 ,0.2 ,0.4 ,0.5 ,0.6 ,0.7 ,0.8 ,0.9 ,1.0 ,1.1 ,1.5 ,1.8 , 5.0 };
 
 // used for closure
 // const int oneDPT_=12;
@@ -804,6 +804,23 @@ public :
 	
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// delta R relPT
+	TH1F *MuIsoPTJetRel_, *MuIsoPTJetRelFail_;
+	TH1F *MuIsoDeltaRJet_, *MuIsoDeltaRJetFail_;
+	TH1F *MuRecoPTJetRel_, *MuRecoPTJetRelFail_;
+	TH1F *MuRecoDeltaRJet_, *MuRecoDeltaRJetFail_;
+	TH2F *MuIsoDeltaRRelPTJet_, *MuIsoDeltaRRelPTJetFail_;
+	TH2F *MuRecoDeltaRRelPTJet_, *MuRecoDeltaRRelPTJetFail_;
+	
+	TH1F *ElecIsoPTJetRel_, *ElecIsoPTJetRelFail_;
+	TH1F *ElecIsoDeltaRJet_, *ElecIsoDeltaRJetFail_;
+	TH1F *ElecRecoPTJetRel_, *ElecRecoPTJetRelFail_;
+	TH1F *ElecRecoDeltaRJet_, *ElecRecoDeltaRJetFail_;
+	TH2F *ElecIsoDeltaRRelPTJet_, *ElecIsoDeltaRRelPTJetFail_;
+	TH2F *ElecRecoDeltaRRelPTJet_, *ElecRecoDeltaRRelPTJetFail_;
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Search bin efficiencies
 	Efficiency *MuAccSearchBinEff_, *MuRecoSearchBinEff_, *MuIsoSearchBinEff_, *MuMTWSearchBinEff_, *MuDiLepContributionMTWAppliedSearchBinEff_, *MuDiLepEffMTWAppliedSearchBinEff_, *MuPuritySearchBinEff_;
 	Efficiency *ElecAccSearchBinEff_, *ElecRecoSearchBinEff_, *ElecIsoSearchBinEff_, *ElecMTWSearchBinEff_, *ElecDiLepContributionMTWAppliedSearchBinEff_, *ElecDiLepEffMTWAppliedSearchBinEff_, *ElecPuritySearchBinEff_;
@@ -827,6 +844,8 @@ public :
 	Float_t         METPhi;
 	UShort_t        GenMuNum;
 	UShort_t        GenMuFromTau[2];   //[GenMuNum]
+	Float_t         GenMuDeltaRJet[2];   //[GenMuNum]
+	Float_t         GenMuDeltaPTJet[2];   //[GenMuNum]
 	Float_t         GenMuPt[2];   //[GenMuNum]
 	Float_t         GenMuEta[2];   //[GenMuNum]
 	Float_t         GenMuPhi[2];   //[GenMuNum]
@@ -834,6 +853,8 @@ public :
 	Float_t         GenMuonActivity[2];   //[GenMuNum]
 	UShort_t        GenElecNum;
 	UShort_t        GenElecFromTau[2];   //[GenElecNum]
+	Float_t         GenElecDeltaRJet[2];   //[GenMuNum]
+	Float_t         GenElecDeltaPTJet[2];   //[GenMuNum]
 	Float_t         GenElecPt[2];   //[GenElecNum]
 	Float_t         GenElecEta[2];   //[GenElecNum]
 	Float_t         GenElecPhi[2];   //[GenElecNum]
@@ -957,6 +978,8 @@ public :
 	TBranch        *b_METPhi;   //!
 	TBranch        *b_GenMuNum;   //!
 	TBranch        *b_GenMuFromTau;   //!
+	TBranch        *b_GenMuDeltaRJet;   //!
+	TBranch        *b_GenMuDeltaPTJet;   //!
 	TBranch        *b_GenMuPt;   //!
 	TBranch        *b_GenMuEta;   //!
 	TBranch        *b_GenMuPhi;   //!
@@ -964,6 +987,8 @@ public :
 	TBranch        *b_GenMuonActivity;   //!
 	TBranch        *b_GenElecNum;   //!
 	TBranch        *b_GenElecFromTau;   //!
+	TBranch        *b_GenElecDeltaRJet;   //!
+	TBranch        *b_GenElecDeltaPTJet;   //!
 	TBranch        *b_GenElecPt;   //!
 	TBranch        *b_GenElecEta;   //!
 	TBranch        *b_GenElecPhi;   //!
@@ -1123,6 +1148,8 @@ void EffMaker::Init(TTree *tree)
   fChain->SetBranchAddress("METPhi", &METPhi, &b_METPhi);
   fChain->SetBranchAddress("GenMuNum", &GenMuNum, &b_GenMuNum);
   fChain->SetBranchAddress("GenMuFromTau", GenMuFromTau, &b_GenMuFromTau);
+	fChain->SetBranchAddress("GenMuDeltaPTJet", GenMuDeltaPTJet, &b_GenMuDeltaPTJet);
+	fChain->SetBranchAddress("GenMuDeltaRJet", GenMuDeltaRJet, &b_GenMuDeltaRJet);
   fChain->SetBranchAddress("GenMuPt", GenMuPt, &b_GenMuPt);
   fChain->SetBranchAddress("GenMuEta", GenMuEta, &b_GenMuEta);
   fChain->SetBranchAddress("GenMuPhi", GenMuPhi, &b_GenMuPhi);
@@ -1130,6 +1157,8 @@ void EffMaker::Init(TTree *tree)
   fChain->SetBranchAddress("GenMuonActivity", GenMuonActivity, &b_GenMuonActivity);
   fChain->SetBranchAddress("GenElecNum", &GenElecNum, &b_GenElecNum);
   fChain->SetBranchAddress("GenElecFromTau", GenElecFromTau, &b_GenElecFromTau);
+	fChain->SetBranchAddress("GenElecDeltaPTJet", GenElecDeltaPTJet, &b_GenElecDeltaPTJet);
+	fChain->SetBranchAddress("GenElecDeltaRJet", GenElecDeltaRJet, &b_GenElecDeltaRJet);
   fChain->SetBranchAddress("GenElecPt", GenElecPt, &b_GenElecPt);
   fChain->SetBranchAddress("GenElecEta", GenElecEta, &b_GenElecEta);
   fChain->SetBranchAddress("GenElecPhi", GenElecPhi, &b_GenElecPhi);

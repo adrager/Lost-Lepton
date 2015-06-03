@@ -865,6 +865,8 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
   MuIsoPTFail_ = (TH1F*)MuIsoPT_->Clone();
   MuIsoPTFail_->SetName("MuIsoPTFail");
   //GetOutputList()->Add(MuIsoPTFail_); 
+	
+
   
   MuIsoActivity_ = new TH1F("MuIsoActivity","MuIsoActivity",oneDActivity_-1,OneDActivity_);
   //GetOutputList()->Add(MuIsoActivity_);
@@ -1304,6 +1306,71 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
 	IsoTrackReductionBTagNJetsFail_ = (TH2F*)IsoTrackReductionBTagNJets_->Clone();
 	IsoTrackReductionBTagNJetsFail_->SetName("IsoTrackReductionBTagNJetsFail");
 	
+	// delta R jet and pT jet
+	
+	MuIsoPTJetRel_ = new TH1F("MuIsoPTJetRel","MuIsoPTJetRel",oneDPT_-1,OneDPT_);
+	//GetOutputList()->Add(MuIsoPT_);
+	MuIsoPTJetRelFail_ = (TH1F*)MuIsoPTJetRel_->Clone();
+	MuIsoPTJetRelFail_->SetName("MuIsoPTJetRelFail");
+	
+	MuIsoDeltaRJet_ = new TH1F("MuIsoDeltaRJet","MuIsoDeltaRJet",oneDPT_-1,OneDPT_);
+	//GetOutputList()->Add(MuIsoPT_);
+	MuIsoDeltaRJetFail_ = (TH1F*)MuIsoDeltaRJet_->Clone();
+	MuIsoDeltaRJetFail_->SetName("MuIsoDeltaRJetFail");
+	
+	MuIsoDeltaRRelPTJet_ = new TH2F("MuIsoDeltaRRelPTJet_","MuIsoDeltaRRelPTJet_",oneDDeltaR_-1,OneDDeltaR_,oneDPT_-1,OneDPT_);
+	//GetOutputList()->Add(MuIsoPT_);
+	MuIsoDeltaRRelPTJetFail_ = (TH2F*)MuIsoDeltaRRelPTJet_->Clone();
+	MuIsoDeltaRRelPTJetFail_->SetName("MuIsoDeltaRRelPTJetFail");
+	
+	
+	MuRecoPTJetRel_ = new TH1F("MuRecoPTJetRel","MuRecoPTJetRel",oneDPT_-1,OneDPT_);
+	//GetOutputList()->Add(MuRecoPT_);
+	MuRecoPTJetRelFail_ = (TH1F*)MuRecoPTJetRel_->Clone();
+	MuRecoPTJetRelFail_->SetName("MuRecoPTJetRelFail");
+	
+	MuRecoDeltaRJet_ = new TH1F("MuRecoDeltaRJet","MuRecoDeltaRJet",oneDPT_-1,OneDPT_);
+	//GetOutputList()->Add(MuRecoPT_);
+	MuRecoDeltaRJetFail_ = (TH1F*)MuRecoDeltaRJet_->Clone();
+	MuRecoDeltaRJetFail_->SetName("MuRecoDeltaRJetFail");
+	
+	MuRecoDeltaRRelPTJet_ = new TH2F("MuRecoDeltaRRelPTJet_","MuRecoDeltaRRelPTJet_",oneDDeltaR_-1,OneDDeltaR_,oneDPT_-1,OneDPT_);
+	//GetOutputList()->Add(MuRecoPT_);
+	MuRecoDeltaRRelPTJetFail_ = (TH2F*)MuRecoDeltaRRelPTJet_->Clone();
+	MuRecoDeltaRRelPTJetFail_->SetName("MuRecoDeltaRRelPTJetFail");
+	
+	
+	ElecIsoPTJetRel_ = new TH1F("ElecIsoPTJetRel","ElecIsoPTJetRel",oneDPT_-1,OneDPT_);
+	//GetOutputList()->Add(ElecIsoPT_);
+	ElecIsoPTJetRelFail_ = (TH1F*)ElecIsoPTJetRel_->Clone();
+	ElecIsoPTJetRelFail_->SetName("ElecIsoPTJetRelFail");
+	
+	ElecIsoDeltaRJet_ = new TH1F("ElecIsoDeltaRJet","ElecIsoDeltaRJet",oneDPT_-1,OneDPT_);
+	//GetOutputList()->Add(ElecIsoPT_);
+	ElecIsoDeltaRJetFail_ = (TH1F*)ElecIsoDeltaRJet_->Clone();
+	ElecIsoDeltaRJetFail_->SetName("ElecIsoDeltaRJetFail");
+	
+	ElecIsoDeltaRRelPTJet_ = new TH2F("ElecIsoDeltaRRelPTJet_","ElecIsoDeltaRRelPTJet_",oneDDeltaR_-1,OneDDeltaR_,oneDPT_-1,OneDPT_);
+	//GetOutputList()->Add(ElecIsoPT_);
+	ElecIsoDeltaRRelPTJetFail_ = (TH2F*)ElecIsoDeltaRRelPTJet_->Clone();
+	ElecIsoDeltaRRelPTJetFail_->SetName("ElecIsoDeltaRRelPTJetFail");
+	
+	
+	ElecRecoPTJetRel_ = new TH1F("ElecRecoPTJetRel","ElecRecoPTJetRel",oneDPT_-1,OneDPT_);
+	//GetOutputList()->Add(ElecRecoPT_);
+	ElecRecoPTJetRelFail_ = (TH1F*)ElecRecoPTJetRel_->Clone();
+	ElecRecoPTJetRelFail_->SetName("ElecRecoPTJetRelFail");
+	
+	ElecRecoDeltaRJet_ = new TH1F("ElecRecoDeltaRJet","ElecRecoDeltaRJet",oneDPT_-1,OneDPT_);
+	//GetOutputList()->Add(ElecRecoPT_);
+	ElecRecoDeltaRJetFail_ = (TH1F*)ElecRecoDeltaRJet_->Clone();
+	ElecRecoDeltaRJetFail_->SetName("ElecRecoDeltaRJetFail");
+	
+	ElecRecoDeltaRRelPTJet_ = new TH2F("ElecRecoDeltaRRelPTJet_","ElecRecoDeltaRRelPTJet_",oneDDeltaR_-1,OneDDeltaR_,oneDPT_-1,OneDPT_);
+	//GetOutputList()->Add(ElecRecoPT_);
+	ElecRecoDeltaRRelPTJetFail_ = (TH2F*)ElecRecoDeltaRRelPTJet_->Clone();
+	ElecRecoDeltaRRelPTJetFail_->SetName("ElecRecoDeltaRRelPTJetFail");
+	
 	
 }
 
@@ -1521,8 +1588,11 @@ Bool_t EffMaker::Process(Long64_t entry)
     MuRecoMHT_->Fill(MHT,Weight);
     MuRecoPT_->Fill(GenMuPt[0],Weight);
     MuRecoActivity_->Fill(GenMuonActivity[0],Weight);
+		MuRecoPTJetRel_->Fill(GenMuDeltaRJet[0],Weight);
+		MuRecoDeltaRJet_->Fill(GenMuDeltaPTJet[0],Weight);
     //2D
 		MuRecoPTActivity_->Fill(GenMuPt[0],GenMuonActivity[0],Weight);
+		MuRecoDeltaRRelPTJet_->Fill(GenMuDeltaRJet[0],GenMuDeltaPTJet[0],Weight);
   }
   if(muReco==0)
   {
@@ -1533,8 +1603,11 @@ Bool_t EffMaker::Process(Long64_t entry)
     MuRecoMHTFail_->Fill(MHT,Weight);
     MuRecoPTFail_->Fill(GenMuPt[0],Weight);
     MuRecoActivityFail_->Fill(GenMuonActivity[0],Weight);
+		MuRecoPTJetRelFail_->Fill(GenMuDeltaRJet[0],Weight);
+		MuRecoDeltaRJetFail_->Fill(GenMuDeltaPTJet[0],Weight);
     //2D
 		MuRecoPTActivityFail_->Fill(GenMuPt[0],GenMuonActivity[0],Weight);
+		MuRecoDeltaRRelPTJetFail_->Fill(GenMuDeltaRJet[0],GenMuDeltaPTJet[0],Weight);
   }
   
   // single elecon control sample
@@ -1547,8 +1620,11 @@ Bool_t EffMaker::Process(Long64_t entry)
     ElecRecoMHT_->Fill(MHT,Weight);
     ElecRecoPT_->Fill(GenElecPt[0],Weight);
     ElecRecoActivity_->Fill(GenElecActivity[0],Weight);
+		ElecRecoPTJetRel_->Fill(GenElecDeltaRJet[0],Weight);
+		ElecRecoDeltaRJet_->Fill(GenElecDeltaPTJet[0],Weight);
     //2D
 		ElecRecoPTActivity_->Fill(GenElecPt[0],GenElecActivity[0],Weight);
+		ElecRecoDeltaRRelPTJet_->Fill(GenElecDeltaRJet[0],GenElecDeltaPTJet[0],Weight);
   }
   if(elecReco==0)
   {
@@ -1559,8 +1635,11 @@ Bool_t EffMaker::Process(Long64_t entry)
     ElecRecoMHTFail_->Fill(MHT,Weight);
     ElecRecoPTFail_->Fill(GenElecPt[0],Weight);
     ElecRecoActivityFail_->Fill(GenElecActivity[0],Weight);
+		ElecRecoPTJetRelFail_->Fill(GenElecDeltaRJet[0],Weight);
+		ElecRecoDeltaRJetFail_->Fill(GenElecDeltaPTJet[0],Weight);
     //2D
 		ElecRecoPTActivityFail_->Fill(GenElecPt[0],GenElecActivity[0],Weight);
+		ElecRecoDeltaRRelPTJetFail_->Fill(GenElecDeltaRJet[0],GenElecDeltaPTJet[0],Weight);
   }
   
   // isolation
@@ -1574,8 +1653,11 @@ Bool_t EffMaker::Process(Long64_t entry)
     MuIsoMHT_->Fill(MHT,Weight);
     MuIsoPT_->Fill(GenMuPt[0],Weight);
     MuIsoActivity_->Fill(GenMuonActivity[0],Weight);
+		MuIsoPTJetRel_->Fill(GenMuDeltaRJet[0],Weight);
+		MuIsoDeltaRJet_->Fill(GenMuDeltaPTJet[0],Weight);
     //2D
     MuIsoPTActivity_->Fill(GenMuPt[0],GenMuonActivity[0],Weight);
+		MuIsoDeltaRRelPTJet_->Fill(GenMuDeltaRJet[0],GenMuDeltaPTJet[0],Weight);
   }
   if(muIso==0)
   {
@@ -1586,8 +1668,11 @@ Bool_t EffMaker::Process(Long64_t entry)
     MuIsoMHTFail_->Fill(MHT,Weight);
     MuIsoPTFail_->Fill(GenMuPt[0],Weight);
     MuIsoActivityFail_->Fill(GenMuonActivity[0],Weight);
+		MuIsoPTJetRelFail_->Fill(GenMuDeltaRJet[0],Weight);
+		MuIsoDeltaRJetFail_->Fill(GenMuDeltaPTJet[0],Weight);
     //2D
     MuIsoPTActivityFail_->Fill(GenMuPt[0],GenMuonActivity[0],Weight);
+		MuIsoDeltaRRelPTJetFail_->Fill(GenMuDeltaRJet[0],GenMuDeltaPTJet[0],Weight);
   }
   
   // single elecon control sample
@@ -1600,8 +1685,11 @@ Bool_t EffMaker::Process(Long64_t entry)
     ElecIsoMHT_->Fill(MHT,Weight);
     ElecIsoPT_->Fill(GenElecPt[0],Weight);
     ElecIsoActivity_->Fill(GenElecActivity[0],Weight);
+		ElecIsoPTJetRel_->Fill(GenElecDeltaRJet[0],Weight);
+		ElecIsoDeltaRJet_->Fill(GenElecDeltaPTJet[0],Weight);
     //2D
     ElecIsoPTActivity_->Fill(GenElecPt[0],GenElecActivity[0],Weight);
+		ElecIsoDeltaRRelPTJet_->Fill(GenElecDeltaRJet[0],GenElecDeltaPTJet[0],Weight);
   }
   if(elecIso==0)
   {
@@ -1612,8 +1700,11 @@ Bool_t EffMaker::Process(Long64_t entry)
     ElecIsoMHTFail_->Fill(MHT,Weight);
     ElecIsoPTFail_->Fill(GenElecPt[0],Weight);
     ElecIsoActivityFail_->Fill(GenElecActivity[0],Weight);
+		ElecIsoPTJetRelFail_->Fill(GenElecDeltaRJet[0],Weight);
+		ElecIsoDeltaRJetFail_->Fill(GenElecDeltaPTJet[0],Weight);
     //2D
     ElecIsoPTActivityFail_->Fill(GenElecPt[0],GenElecActivity[0],Weight);
+		ElecIsoDeltaRRelPTJetFail_->Fill(GenElecDeltaRJet[0],GenElecDeltaPTJet[0],Weight);
   }
   // mtw
   // single muon control sample
@@ -2969,6 +3060,27 @@ void EffMaker::Terminate()
   MuRecoMHT_->UseCurrentStyle();
   MuRecoMHT_->Write();
   SaveEfficiency(MuRecoMHT_);
+	
+	MuRecoPTJetRel_ = ratioCalculator(MuRecoPTJetRel_,MuRecoPTJetRelFail_);   
+	MuRecoPTJetRel_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco; Jet p_{T}/#mu p_{T}");
+	MuRecoPTJetRel_->SetMarkerSize(2.0);
+	MuRecoPTJetRel_->UseCurrentStyle();
+	MuRecoPTJetRel_->Write();
+	SaveEfficiency(MuRecoPTJetRel_);
+	
+	MuRecoDeltaRJet_ = ratioCalculator(MuRecoDeltaRJet_,MuRecoDeltaRJetFail_);   
+	MuRecoDeltaRJet_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco; #DeltaR");
+	MuRecoDeltaRJet_->SetMarkerSize(2.0);
+	MuRecoDeltaRJet_->UseCurrentStyle();
+	MuRecoDeltaRJet_->Write();
+	SaveEfficiency(MuRecoDeltaRJet_);
+	
+	MuRecoDeltaRRelPTJet_ = ratioCalculator(MuRecoDeltaRRelPTJet_,MuRecoDeltaRRelPTJetFail_);   
+	MuRecoDeltaRRelPTJet_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco; #DeltaR; Jet p_{T}/#mu p_{T}");
+	MuRecoDeltaRRelPTJet_->SetMarkerSize(2.0);
+	MuRecoDeltaRRelPTJet_->UseCurrentStyle();
+	MuRecoDeltaRRelPTJet_->Write();
+	SaveEfficiency(MuRecoDeltaRRelPTJet_);
   
   //elec
   //1D
@@ -2999,6 +3111,28 @@ void EffMaker::Terminate()
   ElecRecoMHT_->UseCurrentStyle();
   ElecRecoMHT_->Write();
   SaveEfficiency(ElecRecoMHT_);
+	
+	
+	ElecRecoPTJetRel_ = ratioCalculator(ElecRecoPTJetRel_,ElecRecoPTJetRelFail_);   
+	ElecRecoPTJetRel_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco; Jet p_{T}/e p_{T}");
+	ElecRecoPTJetRel_->SetMarkerSize(2.0);
+	ElecRecoPTJetRel_->UseCurrentStyle();
+	ElecRecoPTJetRel_->Write();
+	SaveEfficiency(ElecRecoPTJetRel_);
+	
+	ElecRecoDeltaRJet_ = ratioCalculator(ElecRecoDeltaRJet_,ElecRecoDeltaRJetFail_);   
+	ElecRecoDeltaRJet_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco; #DeltaR");
+	ElecRecoDeltaRJet_->SetMarkerSize(2.0);
+	ElecRecoDeltaRJet_->UseCurrentStyle();
+	ElecRecoDeltaRJet_->Write();
+	SaveEfficiency(ElecRecoDeltaRJet_);
+	
+	ElecRecoDeltaRRelPTJet_ = ratioCalculator(ElecRecoDeltaRRelPTJet_,ElecRecoDeltaRRelPTJetFail_);   
+	ElecRecoDeltaRRelPTJet_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco; #DeltaR; Jet p_{T}/e p_{T}");
+	ElecRecoDeltaRRelPTJet_->SetMarkerSize(2.0);
+	ElecRecoDeltaRRelPTJet_->UseCurrentStyle();
+	ElecRecoDeltaRRelPTJet_->Write();
+	SaveEfficiency(ElecRecoDeltaRRelPTJet_);
   
   
   
@@ -3032,6 +3166,27 @@ void EffMaker::Terminate()
   MuIsoMHT_->UseCurrentStyle();
   MuIsoMHT_->Write();
   SaveEfficiency(MuIsoMHT_);
+	
+	MuIsoPTJetRel_ = ratioCalculator(MuIsoPTJetRel_,MuIsoPTJetRelFail_);   
+	MuIsoPTJetRel_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso; Jet p_{T}/#mu p_{T}");
+	MuIsoPTJetRel_->SetMarkerSize(2.0);
+	MuIsoPTJetRel_->UseCurrentStyle();
+	MuIsoPTJetRel_->Write();
+	SaveEfficiency(MuIsoPTJetRel_);
+	
+	MuIsoDeltaRJet_ = ratioCalculator(MuIsoDeltaRJet_,MuIsoDeltaRJetFail_);   
+	MuIsoDeltaRJet_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso; #DeltaR");
+	MuIsoDeltaRJet_->SetMarkerSize(2.0);
+	MuIsoDeltaRJet_->UseCurrentStyle();
+	MuIsoDeltaRJet_->Write();
+	SaveEfficiency(MuIsoDeltaRJet_);
+	
+	MuIsoDeltaRRelPTJet_ = ratioCalculator(MuIsoDeltaRRelPTJet_,MuIsoDeltaRRelPTJetFail_);   
+	MuIsoDeltaRRelPTJet_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso; #DeltaR; Jet p_{T}/#mu p_{T}");
+	MuIsoDeltaRRelPTJet_->SetMarkerSize(2.0);
+	MuIsoDeltaRRelPTJet_->UseCurrentStyle();
+	MuIsoDeltaRRelPTJet_->Write();
+	SaveEfficiency(MuIsoDeltaRRelPTJet_);
   
   //elec
   //1D
@@ -3062,6 +3217,27 @@ void EffMaker::Terminate()
   ElecIsoMHT_->UseCurrentStyle();
   ElecIsoMHT_->Write();
   SaveEfficiency(ElecIsoMHT_);
+	
+	ElecIsoPTJetRel_ = ratioCalculator(ElecIsoPTJetRel_,ElecIsoPTJetRelFail_);   
+	ElecIsoPTJetRel_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso; Jet p_{T}/e p_{T}");
+	ElecIsoPTJetRel_->SetMarkerSize(2.0);
+	ElecIsoPTJetRel_->UseCurrentStyle();
+	ElecIsoPTJetRel_->Write();
+	SaveEfficiency(ElecIsoPTJetRel_);
+	
+	ElecIsoDeltaRJet_ = ratioCalculator(ElecIsoDeltaRJet_,ElecIsoDeltaRJetFail_);   
+	ElecIsoDeltaRJet_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso; #DeltaR");
+	ElecIsoDeltaRJet_->SetMarkerSize(2.0);
+	ElecIsoDeltaRJet_->UseCurrentStyle();
+	ElecIsoDeltaRJet_->Write();
+	SaveEfficiency(ElecIsoDeltaRJet_);
+	
+	ElecIsoDeltaRRelPTJet_ = ratioCalculator(ElecIsoDeltaRRelPTJet_,ElecIsoDeltaRRelPTJetFail_);   
+	ElecIsoDeltaRRelPTJet_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso; #DeltaR; Jet p_{T}/e p_{T}");
+	ElecIsoDeltaRRelPTJet_->SetMarkerSize(2.0);
+	ElecIsoDeltaRRelPTJet_->UseCurrentStyle();
+	ElecIsoDeltaRRelPTJet_->Write();
+	SaveEfficiency(ElecIsoDeltaRRelPTJet_);
   
   
   // m_{T}(w)

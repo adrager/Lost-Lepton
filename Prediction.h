@@ -60,7 +60,8 @@ const double maxDeltaRRecoIsoElecToTack_ = 0.3;
 const double maxDiffPtRecoIsoElecToTack_ = 0.5;
 //using either oldschool th1/2 which have wrong error calculations or the updated tefficneices
 const bool UseUpdatedTEfficiencies_=false;
-const bool UseTagAndProbeEff_=false;
+const bool UseTagAndProbeEffIso_=true; // warning overriges all other choices for isolation efficiency
+const bool UseTagAndProbeEffReco_=false; // warning overriges all other choices for reconstruction efficiency
 
 const bool MuMTWSearchBinUse_=false; // warning overwrites UseUpdatedTEfficiencies_
 const bool MuDiLepContributionMTWAppliedEffSearchBinUse_=false;

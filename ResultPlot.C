@@ -12,7 +12,8 @@
 #include "TEfficiency.h"
 #include "TGraphAsymmErrors.h"
 #include <iostream>
-
+#include <iomanip> 
+using namespace std;
 TH1F* ratioCalculator(TH1F* passTH1, TH1F* failTH1)
 {
 	passTH1->Sumw2();
@@ -40,6 +41,7 @@ void SaveClosure(TH1F* prediction, TH1F* expectation, TDirectory* Folder) // pre
 }
 
 
+
 class Bin
 {
 public:
@@ -65,6 +67,11 @@ class SearchBins
 public:
 	SearchBins();
 	unsigned int GetBinNumber(double HT, double MHT, int NJets, int BTags);
+	std::string GetBinBounds(unsigned int bin)
+	{
+		return "hello";
+		
+	}
 	
 	~SearchBins(){}
 protected:
@@ -86,6 +93,71 @@ private:
 	unsigned int splitAfter_;
 	const char* name_;
 };
+
+class AverageWeight : public SearchBins
+{
+public:
+	AverageWeight()
+	{
+		for(unsigned int i=0; i< bins_.size();i++)
+		{
+			TString temp2 (Form ("Bin_%d",(int)i+1));
+			searchBinsTh1Fs_.push_back(new TH1F(temp2,temp2,400,0,4));
+		}
+	}
+	void Fill(double HT, double MHT, int NJets, int BTags, double Weight);
+	void saveResults(TDirectory* MainDirectory);
+private:
+	std::vector<TH1F*> searchBinsTh1Fs_;
+	
+};
+void AverageWeight::Fill(double HT, double MHT, int NJets, int BTags, double Weight)
+{
+	unsigned int bin = GetBinNumber(HT,MHT,NJets,BTags);
+	
+	if(bin<bins_.size()+2) 
+	{
+		searchBinsTh1Fs_[bin]->Fill(Weight);
+	}
+}
+void AverageWeight::saveResults(TDirectory* MainDirectory)
+{
+	MainDirectory->mkdir("AvargeWeights");
+	// 	std::cout<<"name: "<<name_<<std::endl;
+	TDirectory *dir = (TDirectory*)MainDirectory->Get("AvargeWeights");
+	dir->cd();
+	std::cout<<"Prining the mean and the meanerror of each search region for the prediction weight:\n";
+	const char separator    = ' ';
+	const int nameWidth     = 12;
+	const int numWidth      = 8;
+	cout << setw(3) << setfill(separator) << "Bin";
+	cout << setw(nameWidth) << setfill(separator) << "Mean";
+	cout << setw(nameWidth) << setfill(separator) << "RMS";
+	cout << setw(nameWidth) << setfill(separator) << "Lowest";
+	cout << setw(nameWidth) << setfill(separator) << "Highest";
+	cout<<endl;
+	for(unsigned int i=1; i<searchBinsTh1Fs_.size();i++) 
+	{
+
+		cout << setw(3) << setfill(separator) << i;
+		cout << setw(nameWidth) << setfill(separator) <<searchBinsTh1Fs_[i]->GetMean(1);
+		cout << setw(nameWidth) << setfill(separator) <<searchBinsTh1Fs_[i]->GetRMS(1);
+		cout << setw(nameWidth) << setfill(separator) <<searchBinsTh1Fs_[i]->GetBinCenter(searchBinsTh1Fs_[i]->FindFirstBinAbove(0.01) );
+		cout << setw(nameWidth) << setfill(separator) <<searchBinsTh1Fs_[i]->GetBinCenter(searchBinsTh1Fs_[i]->FindLastBinAbove(0.01) );
+		cout<<endl;
+		searchBinsTh1Fs_[i]->Write();
+// 		std::cout<<"Bin    |     Mean     |    RMS       |    Lowest Weight      | Highest Weight\n";
+/*
+		std::cout<<i+1<<"|";
+		std::cout<<searchBinsTh1Fs_[i]->GetMean(1)<<"|";
+		std::cout<<searchBinsTh1Fs_[i]->GetRMS(1)<<"|";
+		std::cout<<searchBinsTh1Fs_[i]->GetBinCenter(searchBinsTh1Fs_[i]->FindFirstBinAbove(0.01) )<<"|";
+		std::cout<<searchBinsTh1Fs_[i]->GetBinCenter(searchBinsTh1Fs_[i]->FindLastBinAbove(0.01) )<<"|";*/
+// 		std::cout<<std::endl;
+// 		std::cout<<"["<<i+1<<"]: "<<searchBinsTh1Fs_[i]->GetMean(1)<<" | "<<searchBinsTh1Fs_[i]->GetRMS(1)<<" |    "<<searchBinsTh1Fs_[i]->GetBinCenter(searchBinsTh1Fs_[i]->FindFirstBinAbove(0.01) )<<" |      "<<searchBinsTh1Fs_[i]->GetBinCenter(searchBinsTh1Fs_[i]->FindLastBinAbove(0.01) )<<"\n";
+	}
+	std::cout<<"--------------------------------------------------------\n";
+}
 
 void ResultPlot()
 {
@@ -234,6 +306,9 @@ void ResultPlot()
 	Long64_t nentries = LostLeptonExpectation->GetEntries();
 	
 	SearchBins *SearchBins_ = new SearchBins();
+	
+	// average weight for each search bin
+	AverageWeight *averageWeight = new AverageWeight();
 
 	
 	Long64_t nbytes = 0;
@@ -349,6 +424,7 @@ void ResultPlot()
 		selectedIDIsoElectronsNum_=selectedIDIsoElectronsNum;
 		if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0)
 		{
+			averageWeight->Fill(HT,MHT,NJets,BTags,totalWeightDiLepIsoTrackReduced/Weight);
 			ControlSampleMu_->Fill(HT,MHT,NJets,BTags,Weight);
 			
 			totalPrediction_->Fill(HT,MHT,NJets,BTags,totalWeightDiLep/2);
@@ -380,6 +456,7 @@ void ResultPlot()
 		}
 		if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1)
 		{
+			averageWeight->Fill(HT,MHT,NJets,BTags,totalWeightDiLepIsoTrackReduced/Weight);
 			ControlSampleElec_->Fill(HT,MHT,NJets,BTags,Weight);
 			
 			totalPrediction_->Fill(HT,MHT,NJets,BTags,totalWeightDiLep/2);
@@ -480,6 +557,7 @@ void ResultPlot()
 	dControlSample->cd();
 	ControlSampleMu_->saveResults(dControlSample);
 	ControlSampleElec_->saveResults(dControlSample);
+	averageWeight->saveResults(dPrediction);
 	
 }
 

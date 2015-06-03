@@ -30,6 +30,10 @@ const double mtwCut_=100;
 const double minTauPt_=10;
 const double maxTauEta_=2.4;
 
+// input jet definitions
+const double jetCone_=0.4;
+const double jetMinPt_ = 30;
+
 // actity around lepton
 const double maxDeltaRMuActivity_=1.0;
 const double maxDeltaRElecActivity_=1.0;
@@ -120,6 +124,7 @@ public :
 	double MuActivity(double muEta, double muPhi, unsigned int method);
 	double ElecActivity( double elecEta, double elecPhi, unsigned int method);
 	double IsoTrackActivityCalc( double isoTrackEta, double isoTrackPhi, unsigned int method);
+	std::pair <double,double> deltaRClosestJet(double lepEta,double lepPhi, double lepPT);
 	
 	TTree          *fChain;   //!pointer to the analyzed TTree or TChain
 	// Storing stuff
@@ -147,6 +152,8 @@ public :
 	// isolated track studies
 	UShort_t GenMuonIsoTrackMatched[40], RecoIsoMuonIsoTrackMatched[40];
 	UShort_t GenElecIsoTrackMatched[40], RecoIsoElecIsoTrackMatched[40];
+	Float_t GenMuDeltaRJet_[40], GenMuDeltaPTJet_[40];
+	Float_t GenElecDeltaRJet_[40], GenElecDeltaPTJet_[40];
 	UShort_t GenTauIsoTrackMatched[40];
 	UShort_t SelectedIsoTracksMatchedToGenLepton[40], SelectedIsoTracksMatchedToRecoIsoLepton[40];
 	Float_t SelectedIsoTracksMatchedToGenDeltaR[40], SelectedIsoTracksMatchedToGenRelPT[40];

@@ -23,6 +23,13 @@ const double minHT_=400;
 const double minNJets_=3.4;
 const double minDeltaPhiN_=-9999;
 const bool applyFilters_=true;
+const bool truthMatching_=true;
+
+// for truth truthMatching_		
+const double maxDeltaRGenToRecoMu_ =0.3;
+const double maxDiffPtGenToRecoMu_ =0.5;
+const double maxDeltaRGenToRecoElec_ =0.3;
+const double maxDiffPtGenToRecoElec_ =0.3;
 
 // actity around lepton
 const double maxDeltaRMuActivity_=1.0;
@@ -47,7 +54,10 @@ public :
 	 //out put variables
 	 Int_t Probe_PassingOrFail_;
 	 Float_t Probe_InvariantMass_, ProbePt_, ProbeEta_, ProbePhi_, ProbeActivity_;
-
+	 // x-check
+	 int eventsFailingGenMatchForTagLeptonIsoMu_, eventsFailingGenMatchForTagLeptonRecoMu_, eventsFailingGenMatchForTagLeptonIsoElec_, eventsFailingGenMatchForTagLeptonRecoElec_;
+	 int eventsGenMatchForTagLeptonIsoMu_, eventsGenMatchForTagLeptonRecoMu_, eventsGenMatchForTagLeptonIsoElec_, eventsGenMatchForTagLeptonRecoElec_;
+	 
 	 // Declaration of leaf types
 	 UInt_t          RunNum;
 	 UInt_t          LumiBlockNum;

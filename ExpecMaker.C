@@ -67,6 +67,8 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("METPhi",&METPhi,"METPhi/F");
 	tExpectation_->Branch("GenMuNum",&GenMuNum,"GenMuNum/s");
 	tExpectation_->Branch("GenMuFromTau",GenMu_GenMuFromTau,"GenMuFromTau[GenMuNum]/s");
+	tExpectation_->Branch("GenMuDeltaRJet",GenMuDeltaRJet_,"GenMuDeltaRJet[GenMuNum]/F");
+	tExpectation_->Branch("GenMuDeltaPTJet",GenMuDeltaPTJet_,"GenMuDeltaPTJet[GenMuNum]/F");
 	tExpectation_->Branch("GenMuPt", GenMuPt,"GenMuPt[GenMuNum]/F");
 	tExpectation_->Branch("GenMuEta", GenMuEta,"GenMuEta[GenMuNum]/F");
 	tExpectation_->Branch("GenMuPhi", GenMuPhi,"GenMuPhi[GenMuNum]/F");
@@ -74,6 +76,8 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("GenMuonActivity", GenMuonActivity,"GenMuonActivity[GenMuNum]/F");
 	tExpectation_->Branch("GenElecNum",&GenElecNum,"GenElecNum/s");
 	tExpectation_->Branch("GenElecFromTau",GenElec_GenElecFromTau,"GenElecFromTau[GenElecNum]/s");
+	tExpectation_->Branch("GenElecDeltaRJet",GenElecDeltaRJet_,"GenElecDeltaRJet[GenElecNum]/F");
+	tExpectation_->Branch("GenElecDeltaPTJet",GenElecDeltaPTJet_,"GenElecDeltaPTJet[GenElecNum]/F");
 	tExpectation_->Branch("GenElecPt", GenElecPt,"GenElecPt[GenElecNum]/F");
 	tExpectation_->Branch("GenElecEta", GenElecEta,"GenElecEta[GenElecNum]/F");
 	tExpectation_->Branch("GenElecPhi", GenElecPhi,"GenElecPhi[GenElecNum]/F");
@@ -355,6 +359,9 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 	for(unsigned int i=0; i< GenMuNum;i++)
 	{
 		GenMuonActivity[i]=MuActivity(GenMuEta[i],GenMuPhi[i],muActivityMethod_);
+		std::pair<double, double> temp = deltaRClosestJet(GenMuEta[i],GenMuPhi[i],GenMuPt[i]);
+		GenMuDeltaRJet_[i]=temp.first;
+		GenMuDeltaPTJet_[i]=temp.second/GenMuPt[i];
 	}
 	for(unsigned int i=0; i< selectedIDMuonsNum;i++)
 	{
@@ -367,6 +374,9 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 	for(unsigned int i=0; i< GenElecNum;i++)
 	{
 		GenElecActivity[i]=ElecActivity(GenElecEta[i],GenElecPhi[i],elecActivityMethod_);
+		std::pair<double, double> temp = deltaRClosestJet(GenElecEta[i],GenElecPhi[i],GenElecPt[i]);
+		GenElecDeltaRJet_[i]=temp.first;
+		GenElecDeltaPTJet_[i]=temp.second/GenElecPt[i];
 	}
 	for(unsigned int i=0; i< selectedIDElectronsNum;i++)
 	{
@@ -1028,6 +1038,10 @@ void ExpecMaker::resetValues()
 		RecoIsoMuonActivity[i]=0; 
 		RecoMuonActivity[i]=0; 
 		GenMuonActivity[i]=0;
+		GenMuDeltaRJet_[i]=0;
+		GenMuDeltaPTJet_[i]=0;
+		GenElecDeltaRJet_[i]=0;
+		GenElecDeltaPTJet_[i]=0;
 		RecoIsoElectronActivity[i]=0; 
 		RecoElectronActivity[i]=0; 
 		GenElecActivity[i]=0;
@@ -1361,4 +1375,29 @@ unsigned int SearchBins::GetBinNumber(double HT, double MHT, int NJets, int BTag
   return result+1; // to not use the 0 bin but start counting at 1
 }
 
-
+std::pair <double,double> ExpecMaker::deltaRClosestJet(double lepEta,double lepPhi, double lepPT)
+{
+	std::pair <double,double> result = std::make_pair(999,0);
+	double closestJet=9999;
+	for (unsigned int i=0; i < JetsNum ; i++)
+	{
+		if(deltaR(lepEta,lepPhi,JetsEta[i],JetsPhi[i])>closestJet) continue;
+		if(deltaR(lepEta,lepPhi,JetsEta[i],JetsPhi[i]) < jetCone_ && JetsPt[i]>lepPT)
+		{
+			if((JetsPt[i]-lepPT)>jetMinPt_)
+			{
+				result = std::make_pair(deltaR(lepEta,lepPhi,JetsEta[i],JetsPhi[i]) ,(JetsPt[i]-lepPT));   	
+				closestJet = deltaR(lepEta,lepPhi,JetsEta[i],JetsPhi[i]);
+				continue;
+			}
+			else 
+				continue;
+				 
+		}
+		result = std::make_pair(deltaR(lepEta,lepPhi,JetsEta[i],JetsPhi[i]) ,JetsPt[i]);
+		closestJet = deltaR(lepEta,lepPhi,JetsEta[i],JetsPhi[i]);
+		//  			result+=JetsPt[i] * (Jets_chargedEmEnergyFraction[i] + Jets_chargedHadronEnergyFraction[i]);
+	}
+// 	std::cout<<"DeltaR: "<<result.first<<" PT rel: "<<result.second/lepPT<<std::endl;
+	return result;
+}
