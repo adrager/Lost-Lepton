@@ -39,5 +39,7 @@ root -l -b -q MakePrediction.C
 cd ../qcd
 root -l -b -q MakeExpectation.C
 root -l -b -q MakePrediction.C
+cd ../zinvis
+root -l -b -q MakeExpectation.C
 wait
 echo "done"

@@ -55,7 +55,9 @@ void SyncMaker::SlaveBegin(TTree * /*tree*/)
 	 tOut_->Branch("NJets",&NJets,"NJets/s");
 	 tOut_->Branch("BTags",&BTags,"BTags/s");
 	 tOut_->Branch("Leptons",&Leptons,"Leptons/s");
-	 tOut_->Branch("isoTracks",&isoTracks,"isoTracks/s");
+	 tOut_->Branch("isoElectronTracks",&isoElectronTracks,"isoElectronTracks/s");
+	 tOut_->Branch("isoMuonTracks",&isoMuonTracks,"isoMuonTracks/s");
+	 tOut_->Branch("isoPionTracks",&isoPionTracks,"isoPionTracks/s");
 	 tOut_->Branch("NVtx",&NVtx,"NVtx/s");
 	 tOut_->Branch("DeltaPhi1",&DeltaPhi1,"DeltaPhi1/F");
 	 tOut_->Branch("DeltaPhi2",&DeltaPhi2,"DeltaPhi2/F");
@@ -67,7 +69,6 @@ void SyncMaker::SlaveBegin(TTree * /*tree*/)
 	 tOut_->Branch("Weight", &Weight, "Weight/F");
 	 tOut_->Branch("MET",&METPt,"MET/F");
 	 tOut_->Branch("METPhi",&METPhi,"METPhi/F");
-	 tOut_->Branch("IsolatedTracksNum",&IsolatedTracksNum,"IsolatedTracksNum/s");
 	 tOut_->Branch("selectedIDIsoMuonsNum",&selectedIDIsoMuonsNum,"selectedIDIsoMuonsNum/s");
 	 tOut_->Branch("selectedIDIsoElectronsNum",&selectedIDIsoElectronsNum,"selectedIDIsoElectronsNum/s");
 	 ResetVariables();
@@ -81,79 +82,223 @@ void SyncMaker::SlaveBegin(TTree * /*tree*/)
 Bool_t SyncMaker::Process(Long64_t entry)
 {
 	fChain->GetTree()->GetEntry(entry);
+	// *********************************************************************23 June 2015 sync with jack after fermilab ra2/b workshop********************************
+	allB++;
+	alldB+=Weight;
+	if(selectedIDIsoMuonsNum==0)
+	{
+	  muvetoB++;
+	  muvetodB+=Weight;
+	}
+	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0)
+	{
+	  elecvetoB++;
+	  elecvetodB+=Weight;
+	}
+	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0 && JetID)
+	{
+	  jetIDB++;
+	  jetIDdB+=Weight;
+	}
+	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0 && JetID && NJets>=4)
+	{
+	  nJetcutB++;
+	  nJetcutdB+=Weight;
+	}
+	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0 && JetID && NJets>=4 && HT>=500)
+	{
+	  htcutB++;
+	  htcutdB+=Weight;
+	}
+	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0 && JetID && NJets>=4 && HT>=500 && MHT>200)
+	{
+	  mhtcutB++;
+	  mhtcutdB+=Weight;
+	}
+	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0 && JetID && NJets>=4 && HT>=500 && MHT>200 && IsolatedMuonTracksVetoNum == 0 )
+	{
+	  isotrakMuvetoB++;
+	  isotrakMuvetodB+=Weight;
+	}
+	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0 && JetID && NJets>=4 && HT>=500 && MHT>200 && IsolatedMuonTracksVetoNum == 0 && IsolatedElectronTracksVetoNum == 0)
+	{
+	  isotrakElecvetoB++;
+	  isotrakElecvetodB+=Weight;
+	}
+	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0 && JetID && NJets>=4 && HT>=500 && MHT>200 && IsolatedMuonTracksVetoNum == 0 && IsolatedElectronTracksVetoNum == 0 && IsolatedPionTracksVetoNum == 0)
+	{
+	  isotrakPionvetoB++;
+	  isotrakPionvetodB+=Weight;
+	}
+	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0 && JetID && NJets>=4 && HT>=500 && MHT>200 && IsolatedMuonTracksVetoNum == 0 && IsolatedElectronTracksVetoNum == 0 && IsolatedPionTracksVetoNum == 0 && DeltaPhi1>0.5 && DeltaPhi2>0.5 && DeltaPhi3>0.3)
+	{
+	  deltaphicutB++;
+	  deltaphicutdB+=Weight;
+	  if(BTags==0)
+	  {
+	    btag0B++;
+	    btag0dB+=Weight;
+	  }
+	  if(BTags==1)
+	  {
+	    btag1B++;
+	    btag1dB+=Weight;
+	  }
+	  if(BTags==2)
+	  {
+	    btag2B++;
+	    btag2dB+=Weight;
+	  }
+	  if(BTags>=3)
+	  {
+	    btag3B++;
+	    btag3dB+=Weight;
+	  }
+	}
+	// track synchronization
+	// muon
+	for(unsigned int i=0; i< IsolatedMuonTracksVetoNum;i++)
+	{
+	  muTrackAll++;
+	  if(std::abs(IsolatedMuonTracksVetoEta[i])<2.5)
+	  {
+	    muTrackEta++;
+	    if(IsolatedMuonTracksVetoPt[i]>5)
+	    {
+	      muTrackPT++;
+	      if(IsolatedMuonTracksVeto_MT[i]<100.)
+	      {
+		muTrackMT++;
+		if(i==0) muTrackEvents++;
+	      }
+	    }
+	  }
+	}
+// elec
+	for(unsigned int i=0; i< IsolatedElectronTracksVetoNum;i++)
+	{
+	  elecTrackAll++;
+	  if(std::abs(IsolatedElectronTracksVetoEta[i])<2.5)
+	  {
+	    elecTrackEta++;
+	    if(IsolatedElectronTracksVetoPt[i]>5)
+	    {
+	      elecTrackPT++;
+	      if(IsolatedElectronTracksVeto_MT[i]<100.)
+	      {
+		elecTrackMT++;
+		if(i==0) elecTrackEvents++;
+	      }
+	    }
+	  }
+	}
+	// pion
+	for(unsigned int i=0; i< IsolatedPionTracksVetoNum;i++)
+	{
+	  pionTrackAll++;
+	  if(std::abs(IsolatedPionTracksVetoEta[i])<2.5)
+	  {
+	    pionTrackEta++;
+	    if(IsolatedPionTracksVetoPt[i]>5)
+	    {
+	      pionTrackPT++;
+	      if(IsolatedPionTracksVeto_MT[i]<100)
+	      {
+		pionTrackMT++;
+		if(i==0) pionTrackEvents++;
+	      }
+	    }
+	  }
+	}
+	// *********************************************************************23 June 2015 sync with jack after fermilab ra2/b workshop end********************************
+	
 	if(applyFilters_ &&  !FiltersPass() ) return kTRUE;
 	all++;
 	alld+=Weight;
 	if(EvtNum==124734)std::cout<<"NJets: "<<NJets <<" HT: "<<HT<<" MHT: "<<MHT<<"\n";
 	if(NJets>=4)
 	{
-		nJetcut++;
-		nJetcutd+=Weight;
-		if(HT>500)
+	  nJetcut++;
+	  nJetcutd+=Weight;
+	  if(HT>500)
+	  {
+	    htcut++;
+	    htcutd+=Weight;
+	    if(MHT>200)
+	    {
+	      
+	      mhtcut++;
+	      mhtcutd+=Weight;
+	      if(selectedIDIsoMuonsNum==0)
+	      {
+		muveto++;
+		muvetod+=Weight;
+		if(selectedIDIsoElectronsNum==0)
 		{
-			htcut++;
-			htcutd+=Weight;
-			if(MHT>200)
+		  elecveto++;
+		  elecvetod+=Weight;
+		  if(minDeltaPhiN>6)
+		  {
+		    deltaphiNcut++;
+		    deltaphiNcutd+=Weight;
+		    if(isoMuonTracks==0)
+		    {
+		      isotrakMuveto++;
+		      isotrakMuvetod+=Weight;
+		      if(isoElectronTracks==0)
+		      {
+			isotrakElecveto++;
+			isotrakElecvetod+=Weight;
+			
+			if(isoPionTracks==0)
 			{
+			  isotrakPionveto++;
+			  isotrakPionvetod+=Weight;
 			  
-				mhtcut++;
-				mhtcutd+=Weight;
-				if(selectedIDIsoMuonsNum==0)
-				{
-					muveto++;
-					muvetod+=Weight;
-					if(selectedIDIsoElectronsNum==0)
-					{
-						elecveto++;
-						elecvetod+=Weight;
-						if(minDeltaPhiN>4)
-						{
-							deltaphiNcut++;
-							deltaphiNcutd+=Weight;
-							if(isoTracks==0)
-							{
-								isotrakveto++;
-								isotrakvetod+=Weight;
-								if(BTags==0)
-								{
-									btag0++;
-									btag0d+=Weight;
-								}
-								if(BTags==1)
-								{
-									btag1++;
-									btag1d+=Weight;
-								}
-								if(BTags==2)
-								{
-									btag2++;
-									btag2d+=Weight;
-								}
-								if(BTags>=3)
-								{
-									btag3++;
-									btag3d+=Weight;
-								}
-							}
-						}
-					}
-				}
+			  if(BTags==0)
+			  {
+			    btag0++;
+			    btag0d+=Weight;
+			  }
+			  if(BTags==1)
+			  {
+			    btag1++;
+			    btag1d+=Weight;
+			  }
+			  if(BTags==2)
+			  {
+			    btag2++;
+			    btag2d+=Weight;
+			  }
+			  if(BTags>=3)
+			  {
+			    btag3++;
+			    btag3d+=Weight;
+			  }
 			}
-			//else std::cout<<"*     "<<all<<" *     "<<EvtNum<<" * "<<MHT<<" *\n";
-		  
+		      
+		      }
+		     
+		    }
+		  }
 		}
+	      }
+	    }
+	    //else std::cout<<"*     "<<all<<" *     "<<EvtNum<<" * "<<MHT<<" *\n";
+	    
+	  }
 	}
 	if(GenMuNum>0)
 	{
-		for(unsigned int i=0; i<GenMuNum;i++)
-		{
-			if(GenMuPt[i]>10 && abs(GenMuEta[i])<2.4)
-			{
-				GenMuonPtEtaCut++;
-				GenMuonPtEtaCutd+=Weight;
-			}
-			
-		}
+	  for(unsigned int i=0; i<GenMuNum;i++)
+	  {
+	    if(GenMuPt[i]>10 && abs(GenMuEta[i])<2.4)
+	    {
+	      GenMuonPtEtaCut++;
+	      GenMuonPtEtaCutd+=Weight;
+	    }
+	    
+	  }
 	}
 	if(slimmedMuonsNum>0)
 	{
@@ -163,18 +308,18 @@ Bool_t SyncMaker::Process(Long64_t entry)
 	    {
 	      muonPtEtaCut++;
 	      muonPtEtaCutd+=Weight;
-	      break;
+// 	      break;
 	    }
 	  }
 	  if(selectedIDMuonsNum>0)
 	  {
-	    muonID++;
-	    muonIDd+=Weight;
+	    muonID+=selectedIDMuonsNum;
+	    muonIDd+=Weight*selectedIDMuonsNum;
 	  }
 	  if(selectedIDIsoMuonsNum>0)
 	  {
-	    muonIso++;
-	    muonIsod+=Weight;
+	    muonIso+=selectedIDIsoMuonsNum;
+	    muonIsod+=Weight*selectedIDIsoMuonsNum;
 	  }
 	}
 	if(slimmedElectronsNum>0)
@@ -200,8 +345,8 @@ Bool_t SyncMaker::Process(Long64_t entry)
 	  }
 	}
 	tOut_->Fill();
-
-
+	
+	
 
    return kTRUE;
 }
@@ -226,6 +371,48 @@ void SyncMaker::Terminate()
 	TFile *outPutFile = new TFile("Sync.root","RECREATE"); 
 	outPutFile->cd();
 	tOut_->Write();
+	
+	 std::cout<<" *********************************************************************23 June 2015 sync with jack after fermilab ra2/b workshop****************************\n";
+        std::cout<<"---------------------Baseline cuts------------------------"<<std::endl;
+	 std::cout<<"Sync (unweighted) event count:"<<std::endl;
+	std::cout<<"All:                       "<<alldB<<" ("<<allB<<")"<<std::endl;
+	std::cout<<"MuVeto:                    "<<muvetodB<<" ("<<muvetoB<<")"<<std::endl;
+	std::cout<<"ElecVeto:                  "<<elecvetodB<<" ("<<elecvetoB<<")"<<std::endl;
+	std::cout<<"JetID:                     "<<jetIDdB<<" ("<<jetIDB<<")"<<std::endl;
+	std::cout<<"NJets>=4:                  "<<nJetcutdB<<" ("<<nJetcutB<<")"<<std::endl;
+	std::cout<<"HT>500:                    "<<htcutdB<<" ("<<htcutB<<")"<<std::endl;
+	std::cout<<"MHT>200:                   "<<mhtcutdB<<" ("<<mhtcutB<<")"<<std::endl;
+	std::cout<<"IsoMuTrackVeto:            "<<isotrakMuvetodB<<" ("<<isotrakMuvetoB<<")"<<std::endl;
+	std::cout<<"IsoElecTrackVeto:          "<<isotrakElecvetodB<<" ("<<isotrakElecvetoB<<")"<<std::endl;
+	std::cout<<"IsoPionTrackVeto:          "<<isotrakPionvetodB<<" ("<<isotrakPionvetoB<<")"<<std::endl;
+	std::cout<<"DeltaPhiCuts:              "<<deltaphicutdB<<" ("<<deltaphicutB<<")"<<std::endl;
+	std::cout<<"BTag=0:                    "<<btag0dB<<" ("<<btag0B<<")"<<std::endl;
+	std::cout<<"BTag=1:                    "<<btag1dB<<" ("<<btag1B<<")"<<std::endl;
+	std::cout<<"BTag=2:                    "<<btag2dB<<" ("<<btag2B<<")"<<std::endl;
+	std::cout<<"BTag>=3:                   "<<btag3dB<<" ("<<btag3B<<")"<<std::endl;
+	std::cout<<"---------------------Tracks: Muon------------------------"<<std::endl;
+	std::cout<<"Sync amount of found muon tracks:"<<std::endl;
+	std::cout<<"pdgID 13:                       "<<muTrackAll<<std::endl;
+	std::cout<<"Eta<2.5:                        "<<muTrackEta<<std::endl;
+	std::cout<<"PT>5:                           "<<muTrackPT<<std::endl;
+	std::cout<<"MT<100:                         "<<muTrackMT<<std::endl;
+	std::cout<<"Events with at least one track: "<<muTrackEvents<<std::endl;
+	std::cout<<"---------------------Tracks: Elec------------------------"<<std::endl;
+	std::cout<<"Sync amount of found elec tracks:"<<std::endl;
+	std::cout<<"pdgID 13:                       "<<elecTrackAll<<std::endl;
+	std::cout<<"Eta<2.5:                        "<<elecTrackEta<<std::endl;
+	std::cout<<"PT>5:                           "<<elecTrackPT<<std::endl;
+	std::cout<<"MT<100:                         "<<elecTrackMT<<std::endl;
+	std::cout<<"Events with at least one track: "<<elecTrackEvents<<std::endl;
+	std::cout<<"---------------------Tracks: Pion------------------------"<<std::endl;
+	std::cout<<"Sync amount of found pion tracks:"<<std::endl;
+	std::cout<<"pdgID 211:                      "<<pionTrackAll<<std::endl;
+	std::cout<<"Eta<2.5:                        "<<pionTrackEta<<std::endl;
+	std::cout<<"PT>10:                          "<<pionTrackPT<<std::endl;
+	std::cout<<"MT<100:                         "<<pionTrackMT<<std::endl;
+	std::cout<<"Events with at least one track: "<<pionTrackEvents<<std::endl;
+	 std::cout<<" *********************************************************************23 June 2015 sync with jack after fermilab ra2/b workshop end****************************\n";
+
 	std::cout<<"Sync (unweighted) event count:"<<std::endl;
 	std::cout<<"All:                   "<<alld<<" ("<<all<<")"<<std::endl;
 	std::cout<<"NJets>=4:              "<<nJetcutd<<" ("<<nJetcut<<")"<<std::endl;
@@ -235,7 +422,9 @@ void SyncMaker::Terminate()
 // 	std::cout<<"IsoMu veto:            "<<muvetod<<" ("<<muveto<<")"<<std::endl;
 	std::cout<<"IsoElec veto:          "<<elecvetod<<" ("<<elecveto<<")"<<std::endl;
 	std::cout<<"DeltaPhiN>4:           "<<deltaphiNcutd<<" ("<<deltaphiNcut<<")"<<std::endl;
-	std::cout<<"IsoTrack(mt<100) veto: "<<isotrakvetod<<" ("<<isotrakveto<<")"<<std::endl;
+	std::cout<<"isotrakMuveto(mt<100) veto: "<<isotrakMuvetod<<" ("<<isotrakMuveto<<")"<<std::endl;
+	std::cout<<"isotrakElecveto(mt<100) veto: "<<isotrakElecvetod<<" ("<<isotrakElecveto<<")"<<std::endl;
+	std::cout<<"isotrakPionveto(mt<100) veto: "<<isotrakPionvetod<<" ("<<isotrakPionveto<<")"<<std::endl;
 	std::cout<<"btag=0:                "<<btag0d<<" ("<<btag0<<")"<<std::endl;
 	std::cout<<"btag=1:                "<<btag1d<<" ("<<btag1<<")"<<std::endl;
 	std::cout<<"btag=2:                "<<btag2d<<" ("<<btag2<<")"<<std::endl;
@@ -253,6 +442,58 @@ void SyncMaker::Terminate()
 }
 void SyncMaker::ResetVariables()
 {
+  	// *********************************************************************23 June 2015 sync with jack after fermilab ra2/b workshop********************************
+	allB=0;
+	nJetcutB=0;
+	htcutB=0;
+	mhtcutB=0;
+	muvetoB=0;
+	elecvetoB=0;
+	deltaphicutB=0;
+	isotrakMuvetoB=0;
+	isotrakElecvetoB=0;
+	isotrakPionvetoB=0;
+	btag0B=0;
+	btag1B=0;
+	btag2B=0;
+	btag3B=0;
+	
+	alldB=0.;
+	nJetcutdB=0.;
+	htcutdB=0.;
+	mhtcutdB=0.;
+	muvetodB=0.;
+	elecvetodB=0.;
+	deltaphicutdB=0.;
+	isotrakMuvetodB=0;
+	isotrakElecvetodB=0;
+	isotrakPionvetodB=0;
+	btag0dB=0.;
+	btag1dB=0.;
+	btag2dB=0.;
+	btag3dB=0.;
+	jetIDB=0;
+	
+	// isolated track study
+	muTrackAll=0;
+	muTrackEta=0;
+	muTrackPT=0;
+	muTrackMT=0;
+	elecTrackAll=0;
+	elecTrackEta=0;
+	elecTrackPT=0;
+	elecTrackMT=0;
+	pionTrackAll=0;
+	pionTrackEta=0;
+	pionTrackPT=0;
+	pionTrackMT=0;
+	
+	muTrackEvents=0;
+	elecTrackEvents=0;
+	pionTrackEvents=0;
+  
+  	// *********************************************************************23 June 2015 sync with jack after fermilab ra2/b workshop end********************************
+
 	all=0;
 	nJetcut=0;
 	htcut=0;
@@ -260,11 +501,14 @@ void SyncMaker::ResetVariables()
 	muveto=0;
 	elecveto=0;
 	deltaphiNcut=0;
-	isotrakveto=0;
+	isotrakMuveto=0;
+	isotrakElecveto=0;
+	isotrakPionveto=0;
 	btag0=0;
 	btag1=0;
 	btag2=0;
 	btag3=0;
+
 	
 	alld=0.;
 	nJetcutd=0.;
@@ -272,13 +516,18 @@ void SyncMaker::ResetVariables()
 	mhtcutd=0.;
 	muvetod=0.;
 	elecvetod=0.;
-	deltaphiNcutd=0.;
-	isotrakvetod=0.;
+ 	deltaphiNcutd=0.;
+	isotrakMuvetod=0;
+	isotrakElecvetod=0;
+	isotrakPionvetod=0;
 	btag0d=0.;
 	btag1d=0.;
 	btag2d=0.;
 	btag3d=0.;
+	jetIDdB=0.;
 	
+	GenMuonPtEtaCut=0;
+	GenMuonPtEtaCutd=0.;
 	muonPtEtaCut=0;
 	muonID=0;
 	muonIso=0;

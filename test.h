@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Wed Feb  100 12:100100:1001 201100 by ROOT version 100.100100/0100
+// Mon Jun  8 23:04:53 2015 by ROOT version 6.02/05
 // from TTree PreSelection/PreSelection
-// found on file: /nfs/dust/cms/user/adraeger/phys1100/mc/TTJets_MSDecaysCKM_central_Tune100C_1100TeV-madgraph-tauola/job_0_ReducedSelection.root
+// found on file: job_12_ReducedSelection.root
 //////////////////////////////////////////////////////////
 
 #ifndef SyncMaker_h
@@ -12,40 +12,16 @@
 #include <TChain.h>
 #include <TFile.h>
 #include <TSelector.h>
-#include <cmath>
-const bool applyFilters_=false;
 
 // Header file for the classes stored in the TTree if any.
-
-// Fixed size dimensions of array or collections stored in the TTree if any.
 
 class SyncMaker : public TSelector {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
-   void ResetVariables();
-   bool FiltersPass();
-   TTree	*tOut_;
-   int all, nJetcut, htcut, mhtcut, muveto, elecveto, deltaphiNcut, isotrakMuveto, isotrakElecveto, isotrakPionveto, btag0, btag1,btag2,btag3;
-   double alld, nJetcutd, htcutd, mhtcutd, muvetod, elecvetod, isotrakMuvetod, isotrakElecvetod, isotrakPionvetod, deltaphiNcutd, isotrakvetod, btag0d, btag1d,btag2d,btag3d;
-	 int muonPtEtaCut, muonID, muonIso;
-	 double muonPtEtaCutd, muonIDd, muonIsod;
-	 int elecPtEtaCut, elecID, elecIso;
-	 double elecPtEtaCutd, elecIDd, elecIsod;
-	 int GenMuonPtEtaCut;
-	 	// *********************************************************************23 June 2015 sync with jack after fermilab ra2/b workshop********************************
 
-	 double GenMuonPtEtaCutd;
-   // redone for latest sync other order other variables
-   int allB, nJetcutB, htcutB, mhtcutB, muvetoB, elecvetoB, deltaphicutB, isotrakMuvetoB, isotrakElecvetoB, isotrakPionvetoB, btag0B, btag1B,btag2B,btag3B, jetIDB;
-   double alldB, nJetcutdB, htcutdB, mhtcutdB, muvetodB, elecvetodB, isotrakMuvetodB, isotrakElecvetodB, isotrakPionvetodB, deltaphicutdB, isotrakvetodB, btag0dB, btag1dB,btag2dB,btag3dB, jetIDdB;
-	 
-   int muTrackAll, muTrackEta, muTrackPT, muTrackMT;
-   int elecTrackAll, elecTrackEta, elecTrackPT, elecTrackMT;
-   int pionTrackAll, pionTrackEta, pionTrackPT, pionTrackMT;
-   int muTrackEvents, elecTrackEvents, pionTrackEvents;
+// Fixed size dimensions of array or collections stored in the TTree if any.
 
-   	// *********************************************************************23 June 2015 sync with jack after fermilab ra2/b workshop end********************************
-
+   // Declaration of leaf types
    UInt_t          RunNum;
    UInt_t          LumiBlockNum;
    UInt_t          EvtNum;
@@ -76,59 +52,52 @@ public :
    Float_t         MuonsPhi[4];   //[MuonsNum]
    Float_t         MuonsE[4];   //[MuonsNum]
    UShort_t        ElectronsNum;
-   Float_t         ElectronsPt[4];   //[ElectronsNum]
-   Float_t         ElectronsEta[4];   //[ElectronsNum]
-   Float_t         ElectronsPhi[4];   //[ElectronsNum]
-   Float_t         ElectronsE[4];   //[ElectronsNum]
+   Float_t         ElectronsPt[3];   //[ElectronsNum]
+   Float_t         ElectronsEta[3];   //[ElectronsNum]
+   Float_t         ElectronsPhi[3];   //[ElectronsNum]
+   Float_t         ElectronsE[3];   //[ElectronsNum]
    UShort_t        IsolatedElectronTracksVetoNum;
-   Float_t         IsolatedElectronTracksVetoPt[4];   //[IsolatedElectronTracksVetoNum]
-   Float_t         IsolatedElectronTracksVetoEta[4];   //[IsolatedElectronTracksVetoNum]
-   Float_t         IsolatedElectronTracksVetoPhi[4];   //[IsolatedElectronTracksVetoNum]
-   Float_t         IsolatedElectronTracksVetoE[4];   //[IsolatedElectronTracksVetoNum]
-   Float_t         IsolatedElectronTracksVeto_MT[4];   //[IsolatedElectronTracksVetoNum]
+   Float_t         IsolatedElectronTracksVetoPt[2];   //[IsolatedElectronTracksVetoNum]
+   Float_t         IsolatedElectronTracksVetoEta[2];   //[IsolatedElectronTracksVetoNum]
+   Float_t         IsolatedElectronTracksVetoPhi[2];   //[IsolatedElectronTracksVetoNum]
+   Float_t         IsolatedElectronTracksVetoE[2];   //[IsolatedElectronTracksVetoNum]
    UShort_t        IsolatedMuonTracksVetoNum;
-   Float_t         IsolatedMuonTracksVetoPt[4];   //[IsolatedMuonTracksVetoNum]
-   Float_t         IsolatedMuonTracksVetoEta[4];   //[IsolatedMuonTracksVetoNum]
-   Float_t         IsolatedMuonTracksVetoPhi[4];   //[IsolatedMuonTracksVetoNum]
-   Float_t         IsolatedMuonTracksVetoE[4];   //[IsolatedMuonTracksVetoNum]
-   Float_t         IsolatedMuonTracksVeto_MT[4];   //[IsolatedMuonTracksVetoNum]
+   Float_t         IsolatedMuonTracksVetoPt[3];   //[IsolatedMuonTracksVetoNum]
+   Float_t         IsolatedMuonTracksVetoEta[3];   //[IsolatedMuonTracksVetoNum]
+   Float_t         IsolatedMuonTracksVetoPhi[3];   //[IsolatedMuonTracksVetoNum]
+   Float_t         IsolatedMuonTracksVetoE[3];   //[IsolatedMuonTracksVetoNum]
    UShort_t        IsolatedPionTracksVetoNum;
-   Float_t         IsolatedPionTracksVetoPt[43];   //[IsolatedPionTracksVetoNum]
-   Float_t         IsolatedPionTracksVetoEta[43];   //[IsolatedPionTracksVetoNum]
-   Float_t         IsolatedPionTracksVetoPhi[43];   //[IsolatedPionTracksVetoNum]
-   Float_t         IsolatedPionTracksVetoE[43];   //[IsolatedPionTracksVetoNum]
-   Float_t         IsolatedPionTracksVeto_MT[43];   //[IsolatedPionTracksVetoNum]
+   Float_t         IsolatedPionTracksVetoPt[2];   //[IsolatedPionTracksVetoNum]
+   Float_t         IsolatedPionTracksVetoEta[2];   //[IsolatedPionTracksVetoNum]
+   Float_t         IsolatedPionTracksVetoPhi[2];   //[IsolatedPionTracksVetoNum]
+   Float_t         IsolatedPionTracksVetoE[2];   //[IsolatedPionTracksVetoNum]
    UShort_t        selectedIDIsoMuonsNum;
    Float_t         selectedIDIsoMuonsPt[4];   //[selectedIDIsoMuonsNum]
    Float_t         selectedIDIsoMuonsEta[4];   //[selectedIDIsoMuonsNum]
    Float_t         selectedIDIsoMuonsPhi[4];   //[selectedIDIsoMuonsNum]
    Float_t         selectedIDIsoMuonsE[4];   //[selectedIDIsoMuonsNum]
-   Float_t         selectedIDIsoMuons_MTW[4];   //[selectedIDIsoMuonsNum]
    UShort_t        selectedIDMuonsNum;
-   Float_t         selectedIDMuonsPt[5];   //[selectedIDMuonsNum]
-   Float_t         selectedIDMuonsEta[5];   //[selectedIDMuonsNum]
-   Float_t         selectedIDMuonsPhi[5];   //[selectedIDMuonsNum]
-   Float_t         selectedIDMuonsE[5];   //[selectedIDMuonsNum]
-   Float_t         selectedIDMuons_MTW[5];   //[selectedIDMuonsNum]
+   Float_t         selectedIDMuonsPt[6];   //[selectedIDMuonsNum]
+   Float_t         selectedIDMuonsEta[6];   //[selectedIDMuonsNum]
+   Float_t         selectedIDMuonsPhi[6];   //[selectedIDMuonsNum]
+   Float_t         selectedIDMuonsE[6];   //[selectedIDMuonsNum]
    UShort_t        selectedIDIsoElectronsNum;
-   Float_t         selectedIDIsoElectronsPt[4];   //[selectedIDIsoElectronsNum]
-   Float_t         selectedIDIsoElectronsEta[4];   //[selectedIDIsoElectronsNum]
-   Float_t         selectedIDIsoElectronsPhi[4];   //[selectedIDIsoElectronsNum]
-   Float_t         selectedIDIsoElectronsE[4];   //[selectedIDIsoElectronsNum]
-   Float_t         selectedIDIsoElectrons_MTW[4];   //[selectedIDIsoElectronsNum]
+   Float_t         selectedIDIsoElectronsPt[3];   //[selectedIDIsoElectronsNum]
+   Float_t         selectedIDIsoElectronsEta[3];   //[selectedIDIsoElectronsNum]
+   Float_t         selectedIDIsoElectronsPhi[3];   //[selectedIDIsoElectronsNum]
+   Float_t         selectedIDIsoElectronsE[3];   //[selectedIDIsoElectronsNum]
    UShort_t        selectedIDElectronsNum;
-   Float_t         selectedIDElectronsPt[5];   //[selectedIDElectronsNum]
-   Float_t         selectedIDElectronsEta[5];   //[selectedIDElectronsNum]
-   Float_t         selectedIDElectronsPhi[5];   //[selectedIDElectronsNum]
-   Float_t         selectedIDElectronsE[5];   //[selectedIDElectronsNum]
-   Float_t         selectedIDElectrons_MTW[5];   //[selectedIDElectronsNum]
+   Float_t         selectedIDElectronsPt[4];   //[selectedIDElectronsNum]
+   Float_t         selectedIDElectronsEta[4];   //[selectedIDElectronsNum]
+   Float_t         selectedIDElectronsPhi[4];   //[selectedIDElectronsNum]
+   Float_t         selectedIDElectronsE[4];   //[selectedIDElectronsNum]
    UShort_t        SelectedPFCandidatesNum;
-   Float_t         SelectedPFCandidatesPt[155];   //[SelectedPFCandidatesNum]
-   Float_t         SelectedPFCandidatesEta[155];   //[SelectedPFCandidatesNum]
-   Float_t         SelectedPFCandidatesPhi[155];   //[SelectedPFCandidatesNum]
-   Float_t         SelectedPFCandidatesE[155];   //[SelectedPFCandidatesNum]
-   Int_t           SelectedPFCandidates_Charge[155];   //[SelectedPFCandidatesNum]
-   Int_t           SelectedPFCandidates_Typ[155];   //[SelectedPFCandidatesNum]
+   Float_t         SelectedPFCandidatesPt[203];   //[SelectedPFCandidatesNum]
+   Float_t         SelectedPFCandidatesEta[203];   //[SelectedPFCandidatesNum]
+   Float_t         SelectedPFCandidatesPhi[203];   //[SelectedPFCandidatesNum]
+   Float_t         SelectedPFCandidatesE[203];   //[SelectedPFCandidatesNum]
+   Int_t           SelectedPFCandidates_Charge[203];   //[SelectedPFCandidatesNum]
+   Int_t           SelectedPFCandidates_Typ[203];   //[SelectedPFCandidatesNum]
    UShort_t        GenBosonNum;
    Float_t         GenBosonPt[4];   //[GenBosonNum]
    Float_t         GenBosonEta[4];   //[GenBosonNum]
@@ -153,12 +122,6 @@ public :
    Float_t         GenTauPhi[4];   //[GenTauNum]
    Float_t         GenTauE[4];   //[GenTauNum]
    Int_t           GenTau_GenTauHad[4];   //[GenTauNum]
-   UShort_t        TauDecayCandsNum;
-   Float_t         TauDecayCandsPt[10];   //[TauDecayCandsNum]
-   Float_t         TauDecayCandsEta[10];   //[TauDecayCandsNum]
-   Float_t         TauDecayCandsPhi[10];   //[TauDecayCandsNum]
-   Float_t         TauDecayCandsE[10];   //[TauDecayCandsNum]
-   Int_t           TauDecayCands_pdgID[10];   //[TauDecayCandsNum]
    UShort_t        selectedIDIsoMuonsNoMiniIsoNum;
    Float_t         selectedIDIsoMuonsNoMiniIsoPt[4];   //[selectedIDIsoMuonsNoMiniIsoNum]
    Float_t         selectedIDIsoMuonsNoMiniIsoEta[4];   //[selectedIDIsoMuonsNoMiniIsoNum]
@@ -187,15 +150,15 @@ public :
    Float_t         Jets_photonEnergyFraction[18];   //[JetsNum]
    Int_t           Jets_photonMultiplicity[18];   //[JetsNum]
    UShort_t        slimmedElectronsNum;
-   Float_t         slimmedElectronsPt[12];   //[slimmedElectronsNum]
-   Float_t         slimmedElectronsEta[12];   //[slimmedElectronsNum]
-   Float_t         slimmedElectronsPhi[12];   //[slimmedElectronsNum]
-   Float_t         slimmedElectronsE[12];   //[slimmedElectronsNum]
+   Float_t         slimmedElectronsPt[10];   //[slimmedElectronsNum]
+   Float_t         slimmedElectronsEta[10];   //[slimmedElectronsNum]
+   Float_t         slimmedElectronsPhi[10];   //[slimmedElectronsNum]
+   Float_t         slimmedElectronsE[10];   //[slimmedElectronsNum]
    UShort_t        slimmedMuonsNum;
-   Float_t         slimmedMuonsPt[32];   //[slimmedMuonsNum]
-   Float_t         slimmedMuonsEta[32];   //[slimmedMuonsNum]
-   Float_t         slimmedMuonsPhi[32];   //[slimmedMuonsNum]
-   Float_t         slimmedMuonsE[32];   //[slimmedMuonsNum]
+   Float_t         slimmedMuonsPt[39];   //[slimmedMuonsNum]
+   Float_t         slimmedMuonsEta[39];   //[slimmedMuonsNum]
+   Float_t         slimmedMuonsPhi[39];   //[slimmedMuonsNum]
+   Float_t         slimmedMuonsE[39];   //[slimmedMuonsNum]
 
    // List of branches
    TBranch        *b_RunNum;   //!
@@ -237,43 +200,36 @@ public :
    TBranch        *b_IsolatedElectronTracksVetoEta;   //!
    TBranch        *b_IsolatedElectronTracksVetoPhi;   //!
    TBranch        *b_IsolatedElectronTracksVetoE;   //!
-   TBranch        *b_IsolatedElectronTracksVeto_MT;   //!
    TBranch        *b_IsolatedMuonTracksVetoNum;   //!
    TBranch        *b_IsolatedMuonTracksVetoPt;   //!
    TBranch        *b_IsolatedMuonTracksVetoEta;   //!
    TBranch        *b_IsolatedMuonTracksVetoPhi;   //!
    TBranch        *b_IsolatedMuonTracksVetoE;   //!
-   TBranch        *b_IsolatedMuonTracksVeto_MT;   //!
    TBranch        *b_IsolatedPionTracksVetoNum;   //!
    TBranch        *b_IsolatedPionTracksVetoPt;   //!
    TBranch        *b_IsolatedPionTracksVetoEta;   //!
    TBranch        *b_IsolatedPionTracksVetoPhi;   //!
    TBranch        *b_IsolatedPionTracksVetoE;   //!
-   TBranch        *b_IsolatedPionTracksVeto_MT;   //!
    TBranch        *b_selectedIDIsoMuonsNum;   //!
    TBranch        *b_selectedIDIsoMuonsPt;   //!
    TBranch        *b_selectedIDIsoMuonsEta;   //!
    TBranch        *b_selectedIDIsoMuonsPhi;   //!
    TBranch        *b_selectedIDIsoMuonsE;   //!
-   TBranch        *b_selectedIDIsoMuons_MTW;   //!
    TBranch        *b_selectedIDMuonsNum;   //!
    TBranch        *b_selectedIDMuonsPt;   //!
    TBranch        *b_selectedIDMuonsEta;   //!
    TBranch        *b_selectedIDMuonsPhi;   //!
    TBranch        *b_selectedIDMuonsE;   //!
-   TBranch        *b_selectedIDMuons_MTW;   //!
    TBranch        *b_selectedIDIsoElectronsNum;   //!
    TBranch        *b_selectedIDIsoElectronsPt;   //!
    TBranch        *b_selectedIDIsoElectronsEta;   //!
    TBranch        *b_selectedIDIsoElectronsPhi;   //!
    TBranch        *b_selectedIDIsoElectronsE;   //!
-   TBranch        *b_selectedIDIsoElectrons_MTW;   //!
    TBranch        *b_selectedIDElectronsNum;   //!
    TBranch        *b_selectedIDElectronsPt;   //!
    TBranch        *b_selectedIDElectronsEta;   //!
    TBranch        *b_selectedIDElectronsPhi;   //!
    TBranch        *b_selectedIDElectronsE;   //!
-   TBranch        *b_selectedIDElectrons_MTW;   //!
    TBranch        *b_SelectedPFCandidatesNum;   //!
    TBranch        *b_SelectedPFCandidatesPt;   //!
    TBranch        *b_SelectedPFCandidatesEta;   //!
@@ -305,12 +261,6 @@ public :
    TBranch        *b_GenTauPhi;   //!
    TBranch        *b_GenTauE;   //!
    TBranch        *b_GenTau_GenTauHad;   //!
-   TBranch        *b_TauDecayCandsNum;   //!
-   TBranch        *b_TauDecayCandsPt;   //!
-   TBranch        *b_TauDecayCandsEta;   //!
-   TBranch        *b_TauDecayCandsPhi;   //!
-   TBranch        *b_TauDecayCandsE;   //!
-   TBranch        *b_TauDecayCands_pdgID;   //!
    TBranch        *b_selectedIDIsoMuonsNoMiniIsoNum;   //!
    TBranch        *b_selectedIDIsoMuonsNoMiniIsoPt;   //!
    TBranch        *b_selectedIDIsoMuonsNoMiniIsoEta;   //!
@@ -425,43 +375,36 @@ void SyncMaker::Init(TTree *tree)
    fChain->SetBranchAddress("IsolatedElectronTracksVetoEta", IsolatedElectronTracksVetoEta, &b_IsolatedElectronTracksVetoEta);
    fChain->SetBranchAddress("IsolatedElectronTracksVetoPhi", IsolatedElectronTracksVetoPhi, &b_IsolatedElectronTracksVetoPhi);
    fChain->SetBranchAddress("IsolatedElectronTracksVetoE", IsolatedElectronTracksVetoE, &b_IsolatedElectronTracksVetoE);
-   fChain->SetBranchAddress("IsolatedElectronTracksVeto_MT", IsolatedElectronTracksVeto_MT, &b_IsolatedElectronTracksVeto_MT);
    fChain->SetBranchAddress("IsolatedMuonTracksVetoNum", &IsolatedMuonTracksVetoNum, &b_IsolatedMuonTracksVetoNum);
    fChain->SetBranchAddress("IsolatedMuonTracksVetoPt", IsolatedMuonTracksVetoPt, &b_IsolatedMuonTracksVetoPt);
    fChain->SetBranchAddress("IsolatedMuonTracksVetoEta", IsolatedMuonTracksVetoEta, &b_IsolatedMuonTracksVetoEta);
    fChain->SetBranchAddress("IsolatedMuonTracksVetoPhi", IsolatedMuonTracksVetoPhi, &b_IsolatedMuonTracksVetoPhi);
    fChain->SetBranchAddress("IsolatedMuonTracksVetoE", IsolatedMuonTracksVetoE, &b_IsolatedMuonTracksVetoE);
-   fChain->SetBranchAddress("IsolatedMuonTracksVeto_MT", IsolatedMuonTracksVeto_MT, &b_IsolatedMuonTracksVeto_MT);
    fChain->SetBranchAddress("IsolatedPionTracksVetoNum", &IsolatedPionTracksVetoNum, &b_IsolatedPionTracksVetoNum);
    fChain->SetBranchAddress("IsolatedPionTracksVetoPt", IsolatedPionTracksVetoPt, &b_IsolatedPionTracksVetoPt);
    fChain->SetBranchAddress("IsolatedPionTracksVetoEta", IsolatedPionTracksVetoEta, &b_IsolatedPionTracksVetoEta);
    fChain->SetBranchAddress("IsolatedPionTracksVetoPhi", IsolatedPionTracksVetoPhi, &b_IsolatedPionTracksVetoPhi);
    fChain->SetBranchAddress("IsolatedPionTracksVetoE", IsolatedPionTracksVetoE, &b_IsolatedPionTracksVetoE);
-   fChain->SetBranchAddress("IsolatedPionTracksVeto_MT", IsolatedPionTracksVeto_MT, &b_IsolatedPionTracksVeto_MT);
    fChain->SetBranchAddress("selectedIDIsoMuonsNum", &selectedIDIsoMuonsNum, &b_selectedIDIsoMuonsNum);
    fChain->SetBranchAddress("selectedIDIsoMuonsPt", selectedIDIsoMuonsPt, &b_selectedIDIsoMuonsPt);
    fChain->SetBranchAddress("selectedIDIsoMuonsEta", selectedIDIsoMuonsEta, &b_selectedIDIsoMuonsEta);
    fChain->SetBranchAddress("selectedIDIsoMuonsPhi", selectedIDIsoMuonsPhi, &b_selectedIDIsoMuonsPhi);
    fChain->SetBranchAddress("selectedIDIsoMuonsE", selectedIDIsoMuonsE, &b_selectedIDIsoMuonsE);
-   fChain->SetBranchAddress("selectedIDIsoMuons_MTW", selectedIDIsoMuons_MTW, &b_selectedIDIsoMuons_MTW);
    fChain->SetBranchAddress("selectedIDMuonsNum", &selectedIDMuonsNum, &b_selectedIDMuonsNum);
    fChain->SetBranchAddress("selectedIDMuonsPt", selectedIDMuonsPt, &b_selectedIDMuonsPt);
    fChain->SetBranchAddress("selectedIDMuonsEta", selectedIDMuonsEta, &b_selectedIDMuonsEta);
    fChain->SetBranchAddress("selectedIDMuonsPhi", selectedIDMuonsPhi, &b_selectedIDMuonsPhi);
    fChain->SetBranchAddress("selectedIDMuonsE", selectedIDMuonsE, &b_selectedIDMuonsE);
-   fChain->SetBranchAddress("selectedIDMuons_MTW", selectedIDMuons_MTW, &b_selectedIDMuons_MTW);
    fChain->SetBranchAddress("selectedIDIsoElectronsNum", &selectedIDIsoElectronsNum, &b_selectedIDIsoElectronsNum);
    fChain->SetBranchAddress("selectedIDIsoElectronsPt", selectedIDIsoElectronsPt, &b_selectedIDIsoElectronsPt);
    fChain->SetBranchAddress("selectedIDIsoElectronsEta", selectedIDIsoElectronsEta, &b_selectedIDIsoElectronsEta);
    fChain->SetBranchAddress("selectedIDIsoElectronsPhi", selectedIDIsoElectronsPhi, &b_selectedIDIsoElectronsPhi);
    fChain->SetBranchAddress("selectedIDIsoElectronsE", selectedIDIsoElectronsE, &b_selectedIDIsoElectronsE);
-   fChain->SetBranchAddress("selectedIDIsoElectrons_MTW", selectedIDIsoElectrons_MTW, &b_selectedIDIsoElectrons_MTW);
    fChain->SetBranchAddress("selectedIDElectronsNum", &selectedIDElectronsNum, &b_selectedIDElectronsNum);
    fChain->SetBranchAddress("selectedIDElectronsPt", selectedIDElectronsPt, &b_selectedIDElectronsPt);
    fChain->SetBranchAddress("selectedIDElectronsEta", selectedIDElectronsEta, &b_selectedIDElectronsEta);
    fChain->SetBranchAddress("selectedIDElectronsPhi", selectedIDElectronsPhi, &b_selectedIDElectronsPhi);
    fChain->SetBranchAddress("selectedIDElectronsE", selectedIDElectronsE, &b_selectedIDElectronsE);
-   fChain->SetBranchAddress("selectedIDElectrons_MTW", selectedIDElectrons_MTW, &b_selectedIDElectrons_MTW);
    fChain->SetBranchAddress("SelectedPFCandidatesNum", &SelectedPFCandidatesNum, &b_SelectedPFCandidatesNum);
    fChain->SetBranchAddress("SelectedPFCandidatesPt", SelectedPFCandidatesPt, &b_SelectedPFCandidatesPt);
    fChain->SetBranchAddress("SelectedPFCandidatesEta", SelectedPFCandidatesEta, &b_SelectedPFCandidatesEta);
@@ -493,12 +436,6 @@ void SyncMaker::Init(TTree *tree)
    fChain->SetBranchAddress("GenTauPhi", GenTauPhi, &b_GenTauPhi);
    fChain->SetBranchAddress("GenTauE", GenTauE, &b_GenTauE);
    fChain->SetBranchAddress("GenTau_GenTauHad", GenTau_GenTauHad, &b_GenTau_GenTauHad);
-   fChain->SetBranchAddress("TauDecayCandsNum", &TauDecayCandsNum, &b_TauDecayCandsNum);
-   fChain->SetBranchAddress("TauDecayCandsPt", TauDecayCandsPt, &b_TauDecayCandsPt);
-   fChain->SetBranchAddress("TauDecayCandsEta", TauDecayCandsEta, &b_TauDecayCandsEta);
-   fChain->SetBranchAddress("TauDecayCandsPhi", TauDecayCandsPhi, &b_TauDecayCandsPhi);
-   fChain->SetBranchAddress("TauDecayCandsE", TauDecayCandsE, &b_TauDecayCandsE);
-   fChain->SetBranchAddress("TauDecayCands_pdgID", TauDecayCands_pdgID, &b_TauDecayCands_pdgID);
    fChain->SetBranchAddress("selectedIDIsoMuonsNoMiniIsoNum", &selectedIDIsoMuonsNoMiniIsoNum, &b_selectedIDIsoMuonsNoMiniIsoNum);
    fChain->SetBranchAddress("selectedIDIsoMuonsNoMiniIsoPt", selectedIDIsoMuonsNoMiniIsoPt, &b_selectedIDIsoMuonsNoMiniIsoPt);
    fChain->SetBranchAddress("selectedIDIsoMuonsNoMiniIsoEta", selectedIDIsoMuonsNoMiniIsoEta, &b_selectedIDIsoMuonsNoMiniIsoEta);

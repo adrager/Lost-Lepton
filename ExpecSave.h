@@ -10,7 +10,6 @@
 #include "TVector2.h"
 #include <cmath>
 #include "TCanvas.h"
-#include "TLegend.h"
 
 // cuts baseline
 const double minHT_=500;
@@ -41,9 +40,8 @@ const double maxDeltaRElecActivity_=1.0;
 const double maxDeltaRIsoTrackActivity_=1.0;
 const unsigned int elecActivityMethod_=0;               // ###############
 const unsigned int muActivityMethod_=0;                 // ###############
-const unsigned int muIsoTrackActivityMethod_=0;					// ###############
-const unsigned int elecIsoTrackActivityMethod_=0;				// ###############
-const unsigned int pionIsoTrackActivityMethod_=0;				// ###############
+const unsigned int isoTrackActivityMethod_=0;
+
 // lepton matching
 const double maxDeltaRGenToRecoMu_ =0.3;
 const double maxDiffPtGenToRecoMu_ =0.5;
@@ -87,35 +85,35 @@ const double maxDiffPtIsoTrackToElec_= 0.5;
 class Bin
 {
 public:
-  Bin(){}
-  Bin(double HTmin, double HTmax, double MHTmin, double MHTmax, int NJetsmin, int NJetsmax, int BTagsmin, int BTagsmax)
-  {
-    HTmin_=HTmin;
-    HTmax_=HTmax;
-    MHTmin_=MHTmin;
-    MHTmax_=MHTmax;
-    NJetsmin_=NJetsmin;
-    NJetsmax_=NJetsmax;
-    BTagsmin_=BTagsmin;
-    BTagsmax_=BTagsmax;
-  }
-  double HTmin_, HTmax_, MHTmin_, MHTmax_;
-  int NJetsmin_, NJetsmax_, BTagsmin_, BTagsmax_;
-  ~Bin(){}
+	Bin(){}
+	Bin(double HTmin, double HTmax, double MHTmin, double MHTmax, int NJetsmin, int NJetsmax, int BTagsmin, int BTagsmax)
+	{
+		HTmin_=HTmin;
+		HTmax_=HTmax;
+		MHTmin_=MHTmin;
+		MHTmax_=MHTmax;
+		NJetsmin_=NJetsmin;
+		NJetsmax_=NJetsmax;
+		BTagsmin_=BTagsmin;
+		BTagsmax_=BTagsmax;
+	}
+	double HTmin_, HTmax_, MHTmin_, MHTmax_;
+	int NJetsmin_, NJetsmax_, BTagsmin_, BTagsmax_;
+	~Bin(){}
 private:
 };
 class SearchBins
 {
 public:
-  SearchBins();
-  unsigned int GetBinNumber(double HT, double MHT, int NJets, int BTags);
-  void PrintUsed();
-  
-  
-  ~SearchBins(){}
+	SearchBins();
+	unsigned int GetBinNumber(double HT, double MHT, int NJets, int BTags);
+	void PrintUsed();
+	
+	
+	~SearchBins(){}
 protected:
-  std::vector<Bin> bins_;
-  std::vector<int> usedBin_;
+	std::vector<Bin> bins_;
+	std::vector<int> usedBin_;
 };
 class ExpecMaker : public TSelector {
 public :
@@ -125,10 +123,8 @@ public :
 	double MTWCalculator(double metPt,double  metPhi,double  lepPt,double  lepPhi);
 	double MuActivity(double muEta, double muPhi, unsigned int method);
 	double ElecActivity( double elecEta, double elecPhi, unsigned int method);
-	double PionActivity( double pionEta, double pionPhi, unsigned int method);
+	double IsoTrackActivityCalc( double isoTrackEta, double isoTrackPhi, unsigned int method);
 	std::pair <double,double> deltaRClosestJet(double lepEta,double lepPhi, double lepPT);
-	
-	TCanvas* SaveEfficiency(std::vector<TH1F*> inputs, std::string Label);
 	
 	TTree          *fChain;   //!pointer to the analyzed TTree or TChain
 	// Storing stuff
@@ -145,11 +141,8 @@ public :
 	UShort_t elecIso, elecReco, elecAcc, elecMTW, elecTotal;
 	UShort_t elecIsoMatched[40], elecRecoMatched[40];
 	UShort_t muIsoTrack, muIsoTrackMTW;
-	UShort_t muIsoTrackMatchedToGenMu[40], elecIsoTrackMatchedToGenMu[40], pionIsoTrackMatchedToGenMu[40];
-	UShort_t muIsoTrackMatchedToGenElec[40], elecIsoTrackMatchedToGenElec[40], pionIsoTrackMatchedToGenElec[40];
-	UShort_t muIsoTrackMatchedToGenSingleProngTau[40], elecIsoTrackMatchedToGenSingleProngTau[40], pionIsoTrackMatchedToGenSingleProngTau[40];
-	Float_t IsolatedMuonTracksVetoActivity[40],IsolatedElectronTracksVetoActivity[40],IsolatedPionTracksVetoActivity[40];
-	Float_t IsolatedMuonTracksVetoMTW[40],IsolatedElectronTracksVetoMTW[40],IsolatedPionTracksVetoMTW[40];
+	UShort_t muIsoTrackMatched[40], elecIsoTrackMatched[40];
+	UShort_t elecIsoTrack, elecIsoTrackMTW;
 	UShort_t         RecoIsoMuonPromtMatched[40];
 	Float_t         RecoIsoMuonPromtMatchedDeltaR[40];
 	Float_t         RecoIsoMuonPromtMatchedRelPt[40];
@@ -200,7 +193,7 @@ public :
 	Float_t         RecoIsoElectronActivity[40], RecoElectronActivity[40], GenElecActivity[40];
 	
 	Float_t IsoTrackActivity[40], GenTauActivity[40];
-	UShort_t elecActivityMethod, muActivityMethod, muIsoTrackActivityMethod, elecIsoTrackActivityMethod, pionIsoTrackActivityMethod;
+	UShort_t elecActivityMethod, muActivityMethod, isoTrackActivityMethod;
 	bool DY;
 	
 	UShort_t Bin_;
@@ -216,17 +209,6 @@ public :
 	Float_t GenMuWPhi_, GenElecWPhi_;
 	
 	Int_t		isoTracks;
-	
-	// MTW studies TH1F s
-	TH1F *RecoMuonMTWPrompt_;
-	TH1F *RecoMuonMTWNonPrompt_;
-	TH1F *IsoMuonMTWPrompt_;
-	TH1F *IsoMuonMTWNonPrompt_;
-	
-	TH1F *RecoElectronMTWPrompt_;
-	TH1F *RecoElectronMTWNonPrompt_;
-	TH1F *IsoElectronMTWPrompt_;
-	TH1F *IsoElectronMTWNonPrompt_;
 	// Declaration of leaf types
 	
 	UInt_t          RunNum;
@@ -553,19 +535,19 @@ public :
 #ifdef ExpecMaker_cxx
 void ExpecMaker::Init(TTree *tree)
 {
-  // The Init() function is called when the selector needs to initialize
-  // a new tree or chain. Typically here the branch addresses and branch
-  // pointers of the tree will be set.
-  // It is normally not necessary to make changes to the generated
-  // code, but the routine can be extended by the user if needed.
-  // Init() will be called many times when running on PROOF
-  // (once per file to be processed).
-  
-  // Set branch addresses and branch pointers
-  if (!tree) return;
-  fChain = tree;
-  fChain->SetMakeClass(1);
-  
+	// The Init() function is called when the selector needs to initialize
+	// a new tree or chain. Typically here the branch addresses and branch
+	// pointers of the tree will be set.
+	// It is normally not necessary to make changes to the generated
+	// code, but the routine can be extended by the user if needed.
+	// Init() will be called many times when running on PROOF
+	// (once per file to be processed).
+	
+	// Set branch addresses and branch pointers
+	if (!tree) return;
+	fChain = tree;
+	fChain->SetMakeClass(1);
+	
 	fChain->SetBranchAddress("RunNum", &RunNum, &b_RunNum);
 	fChain->SetBranchAddress("LumiBlockNum", &LumiBlockNum, &b_LumiBlockNum);
 	fChain->SetBranchAddress("EvtNum", &EvtNum, &b_EvtNum);
@@ -717,13 +699,13 @@ void ExpecMaker::Init(TTree *tree)
 
 Bool_t ExpecMaker::Notify()
 {
-  // The Notify() function is called when a new file is opened. This
-  // can be either for a new TTree in a TChain or when when a new TTree
-  // is started when using PROOF. It is normally not necessary to make changes
-  // to the generated code, but the routine can be extended by the
-  // user if needed. The return value is currently not used.
-  
-  return kTRUE;
+	// The Notify() function is called when a new file is opened. This
+	// can be either for a new TTree in a TChain or when when a new TTree
+	// is started when using PROOF. It is normally not necessary to make changes
+	// to the generated code, but the routine can be extended by the
+	// user if needed. The return value is currently not used.
+	
+	return kTRUE;
 }
 
 #endif // #ifdef ExpecMaker_cxx
