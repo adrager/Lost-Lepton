@@ -107,6 +107,7 @@ public:
 protected:
   std::vector<Bin> bins_;
   std::vector<int> usedBin_;
+	unsigned int binning;
 };
 
 class THFeff
@@ -160,6 +161,7 @@ public :
   Float_t elecRecoEff_, elecRecoWeight_;
   Float_t elecAccEff_, elecAccWeight_;
   Float_t elecTotalWeight_, totalElectrons_;
+	Float_t IsoTrackReduction_, IsoMuTrackReduction_, IsoElecTrackReduction_, IsoPionTrackReduction_, IsoTrackReductionCombined_;
   Float_t muDiLepEffMTWAppliedEff_, elecDiLepEffMTWAppliedEff_;
   Float_t expectationReductionIsoTrackEff_;
   Float_t expectationReductionMuIsoTrackEff_,expectationReductionElecIsoTrackEff_,expectationReductionPionIsoTrackEff_, expectationReductionIsoTrackEffCombined_;

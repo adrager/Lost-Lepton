@@ -91,6 +91,9 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("GenTauActivity", GenTauActivity,"GenTauActivity[GenTauNum]/F");
 	tExpectation_->Branch("Expectation",&Expectation,"Expectation/s");  
 	tExpectation_->Branch("ExpectationReductionIsoTrack",&ExpectationReductionIsoTrack,"ExpectationReductionIsoTrack/s");
+	tExpectation_->Branch("ExpectationReductionIsoMuTrack",&ExpectationReductionIsoMuTrack,"ExpectationReductionIsoMuTrack/s");
+	tExpectation_->Branch("ExpectationReductionIsoElecTrack",&ExpectationReductionIsoElecTrack,"ExpectationReductionIsoElecTrack/s");
+	tExpectation_->Branch("ExpectationReductionIsoPionTrack",&ExpectationReductionIsoPionTrack,"ExpectationReductionIsoPionTrack/s");
 	tExpectation_->Branch("muAcc",&muAcc,"muAcc/s");  
 	tExpectation_->Branch("muReco",&muReco,"muReco/s");  
 	tExpectation_->Branch("muIso",&muIso,"muIso/s");  
@@ -268,8 +271,8 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 		return kTRUE;
 	}
 	
-// 	if(DeltaPhi1 < deltaPhi1_ || DeltaPhi2 < deltaPhi2_ || DeltaPhi3 < deltaPhi3_ )return kTRUE;
-	if(!DY_) if(minDeltaPhiN<minDeltaPhiN_) return kTRUE;
+	if(!DY_) if(DeltaPhi1 < deltaPhi1_ || DeltaPhi2 < deltaPhi2_ || DeltaPhi3 < deltaPhi3_ )return kTRUE;
+// 	if(!DY_) if(minDeltaPhiN<minDeltaPhiN_) return kTRUE;
 	if(applyFilters_ &&  !FiltersPass() ) return kTRUE;
   	if(DY_ && ( HT<minHT_ || NJets < minNJets_) ) return kTRUE;
 	Bin_ = SearchBins_->GetBinNumber(HT,MHT,NJets,BTags);
@@ -926,6 +929,18 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 	{
 		ExpectationReductionIsoTrack=1;
 	}
+	if(IsolatedMuonTracksVetoNum>=1 && Expectation==1)
+	{
+		ExpectationReductionIsoMuTrack=1;
+	}
+	if(IsolatedElectronTracksVetoNum>=1 && Expectation==1)
+	{
+		ExpectationReductionIsoElecTrack=1;
+	}
+	if(IsolatedPionTracksVetoNum>=1 && Expectation==1)
+	{
+		ExpectationReductionIsoPionTrack=1;
+	}
 	tExpectation_->Fill();
 	return kTRUE;
 }
@@ -969,6 +984,9 @@ void ExpecMaker::resetValues()
 	isoTrackMTW_=-5;
 	Expectation=0;
 	ExpectationReductionIsoTrack=0;
+	ExpectationReductionIsoMuTrack=0;
+	ExpectationReductionIsoElecTrack=0;
+	ExpectationReductionIsoPionTrack=0;
 	muIso =1;
 	muIsoTrack=1;
 	muIsoTrackMTW=1;
@@ -1246,10 +1264,12 @@ double ExpecMaker::PionActivity( double pionEta, double pionPhi, unsigned int me
 
 SearchBins::SearchBins()
 {
-  
+	binning=1;
   // HTmin,HTmax,MHTmin,MHTmax,NJetsmin,NJetsmax,BTagsmin,BTagsmax
   // NJets 4,6 BTags=0
   // fixed ht Njets btags all MHT bins
+  if(binning==0)
+	{
   bins_.push_back( Bin(500,800,200,500,4,6,-1,0) );
   bins_.push_back( Bin(800,1200,200,500,4,6,-1,0) );
   bins_.push_back( Bin(1200,99999,200,500,4,6,-1,0) );
@@ -1380,6 +1400,136 @@ SearchBins::SearchBins()
   bins_.push_back( Bin(1200,99999,500,750,9,9999,3,9999) );
   
   bins_.push_back( Bin(800,99999,750,9999,9,9999,3,9999) );
+	}
+	else if(binning==1)
+	{
+		bins_.push_back( Bin(500,800,200,500,4,6,-1,0) );
+		bins_.push_back( Bin(800,1200,200,500,4,6,-1,0) );
+		bins_.push_back( Bin(1200,99999,200,500,4,6,-1,0) );
+		
+		bins_.push_back( Bin(500,1200,500,750,4,6,-1,0) );
+		bins_.push_back( Bin(1200,99999,500,750,4,6,-1,0) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,4,6,-1,0) );
+		
+		// NJets 4,6 BTags=1
+		// fixed ht Njets btags all MHT bins
+		bins_.push_back( Bin(500,800,200,500,4,6,1,1) );
+		bins_.push_back( Bin(800,1200,200,500,4,6,1,1) );
+		bins_.push_back( Bin(1200,99999,200,500,4,6,1,1) );
+		
+		bins_.push_back( Bin(500,1200,500,750,4,6,1,1) );
+		bins_.push_back( Bin(1200,99999,500,750,4,6,1,1) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,4,6,1,1) );
+		
+		// NJets 4,6 BTags=2
+		// fixed ht Njets btags all MHT bins
+		bins_.push_back( Bin(500,800,200,500,4,6,2,2) );
+		bins_.push_back( Bin(800,1200,200,500,4,6,2,2) );
+		bins_.push_back( Bin(1200,99999,200,500,4,6,2,2) );
+		
+		bins_.push_back( Bin(500,1200,500,750,4,6,2,2) );
+		bins_.push_back( Bin(1200,99999,500,750,4,6,2,2) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,4,6,2,2) );
+		
+		// NJets 4,6 BTags=>3
+		// fixed ht Njets btags all MHT bins
+		bins_.push_back( Bin(500,800,200,500,4,6,3,9999) );
+		bins_.push_back( Bin(800,1200,200,500,4,6,3,9999) );
+		bins_.push_back( Bin(1200,99999,200,500,4,6,3,9999) );
+		
+		bins_.push_back( Bin(500,1200,500,750,4,6,3,9999) );
+		bins_.push_back( Bin(1200,99999,500,750,4,6,3,9999) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,4,6,3,9999) );
+		
+		// NJewts 7,8 BTags=0
+		bins_.push_back( Bin(500,800,200,500,7,8,-1,0) );
+		bins_.push_back( Bin(800,1200,200,500,7,8,-1,0) );
+		bins_.push_back( Bin(1200,99999,200,500,7,8,-1,0) );
+		
+		bins_.push_back( Bin(500,1200,500,750,7,8,-1,0) );
+		bins_.push_back( Bin(1200,99999,500,750,7,8,-1,0) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,7,8,-1,0) );
+		
+		// NJewts 7,8 BTags=1
+		bins_.push_back( Bin(500,800,200,500,7,8,1,1) );
+		bins_.push_back( Bin(800,1200,200,500,7,8,1,1) );
+		bins_.push_back( Bin(1200,99999,200,500,7,8,1,1) );
+		
+		bins_.push_back( Bin(500,1200,500,750,7,8,1,1) );
+		bins_.push_back( Bin(1200,99999,500,750,7,8,1,1) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,7,8,1,1) );
+		
+		// NJewts 7,8 BTags=2
+		bins_.push_back( Bin(500,800,200,500,7,8,2,2) );
+		bins_.push_back( Bin(800,1200,200,500,7,8,2,2) );
+		bins_.push_back( Bin(1200,99999,200,500,7,8,2,2) );
+		
+		bins_.push_back( Bin(500,1200,500,750,7,8,2,2) );
+		bins_.push_back( Bin(1200,99999,500,750,7,8,2,2) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,7,8,2,2) );
+		
+		// NJewts 7,8 BTags=>3
+		bins_.push_back( Bin(500,800,200,500,7,8,3,9999) );
+		bins_.push_back( Bin(800,1200,200,500,7,8,3,9999) );
+		bins_.push_back( Bin(1200,99999,200,500,7,8,3,9999) );
+		
+		bins_.push_back( Bin(500,1200,500,750,7,8,3,9999) );
+		bins_.push_back( Bin(1200,99999,500,750,7,8,3,9999) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,7,8,3,9999) );
+		
+		
+		// NJewts 9,9999 BTags=0
+		bins_.push_back( Bin(500,800,200,500,9,9999,-1,0) );
+		bins_.push_back( Bin(800,1200,200,500,9,9999,-1,0) );
+		bins_.push_back( Bin(1200,99999,200,500,9,9999,-1,0) );
+		
+		bins_.push_back( Bin(500,1200,500,750,9,9999,-1,0) );
+		bins_.push_back( Bin(1200,99999,500,750,9,9999,-1,0) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,9,9999,-1,0) );
+		
+		
+		// NJewts 9,9999 BTags=1
+		bins_.push_back( Bin(500,800,200,500,9,9999,1,1) );
+		bins_.push_back( Bin(800,1200,200,500,9,9999,1,1) );
+		bins_.push_back( Bin(1200,99999,200,500,9,9999,1,1) );
+		
+		bins_.push_back( Bin(500,1200,500,750,9,9999,1,1) );
+		bins_.push_back( Bin(1200,99999,500,750,9,9999,1,1) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,9,9999,1,1) );
+		
+		
+		// NJewts 9,9999 BTags=2
+		bins_.push_back( Bin(500,800,200,500,9,9999,2,2) );
+		bins_.push_back( Bin(800,1200,200,500,9,9999,2,2) );
+		bins_.push_back( Bin(1200,99999,200,500,9,9999,2,2) );
+		
+		bins_.push_back( Bin(500,1200,500,750,9,9999,2,2) );
+		bins_.push_back( Bin(1200,99999,500,750,9,9999,2,2) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,9,9999,2,2) );
+		
+		
+		// NJewts 9,9999 BTags=>3
+		bins_.push_back( Bin(500,800,200,500,9,9999,3,9999) );
+		bins_.push_back( Bin(800,1200,200,500,9,9999,3,9999) );
+		bins_.push_back( Bin(1200,99999,200,500,9,9999,3,9999) );
+		
+		bins_.push_back( Bin(500,1200,500,750,9,9999,3,9999) );
+		bins_.push_back( Bin(1200,99999,500,750,9,9999,3,9999) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,9,9999,3,9999) );
+		
+	}
   std::cout<<"Loaded bins: "<<bins_.size()<<std::endl;
   for(unsigned int i=0; i<bins_.size();i++)
   {

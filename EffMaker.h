@@ -156,6 +156,7 @@ public:
 	~SearchBins(){}
 protected:
 	std::vector<Bin> bins_;
+	unsigned int binning;
 };
 class TH1Feff
 {
