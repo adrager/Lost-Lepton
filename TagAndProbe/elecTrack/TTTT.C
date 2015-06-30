@@ -1,5 +1,5 @@
-#define Saving_cxx
-// The class definition in Saving.h has been generated automatically
+#define TTTT_cxx
+// The class definition in TTTT.h has been generated automatically
 // by the ROOT utility TTree::MakeSelector(). This class is derived
 // from the ROOT class TSelector. For more information on the TSelector
 // framework see $ROOTSYS/README/README.SELECTOR or the ROOT User Manual.
@@ -18,18 +18,17 @@
 //
 // To use this file, try the following session on your Tree T:
 //
-// Root > T->Process("Saving.C")
-// Root > T->Process("Saving.C","some options")
-// Root > T->Process("Saving.C+")
+// Root > T->Process("TTTT.C")
+// Root > T->Process("TTTT.C","some options")
+// Root > T->Process("TTTT.C+")
 //
 
-#include "Saving.h"
+#include "TTTT.h"
 #include <TH2.h>
 #include <TStyle.h>
-#include <iostream>
 
 
-void Saving::Begin(TTree * /*tree*/)
+void TTTT::Begin(TTree * /*tree*/)
 {
    // The Begin() function is called at the start of the query.
    // When running with PROOF Begin() is only called on the client.
@@ -39,41 +38,41 @@ void Saving::Begin(TTree * /*tree*/)
 
 }
 
-void Saving::SlaveBegin(TTree * /*tree*/)
+void TTTT::SlaveBegin(TTree * /*tree*/)
 {
    // The SlaveBegin() function is called after the Begin() function.
    // When running with PROOF SlaveBegin() is called on each slave server.
    // The tree argument is deprecated (on PROOF 0 is passed).
 
    TString option = GetOption();
-	 
-	 tExpectation_ = new TTree("TagAndProbeMuReco","");
-	 tExpectation_->Branch("Eta",&eta,"Eta/F");
-	 tExpectation_->Branch("Pt",&pt,"Pt/F");
-	 tExpectation_->Branch("Activity",&activity,"Activity/F");
-	 tExpectation_->Branch("Pass",&passing,"Pass/I");
-	 tExpectation_->Branch("InvariantMass",&mass,"InvariantMass/F");
-         tExpectation_->Branch("MTW",&MTW,"MTW/F");
-         tExpectation_->Branch("MTWClean",&MTWClean,"MTWClean/F");
-         tExpectation_->Branch("TagObjectsNum",&TagObjectsNum_,"TagObjectsNum/I");
-         tExpectation_->Branch("Weight",&Weight,"Weight/F");
-
 
 }
 
-Bool_t Saving::Process(Long64_t entry)
+Bool_t TTTT::Process(Long64_t entry)
 {
-	fChain->GetTree()->GetEntry(entry);
-	if(Passing<0.5) passing=false;
-	else passing=true;
-        TagObjectsNum_ = TagObjectsNum;
-// 	std::cout<<"passing: "<<Passing<<std::endl;
-	tExpectation_->Fill();
+   // The Process() function is called for each entry in the tree (or possibly
+   // keyed object in the case of PROOF) to be processed. The entry argument
+   // specifies which entry in the currently loaded tree is to be processed.
+   // It can be passed to either TTTT::GetEntry() or TBranch::GetEntry()
+   // to read either all or the required parts of the data. When processing
+   // keyed objects with PROOF, the object is already loaded and is available
+   // via the fObject pointer.
+   //
+   // This function should contain the "body" of the analysis. It can contain
+   // simple or elaborate selection criteria, run algorithms on the data
+   // of the event and typically fill histograms.
+   //
+   // The processing can be stopped by calling Abort().
+   //
+   // Use fStatus to set the return value of TTree::Process().
+   //
+   // The return value is currently not used.
+
 
    return kTRUE;
 }
 
-void Saving::SlaveTerminate()
+void TTTT::SlaveTerminate()
 {
    // The SlaveTerminate() function is called after all entries or objects
    // have been processed. When running with PROOF SlaveTerminate() is called
@@ -81,14 +80,10 @@ void Saving::SlaveTerminate()
 
 }
 
-void Saving::Terminate()
+void TTTT::Terminate()
 {
-	TFile *outPutFile = new TFile("TagAndProbeEff_MuReco.root","RECREATE"); 
-	outPutFile->cd();
-	outPutFile->mkdir("MuReco");
-	TDirectory *dmuonEffs = (TDirectory*)outPutFile->Get("MuReco");
-	dmuonEffs->cd();
-	tExpectation_->Write();
-	outPutFile->Close();
+   // The Terminate() function is the last function to be called during
+   // a query. It always runs on the client, it can be used to present
+   // the results graphically or save the results to file.
 
 }

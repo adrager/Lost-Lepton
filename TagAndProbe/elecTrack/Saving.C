@@ -47,17 +47,16 @@ void Saving::SlaveBegin(TTree * /*tree*/)
 
    TString option = GetOption();
 	 
-	 tExpectation_ = new TTree("TagAndProbeMuIso","");
-         tExpectation_->Branch("Eta",&eta,"Eta/F");
-         tExpectation_->Branch("Pt",&pt,"Pt/F");
-         tExpectation_->Branch("Activity",&activity,"Activity/F");
-         tExpectation_->Branch("Pass",&passing,"Pass/I");
-         tExpectation_->Branch("InvariantMass",&mass,"InvariantMass/F");
-         tExpectation_->Branch("MTW",&MTW,"MTW/F");
-         tExpectation_->Branch("MTWClean",&MTWClean,"MTWClean/F");
-         tExpectation_->Branch("TagObjectsNum",&TagObjectsNum_,"TagObjectsNum/I");
+	 tExpectation_ = new TTree("TagAndProbeElecTrackIso","");
+	 tExpectation_->Branch("Eta",&eta,"Eta/F");
+	 tExpectation_->Branch("Pt",&pt,"Pt/F");
+	 tExpectation_->Branch("Activity",&activity,"Activity/F");
+	 tExpectation_->Branch("Pass",&passing,"Pass/I");
+	 tExpectation_->Branch("InvariantMass",&mass,"InvariantMass/F");
+	 tExpectation_->Branch("MTW",&MTW,"MTW/F");
+	 tExpectation_->Branch("TagObjectsNum",&TagObjectsNum_,"TagObjectsNum/I");
          tExpectation_->Branch("Weight",&Weight,"Weight/F");
-         tExpectation2_ = new TTree("TagAndProbeMuIsoMTWFromDiLep","");
+         tExpectation2_ = new TTree("TagAndProbeElecTrackIsoMTWFromDiLep","");
          tExpectation2_->Branch("Eta",&eta,"Eta/F");
          tExpectation2_->Branch("Pt",&pt,"Pt/F");
          tExpectation2_->Branch("Activity",&activity,"Activity/F");
@@ -75,10 +74,13 @@ Bool_t Saving::Process(Long64_t entry)
 	fChain->GetTree()->GetEntry(entry);
 	if(Passing<0.5) passing=false;
 	else passing=true;
-        TagObjectsNum_ = TagObjectsNum;
+	TagObjectsNum_ = TagObjectsNum;
 // 	std::cout<<"passing: "<<Passing<<std::endl;
-	tExpectation_->Fill();
-        tExpectation2_->Fill();
+ 	if(TagObjectsNum>0 && TagObjectsNum<1.5 && MTW <111)
+        {
+          tExpectation_->Fill();
+          tExpectation2_ ->Fill();
+        }
 
    return kTRUE;
 }
@@ -93,10 +95,10 @@ void Saving::SlaveTerminate()
 
 void Saving::Terminate()
 {
-	TFile *outPutFile = new TFile("TagAndProbeEff_MuIso.root","RECREATE"); 
+	TFile *outPutFile = new TFile("TagAndProbeEff_ElecTrackIso.root","RECREATE"); 
 	outPutFile->cd();
-	outPutFile->mkdir("MuIso");
-	TDirectory *dmuonEffs = (TDirectory*)outPutFile->Get("MuIso");
+	outPutFile->mkdir("ElecIso");
+	TDirectory *dmuonEffs = (TDirectory*)outPutFile->Get("ElecIso");
 	dmuonEffs->cd();
 	tExpectation_->Write();
         tExpectation2_->Write();

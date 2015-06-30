@@ -76,6 +76,10 @@ const bool ElecAccSearchBinUse_=false;
 const bool ElecPuritySearchBinEff_=false;
 const bool ElecDiLepContributionMTWAppliedEffSearchBinUse_=false;
 
+// isolated track reduction parametrization
+const bool UseMHTNJets_=true;
+const bool UseBTagsNJets_=true;
+
 class Bin
 {
 public:
@@ -167,6 +171,10 @@ public :
   Float_t expectationReductionMuIsoTrackEff_,expectationReductionElecIsoTrackEff_,expectationReductionPionIsoTrackEff_, expectationReductionIsoTrackEffCombined_;
   
   Float_t totalWeight_, totalWeightDiLep_, totalWeightDiLepIsoTrackReduced_,totalWeightDiLepIsoMuTrackReduced_,totalWeightDiLepIsoElecTrackReduced_,totalWeightDiLepIsoPionTrackReduced_,totalWeightDiLepIsoTrackReducedCombined_;
+	// isoalted track
+	Float_t expectationReductionMuRecoMuIsoTrackReductionWeight_, expectationReductionMuRecoPionIsoTrackReductionWeight_, expectationReductionMuIsoMuIsoTrackReductionWeight_, expectationReductionMuIsoPionIsoTrackReductionWeight_, expectationReductionElecRecoElecIsoTrackReductionWeight_, expectationReductionElecRecoPionIsoTrackReductionWeight_, expectationReductionElecIsoElecIsoTrackReductionWeight_, expectationReductionElecIsoPionIsoTrackReductionWeight_;
+	Float_t expectationReductionMuRecoMuIsoTrackEff_, expectationReductionMuRecoPionIsoTrackEff_, expectationReductionMuIsoMuIsoTrackEff_, expectationReductionMuIsoPionIsoTrackEff_, expectationReductionElecRecoElecIsoTrackEff_, expectationReductionElecRecoPionIsoTrackEff_, expectationReductionElecIsoElecIsoTrackEff_, expectationReductionElecIsoPionIsoTrackEff_;
+	Float_t totalWeightDiLepIsoTrackReducedCombined2_, IsoTrackReductionCombined2_, expectationReductionIsoTrackEffCombined2_;
   Float_t         selectedIDIsoMuonsActivity[5];   //[selectedIDIsoMuonsNum]
   Float_t         selectedIDIsoElectronsActivity[5];   //[selectedIDIsoMuonsNum]
   UShort_t searchBin_, Bin_;
@@ -186,7 +194,8 @@ public :
   TH2F *MuRecoPTActivity_, *MuRecoPTActivityTAPMC_;
   //    TH2F *MuAccHTNJets_;
   //       TH2F *MuAccBTagNJets_;
-  TH2F *MuAccMHTNJets_;
+//   TH2F *MuAccMHTNJets_;
+  TH2F *MuAccHTMHT_NJets46_, *MuAccHTMHT_NJets7Inf_;
   TH1F *MuDiLepEffMTWAppliedNJets_;
   TH2F *MuPurityMHTNJets_;
   
@@ -195,7 +204,8 @@ public :
   TH2F *ElecRecoPTActivity_, *ElecRecoPTActivityTAPMC_;
   //    TH2F *ElecAccHTNJets_;
   //       TH2F *ElecAccBTagNJets_;
-  TH2F *ElecAccMHTNJets_;
+//   TH2F *ElecAccMHTNJets_;
+  TH2F *ElecAccHTMHT_NJets46_, *ElecAccHTMHT_NJets7Inf_;
   TH2F *ElecPurityMHTNJets_;
   //       TH2F *ElecMTWPTActivity_;
   TH1F *ElecMTWNJets_;
@@ -206,7 +216,20 @@ public :
   TH1F *ExpectationReductionIsoTrackNJetsEff_;
   TH2F *ExpectationReductionIsoTrackBTagsNJetsEff_;
   TH2F *ExpectationReductionMuIsoTrackBTagsNJetsEff_, *ExpectationReductionElecIsoTrackBTagsNJetsEff_, *ExpectationReductionPionIsoTrackBTagsNJetsEff_;
-  
+	TH2F *ExpectationReductionMuIsoTrackPTActivityEff_, *ExpectationReductionElecIsoTrackPTActivityEff_;
+	// separated by gen->reco track , recotrack-> isotrack
+	TH2F *ExpectationReductionMuIsoMuIsoTrackPTActivityEff_, *ExpectationReductionMuIsoPionIsoTrackPTActivityEff_;
+	TH2F *ExpectationReductionMuRecoMuIsoTrackPTActivityEff_, *ExpectationReductionMuRecoPionIsoTrackPTActivityEff_;
+	TH2F *ExpectationReductionElecIsoElecIsoTrackPTActivityEff_, *ExpectationReductionElecIsoPionIsoTrackPTActivityEff_;
+	TH2F *ExpectationReductionElecRecoElecIsoTrackPTActivityEff_, *ExpectationReductionElecRecoPionIsoTrackPTActivityEff_;
+	
+	TH2F *ExpectationReductionMuIsoTrackMHTNJetsEff_, *ExpectationReductionElecIsoTrackMHTNJetsEff_;
+	// separated by gen->reco track , recotrack-> isotrack
+	TH2F *ExpectationReductionMuIsoMuIsoTrackMHTNJetsEff_, *ExpectationReductionMuIsoPionIsoTrackMHTNJetsEff_;
+	TH2F *ExpectationReductionMuRecoMuIsoTrackMHTNJetsEff_, *ExpectationReductionMuRecoPionIsoTrackMHTNJetsEff_;
+	TH2F *ExpectationReductionElecIsoElecIsoTrackMHTNJetsEff_, *ExpectationReductionElecIsoPionIsoTrackMHTNJetsEff_;
+	TH2F *ExpectationReductionElecRecoElecIsoTrackMHTNJetsEff_, *ExpectationReductionElecRecoPionIsoTrackMHTNJetsEff_;
+	
   UShort_t elecActivityMethod, muActivityMethod, isoTrackActivityMethod;
   
   // TEfficiency objects

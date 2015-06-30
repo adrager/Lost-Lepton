@@ -69,10 +69,14 @@ const int elecpurityNJet_ = 5;
 double elecPurityNJet_[elecpurityNJet_] ={2,3,4,5,22};
 // mu acceptance
 // 2D
-const int muaccHT_ = 3;
-double muAccHT_ [muaccHT_] = {500,1400,2500};
-const int muaccMHT_ = 7;
-double muAccMHT_ [muaccMHT_] = {200,250,300,500,700,900,2500};
+const int muaccHT_ = 4;
+double muAccHT_ [muaccHT_] = {500,800,1100,2500};
+const int muaccMHT_ = 4;
+double muAccMHT_ [muaccMHT_] = {200,500,700,2500};
+// const int muaccHT_ = 3;
+// double muAccHT_ [muaccHT_] = {500,1400,2500};
+// const int muaccMHT_ = 7;
+// double muAccMHT_ [muaccMHT_] = {200,250,300,500,700,900,2500};
 const int muaccBTags_ = 5;
 double muAccBTags_[muaccBTags_] = {0,1,2,3,10};
 const int muaccNJets_ = 5;
@@ -80,10 +84,10 @@ double muAccNJets_ [muaccNJets_] = {4,5,6,9,20};
 
 // elec acceptance
 // 2D
-const int elecaccHT_ = 3;
-double elecAccHT_ [elecaccHT_] = {500,1300,2500};
-const int elecaccMHT_ = 7;
-double elecAccMHT_ [elecaccMHT_] = {200,250,300,500,700,900,2500};
+const int elecaccHT_ = 4;
+double elecAccHT_ [elecaccHT_] = {500,800,1100,2500};
+const int elecaccMHT_ = 4;
+double elecAccMHT_ [elecaccMHT_] = {200,500,700,2500};
 const int elecaccBTags_ = 5;
 double elecAccBTags_[elecaccBTags_] = {0,1,2,3,10};
 const int elecaccNJets_ = 6;
@@ -122,10 +126,10 @@ double isoTrackReductionBTags2D_[isotrackreductionBTags2D_] = {0,1,10};
 const int isotrackreductionNJets2D_ = 5;
 double isoTrackReductionNJets2D_ [isotrackreductionNJets2D_] = {4,6,8,10,20};
 
-const int isotrackreductionPT2D_ = 8;
-double isoTrackReductionPT2D_[isotrackreductionPT2D_] = {5,10,20,25,30,40,50,200};
-const int isotrackreductionActivity2D_ = 6;
-double isoTrackReductionActivity2D_ [isotrackreductionActivity2D_] = {0,20,40,60,150,1600};
+const int isotrackreductionPT2D_ = 5;
+double isoTrackReductionPT2D_[isotrackreductionPT2D_] = {5,20,30,50,200};
+const int isotrackreductionActivity2D_ = 5;
+double isoTrackReductionActivity2D_ [isotrackreductionActivity2D_] = {0,20,60,150,1600};
 
 class Bin
 {
@@ -866,6 +870,168 @@ public :
 	TH2F *PionIsoTrackReductionPTActivity_, *PionIsoTrackReductionPTActivityFail_;
 	// ************************************************************************************************************* 22 June 2015 end ****************************************************
 	
+        // ************************************************************************************************************* 24 June 2015 ****************************************************
+        TH2F *MuAccHTMHT_NJets7Inf_, *MuAccHTMHT_NJets7InfFail_; 
+        TH2F *MuAccHTMHT_NJets46_, *MuAccHTMHT_NJets46Fail_; 
+        TH2F *ElecAccHTMHT_NJets7Inf_, *ElecAccHTMHT_NJets7InfFail_; 
+        TH2F *ElecAccHTMHT_NJets46_, *ElecAccHTMHT_NJets46Fail_; 
+        
+        // ************************************************************************************************************* 24 June 2015 end ****************************************************
+				
+				// ************************************************************************************************************* 25 June 2015 ****************************************************
+				
+				// Gen mu
+				// mu iso tracks
+				TH1F *ExpectationReductionMuIsoTrackGenMuBTagEff, *ExpectationReductionMuIsoTrackGenMuBTagEffFail;
+				TH1F *ExpectationReductionMuIsoTrackGenMuNJetsEff, *ExpectationReductionMuIsoTrackGenMuNJetsEffFail;
+				TH1F *ExpectationReductionMuIsoTrackGenMuHTEff, *ExpectationReductionMuIsoTrackGenMuHTEffFail;
+				TH1F *ExpectationReductionMuIsoTrackGenMuMHTEff, *ExpectationReductionMuIsoTrackGenMuMHTEffFail;
+				TH1F *ExpectationReductionMuIsoTrackGenMuPTEff, *ExpectationReductionMuIsoTrackGenMuPTEffFail;
+				TH1F *ExpectationReductionMuIsoTrackGenMuActivityEff, *ExpectationReductionMuIsoTrackGenMuActivityEffFail;
+				//2D
+				// 2D
+				TH2F *MuIsoTrackGenMuReductionHTNJets_, *MuIsoTrackGenMuReductionHTNJetsFail_; 
+				TH2F *MuIsoTrackGenMuReductionMHTNJets_, *MuIsoTrackGenMuReductionMHTNJetsFail_;
+				TH2F *MuIsoTrackGenMuReductionBTagNJets_, *MuIsoTrackGenMuReductionBTagNJetsFail_;
+				TH2F *MuIsoTrackGenMuReductionPTActivity_, *MuIsoTrackGenMuReductionPTActivityFail_;
+				
+				//pion iso tracks
+				TH1F *ExpectationReductionPionIsoTrackGenMuBTagEff, *ExpectationReductionPionIsoTrackGenMuBTagEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenMuNJetsEff, *ExpectationReductionPionIsoTrackGenMuNJetsEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenMuHTEff, *ExpectationReductionPionIsoTrackGenMuHTEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenMuMHTEff, *ExpectationReductionPionIsoTrackGenMuMHTEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenMuPTEff, *ExpectationReductionPionIsoTrackGenMuPTEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenMuActivityEff, *ExpectationReductionPionIsoTrackGenMuActivityEffFail;
+				//2D
+				// 2D
+				TH2F *PionIsoTrackGenMuReductionHTNJets_, *PionIsoTrackGenMuReductionHTNJetsFail_; 
+				TH2F *PionIsoTrackGenMuReductionMHTNJets_, *PionIsoTrackGenMuReductionMHTNJetsFail_;
+				TH2F *PionIsoTrackGenMuReductionBTagNJets_, *PionIsoTrackGenMuReductionBTagNJetsFail_;
+				TH2F *PionIsoTrackGenMuReductionPTActivity_, *PionIsoTrackGenMuReductionPTActivityFail_;
+				
+				// gen elec
+				//elec iso tracks
+				TH1F *ExpectationReductionElecIsoTrackGenElecBTagEff, *ExpectationReductionElecIsoTrackGenElecBTagEffFail;
+				TH1F *ExpectationReductionElecIsoTrackGenElecNJetsEff, *ExpectationReductionElecIsoTrackGenElecNJetsEffFail;
+				TH1F *ExpectationReductionElecIsoTrackGenElecHTEff, *ExpectationReductionElecIsoTrackGenElecHTEffFail;
+				TH1F *ExpectationReductionElecIsoTrackGenElecMHTEff, *ExpectationReductionElecIsoTrackGenElecMHTEffFail;
+				TH1F *ExpectationReductionElecIsoTrackGenElecPTEff, *ExpectationReductionElecIsoTrackGenElecPTEffFail;
+				TH1F *ExpectationReductionElecIsoTrackGenElecActivityEff, *ExpectationReductionElecIsoTrackGenElecActivityEffFail;
+				//2D
+				// 2D
+				TH2F *ElecIsoTrackGenElecReductionHTNJets_, *ElecIsoTrackGenElecReductionHTNJetsFail_; 
+				TH2F *ElecIsoTrackGenElecReductionMHTNJets_, *ElecIsoTrackGenElecReductionMHTNJetsFail_;
+				TH2F *ElecIsoTrackGenElecReductionBTagNJets_, *ElecIsoTrackGenElecReductionBTagNJetsFail_;
+				TH2F *ElecIsoTrackGenElecReductionPTActivity_, *ElecIsoTrackGenElecReductionPTActivityFail_;
+				
+				//pion iso tracks
+				TH1F *ExpectationReductionPionIsoTrackGenElecBTagEff, *ExpectationReductionPionIsoTrackGenElecBTagEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenElecNJetsEff, *ExpectationReductionPionIsoTrackGenElecNJetsEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenElecHTEff, *ExpectationReductionPionIsoTrackGenElecHTEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenElecMHTEff, *ExpectationReductionPionIsoTrackGenElecMHTEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenElecPTEff, *ExpectationReductionPionIsoTrackGenElecPTEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenElecActivityEff, *ExpectationReductionPionIsoTrackGenElecActivityEffFail;
+				//2D
+				// 2D
+				TH2F *PionIsoTrackGenElecReductionHTNJets_, *PionIsoTrackGenElecReductionHTNJetsFail_; 
+				TH2F *PionIsoTrackGenElecReductionMHTNJets_, *PionIsoTrackGenElecReductionMHTNJetsFail_;
+				TH2F *PionIsoTrackGenElecReductionBTagNJets_, *PionIsoTrackGenElecReductionBTagNJetsFail_;
+				TH2F *PionIsoTrackGenElecReductionPTActivity_, *PionIsoTrackGenElecReductionPTActivityFail_;
+				
+				// gen had tau
+				
+				//pion iso tracks
+				TH1F *ExpectationReductionPionIsoTrackGenHadTauBTagEff, *ExpectationReductionPionIsoTrackGenHadTauBTagEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenHadTauNJetsEff, *ExpectationReductionPionIsoTrackGenHadTauNJetsEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenHadTauHTEff, *ExpectationReductionPionIsoTrackGenHadTauHTEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenHadTauMHTEff, *ExpectationReductionPionIsoTrackGenHadTauMHTEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenHadTauPTEff, *ExpectationReductionPionIsoTrackGenHadTauPTEffFail;
+				TH1F *ExpectationReductionPionIsoTrackGenHadTauActivityEff, *ExpectationReductionPionIsoTrackGenHadTauActivityEffFail;
+				//2D
+				// 2D
+				TH2F *PionIsoTrackGenHadTauReductionHTNJets_, *PionIsoTrackGenHadTauReductionHTNJetsFail_; 
+				TH2F *PionIsoTrackGenHadTauReductionMHTNJets_, *PionIsoTrackGenHadTauReductionMHTNJetsFail_;
+				TH2F *PionIsoTrackGenHadTauReductionBTagNJets_, *PionIsoTrackGenHadTauReductionBTagNJetsFail_;
+				TH2F *PionIsoTrackGenHadTauReductionPTActivity_, *PionIsoTrackGenHadTauReductionPTActivityFail_;
+				
+				
+				// reco efficiency
+				
+				
+				// mu iso tracks
+				TH1F *ExpectationReductionMuRecoTrackGenMuBTagEff, *ExpectationReductionMuRecoTrackGenMuBTagEffFail;
+				TH1F *ExpectationReductionMuRecoTrackGenMuNJetsEff, *ExpectationReductionMuRecoTrackGenMuNJetsEffFail;
+				TH1F *ExpectationReductionMuRecoTrackGenMuHTEff, *ExpectationReductionMuRecoTrackGenMuHTEffFail;
+				TH1F *ExpectationReductionMuRecoTrackGenMuMHTEff, *ExpectationReductionMuRecoTrackGenMuMHTEffFail;
+				TH1F *ExpectationReductionMuRecoTrackGenMuPTEff, *ExpectationReductionMuRecoTrackGenMuPTEffFail;
+				TH1F *ExpectationReductionMuRecoTrackGenMuActivityEff, *ExpectationReductionMuRecoTrackGenMuActivityEffFail;
+				//2D
+				// 2D
+				TH2F *MuRecoTrackGenMuReductionHTNJets_, *MuRecoTrackGenMuReductionHTNJetsFail_; 
+				TH2F *MuRecoTrackGenMuReductionMHTNJets_, *MuRecoTrackGenMuReductionMHTNJetsFail_;
+				TH2F *MuRecoTrackGenMuReductionBTagNJets_, *MuRecoTrackGenMuReductionBTagNJetsFail_;
+				TH2F *MuRecoTrackGenMuReductionPTActivity_, *MuRecoTrackGenMuReductionPTActivityFail_;
+				
+				//pion iso tracks
+				TH1F *ExpectationReductionPionRecoTrackGenMuBTagEff, *ExpectationReductionPionRecoTrackGenMuBTagEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenMuNJetsEff, *ExpectationReductionPionRecoTrackGenMuNJetsEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenMuHTEff, *ExpectationReductionPionRecoTrackGenMuHTEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenMuMHTEff, *ExpectationReductionPionRecoTrackGenMuMHTEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenMuPTEff, *ExpectationReductionPionRecoTrackGenMuPTEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenMuActivityEff, *ExpectationReductionPionRecoTrackGenMuActivityEffFail;
+				//2D
+				// 2D
+				TH2F *PionRecoTrackGenMuReductionHTNJets_, *PionRecoTrackGenMuReductionHTNJetsFail_; 
+				TH2F *PionRecoTrackGenMuReductionMHTNJets_, *PionRecoTrackGenMuReductionMHTNJetsFail_;
+				TH2F *PionRecoTrackGenMuReductionBTagNJets_, *PionRecoTrackGenMuReductionBTagNJetsFail_;
+				TH2F *PionRecoTrackGenMuReductionPTActivity_, *PionRecoTrackGenMuReductionPTActivityFail_;
+				
+				// gen elec
+				//elec iso tracks
+				TH1F *ExpectationReductionElecRecoTrackGenElecBTagEff, *ExpectationReductionElecRecoTrackGenElecBTagEffFail;
+				TH1F *ExpectationReductionElecRecoTrackGenElecNJetsEff, *ExpectationReductionElecRecoTrackGenElecNJetsEffFail;
+				TH1F *ExpectationReductionElecRecoTrackGenElecHTEff, *ExpectationReductionElecRecoTrackGenElecHTEffFail;
+				TH1F *ExpectationReductionElecRecoTrackGenElecMHTEff, *ExpectationReductionElecRecoTrackGenElecMHTEffFail;
+				TH1F *ExpectationReductionElecRecoTrackGenElecPTEff, *ExpectationReductionElecRecoTrackGenElecPTEffFail;
+				TH1F *ExpectationReductionElecRecoTrackGenElecActivityEff, *ExpectationReductionElecRecoTrackGenElecActivityEffFail;
+				//2D
+				// 2D
+				TH2F *ElecRecoTrackGenElecReductionHTNJets_, *ElecRecoTrackGenElecReductionHTNJetsFail_; 
+				TH2F *ElecRecoTrackGenElecReductionMHTNJets_, *ElecRecoTrackGenElecReductionMHTNJetsFail_;
+				TH2F *ElecRecoTrackGenElecReductionBTagNJets_, *ElecRecoTrackGenElecReductionBTagNJetsFail_;
+				TH2F *ElecRecoTrackGenElecReductionPTActivity_, *ElecRecoTrackGenElecReductionPTActivityFail_;
+				
+				//pion iso tracks
+				TH1F *ExpectationReductionPionRecoTrackGenElecBTagEff, *ExpectationReductionPionRecoTrackGenElecBTagEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenElecNJetsEff, *ExpectationReductionPionRecoTrackGenElecNJetsEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenElecHTEff, *ExpectationReductionPionRecoTrackGenElecHTEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenElecMHTEff, *ExpectationReductionPionRecoTrackGenElecMHTEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenElecPTEff, *ExpectationReductionPionRecoTrackGenElecPTEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenElecActivityEff, *ExpectationReductionPionRecoTrackGenElecActivityEffFail;
+				//2D
+				// 2D
+				TH2F *PionRecoTrackGenElecReductionHTNJets_, *PionRecoTrackGenElecReductionHTNJetsFail_; 
+				TH2F *PionRecoTrackGenElecReductionMHTNJets_, *PionRecoTrackGenElecReductionMHTNJetsFail_;
+				TH2F *PionRecoTrackGenElecReductionBTagNJets_, *PionRecoTrackGenElecReductionBTagNJetsFail_;
+				TH2F *PionRecoTrackGenElecReductionPTActivity_, *PionRecoTrackGenElecReductionPTActivityFail_;
+				
+				// gen had tau
+				
+				//pion iso tracks
+				TH1F *ExpectationReductionPionRecoTrackGenHadTauBTagEff, *ExpectationReductionPionRecoTrackGenHadTauBTagEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenHadTauNJetsEff, *ExpectationReductionPionRecoTrackGenHadTauNJetsEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenHadTauHTEff, *ExpectationReductionPionRecoTrackGenHadTauHTEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenHadTauMHTEff, *ExpectationReductionPionRecoTrackGenHadTauMHTEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenHadTauPTEff, *ExpectationReductionPionRecoTrackGenHadTauPTEffFail;
+				TH1F *ExpectationReductionPionRecoTrackGenHadTauActivityEff, *ExpectationReductionPionRecoTrackGenHadTauActivityEffFail;
+				//2D
+				// 2D
+				TH2F *PionRecoTrackGenHadTauReductionHTNJets_, *PionRecoTrackGenHadTauReductionHTNJetsFail_; 
+				TH2F *PionRecoTrackGenHadTauReductionMHTNJets_, *PionRecoTrackGenHadTauReductionMHTNJetsFail_;
+				TH2F *PionRecoTrackGenHadTauReductionBTagNJets_, *PionRecoTrackGenHadTauReductionBTagNJetsFail_;
+				TH2F *PionRecoTrackGenHadTauReductionPTActivity_, *PionRecoTrackGenHadTauReductionPTActivityFail_;
+				// ************************************************************************************************************* 25 June 2015 end ****************************************************
+        
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// delta R relPT
 	TH1F *MuIsoPTJetRel_, *MuIsoPTJetRelFail_;
@@ -949,6 +1115,13 @@ public :
 	UShort_t        muIsoTrack;
 	UShort_t        MuPurity;
 	UShort_t        ElecPurity;
+	UShort_t        muIsoTrackIso;
+	UShort_t        muIsoTrackReco;
+	UShort_t        elecIsoTrackIso;
+	UShort_t        elecIsoTrackReco;
+	UShort_t        pionIsoTrackIso;
+	UShort_t        pionIsoTrackReco;
+	
 	UShort_t        muActivityMethod;
 	UShort_t        elecActivityMethod;
 	UShort_t        muIsoTrackActivityMethod;
@@ -1121,6 +1294,12 @@ public :
 	TBranch        *b_muIsoTrack;   //!
 	TBranch        *b_MuPurity;   //!
 	TBranch        *b_ElecPurity;   //!
+	TBranch        *b_muIsoTrackIso;   //!
+	TBranch        *b_muIsoTrackReco;   //!
+	TBranch        *b_elecIsoTrackIso;   //!
+	TBranch        *b_elecIsoTrackReco;   //!
+	TBranch        *b_pionIsoTrackIso;   //!
+	TBranch        *b_pionIsoTrackReco;   //!
 	TBranch        *b_muActivityMethod;   //!
 	TBranch        *b_elecActivityMethod;   //!
 	TBranch        *b_muIsoTrackActivityMethod;   //!
@@ -1331,6 +1510,12 @@ void EffMaker::Init(TTree *tree)
 	fChain->SetBranchAddress("ElecPurity", &ElecPurity, &b_ElecPurity);
 	fChain->SetBranchAddress("muActivityMethod", &muActivityMethod, &b_muActivityMethod);
 	fChain->SetBranchAddress("elecActivityMethod", &elecActivityMethod, &b_elecActivityMethod);
+	fChain->SetBranchAddress("muIsoTrackIso", &muIsoTrackIso, &b_muIsoTrackIso);
+	fChain->SetBranchAddress("muIsoTrackReco", &muIsoTrackReco, &b_muIsoTrackReco);
+	fChain->SetBranchAddress("elecIsoTrackIso", &elecIsoTrackIso, &b_elecIsoTrackIso);
+	fChain->SetBranchAddress("elecIsoTrackReco", &elecIsoTrackReco, &b_elecIsoTrackReco);
+	fChain->SetBranchAddress("pionIsoTrackIso", &pionIsoTrackIso, &b_pionIsoTrackIso);
+	fChain->SetBranchAddress("pionIsoTrackReco", &pionIsoTrackReco, &b_pionIsoTrackReco);
 	fChain->SetBranchAddress("muIsoTrackActivityMethod", &muIsoTrackActivityMethod, &b_muIsoTrackActivityMethod);
 	fChain->SetBranchAddress("elecIsoTrackActivityMethod", &elecIsoTrackActivityMethod, &b_elecIsoTrackActivityMethod);
 	fChain->SetBranchAddress("pionIsoTrackActivityMethod", &pionIsoTrackActivityMethod, &b_pionIsoTrackActivityMethod);

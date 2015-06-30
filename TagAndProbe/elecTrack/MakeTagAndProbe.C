@@ -8,7 +8,7 @@ void MakeTagAndProbe()
 	// 	TString connect = gSystem.GetFromPipe("pod-info -c");
 	// 	TProof *proof = TProof::Open(connect);
 	// 	TProof *proof = TProof::Open("workers=20");
-	TChain *Effchain = new TChain("elecIsoEffs/fitter_tree");
+	TChain *Effchain = new TChain("IsoTrackElecIsoEffs/fitter_tree");
  	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/DYJetsToLL_M-50_HT-100to200/*root");
  	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/DYJetsToLL_M-50_HT-200to400/*root");
 	Effchain->Add("/nfs/dust/cms/user/adraeger/phys14/mc/DYJetsToLL_M-50_HT-400to600/*root");

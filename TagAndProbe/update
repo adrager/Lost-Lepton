@@ -1,0 +1,20 @@
+#!/bin/bash
+# My first script
+
+echo "starting"
+#rm *root
+rm  */*root
+cd elecIso
+root -l -b -q MakeTagAndProbe.C&
+cd ../elecReco
+root -l -b -q MakeTagAndProbe.C&
+cd ../elecTrack
+root -l -b -q MakeTagAndProbe.C&
+cd ../muIso
+root -l -b -q MakeTagAndProbe.C&
+cd ../muReco
+root -l -b -q MakeTagAndProbe.C&
+cd ../muTrack
+root -l -b -q MakeTagAndProbe.C&
+wait
+echo "done"

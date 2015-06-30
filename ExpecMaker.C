@@ -105,6 +105,13 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("muIsoTrack",&muIsoTrack,"muIsoTrack/s");  
 	tExpectation_->Branch("MuPurity",&MuPurity_,"MuPurity/s"); 
 	tExpectation_->Branch("ElecPurity",&ElecPurity_,"ElecPurity/s"); 
+	
+	tExpectation_->Branch("muIsoTrackIso",&muIsoTrackIso,"muIsoTrackIso/s"); 
+	tExpectation_->Branch("muIsoTrackReco",&muIsoTrackReco,"muIsoTrackReco/s"); 
+	tExpectation_->Branch("elecIsoTrackIso",&elecIsoTrackIso,"elecIsoTrackIso/s"); 
+	tExpectation_->Branch("elecIsoTrackReco",&elecIsoTrackReco,"elecIsoTrackReco/s"); 
+	tExpectation_->Branch("pionIsoTrackIso",&pionIsoTrackIso,"pionIsoTrackIso/s"); 
+	tExpectation_->Branch("pionIsoTrackReco",&pionIsoTrackReco,"pionIsoTrackReco/s"); 
 	muActivityMethod=muActivityMethod_;
 	elecActivityMethod=elecActivityMethod_;
 	muIsoTrackActivityMethod=muIsoTrackActivityMethod_;
@@ -503,6 +510,59 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 				IsolatedPionTracksVetoMTW[i]= MTWCalculator(METPt,METPhi, IsolatedPionTracksVetoPt[i], IsolatedPionTracksVetoPhi[i]);
 			}
 		}
+		bool RecoNotMatched=true;
+		for(unsigned int i=0; i< SelectedPFMuCandidatesNum;i++)
+		{
+			
+			if(deltaR(GenMuEta[0],GenMuPhi[0],SelectedPFMuCandidatesEta[i],SelectedPFMuCandidatesPhi[i])<maxDeltaRGenMuToTack_ && std::abs(GenMuPt[0]-SelectedPFMuCandidatesPt[i])/GenMuPt[0] <maxDiffPtGenMuToTack_)
+			{
+				RecoNotMatched=false;
+				muIsoTrackReco=2;
+				bool IsoNotMatched=true;
+				for(unsigned int ii=0; ii< IsolatedMuonTracksVetoNum; ii++)
+				{
+					if(deltaR(GenMuEta[0],GenMuPhi[0],IsolatedMuonTracksVetoEta[ii],IsolatedMuonTracksVetoPhi[ii])<maxDeltaRGenMuToTack_ && std::abs(GenMuPt[0]-IsolatedMuonTracksVetoPt[ii])/GenMuPt[0] <maxDiffPtGenMuToTack_)
+					{
+						IsoNotMatched=false;
+						muIsoTrackIso=2;
+					}
+				}
+				if(IsoNotMatched)
+				{
+					muIsoTrackIso=0;
+				}
+			}
+		}
+		if(RecoNotMatched)
+		{
+			muIsoTrackReco=0;
+		}
+		for(unsigned int i=0; i< SelectedPFPionCandidatesNum;i++)
+		{
+			
+			if(deltaR(GenMuEta[0],GenMuPhi[0],SelectedPFPionCandidatesEta[i],SelectedPFPionCandidatesPhi[i])<maxDeltaRGenMuToTack_ && std::abs(GenMuPt[0]-SelectedPFPionCandidatesPt[i])/GenMuPt[0] <maxDiffPtGenMuToTack_)
+			{
+				RecoNotMatched=false;
+				pionIsoTrackReco=2;
+				bool IsoNotMatched=true;
+				for(unsigned int ii=0; ii< IsolatedPionTracksVetoNum; ii++)
+				{
+					if(deltaR(GenMuEta[0],GenMuPhi[0],IsolatedPionTracksVetoEta[ii],IsolatedPionTracksVetoPhi[ii])<maxDeltaRGenMuToTack_ && std::abs(GenMuPt[0]-IsolatedPionTracksVetoPt[ii])/GenMuPt[0] <maxDiffPtGenMuToTack_)
+					{
+						IsoNotMatched=false;
+						pionIsoTrackIso=2;
+					}
+				}
+				if(IsoNotMatched)
+				{
+					pionIsoTrackIso=0;
+				}
+			}
+		}
+		if(RecoNotMatched)
+		{
+			pionIsoTrackReco=0;
+		}
 	}
 	if(GenElecNum==1 && GenMuNum==0)
 	{
@@ -538,6 +598,59 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 				
 			}
 		}
+		bool RecoNotMatched=true;
+		for(unsigned int i=0; i< SelectedPFElecCandidatesNum;i++)
+		{
+			
+			if(deltaR(GenElecEta[0],GenElecPhi[0],SelectedPFElecCandidatesEta[i],SelectedPFElecCandidatesPhi[i])<maxDeltaRGenElecToTack_ && std::abs(GenElecPt[0]-SelectedPFElecCandidatesPt[i])/GenElecPt[0] <maxDiffPtGenElecToTack_)
+			{
+				RecoNotMatched=false;
+				elecIsoTrackReco=2;
+				bool IsoNotMatched=true;
+				for(unsigned int ii=0; ii< IsolatedElectronTracksVetoNum; ii++)
+				{
+					if(deltaR(GenElecEta[0],GenElecPhi[0],IsolatedElectronTracksVetoEta[ii],IsolatedElectronTracksVetoPhi[ii])<maxDeltaRGenElecToTack_ && std::abs(GenElecPt[0]-IsolatedElectronTracksVetoPt[ii])/GenElecPt[0] <maxDiffPtGenElecToTack_)
+					{
+						IsoNotMatched=false;
+						elecIsoTrackIso=2;
+					}
+				}
+				if(IsoNotMatched)
+				{
+					elecIsoTrackIso=0;
+				}
+			}
+		}
+		if(RecoNotMatched)
+		{
+			elecIsoTrackReco=0;
+		}
+		for(unsigned int i=0; i< SelectedPFPionCandidatesNum;i++)
+		{
+			
+			if(deltaR(GenElecEta[0],GenElecPhi[0],SelectedPFPionCandidatesEta[i],SelectedPFPionCandidatesPhi[i])<maxDeltaRGenElecToTack_ && std::abs(GenElecPt[0]-SelectedPFPionCandidatesPt[i])/GenElecPt[0] <maxDiffPtGenElecToTack_)
+			{
+				RecoNotMatched=false;
+				pionIsoTrackReco=2;
+				bool IsoNotMatched=true;
+				for(unsigned int ii=0; ii< IsolatedPionTracksVetoNum; ii++)
+				{
+					if(deltaR(GenElecEta[0],GenElecPhi[0],IsolatedPionTracksVetoEta[ii],IsolatedPionTracksVetoPhi[ii])<maxDeltaRGenElecToTack_ && std::abs(GenElecPt[0]-IsolatedPionTracksVetoPt[ii])/GenElecPt[0] <maxDiffPtGenElecToTack_)
+					{
+						IsoNotMatched=true;
+						pionIsoTrackIso=2;
+					}
+				}
+				if(IsoNotMatched)
+				{
+					pionIsoTrackIso=0;
+				}
+			}
+		}
+		if(RecoNotMatched)
+		{
+			pionIsoTrackReco=0;
+		}
 	}
 	
 	if(GenElecNum==0 && GenMuNum==0 && GenTauNum==1)
@@ -570,6 +683,33 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 				IsolatedPionTracksVetoMTW[i]= MTWCalculator(METPt,METPhi, IsolatedPionTracksVetoPt[i], IsolatedPionTracksVetoPhi[i]);
 // 				std::cout<<"PionTrackMTW: "<<MTWCalculator(METPt,METPhi, IsolatedPionTracksVetoPt[i], IsolatedPionTracksVetoPhi[i])<<"\n";		
 			}
+		}
+		bool RecoNotMatched=true;
+		for(unsigned int i=0; i< SelectedPFPionCandidatesNum;i++)
+		{
+			
+			if(deltaR(GenTauEta[0],GenTauPhi[0],SelectedPFPionCandidatesEta[i],SelectedPFPionCandidatesPhi[i])<maxDeltaRGenTauToTack_ && std::abs(GenTauPt[0]-SelectedPFPionCandidatesPt[i])/GenTauPt[0] <maxDiffPtGenTauToTack_)
+			{
+				RecoNotMatched=false;
+				pionIsoTrackReco=2;
+				bool IsoNotMatched=true;
+				for(unsigned int ii=0; ii< IsolatedPionTracksVetoNum; ii++)
+				{
+					if(deltaR(GenTauEta[0],GenTauPhi[0],IsolatedPionTracksVetoEta[ii],IsolatedPionTracksVetoPhi[ii])<maxDeltaRGenTauToTack_ && std::abs(GenTauPt[0]-IsolatedPionTracksVetoPt[ii])/GenTauPt[0] <maxDiffPtGenTauToTack_)
+					{
+						IsoNotMatched=false;
+						pionIsoTrackIso=2;
+					}
+				}
+				if(IsoNotMatched)
+				{
+					pionIsoTrackIso=0;
+				}
+			}
+		}
+		if(RecoNotMatched)
+		{
+			pionIsoTrackReco=0;
 		}
 	}
 	// ************************************************************************************************************* 22 June 2015 end****************************************************
@@ -999,6 +1139,12 @@ void ExpecMaker::resetValues()
 	elecAcc =1;
 	elecTotal=1;
 	elecMTW=1;
+	muIsoTrackIso=1;
+	muIsoTrackReco=1;
+	elecIsoTrackIso=1;
+	elecIsoTrackReco=1;
+	pionIsoTrackIso =1;
+	pionIsoTrackReco=1;
 	FallsVetoLep=0;
 	FallsVetoIsoTrack=0;
 	FallsVetoIsoTrackPT10=0;

@@ -114,5 +114,4 @@ Bool_t Saving::Notify()
 
    return kTRUE;
 }
-
 #endif // #ifdef Saving_cxx
