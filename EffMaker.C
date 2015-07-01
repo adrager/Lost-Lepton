@@ -1517,655 +1517,6 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
 	
 	// ************************************************************************************************************* 22 June 2015 end****************************************************
 	
-        // ************************************************************************************************************* 24 June 2015 end****************************************************
-        
-        MuAccHTMHT_NJets46_ = new TH2F("MuAccHTMHT_NJets46","MuAccHTMHT_NJets46",muaccHT_-1,muAccHT_, muaccMHT_-1,muAccMHT_);
-        //GetOutputList()->Add(MuAccMHTNJets_);
-        MuAccHTMHT_NJets46Fail_ = (TH2F*)MuAccHTMHT_NJets46_->Clone();
-        MuAccHTMHT_NJets46Fail_->SetName("MuAccHTMHT_NJets46Fail");
-        
-        MuAccHTMHT_NJets7Inf_ = new TH2F("MuAccHTMHT_NJets7Inf"," MuAccHTMHT_NJets7Inf",muaccHT_-1,muAccHT_, muaccMHT_-1,muAccMHT_);
-        //GetOutputList()->Add(MuAccMHTNJets_);
-        MuAccHTMHT_NJets7InfFail_ = (TH2F*)MuAccHTMHT_NJets7Inf_->Clone();
-        MuAccHTMHT_NJets7InfFail_->SetName("MuAccHTMHT_NJets7InfFail");
-        
-        
-        ElecAccHTMHT_NJets46_ = new TH2F("ElecAccHTMHT_NJets46","ElecAccHTMHT_NJets46",elecaccHT_-1,elecAccHT_, elecaccMHT_-1,elecAccMHT_);
-        //GetOutputList()->Add(ElecAccMHTNJets_);
-        ElecAccHTMHT_NJets46Fail_ = (TH2F*)ElecAccHTMHT_NJets46_->Clone();
-        ElecAccHTMHT_NJets46Fail_->SetName("ElecAccHTMHT_NJets46Fail");
-        
-        ElecAccHTMHT_NJets7Inf_ = new TH2F("ElecAccHTMHT_NJets7Inf"," ElecAccHTMHT_NJets7Inf",elecaccHT_-1,elecAccHT_, elecaccMHT_-1,elecAccMHT_);
-        //GetOutputList()->Add(ElecAccMHTNJets_);
-        ElecAccHTMHT_NJets7InfFail_ = (TH2F*)ElecAccHTMHT_NJets7Inf_->Clone();
-        ElecAccHTMHT_NJets7InfFail_->SetName("ElecAccHTMHT_NJets7InfFail");
-        
-        
-        
-        // ************************************************************************************************************* 24 June 2015 end****************************************************
-        
-				
-				// ************************************************************************************************************* 25 June 2015 ****************************************************
-        
-				//1D
-				// MU ISO ////////////////////////////////////////////////////////////////////////////
-				// muon iso track
-				ExpectationReductionMuIsoTrackGenMuBTagEff = new TH1F("ExpectationReductionMuIsoTrackGenMuBTagEff","ExpectationReductionMuIsoTrackGenMuBTagEff",isotrackreductionBTags_-1,isoTrackReductionBTags_);
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJets_);
-				ExpectationReductionMuIsoTrackGenMuBTagEffFail = (TH1F*)ExpectationReductionMuIsoTrackGenMuBTagEff->Clone();
-				ExpectationReductionMuIsoTrackGenMuBTagEffFail->SetName("ExpectationReductionMuIsoTrackGenMuBTagEffFail");
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionMuIsoTrackGenMuNJetsEff = new TH1F("ExpectationReductionMuIsoTrackGenMuNJetsEff","ExpectationReductionMuIsoTrackGenMuNJetsEff",isotrackreductionNJets_-1,isoTrackReductionNJets_);
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJets_);
-				ExpectationReductionMuIsoTrackGenMuNJetsEffFail = (TH1F*)ExpectationReductionMuIsoTrackGenMuNJetsEff->Clone();
-				ExpectationReductionMuIsoTrackGenMuNJetsEffFail->SetName("ExpectationReductionMuIsoTrackGenMuNJetsEffFail");
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionMuIsoTrackGenMuHTEff = new TH1F("ExpectationReductionMuIsoTrackGenMuHTEff","ExpectationReductionMuIsoTrackGenMuHTEff",isotrackreductionHT_-1,isoTrackReductionHT_);
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJets_);
-				ExpectationReductionMuIsoTrackGenMuHTEffFail = (TH1F*)ExpectationReductionMuIsoTrackGenMuHTEff->Clone();
-				ExpectationReductionMuIsoTrackGenMuHTEffFail->SetName("ExpectationReductionMuIsoTrackGenMuHTEffFail");
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionMuIsoTrackGenMuMHTEff = new TH1F("ExpectationReductionMuIsoTrackGenMuMHTEff","ExpectationReductionMuIsoTrackGenMuMHTEff",isotrackreductionMHT_-1,isoTrackReductionMHT_);
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJets_);
-				ExpectationReductionMuIsoTrackGenMuMHTEffFail = (TH1F*)ExpectationReductionMuIsoTrackGenMuMHTEff->Clone();
-				ExpectationReductionMuIsoTrackGenMuMHTEffFail->SetName("ExpectationReductionMuIsoTrackGenMuMHTEffFail");
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionMuIsoTrackGenMuPTEff = new TH1F("ExpectationReductionMuIsoTrackGenMuPTEff","ExpectationReductionMuIsoTrackGenMuPTEff",isotrackreductionPT_-1,isoTrackReductionPT_);
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJets_);
-				ExpectationReductionMuIsoTrackGenMuPTEffFail = (TH1F*)ExpectationReductionMuIsoTrackGenMuPTEff->Clone();
-				ExpectationReductionMuIsoTrackGenMuPTEffFail->SetName("ExpectationReductionMuIsoTrackGenMuPTEffFail");
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJetsFail_); 
-				ExpectationReductionMuIsoTrackGenMuActivityEff = new TH1F("ExpectationReductionMuIsoTrackGenMuActivityEff","ExpectationReductionMuIsoTrackGenMuActivityEff",isotrackreductionActivity_-1,isoTrackReductionActivity_);
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJets_);
-				ExpectationReductionMuIsoTrackGenMuActivityEffFail = (TH1F*)ExpectationReductionMuIsoTrackGenMuActivityEff->Clone();
-				ExpectationReductionMuIsoTrackGenMuActivityEffFail->SetName("ExpectationReductionMuIsoTrackGenMuActivityEffFail");
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJetsFail_); 
-				
-				//2D
-				MuIsoTrackGenMuReductionHTNJets_ = new TH2F("MuIsoTrackGenMuReductionHTNJets","MuIsoTrackGenMuReductionHTNJets",isotrackreductionHT_-1,isoTrackReductionHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJets_);
-				MuIsoTrackGenMuReductionHTNJetsFail_ = (TH2F*)MuIsoTrackGenMuReductionHTNJets_->Clone();
-				MuIsoTrackGenMuReductionHTNJetsFail_->SetName("MuIsoTrackGenMuReductionHTNJetsFail");
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionHTNJetsFail_); 
-				
-				MuIsoTrackGenMuReductionMHTNJets_ = new TH2F("MuIsoTrackGenMuReductionMHTNJets","MuIsoTrackGenMuReductionMHTNJets",isotrackreductionMHT_-1,isoTrackReductionMHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionMHTNJets_);
-				MuIsoTrackGenMuReductionMHTNJetsFail_ = (TH2F*)MuIsoTrackGenMuReductionMHTNJets_->Clone();
-				MuIsoTrackGenMuReductionMHTNJetsFail_->SetName("MuIsoTrackGenMuReductionMHTNJetsFail");
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionMHTNJetsFail_); 
-				
-				MuIsoTrackGenMuReductionBTagNJets_ = new TH2F("MuIsoTrackGenMuReductionBTagNJets","MuIsoTrackGenMuReductionBTagNJets",isotrackreductionBTags2D_-1,isoTrackReductionBTags2D_, isotrackreductionNJets2D_-1, isoTrackReductionNJets2D_);
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionBTagNJets_);
-				MuIsoTrackGenMuReductionBTagNJetsFail_ = (TH2F*)MuIsoTrackGenMuReductionBTagNJets_->Clone();
-				MuIsoTrackGenMuReductionBTagNJetsFail_->SetName("MuIsoTrackGenMuReductionBTagNJetsFail");
-				
-				MuIsoTrackGenMuReductionPTActivity_ = new TH2F("MuIsoTrackGenMuReductionPTActivity","MuIsoTrackGenMuReductionPTActivity",isotrackreductionPT2D_-1,isoTrackReductionPT2D_, isotrackreductionActivity2D_-1, isoTrackReductionActivity2D_);
-				//GetOutputList()->Add(MuIsoTrackGenMuReductionPTActivity_);
-				MuIsoTrackGenMuReductionPTActivityFail_ = (TH2F*)MuIsoTrackGenMuReductionPTActivity_->Clone();
-				MuIsoTrackGenMuReductionPTActivityFail_->SetName("MuIsoTrackGenMuReductionPTActivityFail");
-				
-				
-				// pion iso track
-				//1D
-				ExpectationReductionPionIsoTrackGenMuBTagEff = new TH1F("ExpectationReductionPionIsoTrackGenMuBTagEff","ExpectationReductionPionIsoTrackGenMuBTagEff",isotrackreductionBTags_-1,isoTrackReductionBTags_);
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenMuBTagEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenMuBTagEff->Clone();
-				ExpectationReductionPionIsoTrackGenMuBTagEffFail->SetName("ExpectationReductionPionIsoTrackGenMuBTagEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionIsoTrackGenMuNJetsEff = new TH1F("ExpectationReductionPionIsoTrackGenMuNJetsEff","ExpectationReductionPionIsoTrackGenMuNJetsEff",isotrackreductionNJets_-1,isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenMuNJetsEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenMuNJetsEff->Clone();
-				ExpectationReductionPionIsoTrackGenMuNJetsEffFail->SetName("ExpectationReductionPionIsoTrackGenMuNJetsEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionIsoTrackGenMuHTEff = new TH1F("ExpectationReductionPionIsoTrackGenMuHTEff","ExpectationReductionPionIsoTrackGenMuHTEff",isotrackreductionHT_-1,isoTrackReductionHT_);
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenMuHTEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenMuHTEff->Clone();
-				ExpectationReductionPionIsoTrackGenMuHTEffFail->SetName("ExpectationReductionPionIsoTrackGenMuHTEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionIsoTrackGenMuMHTEff = new TH1F("ExpectationReductionPionIsoTrackGenMuMHTEff","ExpectationReductionPionIsoTrackGenMuMHTEff",isotrackreductionMHT_-1,isoTrackReductionMHT_);
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenMuMHTEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenMuMHTEff->Clone();
-				ExpectationReductionPionIsoTrackGenMuMHTEffFail->SetName("ExpectationReductionPionIsoTrackGenMuMHTEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionIsoTrackGenMuPTEff = new TH1F("ExpectationReductionPionIsoTrackGenMuPTEff","ExpectationReductionPionIsoTrackGenMuPTEff",isotrackreductionPT_-1,isoTrackReductionPT_);
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenMuPTEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenMuPTEff->Clone();
-				ExpectationReductionPionIsoTrackGenMuPTEffFail->SetName("ExpectationReductionPionIsoTrackGenMuPTEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJetsFail_); 
-				ExpectationReductionPionIsoTrackGenMuActivityEff = new TH1F("ExpectationReductionPionIsoTrackGenMuActivityEff","ExpectationReductionPionIsoTrackGenMuActivityEff",isotrackreductionActivity_-1,isoTrackReductionActivity_);
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenMuActivityEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenMuActivityEff->Clone();
-				ExpectationReductionPionIsoTrackGenMuActivityEffFail->SetName("ExpectationReductionPionIsoTrackGenMuActivityEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJetsFail_); 
-				
-				//2D
-				PionIsoTrackGenMuReductionHTNJets_ = new TH2F("PionIsoTrackGenMuReductionHTNJets","PionIsoTrackGenMuReductionHTNJets",isotrackreductionHT_-1,isoTrackReductionHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJets_);
-				PionIsoTrackGenMuReductionHTNJetsFail_ = (TH2F*)PionIsoTrackGenMuReductionHTNJets_->Clone();
-				PionIsoTrackGenMuReductionHTNJetsFail_->SetName("PionIsoTrackGenMuReductionHTNJetsFail");
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionHTNJetsFail_); 
-				
-				PionIsoTrackGenMuReductionMHTNJets_ = new TH2F("PionIsoTrackGenMuReductionMHTNJets","PionIsoTrackGenMuReductionMHTNJets",isotrackreductionMHT_-1,isoTrackReductionMHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionMHTNJets_);
-				PionIsoTrackGenMuReductionMHTNJetsFail_ = (TH2F*)PionIsoTrackGenMuReductionMHTNJets_->Clone();
-				PionIsoTrackGenMuReductionMHTNJetsFail_->SetName("PionIsoTrackGenMuReductionMHTNJetsFail");
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionMHTNJetsFail_); 
-				
-				PionIsoTrackGenMuReductionBTagNJets_ = new TH2F("PionIsoTrackGenMuReductionBTagNJets","PionIsoTrackGenMuReductionBTagNJets",isotrackreductionBTags2D_-1,isoTrackReductionBTags2D_, isotrackreductionNJets2D_-1, isoTrackReductionNJets2D_);
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionBTagNJets_);
-				PionIsoTrackGenMuReductionBTagNJetsFail_ = (TH2F*)PionIsoTrackGenMuReductionBTagNJets_->Clone();
-				PionIsoTrackGenMuReductionBTagNJetsFail_->SetName("PionIsoTrackGenMuReductionBTagNJetsFail");
-				
-				PionIsoTrackGenMuReductionPTActivity_ = new TH2F("PionIsoTrackGenMuReductionPTActivity","PionIsoTrackGenMuReductionPTActivity",isotrackreductionPT2D_-1,isoTrackReductionPT2D_, isotrackreductionActivity2D_-1, isoTrackReductionActivity2D_);
-				//GetOutputList()->Add(PionIsoTrackGenMuReductionPTActivity_);
-				PionIsoTrackGenMuReductionPTActivityFail_ = (TH2F*)PionIsoTrackGenMuReductionPTActivity_->Clone();
-				PionIsoTrackGenMuReductionPTActivityFail_->SetName("PionIsoTrackGenMuReductionPTActivityFail");
-				
-				
-				
-				////////////////////////////////////////////// gen elec 
-				
-				// elec iso track
-				//1D
-				ExpectationReductionElecIsoTrackGenElecBTagEff = new TH1F("ExpectationReductionElecIsoTrackGenElecBTagEff","ExpectationReductionElecIsoTrackGenElecBTagEff",isotrackreductionBTags_-1,isoTrackReductionBTags_);
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJets_);
-				ExpectationReductionElecIsoTrackGenElecBTagEffFail = (TH1F*)ExpectationReductionElecIsoTrackGenElecBTagEff->Clone();
-				ExpectationReductionElecIsoTrackGenElecBTagEffFail->SetName("ExpectationReductionElecIsoTrackGenElecBTagEffFail");
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionElecIsoTrackGenElecNJetsEff = new TH1F("ExpectationReductionElecIsoTrackGenElecNJetsEff","ExpectationReductionElecIsoTrackGenElecNJetsEff",isotrackreductionNJets_-1,isoTrackReductionNJets_);
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJets_);
-				ExpectationReductionElecIsoTrackGenElecNJetsEffFail = (TH1F*)ExpectationReductionElecIsoTrackGenElecNJetsEff->Clone();
-				ExpectationReductionElecIsoTrackGenElecNJetsEffFail->SetName("ExpectationReductionElecIsoTrackGenElecNJetsEffFail");
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionElecIsoTrackGenElecHTEff = new TH1F("ExpectationReductionElecIsoTrackGenElecHTEff","ExpectationReductionElecIsoTrackGenElecHTEff",isotrackreductionHT_-1,isoTrackReductionHT_);
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJets_);
-				ExpectationReductionElecIsoTrackGenElecHTEffFail = (TH1F*)ExpectationReductionElecIsoTrackGenElecHTEff->Clone();
-				ExpectationReductionElecIsoTrackGenElecHTEffFail->SetName("ExpectationReductionElecIsoTrackGenElecHTEffFail");
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionElecIsoTrackGenElecMHTEff = new TH1F("ExpectationReductionElecIsoTrackGenElecMHTEff","ExpectationReductionElecIsoTrackGenElecMHTEff",isotrackreductionMHT_-1,isoTrackReductionMHT_);
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJets_);
-				ExpectationReductionElecIsoTrackGenElecMHTEffFail = (TH1F*)ExpectationReductionElecIsoTrackGenElecMHTEff->Clone();
-				ExpectationReductionElecIsoTrackGenElecMHTEffFail->SetName("ExpectationReductionElecIsoTrackGenElecMHTEffFail");
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionElecIsoTrackGenElecPTEff = new TH1F("ExpectationReductionElecIsoTrackGenElecPTEff","ExpectationReductionElecIsoTrackGenElecPTEff",isotrackreductionPT_-1,isoTrackReductionPT_);
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJets_);
-				ExpectationReductionElecIsoTrackGenElecPTEffFail = (TH1F*)ExpectationReductionElecIsoTrackGenElecPTEff->Clone();
-				ExpectationReductionElecIsoTrackGenElecPTEffFail->SetName("ExpectationReductionElecIsoTrackGenElecPTEffFail");
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJetsFail_); 
-				ExpectationReductionElecIsoTrackGenElecActivityEff = new TH1F("ExpectationReductionElecIsoTrackGenElecActivityEff","ExpectationReductionElecIsoTrackGenElecActivityEff",isotrackreductionActivity_-1,isoTrackReductionActivity_);
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJets_);
-				ExpectationReductionElecIsoTrackGenElecActivityEffFail = (TH1F*)ExpectationReductionElecIsoTrackGenElecActivityEff->Clone();
-				ExpectationReductionElecIsoTrackGenElecActivityEffFail->SetName("ExpectationReductionElecIsoTrackGenElecActivityEffFail");
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJetsFail_); 
-				
-				//2D
-				ElecIsoTrackGenElecReductionHTNJets_ = new TH2F("ElecIsoTrackGenElecReductionHTNJets","ElecIsoTrackGenElecReductionHTNJets",isotrackreductionHT_-1,isoTrackReductionHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJets_);
-				ElecIsoTrackGenElecReductionHTNJetsFail_ = (TH2F*)ElecIsoTrackGenElecReductionHTNJets_->Clone();
-				ElecIsoTrackGenElecReductionHTNJetsFail_->SetName("ElecIsoTrackGenElecReductionHTNJetsFail");
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionHTNJetsFail_); 
-				
-				ElecIsoTrackGenElecReductionMHTNJets_ = new TH2F("ElecIsoTrackGenElecReductionMHTNJets","ElecIsoTrackGenElecReductionMHTNJets",isotrackreductionMHT_-1,isoTrackReductionMHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionMHTNJets_);
-				ElecIsoTrackGenElecReductionMHTNJetsFail_ = (TH2F*)ElecIsoTrackGenElecReductionMHTNJets_->Clone();
-				ElecIsoTrackGenElecReductionMHTNJetsFail_->SetName("ElecIsoTrackGenElecReductionMHTNJetsFail");
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionMHTNJetsFail_); 
-				
-				ElecIsoTrackGenElecReductionBTagNJets_ = new TH2F("ElecIsoTrackGenElecReductionBTagNJets","ElecIsoTrackGenElecReductionBTagNJets",isotrackreductionBTags2D_-1,isoTrackReductionBTags2D_, isotrackreductionNJets2D_-1, isoTrackReductionNJets2D_);
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionBTagNJets_);
-				ElecIsoTrackGenElecReductionBTagNJetsFail_ = (TH2F*)ElecIsoTrackGenElecReductionBTagNJets_->Clone();
-				ElecIsoTrackGenElecReductionBTagNJetsFail_->SetName("ElecIsoTrackGenElecReductionBTagNJetsFail");
-				
-				ElecIsoTrackGenElecReductionPTActivity_ = new TH2F("ElecIsoTrackGenElecReductionPTActivity","ElecIsoTrackGenElecReductionPTActivity",isotrackreductionPT2D_-1,isoTrackReductionPT2D_, isotrackreductionActivity2D_-1, isoTrackReductionActivity2D_);
-				//GetOutputList()->Add(ElecIsoTrackGenElecReductionPTActivity_);
-				ElecIsoTrackGenElecReductionPTActivityFail_ = (TH2F*)ElecIsoTrackGenElecReductionPTActivity_->Clone();
-				ElecIsoTrackGenElecReductionPTActivityFail_->SetName("ElecIsoTrackGenElecReductionPTActivityFail");
-				
-				// pion iso track
-				//1D
-				ExpectationReductionPionIsoTrackGenElecBTagEff = new TH1F("ExpectationReductionPionIsoTrackGenElecBTagEff","ExpectationReductionPionIsoTrackGenElecBTagEff",isotrackreductionBTags_-1,isoTrackReductionBTags_);
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenElecBTagEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenElecBTagEff->Clone();
-				ExpectationReductionPionIsoTrackGenElecBTagEffFail->SetName("ExpectationReductionPionIsoTrackGenElecBTagEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionIsoTrackGenElecNJetsEff = new TH1F("ExpectationReductionPionIsoTrackGenElecNJetsEff","ExpectationReductionPionIsoTrackGenElecNJetsEff",isotrackreductionNJets_-1,isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenElecNJetsEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenElecNJetsEff->Clone();
-				ExpectationReductionPionIsoTrackGenElecNJetsEffFail->SetName("ExpectationReductionPionIsoTrackGenElecNJetsEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionIsoTrackGenElecHTEff = new TH1F("ExpectationReductionPionIsoTrackGenElecHTEff","ExpectationReductionPionIsoTrackGenElecHTEff",isotrackreductionHT_-1,isoTrackReductionHT_);
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenElecHTEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenElecHTEff->Clone();
-				ExpectationReductionPionIsoTrackGenElecHTEffFail->SetName("ExpectationReductionPionIsoTrackGenElecHTEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionIsoTrackGenElecMHTEff = new TH1F("ExpectationReductionPionIsoTrackGenElecMHTEff","ExpectationReductionPionIsoTrackGenElecMHTEff",isotrackreductionMHT_-1,isoTrackReductionMHT_);
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenElecMHTEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenElecMHTEff->Clone();
-				ExpectationReductionPionIsoTrackGenElecMHTEffFail->SetName("ExpectationReductionPionIsoTrackGenElecMHTEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionIsoTrackGenElecPTEff = new TH1F("ExpectationReductionPionIsoTrackGenElecPTEff","ExpectationReductionPionIsoTrackGenElecPTEff",isotrackreductionPT_-1,isoTrackReductionPT_);
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenElecPTEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenElecPTEff->Clone();
-				ExpectationReductionPionIsoTrackGenElecPTEffFail->SetName("ExpectationReductionPionIsoTrackGenElecPTEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJetsFail_); 
-				ExpectationReductionPionIsoTrackGenElecActivityEff = new TH1F("ExpectationReductionPionIsoTrackGenElecActivityEff","ExpectationReductionPionIsoTrackGenElecActivityEff",isotrackreductionActivity_-1,isoTrackReductionActivity_);
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenElecActivityEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenElecActivityEff->Clone();
-				ExpectationReductionPionIsoTrackGenElecActivityEffFail->SetName("ExpectationReductionPionIsoTrackGenElecActivityEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJetsFail_); 
-				
-				//2D
-				PionIsoTrackGenElecReductionHTNJets_ = new TH2F("PionIsoTrackGenElecReductionHTNJets","PionIsoTrackGenElecReductionHTNJets",isotrackreductionHT_-1,isoTrackReductionHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJets_);
-				PionIsoTrackGenElecReductionHTNJetsFail_ = (TH2F*)PionIsoTrackGenElecReductionHTNJets_->Clone();
-				PionIsoTrackGenElecReductionHTNJetsFail_->SetName("PionIsoTrackGenElecReductionHTNJetsFail");
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionHTNJetsFail_); 
-				
-				PionIsoTrackGenElecReductionMHTNJets_ = new TH2F("PionIsoTrackGenElecReductionMHTNJets","PionIsoTrackGenElecReductionMHTNJets",isotrackreductionMHT_-1,isoTrackReductionMHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionMHTNJets_);
-				PionIsoTrackGenElecReductionMHTNJetsFail_ = (TH2F*)PionIsoTrackGenElecReductionMHTNJets_->Clone();
-				PionIsoTrackGenElecReductionMHTNJetsFail_->SetName("PionIsoTrackGenElecReductionMHTNJetsFail");
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionMHTNJetsFail_); 
-				
-				PionIsoTrackGenElecReductionBTagNJets_ = new TH2F("PionIsoTrackGenElecReductionBTagNJets","PionIsoTrackGenElecReductionBTagNJets",isotrackreductionBTags2D_-1,isoTrackReductionBTags2D_, isotrackreductionNJets2D_-1, isoTrackReductionNJets2D_);
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionBTagNJets_);
-				PionIsoTrackGenElecReductionBTagNJetsFail_ = (TH2F*)PionIsoTrackGenElecReductionBTagNJets_->Clone();
-				PionIsoTrackGenElecReductionBTagNJetsFail_->SetName("PionIsoTrackGenElecReductionBTagNJetsFail");
-				
-				PionIsoTrackGenElecReductionPTActivity_ = new TH2F("PionIsoTrackGenElecReductionPTActivity","PionIsoTrackGenElecReductionPTActivity",isotrackreductionPT2D_-1,isoTrackReductionPT2D_, isotrackreductionActivity2D_-1, isoTrackReductionActivity2D_);
-				//GetOutputList()->Add(PionIsoTrackGenElecReductionPTActivity_);
-				PionIsoTrackGenElecReductionPTActivityFail_ = (TH2F*)PionIsoTrackGenElecReductionPTActivity_->Clone();
-				PionIsoTrackGenElecReductionPTActivityFail_->SetName("PionIsoTrackGenElecReductionPTActivityFail");
-				
-				
-				///////////////////////////////// gen had tau
-				// pion iso track
-				//1D
-				ExpectationReductionPionIsoTrackGenHadTauBTagEff = new TH1F("ExpectationReductionPionIsoTrackGenHadTauBTagEff","ExpectationReductionPionIsoTrackGenHadTauBTagEff",isotrackreductionBTags_-1,isoTrackReductionBTags_);
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenHadTauBTagEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenHadTauBTagEff->Clone();
-				ExpectationReductionPionIsoTrackGenHadTauBTagEffFail->SetName("ExpectationReductionPionIsoTrackGenHadTauBTagEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionIsoTrackGenHadTauNJetsEff = new TH1F("ExpectationReductionPionIsoTrackGenHadTauNJetsEff","ExpectationReductionPionIsoTrackGenHadTauNJetsEff",isotrackreductionNJets_-1,isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenHadTauNJetsEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenHadTauNJetsEff->Clone();
-				ExpectationReductionPionIsoTrackGenHadTauNJetsEffFail->SetName("ExpectationReductionPionIsoTrackGenHadTauNJetsEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionIsoTrackGenHadTauHTEff = new TH1F("ExpectationReductionPionIsoTrackGenHadTauHTEff","ExpectationReductionPionIsoTrackGenHadTauHTEff",isotrackreductionHT_-1,isoTrackReductionHT_);
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenHadTauHTEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenHadTauHTEff->Clone();
-				ExpectationReductionPionIsoTrackGenHadTauHTEffFail->SetName("ExpectationReductionPionIsoTrackGenHadTauHTEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionIsoTrackGenHadTauMHTEff = new TH1F("ExpectationReductionPionIsoTrackGenHadTauMHTEff","ExpectationReductionPionIsoTrackGenHadTauMHTEff",isotrackreductionMHT_-1,isoTrackReductionMHT_);
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenHadTauMHTEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenHadTauMHTEff->Clone();
-				ExpectationReductionPionIsoTrackGenHadTauMHTEffFail->SetName("ExpectationReductionPionIsoTrackGenHadTauMHTEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionIsoTrackGenHadTauPTEff = new TH1F("ExpectationReductionPionIsoTrackGenHadTauPTEff","ExpectationReductionPionIsoTrackGenHadTauPTEff",isotrackreductionPT_-1,isoTrackReductionPT_);
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenHadTauPTEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenHadTauPTEff->Clone();
-				ExpectationReductionPionIsoTrackGenHadTauPTEffFail->SetName("ExpectationReductionPionIsoTrackGenHadTauPTEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJetsFail_); 
-				ExpectationReductionPionIsoTrackGenHadTauActivityEff = new TH1F("ExpectationReductionPionIsoTrackGenHadTauActivityEff","ExpectationReductionPionIsoTrackGenHadTauActivityEff",isotrackreductionActivity_-1,isoTrackReductionActivity_);
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJets_);
-				ExpectationReductionPionIsoTrackGenHadTauActivityEffFail = (TH1F*)ExpectationReductionPionIsoTrackGenHadTauActivityEff->Clone();
-				ExpectationReductionPionIsoTrackGenHadTauActivityEffFail->SetName("ExpectationReductionPionIsoTrackGenHadTauActivityEffFail");
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJetsFail_); 
-				
-				//2D
-				PionIsoTrackGenHadTauReductionHTNJets_ = new TH2F("PionIsoTrackGenHadTauReductionHTNJets","PionIsoTrackGenHadTauReductionHTNJets",isotrackreductionHT_-1,isoTrackReductionHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJets_);
-				PionIsoTrackGenHadTauReductionHTNJetsFail_ = (TH2F*)PionIsoTrackGenHadTauReductionHTNJets_->Clone();
-				PionIsoTrackGenHadTauReductionHTNJetsFail_->SetName("PionIsoTrackGenHadTauReductionHTNJetsFail");
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionHTNJetsFail_); 
-				
-				PionIsoTrackGenHadTauReductionMHTNJets_ = new TH2F("PionIsoTrackGenHadTauReductionMHTNJets","PionIsoTrackGenHadTauReductionMHTNJets",isotrackreductionMHT_-1,isoTrackReductionMHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionMHTNJets_);
-				PionIsoTrackGenHadTauReductionMHTNJetsFail_ = (TH2F*)PionIsoTrackGenHadTauReductionMHTNJets_->Clone();
-				PionIsoTrackGenHadTauReductionMHTNJetsFail_->SetName("PionIsoTrackGenHadTauReductionMHTNJetsFail");
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionMHTNJetsFail_); 
-				
-				PionIsoTrackGenHadTauReductionBTagNJets_ = new TH2F("PionIsoTrackGenHadTauReductionBTagNJets","PionIsoTrackGenHadTauReductionBTagNJets",isotrackreductionBTags2D_-1,isoTrackReductionBTags2D_, isotrackreductionNJets2D_-1, isoTrackReductionNJets2D_);
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionBTagNJets_);
-				PionIsoTrackGenHadTauReductionBTagNJetsFail_ = (TH2F*)PionIsoTrackGenHadTauReductionBTagNJets_->Clone();
-				PionIsoTrackGenHadTauReductionBTagNJetsFail_->SetName("PionIsoTrackGenHadTauReductionBTagNJetsFail");
-				
-				PionIsoTrackGenHadTauReductionPTActivity_ = new TH2F("PionIsoTrackGenHadTauReductionPTActivity","PionIsoTrackGenHadTauReductionPTActivity",isotrackreductionPT2D_-1,isoTrackReductionPT2D_, isotrackreductionActivity2D_-1, isoTrackReductionActivity2D_);
-				//GetOutputList()->Add(PionIsoTrackGenHadTauReductionPTActivity_);
-				PionIsoTrackGenHadTauReductionPTActivityFail_ = (TH2F*)PionIsoTrackGenHadTauReductionPTActivity_->Clone();
-				PionIsoTrackGenHadTauReductionPTActivityFail_->SetName("PionIsoTrackGenHadTauReductionPTActivityFail");
-				
-				
-				// RECO //////////////////////////////////////////////////////////////////////////
-				
-				// muon iso track
-				ExpectationReductionMuRecoTrackGenMuBTagEff = new TH1F("ExpectationReductionMuRecoTrackGenMuBTagEff","ExpectationReductionMuRecoTrackGenMuBTagEff",isotrackreductionBTags_-1,isoTrackReductionBTags_);
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJets_);
-				ExpectationReductionMuRecoTrackGenMuBTagEffFail = (TH1F*)ExpectationReductionMuRecoTrackGenMuBTagEff->Clone();
-				ExpectationReductionMuRecoTrackGenMuBTagEffFail->SetName("ExpectationReductionMuRecoTrackGenMuBTagEffFail");
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionMuRecoTrackGenMuNJetsEff = new TH1F("ExpectationReductionMuRecoTrackGenMuNJetsEff","ExpectationReductionMuRecoTrackGenMuNJetsEff",isotrackreductionNJets_-1,isoTrackReductionNJets_);
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJets_);
-				ExpectationReductionMuRecoTrackGenMuNJetsEffFail = (TH1F*)ExpectationReductionMuRecoTrackGenMuNJetsEff->Clone();
-				ExpectationReductionMuRecoTrackGenMuNJetsEffFail->SetName("ExpectationReductionMuRecoTrackGenMuNJetsEffFail");
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionMuRecoTrackGenMuHTEff = new TH1F("ExpectationReductionMuRecoTrackGenMuHTEff","ExpectationReductionMuRecoTrackGenMuHTEff",isotrackreductionHT_-1,isoTrackReductionHT_);
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJets_);
-				ExpectationReductionMuRecoTrackGenMuHTEffFail = (TH1F*)ExpectationReductionMuRecoTrackGenMuHTEff->Clone();
-				ExpectationReductionMuRecoTrackGenMuHTEffFail->SetName("ExpectationReductionMuRecoTrackGenMuHTEffFail");
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionMuRecoTrackGenMuMHTEff = new TH1F("ExpectationReductionMuRecoTrackGenMuMHTEff","ExpectationReductionMuRecoTrackGenMuMHTEff",isotrackreductionMHT_-1,isoTrackReductionMHT_);
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJets_);
-				ExpectationReductionMuRecoTrackGenMuMHTEffFail = (TH1F*)ExpectationReductionMuRecoTrackGenMuMHTEff->Clone();
-				ExpectationReductionMuRecoTrackGenMuMHTEffFail->SetName("ExpectationReductionMuRecoTrackGenMuMHTEffFail");
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionMuRecoTrackGenMuPTEff = new TH1F("ExpectationReductionMuRecoTrackGenMuPTEff","ExpectationReductionMuRecoTrackGenMuPTEff",isotrackreductionPT_-1,isoTrackReductionPT_);
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJets_);
-				ExpectationReductionMuRecoTrackGenMuPTEffFail = (TH1F*)ExpectationReductionMuRecoTrackGenMuPTEff->Clone();
-				ExpectationReductionMuRecoTrackGenMuPTEffFail->SetName("ExpectationReductionMuRecoTrackGenMuPTEffFail");
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJetsFail_); 
-				ExpectationReductionMuRecoTrackGenMuActivityEff = new TH1F("ExpectationReductionMuRecoTrackGenMuActivityEff","ExpectationReductionMuRecoTrackGenMuActivityEff",isotrackreductionActivity_-1,isoTrackReductionActivity_);
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJets_);
-				ExpectationReductionMuRecoTrackGenMuActivityEffFail = (TH1F*)ExpectationReductionMuRecoTrackGenMuActivityEff->Clone();
-				ExpectationReductionMuRecoTrackGenMuActivityEffFail->SetName("ExpectationReductionMuRecoTrackGenMuActivityEffFail");
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJetsFail_); 
-				
-				//2D
-				MuRecoTrackGenMuReductionHTNJets_ = new TH2F("MuRecoTrackGenMuReductionHTNJets","MuRecoTrackGenMuReductionHTNJets",isotrackreductionHT_-1,isoTrackReductionHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJets_);
-				MuRecoTrackGenMuReductionHTNJetsFail_ = (TH2F*)MuRecoTrackGenMuReductionHTNJets_->Clone();
-				MuRecoTrackGenMuReductionHTNJetsFail_->SetName("MuRecoTrackGenMuReductionHTNJetsFail");
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionHTNJetsFail_); 
-				
-				MuRecoTrackGenMuReductionMHTNJets_ = new TH2F("MuRecoTrackGenMuReductionMHTNJets","MuRecoTrackGenMuReductionMHTNJets",isotrackreductionMHT_-1,isoTrackReductionMHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionMHTNJets_);
-				MuRecoTrackGenMuReductionMHTNJetsFail_ = (TH2F*)MuRecoTrackGenMuReductionMHTNJets_->Clone();
-				MuRecoTrackGenMuReductionMHTNJetsFail_->SetName("MuRecoTrackGenMuReductionMHTNJetsFail");
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionMHTNJetsFail_); 
-				
-				MuRecoTrackGenMuReductionBTagNJets_ = new TH2F("MuRecoTrackGenMuReductionBTagNJets","MuRecoTrackGenMuReductionBTagNJets",isotrackreductionBTags2D_-1,isoTrackReductionBTags2D_, isotrackreductionNJets2D_-1, isoTrackReductionNJets2D_);
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionBTagNJets_);
-				MuRecoTrackGenMuReductionBTagNJetsFail_ = (TH2F*)MuRecoTrackGenMuReductionBTagNJets_->Clone();
-				MuRecoTrackGenMuReductionBTagNJetsFail_->SetName("MuRecoTrackGenMuReductionBTagNJetsFail");
-				
-				MuRecoTrackGenMuReductionPTActivity_ = new TH2F("MuRecoTrackGenMuReductionPTActivity","MuRecoTrackGenMuReductionPTActivity",isotrackreductionPT2D_-1,isoTrackReductionPT2D_, isotrackreductionActivity2D_-1, isoTrackReductionActivity2D_);
-				//GetOutputList()->Add(MuRecoTrackGenMuReductionPTActivity_);
-				MuRecoTrackGenMuReductionPTActivityFail_ = (TH2F*)MuRecoTrackGenMuReductionPTActivity_->Clone();
-				MuRecoTrackGenMuReductionPTActivityFail_->SetName("MuRecoTrackGenMuReductionPTActivityFail");
-				
-				
-				// pion iso track
-				//1D
-				ExpectationReductionPionRecoTrackGenMuBTagEff = new TH1F("ExpectationReductionPionRecoTrackGenMuBTagEff","ExpectationReductionPionRecoTrackGenMuBTagEff",isotrackreductionBTags_-1,isoTrackReductionBTags_);
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenMuBTagEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenMuBTagEff->Clone();
-				ExpectationReductionPionRecoTrackGenMuBTagEffFail->SetName("ExpectationReductionPionRecoTrackGenMuBTagEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionRecoTrackGenMuNJetsEff = new TH1F("ExpectationReductionPionRecoTrackGenMuNJetsEff","ExpectationReductionPionRecoTrackGenMuNJetsEff",isotrackreductionNJets_-1,isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenMuNJetsEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenMuNJetsEff->Clone();
-				ExpectationReductionPionRecoTrackGenMuNJetsEffFail->SetName("ExpectationReductionPionRecoTrackGenMuNJetsEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionRecoTrackGenMuHTEff = new TH1F("ExpectationReductionPionRecoTrackGenMuHTEff","ExpectationReductionPionRecoTrackGenMuHTEff",isotrackreductionHT_-1,isoTrackReductionHT_);
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenMuHTEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenMuHTEff->Clone();
-				ExpectationReductionPionRecoTrackGenMuHTEffFail->SetName("ExpectationReductionPionRecoTrackGenMuHTEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionRecoTrackGenMuMHTEff = new TH1F("ExpectationReductionPionRecoTrackGenMuMHTEff","ExpectationReductionPionRecoTrackGenMuMHTEff",isotrackreductionMHT_-1,isoTrackReductionMHT_);
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenMuMHTEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenMuMHTEff->Clone();
-				ExpectationReductionPionRecoTrackGenMuMHTEffFail->SetName("ExpectationReductionPionRecoTrackGenMuMHTEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionRecoTrackGenMuPTEff = new TH1F("ExpectationReductionPionRecoTrackGenMuPTEff","ExpectationReductionPionRecoTrackGenMuPTEff",isotrackreductionPT_-1,isoTrackReductionPT_);
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenMuPTEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenMuPTEff->Clone();
-				ExpectationReductionPionRecoTrackGenMuPTEffFail->SetName("ExpectationReductionPionRecoTrackGenMuPTEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJetsFail_); 
-				ExpectationReductionPionRecoTrackGenMuActivityEff = new TH1F("ExpectationReductionPionRecoTrackGenMuActivityEff","ExpectationReductionPionRecoTrackGenMuActivityEff",isotrackreductionActivity_-1,isoTrackReductionActivity_);
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenMuActivityEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenMuActivityEff->Clone();
-				ExpectationReductionPionRecoTrackGenMuActivityEffFail->SetName("ExpectationReductionPionRecoTrackGenMuActivityEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJetsFail_); 
-				
-				//2D
-				PionRecoTrackGenMuReductionHTNJets_ = new TH2F("PionRecoTrackGenMuReductionHTNJets","PionRecoTrackGenMuReductionHTNJets",isotrackreductionHT_-1,isoTrackReductionHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJets_);
-				PionRecoTrackGenMuReductionHTNJetsFail_ = (TH2F*)PionRecoTrackGenMuReductionHTNJets_->Clone();
-				PionRecoTrackGenMuReductionHTNJetsFail_->SetName("PionRecoTrackGenMuReductionHTNJetsFail");
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionHTNJetsFail_); 
-				
-				PionRecoTrackGenMuReductionMHTNJets_ = new TH2F("PionRecoTrackGenMuReductionMHTNJets","PionRecoTrackGenMuReductionMHTNJets",isotrackreductionMHT_-1,isoTrackReductionMHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionMHTNJets_);
-				PionRecoTrackGenMuReductionMHTNJetsFail_ = (TH2F*)PionRecoTrackGenMuReductionMHTNJets_->Clone();
-				PionRecoTrackGenMuReductionMHTNJetsFail_->SetName("PionRecoTrackGenMuReductionMHTNJetsFail");
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionMHTNJetsFail_); 
-				
-				PionRecoTrackGenMuReductionBTagNJets_ = new TH2F("PionRecoTrackGenMuReductionBTagNJets","PionRecoTrackGenMuReductionBTagNJets",isotrackreductionBTags2D_-1,isoTrackReductionBTags2D_, isotrackreductionNJets2D_-1, isoTrackReductionNJets2D_);
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionBTagNJets_);
-				PionRecoTrackGenMuReductionBTagNJetsFail_ = (TH2F*)PionRecoTrackGenMuReductionBTagNJets_->Clone();
-				PionRecoTrackGenMuReductionBTagNJetsFail_->SetName("PionRecoTrackGenMuReductionBTagNJetsFail");
-				
-				PionRecoTrackGenMuReductionPTActivity_ = new TH2F("PionRecoTrackGenMuReductionPTActivity","PionRecoTrackGenMuReductionPTActivity",isotrackreductionPT2D_-1,isoTrackReductionPT2D_, isotrackreductionActivity2D_-1, isoTrackReductionActivity2D_);
-				//GetOutputList()->Add(PionRecoTrackGenMuReductionPTActivity_);
-				PionRecoTrackGenMuReductionPTActivityFail_ = (TH2F*)PionRecoTrackGenMuReductionPTActivity_->Clone();
-				PionRecoTrackGenMuReductionPTActivityFail_->SetName("PionRecoTrackGenMuReductionPTActivityFail");
-				
-				
-				
-				////////////////////////////////////////////// gen elec 
-				
-				// elec iso track
-				//1D
-				ExpectationReductionElecRecoTrackGenElecBTagEff = new TH1F("ExpectationReductionElecRecoTrackGenElecBTagEff","ExpectationReductionElecRecoTrackGenElecBTagEff",isotrackreductionBTags_-1,isoTrackReductionBTags_);
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJets_);
-				ExpectationReductionElecRecoTrackGenElecBTagEffFail = (TH1F*)ExpectationReductionElecRecoTrackGenElecBTagEff->Clone();
-				ExpectationReductionElecRecoTrackGenElecBTagEffFail->SetName("ExpectationReductionElecRecoTrackGenElecBTagEffFail");
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionElecRecoTrackGenElecNJetsEff = new TH1F("ExpectationReductionElecRecoTrackGenElecNJetsEff","ExpectationReductionElecRecoTrackGenElecNJetsEff",isotrackreductionNJets_-1,isoTrackReductionNJets_);
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJets_);
-				ExpectationReductionElecRecoTrackGenElecNJetsEffFail = (TH1F*)ExpectationReductionElecRecoTrackGenElecNJetsEff->Clone();
-				ExpectationReductionElecRecoTrackGenElecNJetsEffFail->SetName("ExpectationReductionElecRecoTrackGenElecNJetsEffFail");
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionElecRecoTrackGenElecHTEff = new TH1F("ExpectationReductionElecRecoTrackGenElecHTEff","ExpectationReductionElecRecoTrackGenElecHTEff",isotrackreductionHT_-1,isoTrackReductionHT_);
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJets_);
-				ExpectationReductionElecRecoTrackGenElecHTEffFail = (TH1F*)ExpectationReductionElecRecoTrackGenElecHTEff->Clone();
-				ExpectationReductionElecRecoTrackGenElecHTEffFail->SetName("ExpectationReductionElecRecoTrackGenElecHTEffFail");
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionElecRecoTrackGenElecMHTEff = new TH1F("ExpectationReductionElecRecoTrackGenElecMHTEff","ExpectationReductionElecRecoTrackGenElecMHTEff",isotrackreductionMHT_-1,isoTrackReductionMHT_);
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJets_);
-				ExpectationReductionElecRecoTrackGenElecMHTEffFail = (TH1F*)ExpectationReductionElecRecoTrackGenElecMHTEff->Clone();
-				ExpectationReductionElecRecoTrackGenElecMHTEffFail->SetName("ExpectationReductionElecRecoTrackGenElecMHTEffFail");
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionElecRecoTrackGenElecPTEff = new TH1F("ExpectationReductionElecRecoTrackGenElecPTEff","ExpectationReductionElecRecoTrackGenElecPTEff",isotrackreductionPT_-1,isoTrackReductionPT_);
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJets_);
-				ExpectationReductionElecRecoTrackGenElecPTEffFail = (TH1F*)ExpectationReductionElecRecoTrackGenElecPTEff->Clone();
-				ExpectationReductionElecRecoTrackGenElecPTEffFail->SetName("ExpectationReductionElecRecoTrackGenElecPTEffFail");
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJetsFail_); 
-				ExpectationReductionElecRecoTrackGenElecActivityEff = new TH1F("ExpectationReductionElecRecoTrackGenElecActivityEff","ExpectationReductionElecRecoTrackGenElecActivityEff",isotrackreductionActivity_-1,isoTrackReductionActivity_);
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJets_);
-				ExpectationReductionElecRecoTrackGenElecActivityEffFail = (TH1F*)ExpectationReductionElecRecoTrackGenElecActivityEff->Clone();
-				ExpectationReductionElecRecoTrackGenElecActivityEffFail->SetName("ExpectationReductionElecRecoTrackGenElecActivityEffFail");
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJetsFail_); 
-				
-				//2D
-				ElecRecoTrackGenElecReductionHTNJets_ = new TH2F("ElecRecoTrackGenElecReductionHTNJets","ElecRecoTrackGenElecReductionHTNJets",isotrackreductionHT_-1,isoTrackReductionHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJets_);
-				ElecRecoTrackGenElecReductionHTNJetsFail_ = (TH2F*)ElecRecoTrackGenElecReductionHTNJets_->Clone();
-				ElecRecoTrackGenElecReductionHTNJetsFail_->SetName("ElecRecoTrackGenElecReductionHTNJetsFail");
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionHTNJetsFail_); 
-				
-				ElecRecoTrackGenElecReductionMHTNJets_ = new TH2F("ElecRecoTrackGenElecReductionMHTNJets","ElecRecoTrackGenElecReductionMHTNJets",isotrackreductionMHT_-1,isoTrackReductionMHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionMHTNJets_);
-				ElecRecoTrackGenElecReductionMHTNJetsFail_ = (TH2F*)ElecRecoTrackGenElecReductionMHTNJets_->Clone();
-				ElecRecoTrackGenElecReductionMHTNJetsFail_->SetName("ElecRecoTrackGenElecReductionMHTNJetsFail");
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionMHTNJetsFail_); 
-				
-				ElecRecoTrackGenElecReductionBTagNJets_ = new TH2F("ElecRecoTrackGenElecReductionBTagNJets","ElecRecoTrackGenElecReductionBTagNJets",isotrackreductionBTags2D_-1,isoTrackReductionBTags2D_, isotrackreductionNJets2D_-1, isoTrackReductionNJets2D_);
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionBTagNJets_);
-				ElecRecoTrackGenElecReductionBTagNJetsFail_ = (TH2F*)ElecRecoTrackGenElecReductionBTagNJets_->Clone();
-				ElecRecoTrackGenElecReductionBTagNJetsFail_->SetName("ElecRecoTrackGenElecReductionBTagNJetsFail");
-				
-				ElecRecoTrackGenElecReductionPTActivity_ = new TH2F("ElecRecoTrackGenElecReductionPTActivity","ElecRecoTrackGenElecReductionPTActivity",isotrackreductionPT2D_-1,isoTrackReductionPT2D_, isotrackreductionActivity2D_-1, isoTrackReductionActivity2D_);
-				//GetOutputList()->Add(ElecRecoTrackGenElecReductionPTActivity_);
-				ElecRecoTrackGenElecReductionPTActivityFail_ = (TH2F*)ElecRecoTrackGenElecReductionPTActivity_->Clone();
-				ElecRecoTrackGenElecReductionPTActivityFail_->SetName("ElecRecoTrackGenElecReductionPTActivityFail");
-				
-				// pion iso track
-				//1D
-				ExpectationReductionPionRecoTrackGenElecBTagEff = new TH1F("ExpectationReductionPionRecoTrackGenElecBTagEff","ExpectationReductionPionRecoTrackGenElecBTagEff",isotrackreductionBTags_-1,isoTrackReductionBTags_);
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenElecBTagEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenElecBTagEff->Clone();
-				ExpectationReductionPionRecoTrackGenElecBTagEffFail->SetName("ExpectationReductionPionRecoTrackGenElecBTagEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionRecoTrackGenElecNJetsEff = new TH1F("ExpectationReductionPionRecoTrackGenElecNJetsEff","ExpectationReductionPionRecoTrackGenElecNJetsEff",isotrackreductionNJets_-1,isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenElecNJetsEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenElecNJetsEff->Clone();
-				ExpectationReductionPionRecoTrackGenElecNJetsEffFail->SetName("ExpectationReductionPionRecoTrackGenElecNJetsEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionRecoTrackGenElecHTEff = new TH1F("ExpectationReductionPionRecoTrackGenElecHTEff","ExpectationReductionPionRecoTrackGenElecHTEff",isotrackreductionHT_-1,isoTrackReductionHT_);
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenElecHTEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenElecHTEff->Clone();
-				ExpectationReductionPionRecoTrackGenElecHTEffFail->SetName("ExpectationReductionPionRecoTrackGenElecHTEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionRecoTrackGenElecMHTEff = new TH1F("ExpectationReductionPionRecoTrackGenElecMHTEff","ExpectationReductionPionRecoTrackGenElecMHTEff",isotrackreductionMHT_-1,isoTrackReductionMHT_);
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenElecMHTEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenElecMHTEff->Clone();
-				ExpectationReductionPionRecoTrackGenElecMHTEffFail->SetName("ExpectationReductionPionRecoTrackGenElecMHTEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionRecoTrackGenElecPTEff = new TH1F("ExpectationReductionPionRecoTrackGenElecPTEff","ExpectationReductionPionRecoTrackGenElecPTEff",isotrackreductionPT_-1,isoTrackReductionPT_);
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenElecPTEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenElecPTEff->Clone();
-				ExpectationReductionPionRecoTrackGenElecPTEffFail->SetName("ExpectationReductionPionRecoTrackGenElecPTEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJetsFail_); 
-				ExpectationReductionPionRecoTrackGenElecActivityEff = new TH1F("ExpectationReductionPionRecoTrackGenElecActivityEff","ExpectationReductionPionRecoTrackGenElecActivityEff",isotrackreductionActivity_-1,isoTrackReductionActivity_);
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenElecActivityEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenElecActivityEff->Clone();
-				ExpectationReductionPionRecoTrackGenElecActivityEffFail->SetName("ExpectationReductionPionRecoTrackGenElecActivityEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJetsFail_); 
-				
-				//2D
-				PionRecoTrackGenElecReductionHTNJets_ = new TH2F("PionRecoTrackGenElecReductionHTNJets","PionRecoTrackGenElecReductionHTNJets",isotrackreductionHT_-1,isoTrackReductionHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJets_);
-				PionRecoTrackGenElecReductionHTNJetsFail_ = (TH2F*)PionRecoTrackGenElecReductionHTNJets_->Clone();
-				PionRecoTrackGenElecReductionHTNJetsFail_->SetName("PionRecoTrackGenElecReductionHTNJetsFail");
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionHTNJetsFail_); 
-				
-				PionRecoTrackGenElecReductionMHTNJets_ = new TH2F("PionRecoTrackGenElecReductionMHTNJets","PionRecoTrackGenElecReductionMHTNJets",isotrackreductionMHT_-1,isoTrackReductionMHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionMHTNJets_);
-				PionRecoTrackGenElecReductionMHTNJetsFail_ = (TH2F*)PionRecoTrackGenElecReductionMHTNJets_->Clone();
-				PionRecoTrackGenElecReductionMHTNJetsFail_->SetName("PionRecoTrackGenElecReductionMHTNJetsFail");
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionMHTNJetsFail_); 
-				
-				PionRecoTrackGenElecReductionBTagNJets_ = new TH2F("PionRecoTrackGenElecReductionBTagNJets","PionRecoTrackGenElecReductionBTagNJets",isotrackreductionBTags2D_-1,isoTrackReductionBTags2D_, isotrackreductionNJets2D_-1, isoTrackReductionNJets2D_);
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionBTagNJets_);
-				PionRecoTrackGenElecReductionBTagNJetsFail_ = (TH2F*)PionRecoTrackGenElecReductionBTagNJets_->Clone();
-				PionRecoTrackGenElecReductionBTagNJetsFail_->SetName("PionRecoTrackGenElecReductionBTagNJetsFail");
-				
-				PionRecoTrackGenElecReductionPTActivity_ = new TH2F("PionRecoTrackGenElecReductionPTActivity","PionRecoTrackGenElecReductionPTActivity",isotrackreductionPT2D_-1,isoTrackReductionPT2D_, isotrackreductionActivity2D_-1, isoTrackReductionActivity2D_);
-				//GetOutputList()->Add(PionRecoTrackGenElecReductionPTActivity_);
-				PionRecoTrackGenElecReductionPTActivityFail_ = (TH2F*)PionRecoTrackGenElecReductionPTActivity_->Clone();
-				PionRecoTrackGenElecReductionPTActivityFail_->SetName("PionRecoTrackGenElecReductionPTActivityFail");
-				
-				
-				///////////////////////////////// gen had tau
-				// pion iso track
-				//1D
-				ExpectationReductionPionRecoTrackGenHadTauBTagEff = new TH1F("ExpectationReductionPionRecoTrackGenHadTauBTagEff","ExpectationReductionPionRecoTrackGenHadTauBTagEff",isotrackreductionBTags_-1,isoTrackReductionBTags_);
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenHadTauBTagEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenHadTauBTagEff->Clone();
-				ExpectationReductionPionRecoTrackGenHadTauBTagEffFail->SetName("ExpectationReductionPionRecoTrackGenHadTauBTagEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionRecoTrackGenHadTauNJetsEff = new TH1F("ExpectationReductionPionRecoTrackGenHadTauNJetsEff","ExpectationReductionPionRecoTrackGenHadTauNJetsEff",isotrackreductionNJets_-1,isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenHadTauNJetsEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenHadTauNJetsEff->Clone();
-				ExpectationReductionPionRecoTrackGenHadTauNJetsEffFail->SetName("ExpectationReductionPionRecoTrackGenHadTauNJetsEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionRecoTrackGenHadTauHTEff = new TH1F("ExpectationReductionPionRecoTrackGenHadTauHTEff","ExpectationReductionPionRecoTrackGenHadTauHTEff",isotrackreductionHT_-1,isoTrackReductionHT_);
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenHadTauHTEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenHadTauHTEff->Clone();
-				ExpectationReductionPionRecoTrackGenHadTauHTEffFail->SetName("ExpectationReductionPionRecoTrackGenHadTauHTEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionRecoTrackGenHadTauMHTEff = new TH1F("ExpectationReductionPionRecoTrackGenHadTauMHTEff","ExpectationReductionPionRecoTrackGenHadTauMHTEff",isotrackreductionMHT_-1,isoTrackReductionMHT_);
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenHadTauMHTEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenHadTauMHTEff->Clone();
-				ExpectationReductionPionRecoTrackGenHadTauMHTEffFail->SetName("ExpectationReductionPionRecoTrackGenHadTauMHTEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJetsFail_); 
-				
-				ExpectationReductionPionRecoTrackGenHadTauPTEff = new TH1F("ExpectationReductionPionRecoTrackGenHadTauPTEff","ExpectationReductionPionRecoTrackGenHadTauPTEff",isotrackreductionPT_-1,isoTrackReductionPT_);
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenHadTauPTEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenHadTauPTEff->Clone();
-				ExpectationReductionPionRecoTrackGenHadTauPTEffFail->SetName("ExpectationReductionPionRecoTrackGenHadTauPTEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJetsFail_); 
-				ExpectationReductionPionRecoTrackGenHadTauActivityEff = new TH1F("ExpectationReductionPionRecoTrackGenHadTauActivityEff","ExpectationReductionPionRecoTrackGenHadTauActivityEff",isotrackreductionActivity_-1,isoTrackReductionActivity_);
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJets_);
-				ExpectationReductionPionRecoTrackGenHadTauActivityEffFail = (TH1F*)ExpectationReductionPionRecoTrackGenHadTauActivityEff->Clone();
-				ExpectationReductionPionRecoTrackGenHadTauActivityEffFail->SetName("ExpectationReductionPionRecoTrackGenHadTauActivityEffFail");
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJetsFail_); 
-				
-				//2D
-				PionRecoTrackGenHadTauReductionHTNJets_ = new TH2F("PionRecoTrackGenHadTauReductionHTNJets","PionRecoTrackGenHadTauReductionHTNJets",isotrackreductionHT_-1,isoTrackReductionHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJets_);
-				PionRecoTrackGenHadTauReductionHTNJetsFail_ = (TH2F*)PionRecoTrackGenHadTauReductionHTNJets_->Clone();
-				PionRecoTrackGenHadTauReductionHTNJetsFail_->SetName("PionRecoTrackGenHadTauReductionHTNJetsFail");
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionHTNJetsFail_); 
-				
-				PionRecoTrackGenHadTauReductionMHTNJets_ = new TH2F("PionRecoTrackGenHadTauReductionMHTNJets","PionRecoTrackGenHadTauReductionMHTNJets",isotrackreductionMHT_-1,isoTrackReductionMHT_, isotrackreductionNJets_-1, isoTrackReductionNJets_);
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionMHTNJets_);
-				PionRecoTrackGenHadTauReductionMHTNJetsFail_ = (TH2F*)PionRecoTrackGenHadTauReductionMHTNJets_->Clone();
-				PionRecoTrackGenHadTauReductionMHTNJetsFail_->SetName("PionRecoTrackGenHadTauReductionMHTNJetsFail");
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionMHTNJetsFail_); 
-				
-				PionRecoTrackGenHadTauReductionBTagNJets_ = new TH2F("PionRecoTrackGenHadTauReductionBTagNJets","PionRecoTrackGenHadTauReductionBTagNJets",isotrackreductionBTags2D_-1,isoTrackReductionBTags2D_, isotrackreductionNJets2D_-1, isoTrackReductionNJets2D_);
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionBTagNJets_);
-				PionRecoTrackGenHadTauReductionBTagNJetsFail_ = (TH2F*)PionRecoTrackGenHadTauReductionBTagNJets_->Clone();
-				PionRecoTrackGenHadTauReductionBTagNJetsFail_->SetName("PionRecoTrackGenHadTauReductionBTagNJetsFail");
-				
-				PionRecoTrackGenHadTauReductionPTActivity_ = new TH2F("PionRecoTrackGenHadTauReductionPTActivity","PionRecoTrackGenHadTauReductionPTActivity",isotrackreductionPT2D_-1,isoTrackReductionPT2D_, isotrackreductionActivity2D_-1, isoTrackReductionActivity2D_);
-				//GetOutputList()->Add(PionRecoTrackGenHadTauReductionPTActivity_);
-				PionRecoTrackGenHadTauReductionPTActivityFail_ = (TH2F*)PionRecoTrackGenHadTauReductionPTActivity_->Clone();
-				PionRecoTrackGenHadTauReductionPTActivityFail_->SetName("PionRecoTrackGenHadTauReductionPTActivityFail");
-				
-				
-				// ************************************************************************************************************* 25 June 2015 ****************************************************
 	// delta R jet and pT jet
 	
 	MuIsoPTJetRel_ = new TH1F("MuIsoPTJetRel","MuIsoPTJetRel",oneDPT_-1,OneDPT_);
@@ -3007,15 +2358,6 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuAccBTagNJetsEff_->Fill(BTags,NJets,Weight,true);
 		// search bin efficiencies
 		MuAccSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
-                
-                if(NJets<6.5)
-                {
-                  MuAccHTMHT_NJets46_->Fill(HT,MHT,Weight);
-                }
-                else
-                {
-                  MuAccHTMHT_NJets7Inf_->Fill(HT,MHT,Weight);
-                }
 	}
 	if(muAcc==0)
 	{
@@ -3032,15 +2374,6 @@ Bool_t EffMaker::Process(Long64_t entry)
 		MuAccBTagNJetsEff_->Fill(BTags,NJets,Weight,false);
 		// search bin efficiencies
 		MuAccSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
-                
-                if(NJets<6.5)
-                {
-                  MuAccHTMHT_NJets46Fail_->Fill(HT,MHT,Weight);
-                }
-                else
-                {
-                  MuAccHTMHT_NJets7InfFail_->Fill(HT,MHT,Weight);
-                }
 	}
 	
 	// single elecon control sample
@@ -3059,15 +2392,6 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ElecAccBTagNJetsEff_->Fill(BTags,NJets,Weight,true);
 		// search bin efficiencies
 		ElecAccSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,true);
-                
-                if(NJets<6.5)
-                {
-                  ElecAccHTMHT_NJets46_->Fill(HT,MHT,Weight);
-                }
-                else
-                {
-                  ElecAccHTMHT_NJets7Inf_->Fill(HT,MHT,Weight);
-                }
 	}
 	if(elecAcc==0)
 	{
@@ -3084,15 +2408,6 @@ Bool_t EffMaker::Process(Long64_t entry)
 		ElecAccBTagNJetsEff_->Fill(BTags,NJets,Weight,false);
 		// search bin efficiencies
 		ElecAccSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
-                
-                if(NJets<6.5)
-                {
-                  ElecAccHTMHT_NJets46Fail_->Fill(HT,MHT,Weight);
-                }
-                else
-                {
-                  ElecAccHTMHT_NJets7InfFail_->Fill(HT,MHT,Weight);
-                }
 	}
 	
 	// reconstruction
@@ -3698,25 +3013,18 @@ Bool_t EffMaker::Process(Long64_t entry)
 	}
 	if(Expectation==1 && IsolatedMuonTracksVetoNum>0)
 	{
-		for(unsigned int i=0; i<IsolatedMuonTracksVetoNum;i++)
-		{
-			if(muIsoTrackMatchedToGenMu[i]==1)
-			{
-				ExpectationReductionMuIsoTrackBTagEff->Fill(BTags,Weight);
-				ExpectationReductionMuIsoTrackNJetsEff->Fill(NJets,Weight);
-				ExpectationReductionMuIsoTrackHTEff->Fill(HT,Weight);
-				ExpectationReductionMuIsoTrackMHTEff->Fill(MHT,Weight);
-				ExpectationReductionMuIsoTrackPTEff->Fill(IsolatedMuonTracksVetoPt[0],Weight);
-				ExpectationReductionMuIsoTrackActivityEff->Fill(IsolatedMuonTracksVetoActivity[0],Weight);
-				
-				//2D
-				MuIsoTrackReductionHTNJets_->Fill(HT,NJets,Weight);
-				MuIsoTrackReductionMHTNJets_->Fill(MHT,NJets,Weight);
-				MuIsoTrackReductionBTagNJets_->Fill(BTags,NJets,Weight);
-				MuIsoTrackReductionPTActivity_->Fill(IsolatedMuonTracksVetoPt[0],IsolatedMuonTracksVetoActivity[0],Weight);
-				break;
-			}
-		}
+		ExpectationReductionMuIsoTrackBTagEff->Fill(BTags,Weight);
+		ExpectationReductionMuIsoTrackNJetsEff->Fill(NJets,Weight);
+		ExpectationReductionMuIsoTrackHTEff->Fill(HT,Weight);
+		ExpectationReductionMuIsoTrackMHTEff->Fill(MHT,Weight);
+		ExpectationReductionMuIsoTrackPTEff->Fill(IsolatedMuonTracksVetoPt[0],Weight);
+		ExpectationReductionMuIsoTrackActivityEff->Fill(IsolatedMuonTracksVetoActivity[0],Weight);
+		
+		//2D
+		MuIsoTrackReductionHTNJets_->Fill(HT,NJets,Weight);
+		MuIsoTrackReductionMHTNJets_->Fill(MHT,NJets,Weight);
+		MuIsoTrackReductionBTagNJets_->Fill(BTags,NJets,Weight);
+		MuIsoTrackReductionPTActivity_->Fill(IsolatedMuonTracksVetoPt[0],IsolatedMuonTracksVetoActivity[0],Weight);
 		
 	}
 	
@@ -3739,29 +3047,22 @@ Bool_t EffMaker::Process(Long64_t entry)
 	}
 	if(Expectation==1 && IsolatedElectronTracksVetoNum>0)
 	{
-		for(unsigned int i=0; i<IsolatedElectronTracksVetoNum;i++)
-		{
-			if(elecIsoTrackMatchedToGenElec[i]==1)
-			{
-				ExpectationReductionElecIsoTrackBTagEff->Fill(BTags,Weight);
-				ExpectationReductionElecIsoTrackNJetsEff->Fill(NJets,Weight);
-				ExpectationReductionElecIsoTrackHTEff->Fill(HT,Weight);
-				ExpectationReductionElecIsoTrackMHTEff->Fill(MHT,Weight);
-				ExpectationReductionElecIsoTrackPTEff->Fill(IsolatedElectronTracksVetoPt[0],Weight);
-				ExpectationReductionElecIsoTrackActivityEff->Fill(IsolatedElectronTracksVetoActivity[0],Weight);
-				
-				//2D
-				ElecIsoTrackReductionHTNJets_->Fill(HT,NJets,Weight);
-				ElecIsoTrackReductionMHTNJets_->Fill(MHT,NJets,Weight);
-				ElecIsoTrackReductionBTagNJets_->Fill(BTags,NJets,Weight);
-				ElecIsoTrackReductionPTActivity_->Fill(IsolatedElectronTracksVetoPt[0],IsolatedElectronTracksVetoActivity[0],Weight);
-				break;
-			}
-		}
+		ExpectationReductionElecIsoTrackBTagEff->Fill(BTags,Weight);
+		ExpectationReductionElecIsoTrackNJetsEff->Fill(NJets,Weight);
+		ExpectationReductionElecIsoTrackHTEff->Fill(HT,Weight);
+		ExpectationReductionElecIsoTrackMHTEff->Fill(MHT,Weight);
+		ExpectationReductionElecIsoTrackPTEff->Fill(IsolatedElectronTracksVetoPt[0],Weight);
+		ExpectationReductionElecIsoTrackActivityEff->Fill(IsolatedElectronTracksVetoActivity[0],Weight);
+		
+		//2D
+		ElecIsoTrackReductionHTNJets_->Fill(HT,NJets,Weight);
+		ElecIsoTrackReductionMHTNJets_->Fill(MHT,NJets,Weight);
+		ElecIsoTrackReductionBTagNJets_->Fill(BTags,NJets,Weight);
+		ElecIsoTrackReductionPTActivity_->Fill(IsolatedElectronTracksVetoPt[0],IsolatedElectronTracksVetoActivity[0],Weight);
 		
 	}
 	// pion iso tracks
-	if(Expectation==1 && IsolatedPionTracksVetoNum==0 )
+	if(Expectation==1 && IsolatedPionTracksVetoNum==0)
 	{
 		ExpectationReductionPionIsoTrackBTagEffFail->Fill(BTags,Weight);
 		ExpectationReductionPionIsoTrackNJetsEffFail->Fill(NJets,Weight);
@@ -3778,371 +3079,26 @@ Bool_t EffMaker::Process(Long64_t entry)
 	}
 	if(Expectation==1 && IsolatedPionTracksVetoNum>0)
 	{
-// 		for(unsigned int i=0; i<IsolatedPionTracksVetoNum;i++)
-// 		{
-// 			if(pionIsoTrackMatchedToGenMu[i]==1 || pionIsoTrackMatchedToGenElec[i]==1)
-// 			{
-				ExpectationReductionPionIsoTrackBTagEff->Fill(BTags,Weight);
-				ExpectationReductionPionIsoTrackNJetsEff->Fill(NJets,Weight);
-				ExpectationReductionPionIsoTrackHTEff->Fill(HT,Weight);
-				ExpectationReductionPionIsoTrackMHTEff->Fill(MHT,Weight);
-				ExpectationReductionPionIsoTrackPTEff->Fill(IsolatedPionTracksVetoPt[0],Weight);
-				ExpectationReductionPionIsoTrackActivityEff->Fill(IsolatedPionTracksVetoActivity[0],Weight);
-				
-				//2D
-				PionIsoTrackReductionHTNJets_->Fill(HT,NJets,Weight);
-				PionIsoTrackReductionMHTNJets_->Fill(MHT,NJets,Weight);
-				PionIsoTrackReductionBTagNJets_->Fill(BTags,NJets,Weight);
-				PionIsoTrackReductionPTActivity_->Fill(IsolatedPionTracksVetoPt[0],IsolatedPionTracksVetoActivity[0],Weight);
-// 			}
-// 		}
+		ExpectationReductionPionIsoTrackBTagEff->Fill(BTags,Weight);
+		ExpectationReductionPionIsoTrackNJetsEff->Fill(NJets,Weight);
+		ExpectationReductionPionIsoTrackHTEff->Fill(HT,Weight);
+		ExpectationReductionPionIsoTrackMHTEff->Fill(MHT,Weight);
+		ExpectationReductionPionIsoTrackPTEff->Fill(IsolatedPionTracksVetoPt[0],Weight);
+		ExpectationReductionPionIsoTrackActivityEff->Fill(IsolatedPionTracksVetoActivity[0],Weight);
+		
+		//2D
+		PionIsoTrackReductionHTNJets_->Fill(HT,NJets,Weight);
+		PionIsoTrackReductionMHTNJets_->Fill(MHT,NJets,Weight);
+		PionIsoTrackReductionBTagNJets_->Fill(BTags,NJets,Weight);
+		PionIsoTrackReductionPTActivity_->Fill(IsolatedPionTracksVetoPt[0],IsolatedPionTracksVetoActivity[0],Weight);
 		
 	}
-
 	
 	
 	
 	// ************************************************************************************************************* 22 June 2015 end****************************************************
 	
-	
-	///////// ISO //////////////////////
-	
-	// gen mu tracks
-	if(Expectation==1 && muIsoTrackIso==2)
-	{
-		ExpectationReductionMuIsoTrackGenMuBTagEff->Fill(BTags,Weight);
-		ExpectationReductionMuIsoTrackGenMuNJetsEff->Fill(NJets,Weight);
-		ExpectationReductionMuIsoTrackGenMuHTEff->Fill(HT,Weight);
-		ExpectationReductionMuIsoTrackGenMuMHTEff->Fill(MHT,Weight);
-		ExpectationReductionMuIsoTrackGenMuPTEff->Fill(GenMuPt[0],Weight);
-		ExpectationReductionMuIsoTrackGenMuActivityEff->Fill(GenMuonActivity[0],Weight);
-		
-		//2D
-		MuIsoTrackGenMuReductionHTNJets_->Fill(HT,NJets,Weight);
-		MuIsoTrackGenMuReductionMHTNJets_->Fill(MHT,NJets,Weight);
-		MuIsoTrackGenMuReductionBTagNJets_->Fill(BTags,NJets,Weight);
-		MuIsoTrackGenMuReductionPTActivity_->Fill(GenMuPt[0],GenMuonActivity[0],Weight);
-		
-
-		
-	}
-	if(Expectation==1 && pionIsoTrackIso==2 && GenMuNum==1)
-	{
-		ExpectationReductionPionIsoTrackGenMuBTagEff->Fill(BTags,Weight);
-		ExpectationReductionPionIsoTrackGenMuNJetsEff->Fill(NJets,Weight);
-		ExpectationReductionPionIsoTrackGenMuHTEff->Fill(HT,Weight);
-		ExpectationReductionPionIsoTrackGenMuMHTEff->Fill(MHT,Weight);
-		ExpectationReductionPionIsoTrackGenMuPTEff->Fill(GenMuPt[0],Weight);
-		ExpectationReductionPionIsoTrackGenMuActivityEff->Fill(GenMuonActivity[0],Weight);
-		
-		//2D
-		PionIsoTrackGenMuReductionHTNJets_->Fill(HT,NJets,Weight);
-		PionIsoTrackGenMuReductionMHTNJets_->Fill(MHT,NJets,Weight);
-		PionIsoTrackGenMuReductionBTagNJets_->Fill(BTags,NJets,Weight);
-		PionIsoTrackGenMuReductionPTActivity_->Fill(GenMuPt[0],GenMuonActivity[0],Weight);
-	}
-	if(Expectation==1 && muIsoTrackIso==0)
-	{
-		ExpectationReductionMuIsoTrackGenMuBTagEffFail->Fill(BTags,Weight);
-		ExpectationReductionMuIsoTrackGenMuNJetsEffFail->Fill(NJets,Weight);
-		ExpectationReductionMuIsoTrackGenMuHTEffFail->Fill(HT,Weight);
-		ExpectationReductionMuIsoTrackGenMuMHTEffFail->Fill(MHT,Weight);
-		ExpectationReductionMuIsoTrackGenMuPTEffFail->Fill(GenMuPt[0],Weight);
-		ExpectationReductionMuIsoTrackGenMuActivityEffFail->Fill(GenMuonActivity[0],Weight);
-		//2D
-		MuIsoTrackGenMuReductionHTNJetsFail_->Fill(HT,NJets,Weight);
-		MuIsoTrackGenMuReductionMHTNJetsFail_->Fill(MHT,NJets,Weight);
-		MuIsoTrackGenMuReductionBTagNJetsFail_->Fill(BTags,NJets,Weight);
-		MuIsoTrackGenMuReductionPTActivityFail_->Fill(GenMuPt[0],GenMuonActivity[0],Weight);
-		
-	}
-	if(Expectation==1 && pionIsoTrackReco==2 && pionIsoTrackIso==0 && GenMuNum==1)
-	{
-		ExpectationReductionPionIsoTrackGenMuBTagEffFail->Fill(BTags,Weight);
-		ExpectationReductionPionIsoTrackGenMuNJetsEffFail->Fill(NJets,Weight);
-		ExpectationReductionPionIsoTrackGenMuHTEffFail->Fill(HT,Weight);
-		ExpectationReductionPionIsoTrackGenMuMHTEffFail->Fill(MHT,Weight);
-		ExpectationReductionPionIsoTrackGenMuPTEffFail->Fill(GenMuPt[0],Weight);
-		ExpectationReductionPionIsoTrackGenMuActivityEffFail->Fill(GenMuonActivity[0],Weight);
-		
-		//2D
-		PionIsoTrackGenMuReductionHTNJetsFail_->Fill(HT,NJets,Weight);
-		PionIsoTrackGenMuReductionMHTNJetsFail_->Fill(MHT,NJets,Weight);
-		PionIsoTrackGenMuReductionBTagNJetsFail_->Fill(BTags,NJets,Weight);
-		PionIsoTrackGenMuReductionPTActivityFail_->Fill(GenMuPt[0],GenMuonActivity[0],Weight);
-	}
-	
-	// gen elec tracks
-	
-	if(Expectation==1 && elecIsoTrackIso==2)
-	{
-		ExpectationReductionElecIsoTrackGenElecBTagEff->Fill(BTags,Weight);
-		ExpectationReductionElecIsoTrackGenElecNJetsEff->Fill(NJets,Weight);
-		ExpectationReductionElecIsoTrackGenElecHTEff->Fill(HT,Weight);
-		ExpectationReductionElecIsoTrackGenElecMHTEff->Fill(MHT,Weight);
-		ExpectationReductionElecIsoTrackGenElecPTEff->Fill(GenElecPt[0],Weight);
-		ExpectationReductionElecIsoTrackGenElecActivityEff->Fill(GenElecActivity[0],Weight);
-		
-		//2D
-		ElecIsoTrackGenElecReductionHTNJets_->Fill(HT,NJets,Weight);
-		ElecIsoTrackGenElecReductionMHTNJets_->Fill(MHT,NJets,Weight);
-		ElecIsoTrackGenElecReductionBTagNJets_->Fill(BTags,NJets,Weight);
-		ElecIsoTrackGenElecReductionPTActivity_->Fill(GenElecPt[0],GenElecActivity[0],Weight);
-		
-		
-		
-	}
-	if(Expectation==1 && pionIsoTrackIso==2 && GenElecNum==1)
-	{
-		ExpectationReductionPionIsoTrackGenElecBTagEff->Fill(BTags,Weight);
-		ExpectationReductionPionIsoTrackGenElecNJetsEff->Fill(NJets,Weight);
-		ExpectationReductionPionIsoTrackGenElecHTEff->Fill(HT,Weight);
-		ExpectationReductionPionIsoTrackGenElecMHTEff->Fill(MHT,Weight);
-		ExpectationReductionPionIsoTrackGenElecPTEff->Fill(GenElecPt[0],Weight);
-		ExpectationReductionPionIsoTrackGenElecActivityEff->Fill(GenElecActivity[0],Weight);
-		
-		//2D
-		PionIsoTrackGenElecReductionHTNJets_->Fill(HT,NJets,Weight);
-		PionIsoTrackGenElecReductionMHTNJets_->Fill(MHT,NJets,Weight);
-		PionIsoTrackGenElecReductionBTagNJets_->Fill(BTags,NJets,Weight);
-		PionIsoTrackGenElecReductionPTActivity_->Fill(GenElecPt[0],GenElecActivity[0],Weight);
-	}
-	if(Expectation==1 && elecIsoTrackIso==0)
-	{
-		ExpectationReductionElecIsoTrackGenElecBTagEffFail->Fill(BTags,Weight);
-		ExpectationReductionElecIsoTrackGenElecNJetsEffFail->Fill(NJets,Weight);
-		ExpectationReductionElecIsoTrackGenElecHTEffFail->Fill(HT,Weight);
-		ExpectationReductionElecIsoTrackGenElecMHTEffFail->Fill(MHT,Weight);
-		ExpectationReductionElecIsoTrackGenElecPTEffFail->Fill(GenElecPt[0],Weight);
-		ExpectationReductionElecIsoTrackGenElecActivityEffFail->Fill(GenElecActivity[0],Weight);
-		//2D
-		ElecIsoTrackGenElecReductionHTNJetsFail_->Fill(HT,NJets,Weight);
-		ElecIsoTrackGenElecReductionMHTNJetsFail_->Fill(MHT,NJets,Weight);
-		ElecIsoTrackGenElecReductionBTagNJetsFail_->Fill(BTags,NJets,Weight);
-		ElecIsoTrackGenElecReductionPTActivityFail_->Fill(GenElecPt[0],GenElecActivity[0],Weight);
-		
-	}
-	
-	if(Expectation==1 && pionIsoTrackIso==0 && pionIsoTrackReco==2 && GenElecNum==1)
-	{
-		ExpectationReductionPionIsoTrackGenElecBTagEffFail->Fill(BTags,Weight);
-		ExpectationReductionPionIsoTrackGenElecNJetsEffFail->Fill(NJets,Weight);
-		ExpectationReductionPionIsoTrackGenElecHTEffFail->Fill(HT,Weight);
-		ExpectationReductionPionIsoTrackGenElecMHTEffFail->Fill(MHT,Weight);
-		ExpectationReductionPionIsoTrackGenElecPTEffFail->Fill(GenElecPt[0],Weight);
-		ExpectationReductionPionIsoTrackGenElecActivityEffFail->Fill(GenElecActivity[0],Weight);
-		
-		//2D
-		PionIsoTrackGenElecReductionHTNJetsFail_->Fill(HT,NJets,Weight);
-		PionIsoTrackGenElecReductionMHTNJetsFail_->Fill(MHT,NJets,Weight);
-		PionIsoTrackGenElecReductionBTagNJetsFail_->Fill(BTags,NJets,Weight);
-		PionIsoTrackGenElecReductionPTActivityFail_->Fill(GenElecPt[0],GenElecActivity[0],Weight);
-	}
-	
-	
-	// had tau tracks
-	
-	if(Expectation==1 && pionIsoTrackIso==2 && GenElecNum==0 && GenMuNum==0 && GenTauNum==1)
-	{
-		ExpectationReductionPionIsoTrackGenHadTauBTagEff->Fill(BTags,Weight);
-		ExpectationReductionPionIsoTrackGenHadTauNJetsEff->Fill(NJets,Weight);
-		ExpectationReductionPionIsoTrackGenHadTauHTEff->Fill(HT,Weight);
-		ExpectationReductionPionIsoTrackGenHadTauMHTEff->Fill(MHT,Weight);
-		ExpectationReductionPionIsoTrackGenHadTauPTEff->Fill(GenTauPt[0],Weight);
-		ExpectationReductionPionIsoTrackGenHadTauActivityEff->Fill(GenTauActivity[0],Weight);
-		
-		//2D
-		PionIsoTrackGenHadTauReductionHTNJets_->Fill(HT,NJets,Weight);
-		PionIsoTrackGenHadTauReductionMHTNJets_->Fill(MHT,NJets,Weight);
-		PionIsoTrackGenHadTauReductionBTagNJets_->Fill(BTags,NJets,Weight);
-		PionIsoTrackGenHadTauReductionPTActivity_->Fill(GenTauPt[0],GenTauActivity[0],Weight);
-	}
-	
-	if(Expectation==1 && pionIsoTrackIso==0 && GenElecNum==0 && GenMuNum==0 && GenTauNum==1)
-	{
-		ExpectationReductionPionIsoTrackGenHadTauBTagEffFail->Fill(BTags,Weight);
-		ExpectationReductionPionIsoTrackGenHadTauNJetsEffFail->Fill(NJets,Weight);
-		ExpectationReductionPionIsoTrackGenHadTauHTEffFail->Fill(HT,Weight);
-		ExpectationReductionPionIsoTrackGenHadTauMHTEffFail->Fill(MHT,Weight);
-		ExpectationReductionPionIsoTrackGenHadTauPTEffFail->Fill(GenTauPt[0],Weight);
-		ExpectationReductionPionIsoTrackGenHadTauActivityEffFail->Fill(GenTauActivity[0],Weight);
-		
-		//2D
-		PionIsoTrackGenHadTauReductionHTNJetsFail_->Fill(HT,NJets,Weight);
-		PionIsoTrackGenHadTauReductionMHTNJetsFail_->Fill(MHT,NJets,Weight);
-		PionIsoTrackGenHadTauReductionBTagNJetsFail_->Fill(BTags,NJets,Weight);
-		PionIsoTrackGenHadTauReductionPTActivityFail_->Fill(GenTauPt[0],GenTauActivity[0],Weight);
-	}
-	
-	
-	//////////////////// RECO //////////////////////
-	// gen mu tracks
-	if(Expectation==1 && muIsoTrackReco==2)
-	{
-		ExpectationReductionMuRecoTrackGenMuBTagEff->Fill(BTags,Weight);
-		ExpectationReductionMuRecoTrackGenMuNJetsEff->Fill(NJets,Weight);
-		ExpectationReductionMuRecoTrackGenMuHTEff->Fill(HT,Weight);
-		ExpectationReductionMuRecoTrackGenMuMHTEff->Fill(MHT,Weight);
-		ExpectationReductionMuRecoTrackGenMuPTEff->Fill(GenMuPt[0],Weight);
-		ExpectationReductionMuRecoTrackGenMuActivityEff->Fill(GenMuonActivity[0],Weight);
-		
-		//2D
-		MuRecoTrackGenMuReductionHTNJets_->Fill(HT,NJets,Weight);
-		MuRecoTrackGenMuReductionMHTNJets_->Fill(MHT,NJets,Weight);
-		MuRecoTrackGenMuReductionBTagNJets_->Fill(BTags,NJets,Weight);
-		MuRecoTrackGenMuReductionPTActivity_->Fill(GenMuPt[0],GenMuonActivity[0],Weight);
-		
-		
-		
-	}
-	if(Expectation==1 && pionIsoTrackReco==2 && GenMuNum==1)
-	{
-		ExpectationReductionPionRecoTrackGenMuBTagEff->Fill(BTags,Weight);
-		ExpectationReductionPionRecoTrackGenMuNJetsEff->Fill(NJets,Weight);
-		ExpectationReductionPionRecoTrackGenMuHTEff->Fill(HT,Weight);
-		ExpectationReductionPionRecoTrackGenMuMHTEff->Fill(MHT,Weight);
-		ExpectationReductionPionRecoTrackGenMuPTEff->Fill(GenMuPt[0],Weight);
-		ExpectationReductionPionRecoTrackGenMuActivityEff->Fill(GenMuonActivity[0],Weight);
-		
-		//2D
-		PionRecoTrackGenMuReductionHTNJets_->Fill(HT,NJets,Weight);
-		PionRecoTrackGenMuReductionMHTNJets_->Fill(MHT,NJets,Weight);
-		PionRecoTrackGenMuReductionBTagNJets_->Fill(BTags,NJets,Weight);
-		PionRecoTrackGenMuReductionPTActivity_->Fill(GenMuPt[0],GenMuonActivity[0],Weight);
-	}
-	if(Expectation==1 && muIsoTrackReco!=2)
-	{
-		ExpectationReductionMuRecoTrackGenMuBTagEffFail->Fill(BTags,Weight);
-		ExpectationReductionMuRecoTrackGenMuNJetsEffFail->Fill(NJets,Weight);
-		ExpectationReductionMuRecoTrackGenMuHTEffFail->Fill(HT,Weight);
-		ExpectationReductionMuRecoTrackGenMuMHTEffFail->Fill(MHT,Weight);
-		ExpectationReductionMuRecoTrackGenMuPTEffFail->Fill(GenMuPt[0],Weight);
-		ExpectationReductionMuRecoTrackGenMuActivityEffFail->Fill(GenMuonActivity[0],Weight);
-		//2D
-		MuRecoTrackGenMuReductionHTNJetsFail_->Fill(HT,NJets,Weight);
-		MuRecoTrackGenMuReductionMHTNJetsFail_->Fill(MHT,NJets,Weight);
-		MuRecoTrackGenMuReductionBTagNJetsFail_->Fill(BTags,NJets,Weight);
-		MuRecoTrackGenMuReductionPTActivityFail_->Fill(GenMuPt[0],GenMuonActivity[0],Weight);
-		
-	}
-	
-	if(Expectation==1 && pionIsoTrackReco!=2 && GenMuNum==1)
-	{
-		ExpectationReductionPionRecoTrackGenMuBTagEffFail->Fill(BTags,Weight);
-		ExpectationReductionPionRecoTrackGenMuNJetsEffFail->Fill(NJets,Weight);
-		ExpectationReductionPionRecoTrackGenMuHTEffFail->Fill(HT,Weight);
-		ExpectationReductionPionRecoTrackGenMuMHTEffFail->Fill(MHT,Weight);
-		ExpectationReductionPionRecoTrackGenMuPTEffFail->Fill(GenMuPt[0],Weight);
-		ExpectationReductionPionRecoTrackGenMuActivityEffFail->Fill(GenMuonActivity[0],Weight);
-		
-		//2D
-		PionRecoTrackGenMuReductionHTNJetsFail_->Fill(HT,NJets,Weight);
-		PionRecoTrackGenMuReductionMHTNJetsFail_->Fill(MHT,NJets,Weight);
-		PionRecoTrackGenMuReductionBTagNJetsFail_->Fill(BTags,NJets,Weight);
-		PionRecoTrackGenMuReductionPTActivityFail_->Fill(GenMuPt[0],GenMuonActivity[0],Weight);
-	}
-	
-	// gen elec tracks
-	
-	if(Expectation==1 && elecIsoTrackReco==2)
-	{
-		ExpectationReductionElecRecoTrackGenElecBTagEff->Fill(BTags,Weight);
-		ExpectationReductionElecRecoTrackGenElecNJetsEff->Fill(NJets,Weight);
-		ExpectationReductionElecRecoTrackGenElecHTEff->Fill(HT,Weight);
-		ExpectationReductionElecRecoTrackGenElecMHTEff->Fill(MHT,Weight);
-		ExpectationReductionElecRecoTrackGenElecPTEff->Fill(GenElecPt[0],Weight);
-		ExpectationReductionElecRecoTrackGenElecActivityEff->Fill(GenElecActivity[0],Weight);
-		
-		//2D
-		ElecRecoTrackGenElecReductionHTNJets_->Fill(HT,NJets,Weight);
-		ElecRecoTrackGenElecReductionMHTNJets_->Fill(MHT,NJets,Weight);
-		ElecRecoTrackGenElecReductionBTagNJets_->Fill(BTags,NJets,Weight);
-		ElecRecoTrackGenElecReductionPTActivity_->Fill(GenElecPt[0],GenElecActivity[0],Weight);
-		
-		
-		
-	}
-	if(Expectation==1 && pionIsoTrackReco==2 && GenElecNum==1)
-	{
-		ExpectationReductionPionRecoTrackGenElecBTagEff->Fill(BTags,Weight);
-		ExpectationReductionPionRecoTrackGenElecNJetsEff->Fill(NJets,Weight);
-		ExpectationReductionPionRecoTrackGenElecHTEff->Fill(HT,Weight);
-		ExpectationReductionPionRecoTrackGenElecMHTEff->Fill(MHT,Weight);
-		ExpectationReductionPionRecoTrackGenElecPTEff->Fill(GenElecPt[0],Weight);
-		ExpectationReductionPionRecoTrackGenElecActivityEff->Fill(GenElecActivity[0],Weight);
-		
-		//2D
-		PionRecoTrackGenElecReductionHTNJets_->Fill(HT,NJets,Weight);
-		PionRecoTrackGenElecReductionMHTNJets_->Fill(MHT,NJets,Weight);
-		PionRecoTrackGenElecReductionBTagNJets_->Fill(BTags,NJets,Weight);
-		PionRecoTrackGenElecReductionPTActivity_->Fill(GenElecPt[0],GenElecActivity[0],Weight);
-	}
-	if(Expectation==1 && elecIsoTrackReco!=2)
-	{
-		ExpectationReductionElecRecoTrackGenElecBTagEffFail->Fill(BTags,Weight);
-		ExpectationReductionElecRecoTrackGenElecNJetsEffFail->Fill(NJets,Weight);
-		ExpectationReductionElecRecoTrackGenElecHTEffFail->Fill(HT,Weight);
-		ExpectationReductionElecRecoTrackGenElecMHTEffFail->Fill(MHT,Weight);
-		ExpectationReductionElecRecoTrackGenElecPTEffFail->Fill(GenElecPt[0],Weight);
-		ExpectationReductionElecRecoTrackGenElecActivityEffFail->Fill(GenElecActivity[0],Weight);
-		//2D
-		ElecRecoTrackGenElecReductionHTNJetsFail_->Fill(HT,NJets,Weight);
-		ElecRecoTrackGenElecReductionMHTNJetsFail_->Fill(MHT,NJets,Weight);
-		ElecRecoTrackGenElecReductionBTagNJetsFail_->Fill(BTags,NJets,Weight);
-		ElecRecoTrackGenElecReductionPTActivityFail_->Fill(GenElecPt[0],GenElecActivity[0],Weight);
-		
-	}
-	
-	if(Expectation==1 && pionIsoTrackReco!=2 && GenElecNum==1)
-	{
-		ExpectationReductionPionRecoTrackGenElecBTagEffFail->Fill(BTags,Weight);
-		ExpectationReductionPionRecoTrackGenElecNJetsEffFail->Fill(NJets,Weight);
-		ExpectationReductionPionRecoTrackGenElecHTEffFail->Fill(HT,Weight);
-		ExpectationReductionPionRecoTrackGenElecMHTEffFail->Fill(MHT,Weight);
-		ExpectationReductionPionRecoTrackGenElecPTEffFail->Fill(GenElecPt[0],Weight);
-		ExpectationReductionPionRecoTrackGenElecActivityEffFail->Fill(GenElecActivity[0],Weight);
-		
-		//2D
-		PionRecoTrackGenElecReductionHTNJetsFail_->Fill(HT,NJets,Weight);
-		PionRecoTrackGenElecReductionMHTNJetsFail_->Fill(MHT,NJets,Weight);
-		PionRecoTrackGenElecReductionBTagNJetsFail_->Fill(BTags,NJets,Weight);
-		PionRecoTrackGenElecReductionPTActivityFail_->Fill(GenElecPt[0],GenElecActivity[0],Weight);
-	}
-	
-	
-	// had tau tracks
-	
-	if(Expectation==1 && pionIsoTrackReco==2 && GenElecNum==0 && GenMuNum==0 && GenTauNum==1)
-	{
-		ExpectationReductionPionRecoTrackGenHadTauBTagEff->Fill(BTags,Weight);
-		ExpectationReductionPionRecoTrackGenHadTauNJetsEff->Fill(NJets,Weight);
-		ExpectationReductionPionRecoTrackGenHadTauHTEff->Fill(HT,Weight);
-		ExpectationReductionPionRecoTrackGenHadTauMHTEff->Fill(MHT,Weight);
-		ExpectationReductionPionRecoTrackGenHadTauPTEff->Fill(GenTauPt[0],Weight);
-		ExpectationReductionPionRecoTrackGenHadTauActivityEff->Fill(GenTauActivity[0],Weight);
-		
-		//2D
-		PionRecoTrackGenHadTauReductionHTNJets_->Fill(HT,NJets,Weight);
-		PionRecoTrackGenHadTauReductionMHTNJets_->Fill(MHT,NJets,Weight);
-		PionRecoTrackGenHadTauReductionBTagNJets_->Fill(BTags,NJets,Weight);
-		PionRecoTrackGenHadTauReductionPTActivity_->Fill(GenTauPt[0],GenTauActivity[0],Weight);
-	}
-	
-	if(Expectation==1 && pionIsoTrackReco!=2 && GenElecNum==0 && GenMuNum==0 && GenTauNum==1)
-	{
-		ExpectationReductionPionRecoTrackGenHadTauBTagEffFail->Fill(BTags,Weight);
-		ExpectationReductionPionRecoTrackGenHadTauNJetsEffFail->Fill(NJets,Weight);
-		ExpectationReductionPionRecoTrackGenHadTauHTEffFail->Fill(HT,Weight);
-		ExpectationReductionPionRecoTrackGenHadTauMHTEffFail->Fill(MHT,Weight);
-		ExpectationReductionPionRecoTrackGenHadTauPTEffFail->Fill(GenTauPt[0],Weight);
-		ExpectationReductionPionRecoTrackGenHadTauActivityEffFail->Fill(GenTauActivity[0],Weight);
-		
-		//2D
-		PionRecoTrackGenHadTauReductionHTNJetsFail_->Fill(HT,NJets,Weight);
-		PionRecoTrackGenHadTauReductionMHTNJetsFail_->Fill(MHT,NJets,Weight);
-		PionRecoTrackGenHadTauReductionBTagNJetsFail_->Fill(BTags,NJets,Weight);
-		PionRecoTrackGenHadTauReductionPTActivityFail_->Fill(GenTauPt[0],GenTauActivity[0],Weight);
-	}
+  
   
   return kTRUE;
 }
@@ -4383,20 +3339,6 @@ void EffMaker::Terminate()
 	MuAccMHTNJetsB1_Inf_->UseCurrentStyle();
 	MuAccMHTNJetsB1_Inf_->Write();
 	SaveEfficiency(MuAccMHTNJetsB1_Inf_);
-        
-        MuAccHTMHT_NJets46_ = ratioCalculator(MuAccHTMHT_NJets46_,MuAccHTMHT_NJets46Fail_);   
-        MuAccHTMHT_NJets46_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc 4#geqN_{Jets}#geq6; #slash{H}_{T} [GeV];H_{T} [GeV]");
-        MuAccHTMHT_NJets46_->SetMarkerSize(2.0);
-        MuAccHTMHT_NJets46_->UseCurrentStyle();
-        MuAccHTMHT_NJets46_->Write();
-        SaveEfficiency(MuAccHTMHT_NJets46_);
-        
-        MuAccHTMHT_NJets7Inf_ = ratioCalculator(MuAccHTMHT_NJets7Inf_,MuAccHTMHT_NJets7InfFail_);   
-        MuAccHTMHT_NJets7Inf_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu acc 7#geqN_{Jets}; #slash{H}_{T} [GeV];H_{T} [GeV]");
-        MuAccHTMHT_NJets7Inf_->SetMarkerSize(2.0);
-        MuAccHTMHT_NJets7Inf_->UseCurrentStyle();
-        MuAccHTMHT_NJets7Inf_->Write();
-        SaveEfficiency(MuAccHTMHT_NJets7Inf_);
   
   //elec
   //1D
@@ -4463,20 +3405,6 @@ void EffMaker::Terminate()
 	ElecAccMHTNJetsB1_Inf_->UseCurrentStyle();
 	ElecAccMHTNJetsB1_Inf_->Write();
 	SaveEfficiency(ElecAccMHTNJetsB1_Inf_);
-        
-        ElecAccHTMHT_NJets46_ = ratioCalculator(ElecAccHTMHT_NJets46_,ElecAccHTMHT_NJets46Fail_);   
-        ElecAccHTMHT_NJets46_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc 4#geqN_{Jets}#geq6; #slash{H}_{T} [GeV];H_{T} [GeV]");
-        ElecAccHTMHT_NJets46_->SetMarkerSize(2.0);
-        ElecAccHTMHT_NJets46_->UseCurrentStyle();
-        ElecAccHTMHT_NJets46_->Write();
-        SaveEfficiency(ElecAccHTMHT_NJets46_);
-        
-        ElecAccHTMHT_NJets7Inf_ = ratioCalculator(ElecAccHTMHT_NJets7Inf_,ElecAccHTMHT_NJets7InfFail_);   
-        ElecAccHTMHT_NJets7Inf_->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e acc 7#geqN_{Jets}; #slash{H}_{T} [GeV];H_{T} [GeV]");
-        ElecAccHTMHT_NJets7Inf_->SetMarkerSize(2.0);
-        ElecAccHTMHT_NJets7Inf_->UseCurrentStyle();
-        ElecAccHTMHT_NJets7Inf_->Write();
-        SaveEfficiency(ElecAccHTMHT_NJets7Inf_);
   
   
   
@@ -5673,787 +4601,6 @@ void EffMaker::Terminate()
 	PionIsoTrackReductionPTActivity_->Write();
 	SaveEfficiency(PionIsoTrackReductionPTActivity_);
 	
-	
-	// separated for iso and recoacc combined for the tracks
-	/////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	// iso
-	
-	// mu iso tracks
-	//1D
-	//1D
-	ExpectationReductionMuIsoTrackGenMuBTagEff = ratioCalculator(ExpectationReductionMuIsoTrackGenMuBTagEff,ExpectationReductionMuIsoTrackGenMuBTagEffFail);   
-	ExpectationReductionMuIsoTrackGenMuBTagEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso track expec. reduction iso only; B_{Tags}");
-	ExpectationReductionMuIsoTrackGenMuBTagEff->SetMarkerSize(2.0);
-	ExpectationReductionMuIsoTrackGenMuBTagEff->UseCurrentStyle();
-	ExpectationReductionMuIsoTrackGenMuBTagEff->Write();
-	SaveEfficiency(ExpectationReductionMuIsoTrackGenMuBTagEff);
-	
-	ExpectationReductionMuIsoTrackGenMuNJetsEff = ratioCalculator(ExpectationReductionMuIsoTrackGenMuNJetsEff,ExpectationReductionMuIsoTrackGenMuNJetsEffFail);   
-	ExpectationReductionMuIsoTrackGenMuNJetsEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso track expec. reduction iso only; N_{Jets}");
-	ExpectationReductionMuIsoTrackGenMuNJetsEff->SetMarkerSize(2.0);
-	ExpectationReductionMuIsoTrackGenMuNJetsEff->UseCurrentStyle();
-	ExpectationReductionMuIsoTrackGenMuNJetsEff->Write();
-	SaveEfficiency(ExpectationReductionMuIsoTrackGenMuNJetsEff);
-	
-	ExpectationReductionMuIsoTrackGenMuHTEff = ratioCalculator(ExpectationReductionMuIsoTrackGenMuHTEff,ExpectationReductionMuIsoTrackGenMuHTEffFail);   
-	ExpectationReductionMuIsoTrackGenMuHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso track expec. reduction iso only; H_{T}");
-	ExpectationReductionMuIsoTrackGenMuHTEff->SetMarkerSize(2.0);
-	ExpectationReductionMuIsoTrackGenMuHTEff->UseCurrentStyle();
-	ExpectationReductionMuIsoTrackGenMuHTEff->Write();
-	SaveEfficiency(ExpectationReductionMuIsoTrackGenMuHTEff);
-	
-	ExpectationReductionMuIsoTrackGenMuMHTEff = ratioCalculator(ExpectationReductionMuIsoTrackGenMuMHTEff,ExpectationReductionMuIsoTrackGenMuMHTEffFail);   
-	ExpectationReductionMuIsoTrackGenMuMHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso track expec. reduction iso only; #slash{H}_{T} [GeV]");
-	ExpectationReductionMuIsoTrackGenMuMHTEff->SetMarkerSize(2.0);
-	ExpectationReductionMuIsoTrackGenMuMHTEff->UseCurrentStyle();
-	ExpectationReductionMuIsoTrackGenMuMHTEff->Write();
-	SaveEfficiency(ExpectationReductionMuIsoTrackGenMuMHTEff);
-	
-	ExpectationReductionMuIsoTrackGenMuPTEff = ratioCalculator(ExpectationReductionMuIsoTrackGenMuPTEff,ExpectationReductionMuIsoTrackGenMuPTEffFail);   
-	ExpectationReductionMuIsoTrackGenMuPTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso track expec. reduction iso only; p_{T} [GeV]");
-	ExpectationReductionMuIsoTrackGenMuPTEff->SetMarkerSize(2.0);
-	ExpectationReductionMuIsoTrackGenMuPTEff->UseCurrentStyle();
-	ExpectationReductionMuIsoTrackGenMuPTEff->Write();
-	SaveEfficiency(ExpectationReductionMuIsoTrackGenMuPTEff);
-	
-	ExpectationReductionMuIsoTrackGenMuActivityEff = ratioCalculator(ExpectationReductionMuIsoTrackGenMuActivityEff,ExpectationReductionMuIsoTrackGenMuActivityEffFail);   
-	ExpectationReductionMuIsoTrackGenMuActivityEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso track expec. reduction iso only; Activity [GeV]");
-	ExpectationReductionMuIsoTrackGenMuActivityEff->SetMarkerSize(2.0);
-	ExpectationReductionMuIsoTrackGenMuActivityEff->UseCurrentStyle();
-	ExpectationReductionMuIsoTrackGenMuActivityEff->Write();
-	SaveEfficiency(ExpectationReductionMuIsoTrackGenMuActivityEff);
-	
-	//2D
-	MuIsoTrackGenMuReductionHTNJets_ = ratioCalculator(MuIsoTrackGenMuReductionHTNJets_,MuIsoTrackGenMuReductionHTNJetsFail_);   
-	MuIsoTrackGenMuReductionHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso track expec. reduction iso only; H_{T} [GeV]; N_{Jets}");
-	MuIsoTrackGenMuReductionHTNJets_->SetMarkerSize(2.0);
-	MuIsoTrackGenMuReductionHTNJets_->UseCurrentStyle();
-	MuIsoTrackGenMuReductionHTNJets_->Write();
-	SaveEfficiency(MuIsoTrackGenMuReductionHTNJets_);
-	
-	MuIsoTrackGenMuReductionMHTNJets_ = ratioCalculator(MuIsoTrackGenMuReductionMHTNJets_,MuIsoTrackGenMuReductionMHTNJetsFail_);   
-	MuIsoTrackGenMuReductionMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso track expec. reduction iso only; #slash{H}_{T} [GeV]; N_{Jets}");
-	MuIsoTrackGenMuReductionMHTNJets_->SetMarkerSize(2.0);
-	MuIsoTrackGenMuReductionMHTNJets_->UseCurrentStyle();
-	MuIsoTrackGenMuReductionMHTNJets_->Write();
-	SaveEfficiency(MuIsoTrackGenMuReductionMHTNJets_);
-	
-	
-	MuIsoTrackGenMuReductionBTagNJets_ = ratioCalculator(MuIsoTrackGenMuReductionBTagNJets_,MuIsoTrackGenMuReductionBTagNJetsFail_);   
-	MuIsoTrackGenMuReductionBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso track expec. reduction iso only; B_{Tags}; N_{Jets}");
-	MuIsoTrackGenMuReductionBTagNJets_->SetMarkerSize(2.0);
-	MuIsoTrackGenMuReductionBTagNJets_->UseCurrentStyle();
-	MuIsoTrackGenMuReductionBTagNJets_->Write();
-	SaveEfficiency(MuIsoTrackGenMuReductionBTagNJets_);
-	
-	MuIsoTrackGenMuReductionPTActivity_ = ratioCalculator(MuIsoTrackGenMuReductionPTActivity_,MuIsoTrackGenMuReductionPTActivityFail_);   
-	MuIsoTrackGenMuReductionPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu iso track expec. reduction iso only; p_{T} [GeV]; Activity [GeV]");
-	MuIsoTrackGenMuReductionPTActivity_->SetMarkerSize(2.0);
-	MuIsoTrackGenMuReductionPTActivity_->UseCurrentStyle();
-	MuIsoTrackGenMuReductionPTActivity_->Write();
-	SaveEfficiency(MuIsoTrackGenMuReductionPTActivity_);
-	
-	
-	
-	
-	//1D
-	ExpectationReductionPionIsoTrackGenMuBTagEff = ratioCalculator(ExpectationReductionPionIsoTrackGenMuBTagEff,ExpectationReductionPionIsoTrackGenMuBTagEffFail);   
-	ExpectationReductionPionIsoTrackGenMuBTagEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genMu); B_{Tags}");
-	ExpectationReductionPionIsoTrackGenMuBTagEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenMuBTagEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenMuBTagEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenMuBTagEff);
-	
-	ExpectationReductionPionIsoTrackGenMuNJetsEff = ratioCalculator(ExpectationReductionPionIsoTrackGenMuNJetsEff,ExpectationReductionPionIsoTrackGenMuNJetsEffFail);   
-	ExpectationReductionPionIsoTrackGenMuNJetsEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genMu); N_{Jets}");
-	ExpectationReductionPionIsoTrackGenMuNJetsEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenMuNJetsEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenMuNJetsEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenMuNJetsEff);
-	
-	ExpectationReductionPionIsoTrackGenMuHTEff = ratioCalculator(ExpectationReductionPionIsoTrackGenMuHTEff,ExpectationReductionPionIsoTrackGenMuHTEffFail);   
-	ExpectationReductionPionIsoTrackGenMuHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genMu); H_{T}");
-	ExpectationReductionPionIsoTrackGenMuHTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenMuHTEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenMuHTEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenMuHTEff);
-	
-	ExpectationReductionPionIsoTrackGenMuMHTEff = ratioCalculator(ExpectationReductionPionIsoTrackGenMuMHTEff,ExpectationReductionPionIsoTrackGenMuMHTEffFail);   
-	ExpectationReductionPionIsoTrackGenMuMHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genMu); #slash{H}_{T} [GeV]");
-	ExpectationReductionPionIsoTrackGenMuMHTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenMuMHTEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenMuMHTEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenMuMHTEff);
-	
-	ExpectationReductionPionIsoTrackGenMuPTEff = ratioCalculator(ExpectationReductionPionIsoTrackGenMuPTEff,ExpectationReductionPionIsoTrackGenMuPTEffFail);   
-	ExpectationReductionPionIsoTrackGenMuPTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genMu); p_{T} [GeV]");
-	ExpectationReductionPionIsoTrackGenMuPTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenMuPTEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenMuPTEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenMuPTEff);
-	
-	ExpectationReductionPionIsoTrackGenMuActivityEff = ratioCalculator(ExpectationReductionPionIsoTrackGenMuActivityEff,ExpectationReductionPionIsoTrackGenMuActivityEffFail);   
-	ExpectationReductionPionIsoTrackGenMuActivityEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genMu); Activity [GeV]");
-	ExpectationReductionPionIsoTrackGenMuActivityEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenMuActivityEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenMuActivityEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenMuActivityEff);
-	
-	//2D
-	PionIsoTrackGenMuReductionHTNJets_ = ratioCalculator(PionIsoTrackGenMuReductionHTNJets_,PionIsoTrackGenMuReductionHTNJetsFail_);   
-	PionIsoTrackGenMuReductionHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genMu); H_{T} [GeV]; N_{Jets}");
-	PionIsoTrackGenMuReductionHTNJets_->SetMarkerSize(2.0);
-	PionIsoTrackGenMuReductionHTNJets_->UseCurrentStyle();
-	PionIsoTrackGenMuReductionHTNJets_->Write();
-	SaveEfficiency(PionIsoTrackGenMuReductionHTNJets_);
-	
-	PionIsoTrackGenMuReductionMHTNJets_ = ratioCalculator(PionIsoTrackGenMuReductionMHTNJets_,PionIsoTrackGenMuReductionMHTNJetsFail_);   
-	PionIsoTrackGenMuReductionMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genMu); #slash{H}_{T} [GeV]; N_{Jets}");
-	PionIsoTrackGenMuReductionMHTNJets_->SetMarkerSize(2.0);
-	PionIsoTrackGenMuReductionMHTNJets_->UseCurrentStyle();
-	PionIsoTrackGenMuReductionMHTNJets_->Write();
-	SaveEfficiency(PionIsoTrackGenMuReductionMHTNJets_);
-	
-	
-	PionIsoTrackGenMuReductionBTagNJets_ = ratioCalculator(PionIsoTrackGenMuReductionBTagNJets_,PionIsoTrackGenMuReductionBTagNJetsFail_);   
-	PionIsoTrackGenMuReductionBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genMu); B_{Tags}; N_{Jets}");
-	PionIsoTrackGenMuReductionBTagNJets_->SetMarkerSize(2.0);
-	PionIsoTrackGenMuReductionBTagNJets_->UseCurrentStyle();
-	PionIsoTrackGenMuReductionBTagNJets_->Write();
-	SaveEfficiency(PionIsoTrackGenMuReductionBTagNJets_);
-	
-	PionIsoTrackGenMuReductionPTActivity_ = ratioCalculator(PionIsoTrackGenMuReductionPTActivity_,PionIsoTrackGenMuReductionPTActivityFail_);   
-	PionIsoTrackGenMuReductionPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genMu); p_{T} [GeV]; Activity [GeV]");
-	PionIsoTrackGenMuReductionPTActivity_->SetMarkerSize(2.0);
-	PionIsoTrackGenMuReductionPTActivity_->UseCurrentStyle();
-	PionIsoTrackGenMuReductionPTActivity_->Write();
-	SaveEfficiency(PionIsoTrackGenMuReductionPTActivity_);
-	
-	
-	
-	// elec iso track
-	
-	
-	// elec iso tracks
-	//1D
-	//1D
-	ExpectationReductionElecIsoTrackGenElecBTagEff = ratioCalculator(ExpectationReductionElecIsoTrackGenElecBTagEff,ExpectationReductionElecIsoTrackGenElecBTagEffFail);   
-	ExpectationReductionElecIsoTrackGenElecBTagEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso track expec. reduction iso only; B_{Tags}");
-	ExpectationReductionElecIsoTrackGenElecBTagEff->SetMarkerSize(2.0);
-	ExpectationReductionElecIsoTrackGenElecBTagEff->UseCurrentStyle();
-	ExpectationReductionElecIsoTrackGenElecBTagEff->Write();
-	SaveEfficiency(ExpectationReductionElecIsoTrackGenElecBTagEff);
-	
-	ExpectationReductionElecIsoTrackGenElecNJetsEff = ratioCalculator(ExpectationReductionElecIsoTrackGenElecNJetsEff,ExpectationReductionElecIsoTrackGenElecNJetsEffFail);   
-	ExpectationReductionElecIsoTrackGenElecNJetsEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso track expec. reduction iso only; N_{Jets}");
-	ExpectationReductionElecIsoTrackGenElecNJetsEff->SetMarkerSize(2.0);
-	ExpectationReductionElecIsoTrackGenElecNJetsEff->UseCurrentStyle();
-	ExpectationReductionElecIsoTrackGenElecNJetsEff->Write();
-	SaveEfficiency(ExpectationReductionElecIsoTrackGenElecNJetsEff);
-	
-	ExpectationReductionElecIsoTrackGenElecHTEff = ratioCalculator(ExpectationReductionElecIsoTrackGenElecHTEff,ExpectationReductionElecIsoTrackGenElecHTEffFail);   
-	ExpectationReductionElecIsoTrackGenElecHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso track expec. reduction iso only; H_{T}");
-	ExpectationReductionElecIsoTrackGenElecHTEff->SetMarkerSize(2.0);
-	ExpectationReductionElecIsoTrackGenElecHTEff->UseCurrentStyle();
-	ExpectationReductionElecIsoTrackGenElecHTEff->Write();
-	SaveEfficiency(ExpectationReductionElecIsoTrackGenElecHTEff);
-	
-	ExpectationReductionElecIsoTrackGenElecMHTEff = ratioCalculator(ExpectationReductionElecIsoTrackGenElecMHTEff,ExpectationReductionElecIsoTrackGenElecMHTEffFail);   
-	ExpectationReductionElecIsoTrackGenElecMHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso track expec. reduction iso only; #slash{H}_{T} [GeV]");
-	ExpectationReductionElecIsoTrackGenElecMHTEff->SetMarkerSize(2.0);
-	ExpectationReductionElecIsoTrackGenElecMHTEff->UseCurrentStyle();
-	ExpectationReductionElecIsoTrackGenElecMHTEff->Write();
-	SaveEfficiency(ExpectationReductionElecIsoTrackGenElecMHTEff);
-	
-	ExpectationReductionElecIsoTrackGenElecPTEff = ratioCalculator(ExpectationReductionElecIsoTrackGenElecPTEff,ExpectationReductionElecIsoTrackGenElecPTEffFail);   
-	ExpectationReductionElecIsoTrackGenElecPTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso track expec. reduction iso only; p_{T} [GeV]");
-	ExpectationReductionElecIsoTrackGenElecPTEff->SetMarkerSize(2.0);
-	ExpectationReductionElecIsoTrackGenElecPTEff->UseCurrentStyle();
-	ExpectationReductionElecIsoTrackGenElecPTEff->Write();
-	SaveEfficiency(ExpectationReductionElecIsoTrackGenElecPTEff);
-	
-	ExpectationReductionElecIsoTrackGenElecActivityEff = ratioCalculator(ExpectationReductionElecIsoTrackGenElecActivityEff,ExpectationReductionElecIsoTrackGenElecActivityEffFail);   
-	ExpectationReductionElecIsoTrackGenElecActivityEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso track expec. reduction iso only; Activity [GeV]");
-	ExpectationReductionElecIsoTrackGenElecActivityEff->SetMarkerSize(2.0);
-	ExpectationReductionElecIsoTrackGenElecActivityEff->UseCurrentStyle();
-	ExpectationReductionElecIsoTrackGenElecActivityEff->Write();
-	SaveEfficiency(ExpectationReductionElecIsoTrackGenElecActivityEff);
-	
-	//2D
-	ElecIsoTrackGenElecReductionHTNJets_ = ratioCalculator(ElecIsoTrackGenElecReductionHTNJets_,ElecIsoTrackGenElecReductionHTNJetsFail_);   
-	ElecIsoTrackGenElecReductionHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso track expec. reduction iso only; H_{T} [GeV]; N_{Jets}");
-	ElecIsoTrackGenElecReductionHTNJets_->SetMarkerSize(2.0);
-	ElecIsoTrackGenElecReductionHTNJets_->UseCurrentStyle();
-	ElecIsoTrackGenElecReductionHTNJets_->Write();
-	SaveEfficiency(ElecIsoTrackGenElecReductionHTNJets_);
-	
-	ElecIsoTrackGenElecReductionMHTNJets_ = ratioCalculator(ElecIsoTrackGenElecReductionMHTNJets_,ElecIsoTrackGenElecReductionMHTNJetsFail_);   
-	ElecIsoTrackGenElecReductionMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso track expec. reduction iso only; #slash{H}_{T} [GeV]; N_{Jets}");
-	ElecIsoTrackGenElecReductionMHTNJets_->SetMarkerSize(2.0);
-	ElecIsoTrackGenElecReductionMHTNJets_->UseCurrentStyle();
-	ElecIsoTrackGenElecReductionMHTNJets_->Write();
-	SaveEfficiency(ElecIsoTrackGenElecReductionMHTNJets_);
-	
-	
-	ElecIsoTrackGenElecReductionBTagNJets_ = ratioCalculator(ElecIsoTrackGenElecReductionBTagNJets_,ElecIsoTrackGenElecReductionBTagNJetsFail_);   
-	ElecIsoTrackGenElecReductionBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso track expec. reduction iso only; B_{Tags}; N_{Jets}");
-	ElecIsoTrackGenElecReductionBTagNJets_->SetMarkerSize(2.0);
-	ElecIsoTrackGenElecReductionBTagNJets_->UseCurrentStyle();
-	ElecIsoTrackGenElecReductionBTagNJets_->Write();
-	SaveEfficiency(ElecIsoTrackGenElecReductionBTagNJets_);
-	
-	ElecIsoTrackGenElecReductionPTActivity_ = ratioCalculator(ElecIsoTrackGenElecReductionPTActivity_,ElecIsoTrackGenElecReductionPTActivityFail_);   
-	ElecIsoTrackGenElecReductionPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e iso track expec. reduction iso only; p_{T} [GeV]; Activity [GeV]");
-	ElecIsoTrackGenElecReductionPTActivity_->SetMarkerSize(2.0);
-	ElecIsoTrackGenElecReductionPTActivity_->UseCurrentStyle();
-	ElecIsoTrackGenElecReductionPTActivity_->Write();
-	SaveEfficiency(ElecIsoTrackGenElecReductionPTActivity_);
-	
-	
-	
-	
-	//1D
-	ExpectationReductionPionIsoTrackGenElecBTagEff = ratioCalculator(ExpectationReductionPionIsoTrackGenElecBTagEff,ExpectationReductionPionIsoTrackGenElecBTagEffFail);   
-	ExpectationReductionPionIsoTrackGenElecBTagEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genElec); B_{Tags}");
-	ExpectationReductionPionIsoTrackGenElecBTagEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenElecBTagEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenElecBTagEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenElecBTagEff);
-	
-	ExpectationReductionPionIsoTrackGenElecNJetsEff = ratioCalculator(ExpectationReductionPionIsoTrackGenElecNJetsEff,ExpectationReductionPionIsoTrackGenElecNJetsEffFail);   
-	ExpectationReductionPionIsoTrackGenElecNJetsEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genElec); N_{Jets}");
-	ExpectationReductionPionIsoTrackGenElecNJetsEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenElecNJetsEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenElecNJetsEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenElecNJetsEff);
-	
-	ExpectationReductionPionIsoTrackGenElecHTEff = ratioCalculator(ExpectationReductionPionIsoTrackGenElecHTEff,ExpectationReductionPionIsoTrackGenElecHTEffFail);   
-	ExpectationReductionPionIsoTrackGenElecHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genElec); H_{T}");
-	ExpectationReductionPionIsoTrackGenElecHTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenElecHTEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenElecHTEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenElecHTEff);
-	
-	ExpectationReductionPionIsoTrackGenElecMHTEff = ratioCalculator(ExpectationReductionPionIsoTrackGenElecMHTEff,ExpectationReductionPionIsoTrackGenElecMHTEffFail);   
-	ExpectationReductionPionIsoTrackGenElecMHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genElec); #slash{H}_{T} [GeV]");
-	ExpectationReductionPionIsoTrackGenElecMHTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenElecMHTEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenElecMHTEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenElecMHTEff);
-	
-	ExpectationReductionPionIsoTrackGenElecPTEff = ratioCalculator(ExpectationReductionPionIsoTrackGenElecPTEff,ExpectationReductionPionIsoTrackGenElecPTEffFail);   
-	ExpectationReductionPionIsoTrackGenElecPTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genElec); p_{T} [GeV]");
-	ExpectationReductionPionIsoTrackGenElecPTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenElecPTEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenElecPTEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenElecPTEff);
-	
-	ExpectationReductionPionIsoTrackGenElecActivityEff = ratioCalculator(ExpectationReductionPionIsoTrackGenElecActivityEff,ExpectationReductionPionIsoTrackGenElecActivityEffFail);   
-	ExpectationReductionPionIsoTrackGenElecActivityEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genElec); Activity [GeV]");
-	ExpectationReductionPionIsoTrackGenElecActivityEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenElecActivityEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenElecActivityEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenElecActivityEff);
-	
-	//2D
-	PionIsoTrackGenElecReductionHTNJets_ = ratioCalculator(PionIsoTrackGenElecReductionHTNJets_,PionIsoTrackGenElecReductionHTNJetsFail_);   
-	PionIsoTrackGenElecReductionHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genElec); H_{T} [GeV]; N_{Jets}");
-	PionIsoTrackGenElecReductionHTNJets_->SetMarkerSize(2.0);
-	PionIsoTrackGenElecReductionHTNJets_->UseCurrentStyle();
-	PionIsoTrackGenElecReductionHTNJets_->Write();
-	SaveEfficiency(PionIsoTrackGenElecReductionHTNJets_);
-	
-	PionIsoTrackGenElecReductionMHTNJets_ = ratioCalculator(PionIsoTrackGenElecReductionMHTNJets_,PionIsoTrackGenElecReductionMHTNJetsFail_);   
-	PionIsoTrackGenElecReductionMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genElec); #slash{H}_{T} [GeV]; N_{Jets}");
-	PionIsoTrackGenElecReductionMHTNJets_->SetMarkerSize(2.0);
-	PionIsoTrackGenElecReductionMHTNJets_->UseCurrentStyle();
-	PionIsoTrackGenElecReductionMHTNJets_->Write();
-	SaveEfficiency(PionIsoTrackGenElecReductionMHTNJets_);
-	
-	
-	PionIsoTrackGenElecReductionBTagNJets_ = ratioCalculator(PionIsoTrackGenElecReductionBTagNJets_,PionIsoTrackGenElecReductionBTagNJetsFail_);   
-	PionIsoTrackGenElecReductionBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genElec); B_{Tags}; N_{Jets}");
-	PionIsoTrackGenElecReductionBTagNJets_->SetMarkerSize(2.0);
-	PionIsoTrackGenElecReductionBTagNJets_->UseCurrentStyle();
-	PionIsoTrackGenElecReductionBTagNJets_->Write();
-	SaveEfficiency(PionIsoTrackGenElecReductionBTagNJets_);
-	
-	PionIsoTrackGenElecReductionPTActivity_ = ratioCalculator(PionIsoTrackGenElecReductionPTActivity_,PionIsoTrackGenElecReductionPTActivityFail_);   
-	PionIsoTrackGenElecReductionPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genElec); p_{T} [GeV]; Activity [GeV]");
-	PionIsoTrackGenElecReductionPTActivity_->SetMarkerSize(2.0);
-	PionIsoTrackGenElecReductionPTActivity_->UseCurrentStyle();
-	PionIsoTrackGenElecReductionPTActivity_->Write();
-	SaveEfficiency(PionIsoTrackGenElecReductionPTActivity_);
-	
-	
-	
-	
-	// had tau
-	
-	//1D
-	ExpectationReductionPionIsoTrackGenHadTauBTagEff = ratioCalculator(ExpectationReductionPionIsoTrackGenHadTauBTagEff,ExpectationReductionPionIsoTrackGenHadTauBTagEffFail);   
-	ExpectationReductionPionIsoTrackGenHadTauBTagEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genHadTau); B_{Tags}");
-	ExpectationReductionPionIsoTrackGenHadTauBTagEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenHadTauBTagEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenHadTauBTagEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenHadTauBTagEff);
-	
-	ExpectationReductionPionIsoTrackGenHadTauNJetsEff = ratioCalculator(ExpectationReductionPionIsoTrackGenHadTauNJetsEff,ExpectationReductionPionIsoTrackGenHadTauNJetsEffFail);   
-	ExpectationReductionPionIsoTrackGenHadTauNJetsEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genHadTau); N_{Jets}");
-	ExpectationReductionPionIsoTrackGenHadTauNJetsEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenHadTauNJetsEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenHadTauNJetsEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenHadTauNJetsEff);
-	
-	ExpectationReductionPionIsoTrackGenHadTauHTEff = ratioCalculator(ExpectationReductionPionIsoTrackGenHadTauHTEff,ExpectationReductionPionIsoTrackGenHadTauHTEffFail);   
-	ExpectationReductionPionIsoTrackGenHadTauHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genHadTau); H_{T}");
-	ExpectationReductionPionIsoTrackGenHadTauHTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenHadTauHTEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenHadTauHTEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenHadTauHTEff);
-	
-	ExpectationReductionPionIsoTrackGenHadTauMHTEff = ratioCalculator(ExpectationReductionPionIsoTrackGenHadTauMHTEff,ExpectationReductionPionIsoTrackGenHadTauMHTEffFail);   
-	ExpectationReductionPionIsoTrackGenHadTauMHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genHadTau); #slash{H}_{T} [GeV]");
-	ExpectationReductionPionIsoTrackGenHadTauMHTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenHadTauMHTEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenHadTauMHTEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenHadTauMHTEff);
-	
-	ExpectationReductionPionIsoTrackGenHadTauPTEff = ratioCalculator(ExpectationReductionPionIsoTrackGenHadTauPTEff,ExpectationReductionPionIsoTrackGenHadTauPTEffFail);   
-	ExpectationReductionPionIsoTrackGenHadTauPTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genHadTau); p_{T} [GeV]");
-	ExpectationReductionPionIsoTrackGenHadTauPTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenHadTauPTEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenHadTauPTEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenHadTauPTEff);
-	
-	ExpectationReductionPionIsoTrackGenHadTauActivityEff = ratioCalculator(ExpectationReductionPionIsoTrackGenHadTauActivityEff,ExpectationReductionPionIsoTrackGenHadTauActivityEffFail);   
-	ExpectationReductionPionIsoTrackGenHadTauActivityEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genHadTau); Activity [GeV]");
-	ExpectationReductionPionIsoTrackGenHadTauActivityEff->SetMarkerSize(2.0);
-	ExpectationReductionPionIsoTrackGenHadTauActivityEff->UseCurrentStyle();
-	ExpectationReductionPionIsoTrackGenHadTauActivityEff->Write();
-	SaveEfficiency(ExpectationReductionPionIsoTrackGenHadTauActivityEff);
-	
-	//2D
-	PionIsoTrackGenHadTauReductionHTNJets_ = ratioCalculator(PionIsoTrackGenHadTauReductionHTNJets_,PionIsoTrackGenHadTauReductionHTNJetsFail_);   
-	PionIsoTrackGenHadTauReductionHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genHadTau); H_{T} [GeV]; N_{Jets}");
-	PionIsoTrackGenHadTauReductionHTNJets_->SetMarkerSize(2.0);
-	PionIsoTrackGenHadTauReductionHTNJets_->UseCurrentStyle();
-	PionIsoTrackGenHadTauReductionHTNJets_->Write();
-	SaveEfficiency(PionIsoTrackGenHadTauReductionHTNJets_);
-	
-	PionIsoTrackGenHadTauReductionMHTNJets_ = ratioCalculator(PionIsoTrackGenHadTauReductionMHTNJets_,PionIsoTrackGenHadTauReductionMHTNJetsFail_);   
-	PionIsoTrackGenHadTauReductionMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genHadTau); #slash{H}_{T} [GeV]; N_{Jets}");
-	PionIsoTrackGenHadTauReductionMHTNJets_->SetMarkerSize(2.0);
-	PionIsoTrackGenHadTauReductionMHTNJets_->UseCurrentStyle();
-	PionIsoTrackGenHadTauReductionMHTNJets_->Write();
-	SaveEfficiency(PionIsoTrackGenHadTauReductionMHTNJets_);
-	
-	
-	PionIsoTrackGenHadTauReductionBTagNJets_ = ratioCalculator(PionIsoTrackGenHadTauReductionBTagNJets_,PionIsoTrackGenHadTauReductionBTagNJetsFail_);   
-	PionIsoTrackGenHadTauReductionBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genHadTau); B_{Tags}; N_{Jets}");
-	PionIsoTrackGenHadTauReductionBTagNJets_->SetMarkerSize(2.0);
-	PionIsoTrackGenHadTauReductionBTagNJets_->UseCurrentStyle();
-	PionIsoTrackGenHadTauReductionBTagNJets_->Write();
-	SaveEfficiency(PionIsoTrackGenHadTauReductionBTagNJets_);
-	
-	PionIsoTrackGenHadTauReductionPTActivity_ = ratioCalculator(PionIsoTrackGenHadTauReductionPTActivity_,PionIsoTrackGenHadTauReductionPTActivityFail_);   
-	PionIsoTrackGenHadTauReductionPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi iso track expec. reduction iso only (genHadTau); p_{T} [GeV]; Activity [GeV]");
-	PionIsoTrackGenHadTauReductionPTActivity_->SetMarkerSize(2.0);
-	PionIsoTrackGenHadTauReductionPTActivity_->UseCurrentStyle();
-	PionIsoTrackGenHadTauReductionPTActivity_->Write();
-	SaveEfficiency(PionIsoTrackGenHadTauReductionPTActivity_);
-	
-	// reco acc combined
-	
-	
-	// reco/acc
-	
-	// mu reco/acc tracks
-	//1D
-	//1D
-	ExpectationReductionMuRecoTrackGenMuBTagEff = ratioCalculator(ExpectationReductionMuRecoTrackGenMuBTagEff,ExpectationReductionMuRecoTrackGenMuBTagEffFail);   
-	ExpectationReductionMuRecoTrackGenMuBTagEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco/acc track expec. reduction reco/acc only; B_{Tags}");
-	ExpectationReductionMuRecoTrackGenMuBTagEff->SetMarkerSize(2.0);
-	ExpectationReductionMuRecoTrackGenMuBTagEff->UseCurrentStyle();
-	ExpectationReductionMuRecoTrackGenMuBTagEff->Write();
-	SaveEfficiency(ExpectationReductionMuRecoTrackGenMuBTagEff);
-	
-	ExpectationReductionMuRecoTrackGenMuNJetsEff = ratioCalculator(ExpectationReductionMuRecoTrackGenMuNJetsEff,ExpectationReductionMuRecoTrackGenMuNJetsEffFail);   
-	ExpectationReductionMuRecoTrackGenMuNJetsEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco/acc track expec. reduction reco/acc only; N_{Jets}");
-	ExpectationReductionMuRecoTrackGenMuNJetsEff->SetMarkerSize(2.0);
-	ExpectationReductionMuRecoTrackGenMuNJetsEff->UseCurrentStyle();
-	ExpectationReductionMuRecoTrackGenMuNJetsEff->Write();
-	SaveEfficiency(ExpectationReductionMuRecoTrackGenMuNJetsEff);
-	
-	ExpectationReductionMuRecoTrackGenMuHTEff = ratioCalculator(ExpectationReductionMuRecoTrackGenMuHTEff,ExpectationReductionMuRecoTrackGenMuHTEffFail);   
-	ExpectationReductionMuRecoTrackGenMuHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco/acc track expec. reduction reco/acc only; H_{T}");
-	ExpectationReductionMuRecoTrackGenMuHTEff->SetMarkerSize(2.0);
-	ExpectationReductionMuRecoTrackGenMuHTEff->UseCurrentStyle();
-	ExpectationReductionMuRecoTrackGenMuHTEff->Write();
-	SaveEfficiency(ExpectationReductionMuRecoTrackGenMuHTEff);
-	
-	ExpectationReductionMuRecoTrackGenMuMHTEff = ratioCalculator(ExpectationReductionMuRecoTrackGenMuMHTEff,ExpectationReductionMuRecoTrackGenMuMHTEffFail);   
-	ExpectationReductionMuRecoTrackGenMuMHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco/acc track expec. reduction reco/acc only; #slash{H}_{T} [GeV]");
-	ExpectationReductionMuRecoTrackGenMuMHTEff->SetMarkerSize(2.0);
-	ExpectationReductionMuRecoTrackGenMuMHTEff->UseCurrentStyle();
-	ExpectationReductionMuRecoTrackGenMuMHTEff->Write();
-	SaveEfficiency(ExpectationReductionMuRecoTrackGenMuMHTEff);
-	
-	ExpectationReductionMuRecoTrackGenMuPTEff = ratioCalculator(ExpectationReductionMuRecoTrackGenMuPTEff,ExpectationReductionMuRecoTrackGenMuPTEffFail);   
-	ExpectationReductionMuRecoTrackGenMuPTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco/acc track expec. reduction reco/acc only; p_{T} [GeV]");
-	ExpectationReductionMuRecoTrackGenMuPTEff->SetMarkerSize(2.0);
-	ExpectationReductionMuRecoTrackGenMuPTEff->UseCurrentStyle();
-	ExpectationReductionMuRecoTrackGenMuPTEff->Write();
-	SaveEfficiency(ExpectationReductionMuRecoTrackGenMuPTEff);
-	
-	ExpectationReductionMuRecoTrackGenMuActivityEff = ratioCalculator(ExpectationReductionMuRecoTrackGenMuActivityEff,ExpectationReductionMuRecoTrackGenMuActivityEffFail);   
-	ExpectationReductionMuRecoTrackGenMuActivityEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco/acc track expec. reduction reco/acc only; Activity [GeV]");
-	ExpectationReductionMuRecoTrackGenMuActivityEff->SetMarkerSize(2.0);
-	ExpectationReductionMuRecoTrackGenMuActivityEff->UseCurrentStyle();
-	ExpectationReductionMuRecoTrackGenMuActivityEff->Write();
-	SaveEfficiency(ExpectationReductionMuRecoTrackGenMuActivityEff);
-	
-	//2D
-	MuRecoTrackGenMuReductionHTNJets_ = ratioCalculator(MuRecoTrackGenMuReductionHTNJets_,MuRecoTrackGenMuReductionHTNJetsFail_);   
-	MuRecoTrackGenMuReductionHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco/acc track expec. reduction reco/acc only; H_{T} [GeV]; N_{Jets}");
-	MuRecoTrackGenMuReductionHTNJets_->SetMarkerSize(2.0);
-	MuRecoTrackGenMuReductionHTNJets_->UseCurrentStyle();
-	MuRecoTrackGenMuReductionHTNJets_->Write();
-	SaveEfficiency(MuRecoTrackGenMuReductionHTNJets_);
-	
-	MuRecoTrackGenMuReductionMHTNJets_ = ratioCalculator(MuRecoTrackGenMuReductionMHTNJets_,MuRecoTrackGenMuReductionMHTNJetsFail_);   
-	MuRecoTrackGenMuReductionMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco/acc track expec. reduction reco/acc only; #slash{H}_{T} [GeV]; N_{Jets}");
-	MuRecoTrackGenMuReductionMHTNJets_->SetMarkerSize(2.0);
-	MuRecoTrackGenMuReductionMHTNJets_->UseCurrentStyle();
-	MuRecoTrackGenMuReductionMHTNJets_->Write();
-	SaveEfficiency(MuRecoTrackGenMuReductionMHTNJets_);
-	
-	
-	MuRecoTrackGenMuReductionBTagNJets_ = ratioCalculator(MuRecoTrackGenMuReductionBTagNJets_,MuRecoTrackGenMuReductionBTagNJetsFail_);   
-	MuRecoTrackGenMuReductionBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco/acc track expec. reduction reco/acc only; B_{Tags}; N_{Jets}");
-	MuRecoTrackGenMuReductionBTagNJets_->SetMarkerSize(2.0);
-	MuRecoTrackGenMuReductionBTagNJets_->UseCurrentStyle();
-	MuRecoTrackGenMuReductionBTagNJets_->Write();
-	SaveEfficiency(MuRecoTrackGenMuReductionBTagNJets_);
-	
-	MuRecoTrackGenMuReductionPTActivity_ = ratioCalculator(MuRecoTrackGenMuReductionPTActivity_,MuRecoTrackGenMuReductionPTActivityFail_);   
-	MuRecoTrackGenMuReductionPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu reco/acc track expec. reduction reco/acc only; p_{T} [GeV]; Activity [GeV]");
-	MuRecoTrackGenMuReductionPTActivity_->SetMarkerSize(2.0);
-	MuRecoTrackGenMuReductionPTActivity_->UseCurrentStyle();
-	MuRecoTrackGenMuReductionPTActivity_->Write();
-	SaveEfficiency(MuRecoTrackGenMuReductionPTActivity_);
-	
-	
-	
-	
-	//1D
-	ExpectationReductionPionRecoTrackGenMuBTagEff = ratioCalculator(ExpectationReductionPionRecoTrackGenMuBTagEff,ExpectationReductionPionRecoTrackGenMuBTagEffFail);   
-	ExpectationReductionPionRecoTrackGenMuBTagEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genMu); B_{Tags}");
-	ExpectationReductionPionRecoTrackGenMuBTagEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenMuBTagEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenMuBTagEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenMuBTagEff);
-	
-	ExpectationReductionPionRecoTrackGenMuNJetsEff = ratioCalculator(ExpectationReductionPionRecoTrackGenMuNJetsEff,ExpectationReductionPionRecoTrackGenMuNJetsEffFail);   
-	ExpectationReductionPionRecoTrackGenMuNJetsEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genMu); N_{Jets}");
-	ExpectationReductionPionRecoTrackGenMuNJetsEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenMuNJetsEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenMuNJetsEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenMuNJetsEff);
-	
-	ExpectationReductionPionRecoTrackGenMuHTEff = ratioCalculator(ExpectationReductionPionRecoTrackGenMuHTEff,ExpectationReductionPionRecoTrackGenMuHTEffFail);   
-	ExpectationReductionPionRecoTrackGenMuHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genMu); H_{T}");
-	ExpectationReductionPionRecoTrackGenMuHTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenMuHTEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenMuHTEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenMuHTEff);
-	
-	ExpectationReductionPionRecoTrackGenMuMHTEff = ratioCalculator(ExpectationReductionPionRecoTrackGenMuMHTEff,ExpectationReductionPionRecoTrackGenMuMHTEffFail);   
-	ExpectationReductionPionRecoTrackGenMuMHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genMu); #slash{H}_{T} [GeV]");
-	ExpectationReductionPionRecoTrackGenMuMHTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenMuMHTEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenMuMHTEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenMuMHTEff);
-	
-	ExpectationReductionPionRecoTrackGenMuPTEff = ratioCalculator(ExpectationReductionPionRecoTrackGenMuPTEff,ExpectationReductionPionRecoTrackGenMuPTEffFail);   
-	ExpectationReductionPionRecoTrackGenMuPTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genMu); p_{T} [GeV]");
-	ExpectationReductionPionRecoTrackGenMuPTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenMuPTEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenMuPTEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenMuPTEff);
-	
-	ExpectationReductionPionRecoTrackGenMuActivityEff = ratioCalculator(ExpectationReductionPionRecoTrackGenMuActivityEff,ExpectationReductionPionRecoTrackGenMuActivityEffFail);   
-	ExpectationReductionPionRecoTrackGenMuActivityEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genMu); Activity [GeV]");
-	ExpectationReductionPionRecoTrackGenMuActivityEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenMuActivityEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenMuActivityEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenMuActivityEff);
-	
-	//2D
-	PionRecoTrackGenMuReductionHTNJets_ = ratioCalculator(PionRecoTrackGenMuReductionHTNJets_,PionRecoTrackGenMuReductionHTNJetsFail_);   
-	PionRecoTrackGenMuReductionHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genMu); H_{T} [GeV]; N_{Jets}");
-	PionRecoTrackGenMuReductionHTNJets_->SetMarkerSize(2.0);
-	PionRecoTrackGenMuReductionHTNJets_->UseCurrentStyle();
-	PionRecoTrackGenMuReductionHTNJets_->Write();
-	SaveEfficiency(PionRecoTrackGenMuReductionHTNJets_);
-	
-	PionRecoTrackGenMuReductionMHTNJets_ = ratioCalculator(PionRecoTrackGenMuReductionMHTNJets_,PionRecoTrackGenMuReductionMHTNJetsFail_);   
-	PionRecoTrackGenMuReductionMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genMu); #slash{H}_{T} [GeV]; N_{Jets}");
-	PionRecoTrackGenMuReductionMHTNJets_->SetMarkerSize(2.0);
-	PionRecoTrackGenMuReductionMHTNJets_->UseCurrentStyle();
-	PionRecoTrackGenMuReductionMHTNJets_->Write();
-	SaveEfficiency(PionRecoTrackGenMuReductionMHTNJets_);
-	
-	
-	PionRecoTrackGenMuReductionBTagNJets_ = ratioCalculator(PionRecoTrackGenMuReductionBTagNJets_,PionRecoTrackGenMuReductionBTagNJetsFail_);   
-	PionRecoTrackGenMuReductionBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genMu); B_{Tags}; N_{Jets}");
-	PionRecoTrackGenMuReductionBTagNJets_->SetMarkerSize(2.0);
-	PionRecoTrackGenMuReductionBTagNJets_->UseCurrentStyle();
-	PionRecoTrackGenMuReductionBTagNJets_->Write();
-	SaveEfficiency(PionRecoTrackGenMuReductionBTagNJets_);
-	
-	PionRecoTrackGenMuReductionPTActivity_ = ratioCalculator(PionRecoTrackGenMuReductionPTActivity_,PionRecoTrackGenMuReductionPTActivityFail_);   
-	PionRecoTrackGenMuReductionPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genMu); p_{T} [GeV]; Activity [GeV]");
-	PionRecoTrackGenMuReductionPTActivity_->SetMarkerSize(2.0);
-	PionRecoTrackGenMuReductionPTActivity_->UseCurrentStyle();
-	PionRecoTrackGenMuReductionPTActivity_->Write();
-	SaveEfficiency(PionRecoTrackGenMuReductionPTActivity_);
-	
-	
-	
-	// elec reco/acc track
-	
-	
-	// elec reco/acc tracks
-	//1D
-	//1D
-	ExpectationReductionElecRecoTrackGenElecBTagEff = ratioCalculator(ExpectationReductionElecRecoTrackGenElecBTagEff,ExpectationReductionElecRecoTrackGenElecBTagEffFail);   
-	ExpectationReductionElecRecoTrackGenElecBTagEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco/acc track expec. reduction reco/acc only; B_{Tags}");
-	ExpectationReductionElecRecoTrackGenElecBTagEff->SetMarkerSize(2.0);
-	ExpectationReductionElecRecoTrackGenElecBTagEff->UseCurrentStyle();
-	ExpectationReductionElecRecoTrackGenElecBTagEff->Write();
-	SaveEfficiency(ExpectationReductionElecRecoTrackGenElecBTagEff);
-	
-	ExpectationReductionElecRecoTrackGenElecNJetsEff = ratioCalculator(ExpectationReductionElecRecoTrackGenElecNJetsEff,ExpectationReductionElecRecoTrackGenElecNJetsEffFail);   
-	ExpectationReductionElecRecoTrackGenElecNJetsEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco/acc track expec. reduction reco/acc only; N_{Jets}");
-	ExpectationReductionElecRecoTrackGenElecNJetsEff->SetMarkerSize(2.0);
-	ExpectationReductionElecRecoTrackGenElecNJetsEff->UseCurrentStyle();
-	ExpectationReductionElecRecoTrackGenElecNJetsEff->Write();
-	SaveEfficiency(ExpectationReductionElecRecoTrackGenElecNJetsEff);
-	
-	ExpectationReductionElecRecoTrackGenElecHTEff = ratioCalculator(ExpectationReductionElecRecoTrackGenElecHTEff,ExpectationReductionElecRecoTrackGenElecHTEffFail);   
-	ExpectationReductionElecRecoTrackGenElecHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco/acc track expec. reduction reco/acc only; H_{T}");
-	ExpectationReductionElecRecoTrackGenElecHTEff->SetMarkerSize(2.0);
-	ExpectationReductionElecRecoTrackGenElecHTEff->UseCurrentStyle();
-	ExpectationReductionElecRecoTrackGenElecHTEff->Write();
-	SaveEfficiency(ExpectationReductionElecRecoTrackGenElecHTEff);
-	
-	ExpectationReductionElecRecoTrackGenElecMHTEff = ratioCalculator(ExpectationReductionElecRecoTrackGenElecMHTEff,ExpectationReductionElecRecoTrackGenElecMHTEffFail);   
-	ExpectationReductionElecRecoTrackGenElecMHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco/acc track expec. reduction reco/acc only; #slash{H}_{T} [GeV]");
-	ExpectationReductionElecRecoTrackGenElecMHTEff->SetMarkerSize(2.0);
-	ExpectationReductionElecRecoTrackGenElecMHTEff->UseCurrentStyle();
-	ExpectationReductionElecRecoTrackGenElecMHTEff->Write();
-	SaveEfficiency(ExpectationReductionElecRecoTrackGenElecMHTEff);
-	
-	ExpectationReductionElecRecoTrackGenElecPTEff = ratioCalculator(ExpectationReductionElecRecoTrackGenElecPTEff,ExpectationReductionElecRecoTrackGenElecPTEffFail);   
-	ExpectationReductionElecRecoTrackGenElecPTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco/acc track expec. reduction reco/acc only; p_{T} [GeV]");
-	ExpectationReductionElecRecoTrackGenElecPTEff->SetMarkerSize(2.0);
-	ExpectationReductionElecRecoTrackGenElecPTEff->UseCurrentStyle();
-	ExpectationReductionElecRecoTrackGenElecPTEff->Write();
-	SaveEfficiency(ExpectationReductionElecRecoTrackGenElecPTEff);
-	
-	ExpectationReductionElecRecoTrackGenElecActivityEff = ratioCalculator(ExpectationReductionElecRecoTrackGenElecActivityEff,ExpectationReductionElecRecoTrackGenElecActivityEffFail);   
-	ExpectationReductionElecRecoTrackGenElecActivityEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco/acc track expec. reduction reco/acc only; Activity [GeV]");
-	ExpectationReductionElecRecoTrackGenElecActivityEff->SetMarkerSize(2.0);
-	ExpectationReductionElecRecoTrackGenElecActivityEff->UseCurrentStyle();
-	ExpectationReductionElecRecoTrackGenElecActivityEff->Write();
-	SaveEfficiency(ExpectationReductionElecRecoTrackGenElecActivityEff);
-	
-	//2D
-	ElecRecoTrackGenElecReductionHTNJets_ = ratioCalculator(ElecRecoTrackGenElecReductionHTNJets_,ElecRecoTrackGenElecReductionHTNJetsFail_);   
-	ElecRecoTrackGenElecReductionHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco/acc track expec. reduction reco/acc only; H_{T} [GeV]; N_{Jets}");
-	ElecRecoTrackGenElecReductionHTNJets_->SetMarkerSize(2.0);
-	ElecRecoTrackGenElecReductionHTNJets_->UseCurrentStyle();
-	ElecRecoTrackGenElecReductionHTNJets_->Write();
-	SaveEfficiency(ElecRecoTrackGenElecReductionHTNJets_);
-	
-	ElecRecoTrackGenElecReductionMHTNJets_ = ratioCalculator(ElecRecoTrackGenElecReductionMHTNJets_,ElecRecoTrackGenElecReductionMHTNJetsFail_);   
-	ElecRecoTrackGenElecReductionMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco/acc track expec. reduction reco/acc only; #slash{H}_{T} [GeV]; N_{Jets}");
-	ElecRecoTrackGenElecReductionMHTNJets_->SetMarkerSize(2.0);
-	ElecRecoTrackGenElecReductionMHTNJets_->UseCurrentStyle();
-	ElecRecoTrackGenElecReductionMHTNJets_->Write();
-	SaveEfficiency(ElecRecoTrackGenElecReductionMHTNJets_);
-	
-	
-	ElecRecoTrackGenElecReductionBTagNJets_ = ratioCalculator(ElecRecoTrackGenElecReductionBTagNJets_,ElecRecoTrackGenElecReductionBTagNJetsFail_);   
-	ElecRecoTrackGenElecReductionBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco/acc track expec. reduction reco/acc only; B_{Tags}; N_{Jets}");
-	ElecRecoTrackGenElecReductionBTagNJets_->SetMarkerSize(2.0);
-	ElecRecoTrackGenElecReductionBTagNJets_->UseCurrentStyle();
-	ElecRecoTrackGenElecReductionBTagNJets_->Write();
-	SaveEfficiency(ElecRecoTrackGenElecReductionBTagNJets_);
-	
-	ElecRecoTrackGenElecReductionPTActivity_ = ratioCalculator(ElecRecoTrackGenElecReductionPTActivity_,ElecRecoTrackGenElecReductionPTActivityFail_);   
-	ElecRecoTrackGenElecReductionPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e reco/acc track expec. reduction reco/acc only; p_{T} [GeV]; Activity [GeV]");
-	ElecRecoTrackGenElecReductionPTActivity_->SetMarkerSize(2.0);
-	ElecRecoTrackGenElecReductionPTActivity_->UseCurrentStyle();
-	ElecRecoTrackGenElecReductionPTActivity_->Write();
-	SaveEfficiency(ElecRecoTrackGenElecReductionPTActivity_);
-	
-	
-	
-	
-	//1D
-	ExpectationReductionPionRecoTrackGenElecBTagEff = ratioCalculator(ExpectationReductionPionRecoTrackGenElecBTagEff,ExpectationReductionPionRecoTrackGenElecBTagEffFail);   
-	ExpectationReductionPionRecoTrackGenElecBTagEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genElec); B_{Tags}");
-	ExpectationReductionPionRecoTrackGenElecBTagEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenElecBTagEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenElecBTagEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenElecBTagEff);
-	
-	ExpectationReductionPionRecoTrackGenElecNJetsEff = ratioCalculator(ExpectationReductionPionRecoTrackGenElecNJetsEff,ExpectationReductionPionRecoTrackGenElecNJetsEffFail);   
-	ExpectationReductionPionRecoTrackGenElecNJetsEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genElec); N_{Jets}");
-	ExpectationReductionPionRecoTrackGenElecNJetsEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenElecNJetsEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenElecNJetsEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenElecNJetsEff);
-	
-	ExpectationReductionPionRecoTrackGenElecHTEff = ratioCalculator(ExpectationReductionPionRecoTrackGenElecHTEff,ExpectationReductionPionRecoTrackGenElecHTEffFail);   
-	ExpectationReductionPionRecoTrackGenElecHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genElec); H_{T}");
-	ExpectationReductionPionRecoTrackGenElecHTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenElecHTEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenElecHTEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenElecHTEff);
-	
-	ExpectationReductionPionRecoTrackGenElecMHTEff = ratioCalculator(ExpectationReductionPionRecoTrackGenElecMHTEff,ExpectationReductionPionRecoTrackGenElecMHTEffFail);   
-	ExpectationReductionPionRecoTrackGenElecMHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genElec); #slash{H}_{T} [GeV]");
-	ExpectationReductionPionRecoTrackGenElecMHTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenElecMHTEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenElecMHTEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenElecMHTEff);
-	
-	ExpectationReductionPionRecoTrackGenElecPTEff = ratioCalculator(ExpectationReductionPionRecoTrackGenElecPTEff,ExpectationReductionPionRecoTrackGenElecPTEffFail);   
-	ExpectationReductionPionRecoTrackGenElecPTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genElec); p_{T} [GeV]");
-	ExpectationReductionPionRecoTrackGenElecPTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenElecPTEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenElecPTEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenElecPTEff);
-	
-	ExpectationReductionPionRecoTrackGenElecActivityEff = ratioCalculator(ExpectationReductionPionRecoTrackGenElecActivityEff,ExpectationReductionPionRecoTrackGenElecActivityEffFail);   
-	ExpectationReductionPionRecoTrackGenElecActivityEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genElec); Activity [GeV]");
-	ExpectationReductionPionRecoTrackGenElecActivityEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenElecActivityEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenElecActivityEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenElecActivityEff);
-	
-	//2D
-	PionRecoTrackGenElecReductionHTNJets_ = ratioCalculator(PionRecoTrackGenElecReductionHTNJets_,PionRecoTrackGenElecReductionHTNJetsFail_);   
-	PionRecoTrackGenElecReductionHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genElec); H_{T} [GeV]; N_{Jets}");
-	PionRecoTrackGenElecReductionHTNJets_->SetMarkerSize(2.0);
-	PionRecoTrackGenElecReductionHTNJets_->UseCurrentStyle();
-	PionRecoTrackGenElecReductionHTNJets_->Write();
-	SaveEfficiency(PionRecoTrackGenElecReductionHTNJets_);
-	
-	PionRecoTrackGenElecReductionMHTNJets_ = ratioCalculator(PionRecoTrackGenElecReductionMHTNJets_,PionRecoTrackGenElecReductionMHTNJetsFail_);   
-	PionRecoTrackGenElecReductionMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genElec); #slash{H}_{T} [GeV]; N_{Jets}");
-	PionRecoTrackGenElecReductionMHTNJets_->SetMarkerSize(2.0);
-	PionRecoTrackGenElecReductionMHTNJets_->UseCurrentStyle();
-	PionRecoTrackGenElecReductionMHTNJets_->Write();
-	SaveEfficiency(PionRecoTrackGenElecReductionMHTNJets_);
-	
-	
-	PionRecoTrackGenElecReductionBTagNJets_ = ratioCalculator(PionRecoTrackGenElecReductionBTagNJets_,PionRecoTrackGenElecReductionBTagNJetsFail_);   
-	PionRecoTrackGenElecReductionBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genElec); B_{Tags}; N_{Jets}");
-	PionRecoTrackGenElecReductionBTagNJets_->SetMarkerSize(2.0);
-	PionRecoTrackGenElecReductionBTagNJets_->UseCurrentStyle();
-	PionRecoTrackGenElecReductionBTagNJets_->Write();
-	SaveEfficiency(PionRecoTrackGenElecReductionBTagNJets_);
-	
-	PionRecoTrackGenElecReductionPTActivity_ = ratioCalculator(PionRecoTrackGenElecReductionPTActivity_,PionRecoTrackGenElecReductionPTActivityFail_);   
-	PionRecoTrackGenElecReductionPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genElec); p_{T} [GeV]; Activity [GeV]");
-	PionRecoTrackGenElecReductionPTActivity_->SetMarkerSize(2.0);
-	PionRecoTrackGenElecReductionPTActivity_->UseCurrentStyle();
-	PionRecoTrackGenElecReductionPTActivity_->Write();
-	SaveEfficiency(PionRecoTrackGenElecReductionPTActivity_);
-	
-	
-	
-	
-	// had tau
-	
-	//1D
-	ExpectationReductionPionRecoTrackGenHadTauBTagEff = ratioCalculator(ExpectationReductionPionRecoTrackGenHadTauBTagEff,ExpectationReductionPionRecoTrackGenHadTauBTagEffFail);   
-	ExpectationReductionPionRecoTrackGenHadTauBTagEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genHadTau); B_{Tags}");
-	ExpectationReductionPionRecoTrackGenHadTauBTagEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenHadTauBTagEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenHadTauBTagEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenHadTauBTagEff);
-	
-	ExpectationReductionPionRecoTrackGenHadTauNJetsEff = ratioCalculator(ExpectationReductionPionRecoTrackGenHadTauNJetsEff,ExpectationReductionPionRecoTrackGenHadTauNJetsEffFail);   
-	ExpectationReductionPionRecoTrackGenHadTauNJetsEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genHadTau); N_{Jets}");
-	ExpectationReductionPionRecoTrackGenHadTauNJetsEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenHadTauNJetsEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenHadTauNJetsEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenHadTauNJetsEff);
-	
-	ExpectationReductionPionRecoTrackGenHadTauHTEff = ratioCalculator(ExpectationReductionPionRecoTrackGenHadTauHTEff,ExpectationReductionPionRecoTrackGenHadTauHTEffFail);   
-	ExpectationReductionPionRecoTrackGenHadTauHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genHadTau); H_{T}");
-	ExpectationReductionPionRecoTrackGenHadTauHTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenHadTauHTEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenHadTauHTEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenHadTauHTEff);
-	
-	ExpectationReductionPionRecoTrackGenHadTauMHTEff = ratioCalculator(ExpectationReductionPionRecoTrackGenHadTauMHTEff,ExpectationReductionPionRecoTrackGenHadTauMHTEffFail);   
-	ExpectationReductionPionRecoTrackGenHadTauMHTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genHadTau); #slash{H}_{T} [GeV]");
-	ExpectationReductionPionRecoTrackGenHadTauMHTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenHadTauMHTEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenHadTauMHTEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenHadTauMHTEff);
-	
-	ExpectationReductionPionRecoTrackGenHadTauPTEff = ratioCalculator(ExpectationReductionPionRecoTrackGenHadTauPTEff,ExpectationReductionPionRecoTrackGenHadTauPTEffFail);   
-	ExpectationReductionPionRecoTrackGenHadTauPTEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genHadTau); p_{T} [GeV]");
-	ExpectationReductionPionRecoTrackGenHadTauPTEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenHadTauPTEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenHadTauPTEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenHadTauPTEff);
-	
-	ExpectationReductionPionRecoTrackGenHadTauActivityEff = ratioCalculator(ExpectationReductionPionRecoTrackGenHadTauActivityEff,ExpectationReductionPionRecoTrackGenHadTauActivityEffFail);   
-	ExpectationReductionPionRecoTrackGenHadTauActivityEff->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genHadTau); Activity [GeV]");
-	ExpectationReductionPionRecoTrackGenHadTauActivityEff->SetMarkerSize(2.0);
-	ExpectationReductionPionRecoTrackGenHadTauActivityEff->UseCurrentStyle();
-	ExpectationReductionPionRecoTrackGenHadTauActivityEff->Write();
-	SaveEfficiency(ExpectationReductionPionRecoTrackGenHadTauActivityEff);
-	
-	//2D
-	PionRecoTrackGenHadTauReductionHTNJets_ = ratioCalculator(PionRecoTrackGenHadTauReductionHTNJets_,PionRecoTrackGenHadTauReductionHTNJetsFail_);   
-	PionRecoTrackGenHadTauReductionHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genHadTau); H_{T} [GeV]; N_{Jets}");
-	PionRecoTrackGenHadTauReductionHTNJets_->SetMarkerSize(2.0);
-	PionRecoTrackGenHadTauReductionHTNJets_->UseCurrentStyle();
-	PionRecoTrackGenHadTauReductionHTNJets_->Write();
-	SaveEfficiency(PionRecoTrackGenHadTauReductionHTNJets_);
-	
-	PionRecoTrackGenHadTauReductionMHTNJets_ = ratioCalculator(PionRecoTrackGenHadTauReductionMHTNJets_,PionRecoTrackGenHadTauReductionMHTNJetsFail_);   
-	PionRecoTrackGenHadTauReductionMHTNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genHadTau); #slash{H}_{T} [GeV]; N_{Jets}");
-	PionRecoTrackGenHadTauReductionMHTNJets_->SetMarkerSize(2.0);
-	PionRecoTrackGenHadTauReductionMHTNJets_->UseCurrentStyle();
-	PionRecoTrackGenHadTauReductionMHTNJets_->Write();
-	SaveEfficiency(PionRecoTrackGenHadTauReductionMHTNJets_);
-	
-	
-	PionRecoTrackGenHadTauReductionBTagNJets_ = ratioCalculator(PionRecoTrackGenHadTauReductionBTagNJets_,PionRecoTrackGenHadTauReductionBTagNJetsFail_);   
-	PionRecoTrackGenHadTauReductionBTagNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genHadTau); B_{Tags}; N_{Jets}");
-	PionRecoTrackGenHadTauReductionBTagNJets_->SetMarkerSize(2.0);
-	PionRecoTrackGenHadTauReductionBTagNJets_->UseCurrentStyle();
-	PionRecoTrackGenHadTauReductionBTagNJets_->Write();
-	SaveEfficiency(PionRecoTrackGenHadTauReductionBTagNJets_);
-	
-	PionRecoTrackGenHadTauReductionPTActivity_ = ratioCalculator(PionRecoTrackGenHadTauReductionPTActivity_,PionRecoTrackGenHadTauReductionPTActivityFail_);   
-	PionRecoTrackGenHadTauReductionPTActivity_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #pi reco/acc track expec. reduction reco/acc only (genHadTau); p_{T} [GeV]; Activity [GeV]");
-	PionRecoTrackGenHadTauReductionPTActivity_->SetMarkerSize(2.0);
-	PionRecoTrackGenHadTauReductionPTActivity_->UseCurrentStyle();
-	PionRecoTrackGenHadTauReductionPTActivity_->Write();
-	SaveEfficiency(PionRecoTrackGenHadTauReductionPTActivity_);
-	
 	// ************************************************************************************************************* 22 June 2015 end****************************************************
 	
 	std::cout<<"Done part one...."<<std::endl;
@@ -6759,7 +4906,7 @@ void EffMaker::SaveEfficiency(TH2F *input)
   gROOT->SetBatch(true);
   const TString th2Name = input->GetName();
   const TString th2Title = input->GetTitle();
-	TCanvas *c1 = new TCanvas(th2Name,th2Title,650,500);
+  TCanvas *c1 = new TCanvas(th2Name,th2Title,1);
   c1->cd();
   c1->SetLogx();
   c1->SetLogy();
@@ -6785,7 +4932,7 @@ void EffMaker::SaveEfficiency(TH1F *input)
   const TString th2Name = input->GetName();
   const TString th2Title = (TString)input->GetTitle();
   
-	TCanvas *c1 = new TCanvas(th2Name,th2Title,650,500);
+  TCanvas *c1 = new TCanvas(th2Name,th2Title,1);
   c1->cd();
   c1->SetLogx();
   //c1->SetLogy();
@@ -7014,272 +5161,136 @@ SearchBins::SearchBins()
 	// HTmin,HTmax,MHTmin,MHTmax,NJetsmin,NJetsmax,BTagsmin,BTagsmax
 	// NJets 4,6 BTags=0
 	// fixed ht Njets btags all MHT bins
-	binning=1;
-	// HTmin,HTmax,MHTmin,MHTmax,NJetsmin,NJetsmax,BTagsmin,BTagsmax
-	// NJets 4,6 BTags=0
+	bins_.push_back( Bin(500,800,200,500,4,6,-1,0) );
+	bins_.push_back( Bin(800,1200,200,500,4,6,-1,0) );
+	bins_.push_back( Bin(1200,99999,200,500,4,6,-1,0) );
+	
+	bins_.push_back( Bin(500,1200,500,750,4,6,-1,0) );
+	bins_.push_back( Bin(1200,99999,500,750,4,6,-1,0) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,4,6,-1,0) );
+	
+	// NJewts 7,8 BTags=0
+	bins_.push_back( Bin(500,800,200,500,7,8,-1,0) );
+	bins_.push_back( Bin(800,1200,200,500,7,8,-1,0) );
+	bins_.push_back( Bin(1200,99999,200,500,7,8,-1,0) );
+	
+	bins_.push_back( Bin(500,1200,500,750,7,8,-1,0) );
+	bins_.push_back( Bin(1200,99999,500,750,7,8,-1,0) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,7,8,-1,0) );
+	
+	
+	// NJewts 9,9999 BTags=0
+	bins_.push_back( Bin(500,800,200,500,9,9999,-1,0) );
+	bins_.push_back( Bin(800,1200,200,500,9,9999,-1,0) );
+	bins_.push_back( Bin(1200,99999,200,500,9,9999,-1,0) );
+	
+	bins_.push_back( Bin(500,1200,500,750,9,9999,-1,0) );
+	bins_.push_back( Bin(1200,99999,500,750,9,9999,-1,0) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,9,9999,-1,0) );
+	
+	
+	
+	// NJets 4,6 BTags=1
 	// fixed ht Njets btags all MHT bins
-	if(binning==0)
-	{
-		bins_.push_back( Bin(500,800,200,500,4,6,-1,0) );
-		bins_.push_back( Bin(800,1200,200,500,4,6,-1,0) );
-		bins_.push_back( Bin(1200,99999,200,500,4,6,-1,0) );
-		
-		bins_.push_back( Bin(500,1200,500,750,4,6,-1,0) );
-		bins_.push_back( Bin(1200,99999,500,750,4,6,-1,0) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,4,6,-1,0) );
-		
-		// NJewts 7,8 BTags=0
-		bins_.push_back( Bin(500,800,200,500,7,8,-1,0) );
-		bins_.push_back( Bin(800,1200,200,500,7,8,-1,0) );
-		bins_.push_back( Bin(1200,99999,200,500,7,8,-1,0) );
-		
-		bins_.push_back( Bin(500,1200,500,750,7,8,-1,0) );
-		bins_.push_back( Bin(1200,99999,500,750,7,8,-1,0) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,7,8,-1,0) );
-		
-		
-		// NJewts 9,9999 BTags=0
-		bins_.push_back( Bin(500,800,200,500,9,9999,-1,0) );
-		bins_.push_back( Bin(800,1200,200,500,9,9999,-1,0) );
-		bins_.push_back( Bin(1200,99999,200,500,9,9999,-1,0) );
-		
-		bins_.push_back( Bin(500,1200,500,750,9,9999,-1,0) );
-		bins_.push_back( Bin(1200,99999,500,750,9,9999,-1,0) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,9,9999,-1,0) );
-		
-		
-		
-		// NJets 4,6 BTags=1
-		// fixed ht Njets btags all MHT bins
-		bins_.push_back( Bin(500,800,200,500,4,6,1,1) );
-		bins_.push_back( Bin(800,1200,200,500,4,6,1,1) );
-		bins_.push_back( Bin(1200,99999,200,500,4,6,1,1) );
-		
-		bins_.push_back( Bin(500,1200,500,750,4,6,1,1) );
-		bins_.push_back( Bin(1200,99999,500,750,4,6,1,1) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,4,6,1,1) );
-		
-		// NJewts 7,8 BTags=0
-		bins_.push_back( Bin(500,800,200,500,7,8,1,1) );
-		bins_.push_back( Bin(800,1200,200,500,7,8,1,1) );
-		bins_.push_back( Bin(1200,99999,200,500,7,8,1,1) );
-		
-		bins_.push_back( Bin(500,1200,500,750,7,8,1,1) );
-		bins_.push_back( Bin(1200,99999,500,750,7,8,1,1) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,7,8,1,1) );
-		
-		
-		// NJewts 9,9999 BTags=1
-		bins_.push_back( Bin(500,800,200,500,9,9999,1,1) );
-		bins_.push_back( Bin(800,1200,200,500,9,9999,1,1) );
-		bins_.push_back( Bin(1200,99999,200,500,9,9999,1,1) );
-		
-		bins_.push_back( Bin(500,1200,500,750,9,9999,1,1) );
-		bins_.push_back( Bin(1200,99999,500,750,9,9999,1,1) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,9,9999,1,1) );
-		
-		
-		
-		// NJets 4,6 BTags=2
-		// fixed ht Njets btags all MHT bins
-		bins_.push_back( Bin(500,800,200,500,4,6,2,2) );
-		bins_.push_back( Bin(800,1200,200,500,4,6,2,2) );
-		bins_.push_back( Bin(1200,99999,200,500,4,6,2,2) );
-		
-		bins_.push_back( Bin(500,1200,500,750,4,6,2,2) );
-		bins_.push_back( Bin(1200,99999,500,750,4,6,2,2) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,4,6,2,2) );
-		
-		// NJewts 7,8 BTags=2
-		bins_.push_back( Bin(500,800,200,500,7,8,2,2) );
-		bins_.push_back( Bin(800,1200,200,500,7,8,2,2) );
-		bins_.push_back( Bin(1200,99999,200,500,7,8,2,2) );
-		
-		bins_.push_back( Bin(500,1200,500,750,7,8,2,2) );
-		bins_.push_back( Bin(1200,99999,500,750,7,8,2,2) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,7,8,2,2) );
-		
-		
-		// NJewts 9,9999 BTags=2
-		bins_.push_back( Bin(500,800,200,500,9,9999,2,2) );
-		bins_.push_back( Bin(800,1200,200,500,9,9999,2,2) );
-		bins_.push_back( Bin(1200,99999,200,500,9,9999,2,2) );
-		
-		bins_.push_back( Bin(500,1200,500,750,9,9999,2,2) );
-		bins_.push_back( Bin(1200,99999,500,750,9,9999,2,2) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,9,9999,2,2) );
-		
-		
-		// NJets 4,6 BTags=>3
-		// fixed ht Njets btags all MHT bins
-		bins_.push_back( Bin(500,800,200,500,4,6,3,9999) );
-		bins_.push_back( Bin(800,1200,200,500,4,6,3,9999) );
-		bins_.push_back( Bin(1200,99999,200,500,4,6,3,9999) );
-		
-		bins_.push_back( Bin(500,1200,500,750,4,6,3,9999) );
-		bins_.push_back( Bin(1200,99999,500,750,4,6,3,9999) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,4,6,3,9999) );
-		
-		// NJewts 7,8 BTags=>3
-		bins_.push_back( Bin(500,800,200,500,7,8,3,9999) );
-		bins_.push_back( Bin(800,1200,200,500,7,8,3,9999) );
-		bins_.push_back( Bin(1200,99999,200,500,7,8,3,9999) );
-		
-		bins_.push_back( Bin(500,1200,500,750,7,8,3,9999) );
-		bins_.push_back( Bin(1200,99999,500,750,7,8,3,9999) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,7,8,3,9999) );
-		
-		
-		// NJewts 9,9999 BTags=>3
-		bins_.push_back( Bin(500,800,200,500,9,9999,3,9999) );
-		bins_.push_back( Bin(800,1200,200,500,9,9999,3,9999) );
-		bins_.push_back( Bin(1200,99999,200,500,9,9999,3,9999) );
-		
-		bins_.push_back( Bin(500,1200,500,750,9,9999,3,9999) );
-		bins_.push_back( Bin(1200,99999,500,750,9,9999,3,9999) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,9,9999,3,9999) );
-	}
-	else if(binning==1)
-	{
-		bins_.push_back( Bin(500,800,200,500,4,6,-1,0) );
-		bins_.push_back( Bin(800,1200,200,500,4,6,-1,0) );
-		bins_.push_back( Bin(1200,99999,200,500,4,6,-1,0) );
-		
-		bins_.push_back( Bin(500,1200,500,750,4,6,-1,0) );
-		bins_.push_back( Bin(1200,99999,500,750,4,6,-1,0) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,4,6,-1,0) );
-		
-		// NJets 4,6 BTags=1
-		// fixed ht Njets btags all MHT bins
-		bins_.push_back( Bin(500,800,200,500,4,6,1,1) );
-		bins_.push_back( Bin(800,1200,200,500,4,6,1,1) );
-		bins_.push_back( Bin(1200,99999,200,500,4,6,1,1) );
-		
-		bins_.push_back( Bin(500,1200,500,750,4,6,1,1) );
-		bins_.push_back( Bin(1200,99999,500,750,4,6,1,1) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,4,6,1,1) );
-		
-		// NJets 4,6 BTags=2
-		// fixed ht Njets btags all MHT bins
-		bins_.push_back( Bin(500,800,200,500,4,6,2,2) );
-		bins_.push_back( Bin(800,1200,200,500,4,6,2,2) );
-		bins_.push_back( Bin(1200,99999,200,500,4,6,2,2) );
-		
-		bins_.push_back( Bin(500,1200,500,750,4,6,2,2) );
-		bins_.push_back( Bin(1200,99999,500,750,4,6,2,2) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,4,6,2,2) );
-		
-		// NJets 4,6 BTags=>3
-		// fixed ht Njets btags all MHT bins
-		bins_.push_back( Bin(500,800,200,500,4,6,3,9999) );
-		bins_.push_back( Bin(800,1200,200,500,4,6,3,9999) );
-		bins_.push_back( Bin(1200,99999,200,500,4,6,3,9999) );
-		
-		bins_.push_back( Bin(500,1200,500,750,4,6,3,9999) );
-		bins_.push_back( Bin(1200,99999,500,750,4,6,3,9999) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,4,6,3,9999) );
-		
-		// NJewts 7,8 BTags=0
-		bins_.push_back( Bin(500,800,200,500,7,8,-1,0) );
-		bins_.push_back( Bin(800,1200,200,500,7,8,-1,0) );
-		bins_.push_back( Bin(1200,99999,200,500,7,8,-1,0) );
-		
-		bins_.push_back( Bin(500,1200,500,750,7,8,-1,0) );
-		bins_.push_back( Bin(1200,99999,500,750,7,8,-1,0) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,7,8,-1,0) );
-		
-		// NJewts 7,8 BTags=1
-		bins_.push_back( Bin(500,800,200,500,7,8,1,1) );
-		bins_.push_back( Bin(800,1200,200,500,7,8,1,1) );
-		bins_.push_back( Bin(1200,99999,200,500,7,8,1,1) );
-		
-		bins_.push_back( Bin(500,1200,500,750,7,8,1,1) );
-		bins_.push_back( Bin(1200,99999,500,750,7,8,1,1) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,7,8,1,1) );
-		
-		// NJewts 7,8 BTags=2
-		bins_.push_back( Bin(500,800,200,500,7,8,2,2) );
-		bins_.push_back( Bin(800,1200,200,500,7,8,2,2) );
-		bins_.push_back( Bin(1200,99999,200,500,7,8,2,2) );
-		
-		bins_.push_back( Bin(500,1200,500,750,7,8,2,2) );
-		bins_.push_back( Bin(1200,99999,500,750,7,8,2,2) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,7,8,2,2) );
-		
-		// NJewts 7,8 BTags=>3
-		bins_.push_back( Bin(500,800,200,500,7,8,3,9999) );
-		bins_.push_back( Bin(800,1200,200,500,7,8,3,9999) );
-		bins_.push_back( Bin(1200,99999,200,500,7,8,3,9999) );
-		
-		bins_.push_back( Bin(500,1200,500,750,7,8,3,9999) );
-		bins_.push_back( Bin(1200,99999,500,750,7,8,3,9999) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,7,8,3,9999) );
-		
-		
-		// NJewts 9,9999 BTags=0
-		bins_.push_back( Bin(500,800,200,500,9,9999,-1,0) );
-		bins_.push_back( Bin(800,1200,200,500,9,9999,-1,0) );
-		bins_.push_back( Bin(1200,99999,200,500,9,9999,-1,0) );
-		
-		bins_.push_back( Bin(500,1200,500,750,9,9999,-1,0) );
-		bins_.push_back( Bin(1200,99999,500,750,9,9999,-1,0) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,9,9999,-1,0) );
-		
-		
-		// NJewts 9,9999 BTags=1
-		bins_.push_back( Bin(500,800,200,500,9,9999,1,1) );
-		bins_.push_back( Bin(800,1200,200,500,9,9999,1,1) );
-		bins_.push_back( Bin(1200,99999,200,500,9,9999,1,1) );
-		
-		bins_.push_back( Bin(500,1200,500,750,9,9999,1,1) );
-		bins_.push_back( Bin(1200,99999,500,750,9,9999,1,1) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,9,9999,1,1) );
-		
-		
-		// NJewts 9,9999 BTags=2
-		bins_.push_back( Bin(500,800,200,500,9,9999,2,2) );
-		bins_.push_back( Bin(800,1200,200,500,9,9999,2,2) );
-		bins_.push_back( Bin(1200,99999,200,500,9,9999,2,2) );
-		
-		bins_.push_back( Bin(500,1200,500,750,9,9999,2,2) );
-		bins_.push_back( Bin(1200,99999,500,750,9,9999,2,2) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,9,9999,2,2) );
-		
-		
-		// NJewts 9,9999 BTags=>3
-		bins_.push_back( Bin(500,800,200,500,9,9999,3,9999) );
-		bins_.push_back( Bin(800,1200,200,500,9,9999,3,9999) );
-		bins_.push_back( Bin(1200,99999,200,500,9,9999,3,9999) );
-		
-		bins_.push_back( Bin(500,1200,500,750,9,9999,3,9999) );
-		bins_.push_back( Bin(1200,99999,500,750,9,9999,3,9999) );
-		
-		bins_.push_back( Bin(800,99999,750,9999,9,9999,3,9999) );
-		
-	}
+	bins_.push_back( Bin(500,800,200,500,4,6,1,1) );
+	bins_.push_back( Bin(800,1200,200,500,4,6,1,1) );
+	bins_.push_back( Bin(1200,99999,200,500,4,6,1,1) );
+	
+	bins_.push_back( Bin(500,1200,500,750,4,6,1,1) );
+	bins_.push_back( Bin(1200,99999,500,750,4,6,1,1) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,4,6,1,1) );
+	
+	// NJewts 7,8 BTags=0
+	bins_.push_back( Bin(500,800,200,500,7,8,1,1) );
+	bins_.push_back( Bin(800,1200,200,500,7,8,1,1) );
+	bins_.push_back( Bin(1200,99999,200,500,7,8,1,1) );
+	
+	bins_.push_back( Bin(500,1200,500,750,7,8,1,1) );
+	bins_.push_back( Bin(1200,99999,500,750,7,8,1,1) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,7,8,1,1) );
+	
+	
+	// NJewts 9,9999 BTags=1
+	bins_.push_back( Bin(500,800,200,500,9,9999,1,1) );
+	bins_.push_back( Bin(800,1200,200,500,9,9999,1,1) );
+	bins_.push_back( Bin(1200,99999,200,500,9,9999,1,1) );
+	
+	bins_.push_back( Bin(500,1200,500,750,9,9999,1,1) );
+	bins_.push_back( Bin(1200,99999,500,750,9,9999,1,1) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,9,9999,1,1) );
+	
+	
+	
+	// NJets 4,6 BTags=2
+	// fixed ht Njets btags all MHT bins
+	bins_.push_back( Bin(500,800,200,500,4,6,2,2) );
+	bins_.push_back( Bin(800,1200,200,500,4,6,2,2) );
+	bins_.push_back( Bin(1200,99999,200,500,4,6,2,2) );
+	
+	bins_.push_back( Bin(500,1200,500,750,4,6,2,2) );
+	bins_.push_back( Bin(1200,99999,500,750,4,6,2,2) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,4,6,2,2) );
+	
+	// NJewts 7,8 BTags=2
+	bins_.push_back( Bin(500,800,200,500,7,8,2,2) );
+	bins_.push_back( Bin(800,1200,200,500,7,8,2,2) );
+	bins_.push_back( Bin(1200,99999,200,500,7,8,2,2) );
+	
+	bins_.push_back( Bin(500,1200,500,750,7,8,2,2) );
+	bins_.push_back( Bin(1200,99999,500,750,7,8,2,2) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,7,8,2,2) );
+	
+	
+	// NJewts 9,9999 BTags=2
+	bins_.push_back( Bin(500,800,200,500,9,9999,2,2) );
+	bins_.push_back( Bin(800,1200,200,500,9,9999,2,2) );
+	bins_.push_back( Bin(1200,99999,200,500,9,9999,2,2) );
+	
+	bins_.push_back( Bin(500,1200,500,750,9,9999,2,2) );
+	bins_.push_back( Bin(1200,99999,500,750,9,9999,2,2) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,9,9999,2,2) );
+	
+	
+	// NJets 4,6 BTags=>3
+	// fixed ht Njets btags all MHT bins
+	bins_.push_back( Bin(500,800,200,500,4,6,3,9999) );
+	bins_.push_back( Bin(800,1200,200,500,4,6,3,9999) );
+	bins_.push_back( Bin(1200,99999,200,500,4,6,3,9999) );
+	
+	bins_.push_back( Bin(500,1200,500,750,4,6,3,9999) );
+	bins_.push_back( Bin(1200,99999,500,750,4,6,3,9999) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,4,6,3,9999) );
+	
+	// NJewts 7,8 BTags=>3
+	bins_.push_back( Bin(500,800,200,500,7,8,3,9999) );
+	bins_.push_back( Bin(800,1200,200,500,7,8,3,9999) );
+	bins_.push_back( Bin(1200,99999,200,500,7,8,3,9999) );
+	
+	bins_.push_back( Bin(500,1200,500,750,7,8,3,9999) );
+	bins_.push_back( Bin(1200,99999,500,750,7,8,3,9999) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,7,8,3,9999) );
+	
+	
+	// NJewts 9,9999 BTags=>3
+	bins_.push_back( Bin(500,800,200,500,9,9999,3,9999) );
+	bins_.push_back( Bin(800,1200,200,500,9,9999,3,9999) );
+	bins_.push_back( Bin(1200,99999,200,500,9,9999,3,9999) );
+	
+	bins_.push_back( Bin(500,1200,500,750,9,9999,3,9999) );
+	bins_.push_back( Bin(1200,99999,500,750,9,9999,3,9999) );
+	
+	bins_.push_back( Bin(800,99999,750,9999,9,9999,3,9999) );
 }
 
 unsigned int SearchBins::GetBinNumber(double HT, double MHT, int NJets, int BTags)

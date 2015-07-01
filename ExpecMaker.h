@@ -116,7 +116,6 @@ public:
 protected:
   std::vector<Bin> bins_;
   std::vector<int> usedBin_;
-	unsigned int binning;
 };
 class ExpecMaker : public TSelector {
 public :
@@ -138,7 +137,7 @@ public :
 	SearchBins *SearchBins_;
 	// eff variables fot the tree
 	UShort_t Expectation;
-	UShort_t ExpectationReductionIsoTrack, ExpectationReductionIsoMuTrack, ExpectationReductionIsoElecTrack, ExpectationReductionIsoPionTrack;
+	UShort_t ExpectationReductionIsoTrack;
 	UShort_t FallsVetoLep, FallsVetoIsoTrack;
 	UShort_t FallsVetoIsoTrackPT10, FallsVetoIsoTrackPT10IsoCut08, FallsVetoIsoTrackPT10IsoCut12;
 	UShort_t muIso, muReco, muAcc, muMTW, muTotal;
@@ -228,16 +227,6 @@ public :
 	TH1F *RecoElectronMTWNonPrompt_;
 	TH1F *IsoElectronMTWPrompt_;
 	TH1F *IsoElectronMTWNonPrompt_;
-	
-	
-	// ************************************************************************************************************* 22 June 2015 ****************************************************
-	
-	UShort_t muIsoTrackIso, muIsoTrackReco;
-	UShort_t elecIsoTrackIso, elecIsoTrackReco;
-	UShort_t pionIsoTrackIso, pionIsoTrackReco;
-	
-	// ************************************************************************************************************* 22 June 2015 end****************************************************
-	
 	// Declaration of leaf types
 	
 	UInt_t          RunNum;
@@ -386,26 +375,10 @@ public :
 	Float_t         slimmedElectronsPhi[100];   //[slimmedElectronsNum]
 	Float_t         slimmedElectronsE[100];   //[slimmedElectronsNum]
 	UShort_t        slimmedMuonsNum;
-	Float_t         slimmedMuonsPt[300];   //[slimmedMuonsNum]
-	Float_t         slimmedMuonsEta[300];   //[slimmedMuonsNum]
-	Float_t         slimmedMuonsPhi[300];   //[slimmedMuonsNum]
-	Float_t         slimmedMuonsE[300];   //[slimmedMuonsNum]
-	
-	UShort_t        SelectedPFElecCandidatesNum;
-	Float_t         SelectedPFElecCandidatesPt[100];   //[SelectedPFElecCandidatesNum]
-	Float_t         SelectedPFElecCandidatesEta[100];   //[SelectedPFElecCandidatesNum]
-	Float_t         SelectedPFElecCandidatesPhi[100];   //[SelectedPFElecCandidatesNum]
-	Float_t         SelectedPFElecCandidatesE[100];   //[SelectedPFElecCandidatesNum]
-	UShort_t        SelectedPFMuCandidatesNum;
-	Float_t         SelectedPFMuCandidatesPt[100];   //[SelectedPFMuCandidatesNum]
-	Float_t         SelectedPFMuCandidatesEta[100];   //[SelectedPFMuCandidatesNum]
-	Float_t         SelectedPFMuCandidatesPhi[100];   //[SelectedPFMuCandidatesNum]
-	Float_t         SelectedPFMuCandidatesE[100];   //[SelectedPFMuCandidatesNum]
-	UShort_t        SelectedPFPionCandidatesNum;
-	Float_t         SelectedPFPionCandidatesPt[300];   //[SelectedPFPionCandidatesNum]
-	Float_t         SelectedPFPionCandidatesEta[300];   //[SelectedPFPionCandidatesNum]
-	Float_t         SelectedPFPionCandidatesPhi[300];   //[SelectedPFPionCandidatesNum]
-	Float_t         SelectedPFPionCandidatesE[300];   //[SelectedPFPionCandidatesNum]
+	Float_t         slimmedMuonsPt[14];   //[slimmedMuonsNum]
+	Float_t         slimmedMuonsEta[14];   //[slimmedMuonsNum]
+	Float_t         slimmedMuonsPhi[14];   //[slimmedMuonsNum]
+	Float_t         slimmedMuonsE[14];   //[slimmedMuonsNum]
 	
 	// List of branches
 	TBranch        *b_RunNum;   //!
@@ -555,22 +528,6 @@ public :
 	TBranch        *b_slimmedMuonsEta;   //!
 	TBranch        *b_slimmedMuonsPhi;   //!
 	TBranch        *b_slimmedMuonsE;   //!
-	
-	TBranch        *b_SelectedPFElecCandidatesNum;   //!
-	TBranch        *b_SelectedPFElecCandidatesPt;   //!
-	TBranch        *b_SelectedPFElecCandidatesEta;   //!
-	TBranch        *b_SelectedPFElecCandidatesPhi;   //!
-	TBranch        *b_SelectedPFElecCandidatesE;   //!
-	TBranch        *b_SelectedPFMuCandidatesNum;   //!
-	TBranch        *b_SelectedPFMuCandidatesPt;   //!
-	TBranch        *b_SelectedPFMuCandidatesEta;   //!
-	TBranch        *b_SelectedPFMuCandidatesPhi;   //!
-	TBranch        *b_SelectedPFMuCandidatesE;   //!
-	TBranch        *b_SelectedPFPionCandidatesNum;   //!
-	TBranch        *b_SelectedPFPionCandidatesPt;   //!
-	TBranch        *b_SelectedPFPionCandidatesEta;   //!
-	TBranch        *b_SelectedPFPionCandidatesPhi;   //!
-	TBranch        *b_SelectedPFPionCandidatesE;   //!
 	
 	ExpecMaker(TTree * /*tree*/ =0) : fChain(0) { }
 	virtual ~ExpecMaker() { }
@@ -756,22 +713,6 @@ void ExpecMaker::Init(TTree *tree)
 	fChain->SetBranchAddress("slimmedMuonsEta", slimmedMuonsEta, &b_slimmedMuonsEta);
 	fChain->SetBranchAddress("slimmedMuonsPhi", slimmedMuonsPhi, &b_slimmedMuonsPhi);
 	fChain->SetBranchAddress("slimmedMuonsE", slimmedMuonsE, &b_slimmedMuonsE);
-	
-	fChain->SetBranchAddress("SelectedPFElecCandidatesNum", &SelectedPFElecCandidatesNum, &b_SelectedPFElecCandidatesNum);
-	fChain->SetBranchAddress("SelectedPFElecCandidatesPt", SelectedPFElecCandidatesPt, &b_SelectedPFElecCandidatesPt);
-	fChain->SetBranchAddress("SelectedPFElecCandidatesEta", SelectedPFElecCandidatesEta, &b_SelectedPFElecCandidatesEta);
-	fChain->SetBranchAddress("SelectedPFElecCandidatesPhi", SelectedPFElecCandidatesPhi, &b_SelectedPFElecCandidatesPhi);
-	fChain->SetBranchAddress("SelectedPFElecCandidatesE", SelectedPFElecCandidatesE, &b_SelectedPFElecCandidatesE);
-	fChain->SetBranchAddress("SelectedPFMuCandidatesNum", &SelectedPFMuCandidatesNum, &b_SelectedPFMuCandidatesNum);
-	fChain->SetBranchAddress("SelectedPFMuCandidatesPt", SelectedPFMuCandidatesPt, &b_SelectedPFMuCandidatesPt);
-	fChain->SetBranchAddress("SelectedPFMuCandidatesEta", SelectedPFMuCandidatesEta, &b_SelectedPFMuCandidatesEta);
-	fChain->SetBranchAddress("SelectedPFMuCandidatesPhi", SelectedPFMuCandidatesPhi, &b_SelectedPFMuCandidatesPhi);
-	fChain->SetBranchAddress("SelectedPFMuCandidatesE", SelectedPFMuCandidatesE, &b_SelectedPFMuCandidatesE);
-	fChain->SetBranchAddress("SelectedPFPionCandidatesNum", &SelectedPFPionCandidatesNum, &b_SelectedPFPionCandidatesNum);
-	fChain->SetBranchAddress("SelectedPFPionCandidatesPt", SelectedPFPionCandidatesPt, &b_SelectedPFPionCandidatesPt);
-	fChain->SetBranchAddress("SelectedPFPionCandidatesEta", SelectedPFPionCandidatesEta, &b_SelectedPFPionCandidatesEta);
-	fChain->SetBranchAddress("SelectedPFPionCandidatesPhi", SelectedPFPionCandidatesPhi, &b_SelectedPFPionCandidatesPhi);
-	fChain->SetBranchAddress("SelectedPFPionCandidatesE", SelectedPFPionCandidatesE, &b_SelectedPFPionCandidatesE);
 }
 
 Bool_t ExpecMaker::Notify()
