@@ -87,10 +87,16 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("GenTauPt", GenTauPt,"GenTauPt[GenTauNum]/F");
 	tExpectation_->Branch("GenTauEta", GenTauEta,"GenTauEta[GenTauNum]/F");
 	tExpectation_->Branch("GenTauPhi", GenTauPhi,"GenTauPhi[GenTauNum]/F");
+        tExpectation_->Branch("GenTauCharged", GenTauCharged,"GenTauCharged[GenTauNum]/s");
+        tExpectation_->Branch("GenTauNeutral", GenTauNeutral,"GenTauNeutral[GenTauNum]/s");
+        tExpectation_->Branch("GenTauLepDecay", GenTauLepDecay,"GenTauLepDecay[GenTauNum]/s");
 	tExpectation_->Branch("GenTauIsoTrackMatched", GenTauIsoTrackMatched, "GenTauIsoTrackMatched[GenTauNum]/s"); 
 	tExpectation_->Branch("GenTauActivity", GenTauActivity,"GenTauActivity[GenTauNum]/F");
 	tExpectation_->Branch("Expectation",&Expectation,"Expectation/s");  
 	tExpectation_->Branch("ExpectationReductionIsoTrack",&ExpectationReductionIsoTrack,"ExpectationReductionIsoTrack/s");
+	tExpectation_->Branch("ExpectationReductionIsoMuTrack",&ExpectationReductionIsoMuTrack,"ExpectationReductionIsoMuTrack/s");
+	tExpectation_->Branch("ExpectationReductionIsoElecTrack",&ExpectationReductionIsoElecTrack,"ExpectationReductionIsoElecTrack/s");
+	tExpectation_->Branch("ExpectationReductionIsoPionTrack",&ExpectationReductionIsoPionTrack,"ExpectationReductionIsoPionTrack/s");
 	tExpectation_->Branch("muAcc",&muAcc,"muAcc/s");  
 	tExpectation_->Branch("muReco",&muReco,"muReco/s");  
 	tExpectation_->Branch("muIso",&muIso,"muIso/s");  
@@ -102,6 +108,13 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("muIsoTrack",&muIsoTrack,"muIsoTrack/s");  
 	tExpectation_->Branch("MuPurity",&MuPurity_,"MuPurity/s"); 
 	tExpectation_->Branch("ElecPurity",&ElecPurity_,"ElecPurity/s"); 
+	
+	tExpectation_->Branch("muIsoTrackIso",&muIsoTrackIso,"muIsoTrackIso/s"); 
+	tExpectation_->Branch("muIsoTrackReco",&muIsoTrackReco,"muIsoTrackReco/s"); 
+	tExpectation_->Branch("elecIsoTrackIso",&elecIsoTrackIso,"elecIsoTrackIso/s"); 
+	tExpectation_->Branch("elecIsoTrackReco",&elecIsoTrackReco,"elecIsoTrackReco/s"); 
+	tExpectation_->Branch("pionIsoTrackIso",&pionIsoTrackIso,"pionIsoTrackIso/s"); 
+	tExpectation_->Branch("pionIsoTrackReco",&pionIsoTrackReco,"pionIsoTrackReco/s"); 
 	muActivityMethod=muActivityMethod_;
 	elecActivityMethod=elecActivityMethod_;
 	muIsoTrackActivityMethod=muIsoTrackActivityMethod_;
@@ -187,7 +200,9 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("muIsoTrackMatchedToGenSingleProngTau", muIsoTrackMatchedToGenSingleProngTau, "muIsoTrackMatchedToGenSingleProngTau[IsolatedPionTracksVetoNum]/s");
 	tExpectation_->Branch("elecIsoTrackMatchedToGenSingleProngTau", elecIsoTrackMatchedToGenSingleProngTau, "elecIsoTrackMatchedToGenSingleProngTau[IsolatedPionTracksVetoNum]/s");
 	tExpectation_->Branch("pionIsoTrackMatchedToGenSingleProngTau", pionIsoTrackMatchedToGenSingleProngTau, "pionIsoTrackMatchedToGenSingleProngTau[IsolatedPionTracksVetoNum]/s");
-	
+        tExpectation_->Branch("pionIsoTrackMatchedToGenSingleProngTauCharged", pionIsoTrackMatchedToGenSingleProngTauCharged, "pionIsoTrackMatchedToGenSingleProngTauCharged[IsolatedPionTracksVetoNum]/s");
+        tExpectation_->Branch("pionIsoTrackMatchedToGenSingleProngTauNeutral", pionIsoTrackMatchedToGenSingleProngTauNeutral, "pionIsoTrackMatchedToGenSingleProngTauNeutral[IsolatedPionTracksVetoNum]/s");
+        
 	
 	tExpectation_->Branch("JetsNum",&JetsNum,"JetsNum/s");
 	tExpectation_->Branch("JetsPt", JetsPt, "JetsPt[JetsNum]/F");
@@ -268,8 +283,8 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 		return kTRUE;
 	}
 	
-// 	if(DeltaPhi1 < deltaPhi1_ || DeltaPhi2 < deltaPhi2_ || DeltaPhi3 < deltaPhi3_ )return kTRUE;
-	if(!DY_) if(minDeltaPhiN<minDeltaPhiN_) return kTRUE;
+	if(!DY_) if(DeltaPhi1 < deltaPhi1_ || DeltaPhi2 < deltaPhi2_ || DeltaPhi3 < deltaPhi3_ )return kTRUE;
+// 	if(!DY_) if(minDeltaPhiN<minDeltaPhiN_) return kTRUE;
 	if(applyFilters_ &&  !FiltersPass() ) return kTRUE;
   	if(DY_ && ( HT<minHT_ || NJets < minNJets_) ) return kTRUE;
 	Bin_ = SearchBins_->GetBinNumber(HT,MHT,NJets,BTags);
@@ -500,6 +515,59 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 				IsolatedPionTracksVetoMTW[i]= MTWCalculator(METPt,METPhi, IsolatedPionTracksVetoPt[i], IsolatedPionTracksVetoPhi[i]);
 			}
 		}
+		bool RecoNotMatched=true;
+		for(unsigned int i=0; i< SelectedPFMuCandidatesNum;i++)
+		{
+			
+			if(deltaR(GenMuEta[0],GenMuPhi[0],SelectedPFMuCandidatesEta[i],SelectedPFMuCandidatesPhi[i])<maxDeltaRGenMuToTack_ && std::abs(GenMuPt[0]-SelectedPFMuCandidatesPt[i])/GenMuPt[0] <maxDiffPtGenMuToTack_)
+			{
+				RecoNotMatched=false;
+				muIsoTrackReco=2;
+				bool IsoNotMatched=true;
+				for(unsigned int ii=0; ii< IsolatedMuonTracksVetoNum; ii++)
+				{
+					if(deltaR(GenMuEta[0],GenMuPhi[0],IsolatedMuonTracksVetoEta[ii],IsolatedMuonTracksVetoPhi[ii])<maxDeltaRGenMuToTack_ && std::abs(GenMuPt[0]-IsolatedMuonTracksVetoPt[ii])/GenMuPt[0] <maxDiffPtGenMuToTack_)
+					{
+						IsoNotMatched=false;
+						muIsoTrackIso=2;
+					}
+				}
+				if(IsoNotMatched)
+				{
+					muIsoTrackIso=0;
+				}
+			}
+		}
+		if(RecoNotMatched)
+		{
+			muIsoTrackReco=0;
+		}
+		for(unsigned int i=0; i< SelectedPFPionCandidatesNum;i++)
+		{
+			
+			if(deltaR(GenMuEta[0],GenMuPhi[0],SelectedPFPionCandidatesEta[i],SelectedPFPionCandidatesPhi[i])<maxDeltaRGenMuToTack_ && std::abs(GenMuPt[0]-SelectedPFPionCandidatesPt[i])/GenMuPt[0] <maxDiffPtGenMuToTack_)
+			{
+				RecoNotMatched=false;
+				pionIsoTrackReco=2;
+				bool IsoNotMatched=true;
+				for(unsigned int ii=0; ii< IsolatedPionTracksVetoNum; ii++)
+				{
+					if(deltaR(GenMuEta[0],GenMuPhi[0],IsolatedPionTracksVetoEta[ii],IsolatedPionTracksVetoPhi[ii])<maxDeltaRGenMuToTack_ && std::abs(GenMuPt[0]-IsolatedPionTracksVetoPt[ii])/GenMuPt[0] <maxDiffPtGenMuToTack_)
+					{
+						IsoNotMatched=false;
+						pionIsoTrackIso=2;
+					}
+				}
+				if(IsoNotMatched)
+				{
+					pionIsoTrackIso=0;
+				}
+			}
+		}
+		if(RecoNotMatched)
+		{
+			pionIsoTrackReco=0;
+		}
 	}
 	if(GenElecNum==1 && GenMuNum==0)
 	{
@@ -535,10 +603,85 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 				
 			}
 		}
+		bool RecoNotMatched=true;
+		for(unsigned int i=0; i< SelectedPFElecCandidatesNum;i++)
+		{
+			
+			if(deltaR(GenElecEta[0],GenElecPhi[0],SelectedPFElecCandidatesEta[i],SelectedPFElecCandidatesPhi[i])<maxDeltaRGenElecToTack_ && std::abs(GenElecPt[0]-SelectedPFElecCandidatesPt[i])/GenElecPt[0] <maxDiffPtGenElecToTack_)
+			{
+				RecoNotMatched=false;
+				elecIsoTrackReco=2;
+				bool IsoNotMatched=true;
+				for(unsigned int ii=0; ii< IsolatedElectronTracksVetoNum; ii++)
+				{
+					if(deltaR(GenElecEta[0],GenElecPhi[0],IsolatedElectronTracksVetoEta[ii],IsolatedElectronTracksVetoPhi[ii])<maxDeltaRGenElecToTack_ && std::abs(GenElecPt[0]-IsolatedElectronTracksVetoPt[ii])/GenElecPt[0] <maxDiffPtGenElecToTack_)
+					{
+						IsoNotMatched=false;
+						elecIsoTrackIso=2;
+					}
+				}
+				if(IsoNotMatched)
+				{
+					elecIsoTrackIso=0;
+				}
+			}
+		}
+		if(RecoNotMatched)
+		{
+			elecIsoTrackReco=0;
+		}
+		for(unsigned int i=0; i< SelectedPFPionCandidatesNum;i++)
+		{
+			
+			if(deltaR(GenElecEta[0],GenElecPhi[0],SelectedPFPionCandidatesEta[i],SelectedPFPionCandidatesPhi[i])<maxDeltaRGenElecToTack_ && std::abs(GenElecPt[0]-SelectedPFPionCandidatesPt[i])/GenElecPt[0] <maxDiffPtGenElecToTack_)
+			{
+				RecoNotMatched=false;
+				pionIsoTrackReco=2;
+				bool IsoNotMatched=true;
+				for(unsigned int ii=0; ii< IsolatedPionTracksVetoNum; ii++)
+				{
+					if(deltaR(GenElecEta[0],GenElecPhi[0],IsolatedPionTracksVetoEta[ii],IsolatedPionTracksVetoPhi[ii])<maxDeltaRGenElecToTack_ && std::abs(GenElecPt[0]-IsolatedPionTracksVetoPt[ii])/GenElecPt[0] <maxDiffPtGenElecToTack_)
+					{
+						IsoNotMatched=false;
+						pionIsoTrackIso=2;
+					}
+				}
+				if(IsoNotMatched)
+				{
+					pionIsoTrackIso=0;
+				}
+			}
+		}
+		if(RecoNotMatched)
+		{
+			pionIsoTrackReco=0;
+		}
 	}
 	
 	if(GenElecNum==0 && GenMuNum==0 && GenTauNum==1)
 	{
+          // check weither this is a single prong tau or something else store amount of charged and neutral had decay particles
+//           std::cout<<"GenElecNum: "<<GenElecNum<<"\n";
+//           std::cout<<"GenMuNum: "<<GenMuNum<<"\n";
+//           std::cout<<"GenTauNum: "<<GenTauNum<<"\n";
+//           std::cout<<"GenTau_GenTauHad: "<<GenTau_GenTauHad[0]<<"\n";
+          int chargedParticles = 0;
+          int neutralPartciles = 0;
+          for(unsigned int i=0; i < TauDecayCandsNum; i++)
+          {
+            if(abs(TauDecayCands_pdgID[i])!=16)
+            {
+              if(abs(TauDecayCands_pdgID[i])==11) std::cout<<"TauDecayDaugther is a electron should not be the case!\n";
+              if(abs(TauDecayCands_pdgID[i])==13)std::cout<<"TauDecayDaugther is a muon should not be the case!\n";
+              if(abs(TauDecayCands_pdgID[i])==22) std::cout<<"TauDecayDaugther is a photon!\n";
+              else 
+              {
+                if(abs(TauDecayCands_Charge[i])==0 )neutralPartciles++;
+                else chargedParticles++;
+              }
+            }
+//             else std::cout<<"TauDecayCands_pdgID: "<<TauDecayCands_pdgID[i]<<"\n";
+          }
 		
 		for(unsigned int i=0; i< IsolatedMuonTracksVetoNum; i++)
 		{
@@ -563,12 +706,80 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 			if(deltaR(GenTauEta[0],GenTauPhi[0],IsolatedPionTracksVetoEta[i],IsolatedPionTracksVetoPhi[i])<maxDeltaRGenTauToTack_ && std::abs(GenTauPt[0]-IsolatedPionTracksVetoPt[i])/GenTauPt[0] <maxDiffPtGenTauToTack_)
 			{
 				pionIsoTrackMatchedToGenSingleProngTau[i]=1;
+                                pionIsoTrackMatchedToGenSingleProngTauCharged[i]=chargedParticles;
+                                pionIsoTrackMatchedToGenSingleProngTauNeutral[i]=neutralPartciles;
 				IsolatedElectronTracksVetoActivity[i]=PionActivity(IsolatedPionTracksVetoEta[i],IsolatedPionTracksVetoPhi[i],pionIsoTrackActivityMethod_);
 				IsolatedPionTracksVetoMTW[i]= MTWCalculator(METPt,METPhi, IsolatedPionTracksVetoPt[i], IsolatedPionTracksVetoPhi[i]);
 // 				std::cout<<"PionTrackMTW: "<<MTWCalculator(METPt,METPhi, IsolatedPionTracksVetoPt[i], IsolatedPionTracksVetoPhi[i])<<"\n";		
 			}
 		}
+		bool RecoNotMatched=true;
+		for(unsigned int i=0; i< SelectedPFPionCandidatesNum;i++)
+		{
+			
+			if(deltaR(GenTauEta[0],GenTauPhi[0],SelectedPFPionCandidatesEta[i],SelectedPFPionCandidatesPhi[i])<maxDeltaRGenTauToTack_ && std::abs(GenTauPt[0]-SelectedPFPionCandidatesPt[i])/GenTauPt[0] <maxDiffPtGenTauToTack_)
+			{
+				RecoNotMatched=false;
+				pionIsoTrackReco=2;
+				bool IsoNotMatched=true;
+				for(unsigned int ii=0; ii< IsolatedPionTracksVetoNum; ii++)
+				{
+					if(deltaR(GenTauEta[0],GenTauPhi[0],IsolatedPionTracksVetoEta[ii],IsolatedPionTracksVetoPhi[ii])<maxDeltaRGenTauToTack_ && std::abs(GenTauPt[0]-IsolatedPionTracksVetoPt[ii])/GenTauPt[0] <maxDiffPtGenTauToTack_)
+					{
+						IsoNotMatched=false;
+						pionIsoTrackIso=2;
+					}
+				}
+				if(IsoNotMatched)
+				{
+					pionIsoTrackIso=0;
+				}
+			}
+		}
+		if(RecoNotMatched)
+		{
+			pionIsoTrackReco=0;
+		}
 	}
+
+	// gen tau decay saving
+	for(unsigned int i=0; i< GenTauNum;i++)
+        {
+          int chargedParticles = 0;
+          int neutralPartciles = 0;
+          int lepdecay=0;
+          for(unsigned int ii=0; ii < TauDecayCandsNum; ii++)
+          {
+            if(abs(TauDecayCands_pdgID[ii])!=16)
+            {
+              if(abs(TauDecayCands_pdgID[ii])==11)lepdecay=11;
+              if(abs(TauDecayCands_pdgID[ii])==13)lepdecay=13;
+              if(abs(TauDecayCands_pdgID[ii])==22) std::cout<<"TauDecayDaugther is a photon!\n";
+              else 
+              {
+                if(abs(TauDecayCands_Charge[ii])==0 )neutralPartciles++;
+                else chargedParticles++;
+              }
+            }
+          }
+          GenTauCharged[i]=chargedParticles;
+          GenTauNeutral[i]=neutralPartciles;
+          GenTauLepDecay[i]=lepdecay;
+          bool IsoNotMatched=true;
+          for(unsigned int ii=0; ii< IsolatedPionTracksVetoNum; ii++)
+          {
+            if(deltaR(GenTauEta[i],GenTauPhi[i],IsolatedPionTracksVetoEta[ii],IsolatedPionTracksVetoPhi[ii])<maxDeltaRGenTauToTack_ && std::abs(GenTauPt[i]-IsolatedPionTracksVetoPt[ii])/GenTauPt[i] <maxDiffPtGenTauToTack_)
+            {
+              IsoNotMatched=false;
+              pionIsoTrackIso=2;
+              GenTauIsoTrackMatched[i]=2;
+            }
+          }
+          if(IsoNotMatched)
+          {
+            GenTauIsoTrackMatched[i]=0;
+          }
+        }
 	// ************************************************************************************************************* 22 June 2015 end****************************************************
 	// purity studies:
 	// new purity studies
@@ -926,6 +1137,18 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 	{
 		ExpectationReductionIsoTrack=1;
 	}
+	if(IsolatedMuonTracksVetoNum>=1 && Expectation==1)
+	{
+		ExpectationReductionIsoMuTrack=1;
+	}
+	if(IsolatedElectronTracksVetoNum>=1 && Expectation==1)
+	{
+		ExpectationReductionIsoElecTrack=1;
+	}
+	if(IsolatedPionTracksVetoNum>=1 && Expectation==1)
+	{
+		ExpectationReductionIsoPionTrack=1;
+	}
 	tExpectation_->Fill();
 	return kTRUE;
 }
@@ -969,6 +1192,9 @@ void ExpecMaker::resetValues()
 	isoTrackMTW_=-5;
 	Expectation=0;
 	ExpectationReductionIsoTrack=0;
+	ExpectationReductionIsoMuTrack=0;
+	ExpectationReductionIsoElecTrack=0;
+	ExpectationReductionIsoPionTrack=0;
 	muIso =1;
 	muIsoTrack=1;
 	muIsoTrackMTW=1;
@@ -981,6 +1207,12 @@ void ExpecMaker::resetValues()
 	elecAcc =1;
 	elecTotal=1;
 	elecMTW=1;
+	muIsoTrackIso=1;
+	muIsoTrackReco=1;
+	elecIsoTrackIso=1;
+	elecIsoTrackReco=1;
+	pionIsoTrackIso =1;
+	pionIsoTrackReco=1;
 	FallsVetoLep=0;
 	FallsVetoIsoTrack=0;
 	FallsVetoIsoTrackPT10=0;
@@ -1082,6 +1314,8 @@ void ExpecMaker::resetValues()
 		muIsoTrackMatchedToGenSingleProngTau[i]=0;
 		elecIsoTrackMatchedToGenSingleProngTau[i]=0;
 		pionIsoTrackMatchedToGenSingleProngTau[i]=0;
+                pionIsoTrackMatchedToGenSingleProngTauCharged[i]=0;
+                pionIsoTrackMatchedToGenSingleProngTauNeutral[i]=0;
 		IsolatedPionTracksVetoActivity[i]=0.;
 		IsolatedPionTracksVetoMTW[i]=0.;
 		
@@ -1246,10 +1480,12 @@ double ExpecMaker::PionActivity( double pionEta, double pionPhi, unsigned int me
 
 SearchBins::SearchBins()
 {
-  
+	binning=1;
   // HTmin,HTmax,MHTmin,MHTmax,NJetsmin,NJetsmax,BTagsmin,BTagsmax
   // NJets 4,6 BTags=0
   // fixed ht Njets btags all MHT bins
+  if(binning==0)
+	{
   bins_.push_back( Bin(500,800,200,500,4,6,-1,0) );
   bins_.push_back( Bin(800,1200,200,500,4,6,-1,0) );
   bins_.push_back( Bin(1200,99999,200,500,4,6,-1,0) );
@@ -1380,6 +1616,136 @@ SearchBins::SearchBins()
   bins_.push_back( Bin(1200,99999,500,750,9,9999,3,9999) );
   
   bins_.push_back( Bin(800,99999,750,9999,9,9999,3,9999) );
+	}
+	else if(binning==1)
+	{
+		bins_.push_back( Bin(500,800,200,500,4,6,-1,0) );
+		bins_.push_back( Bin(800,1200,200,500,4,6,-1,0) );
+		bins_.push_back( Bin(1200,99999,200,500,4,6,-1,0) );
+		
+		bins_.push_back( Bin(500,1200,500,750,4,6,-1,0) );
+		bins_.push_back( Bin(1200,99999,500,750,4,6,-1,0) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,4,6,-1,0) );
+		
+		// NJets 4,6 BTags=1
+		// fixed ht Njets btags all MHT bins
+		bins_.push_back( Bin(500,800,200,500,4,6,1,1) );
+		bins_.push_back( Bin(800,1200,200,500,4,6,1,1) );
+		bins_.push_back( Bin(1200,99999,200,500,4,6,1,1) );
+		
+		bins_.push_back( Bin(500,1200,500,750,4,6,1,1) );
+		bins_.push_back( Bin(1200,99999,500,750,4,6,1,1) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,4,6,1,1) );
+		
+		// NJets 4,6 BTags=2
+		// fixed ht Njets btags all MHT bins
+		bins_.push_back( Bin(500,800,200,500,4,6,2,2) );
+		bins_.push_back( Bin(800,1200,200,500,4,6,2,2) );
+		bins_.push_back( Bin(1200,99999,200,500,4,6,2,2) );
+		
+		bins_.push_back( Bin(500,1200,500,750,4,6,2,2) );
+		bins_.push_back( Bin(1200,99999,500,750,4,6,2,2) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,4,6,2,2) );
+		
+		// NJets 4,6 BTags=>3
+		// fixed ht Njets btags all MHT bins
+		bins_.push_back( Bin(500,800,200,500,4,6,3,9999) );
+		bins_.push_back( Bin(800,1200,200,500,4,6,3,9999) );
+		bins_.push_back( Bin(1200,99999,200,500,4,6,3,9999) );
+		
+		bins_.push_back( Bin(500,1200,500,750,4,6,3,9999) );
+		bins_.push_back( Bin(1200,99999,500,750,4,6,3,9999) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,4,6,3,9999) );
+		
+		// NJewts 7,8 BTags=0
+		bins_.push_back( Bin(500,800,200,500,7,8,-1,0) );
+		bins_.push_back( Bin(800,1200,200,500,7,8,-1,0) );
+		bins_.push_back( Bin(1200,99999,200,500,7,8,-1,0) );
+		
+		bins_.push_back( Bin(500,1200,500,750,7,8,-1,0) );
+		bins_.push_back( Bin(1200,99999,500,750,7,8,-1,0) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,7,8,-1,0) );
+		
+		// NJewts 7,8 BTags=1
+		bins_.push_back( Bin(500,800,200,500,7,8,1,1) );
+		bins_.push_back( Bin(800,1200,200,500,7,8,1,1) );
+		bins_.push_back( Bin(1200,99999,200,500,7,8,1,1) );
+		
+		bins_.push_back( Bin(500,1200,500,750,7,8,1,1) );
+		bins_.push_back( Bin(1200,99999,500,750,7,8,1,1) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,7,8,1,1) );
+		
+		// NJewts 7,8 BTags=2
+		bins_.push_back( Bin(500,800,200,500,7,8,2,2) );
+		bins_.push_back( Bin(800,1200,200,500,7,8,2,2) );
+		bins_.push_back( Bin(1200,99999,200,500,7,8,2,2) );
+		
+		bins_.push_back( Bin(500,1200,500,750,7,8,2,2) );
+		bins_.push_back( Bin(1200,99999,500,750,7,8,2,2) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,7,8,2,2) );
+		
+		// NJewts 7,8 BTags=>3
+		bins_.push_back( Bin(500,800,200,500,7,8,3,9999) );
+		bins_.push_back( Bin(800,1200,200,500,7,8,3,9999) );
+		bins_.push_back( Bin(1200,99999,200,500,7,8,3,9999) );
+		
+		bins_.push_back( Bin(500,1200,500,750,7,8,3,9999) );
+		bins_.push_back( Bin(1200,99999,500,750,7,8,3,9999) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,7,8,3,9999) );
+		
+		
+		// NJewts 9,9999 BTags=0
+		bins_.push_back( Bin(500,800,200,500,9,9999,-1,0) );
+		bins_.push_back( Bin(800,1200,200,500,9,9999,-1,0) );
+		bins_.push_back( Bin(1200,99999,200,500,9,9999,-1,0) );
+		
+		bins_.push_back( Bin(500,1200,500,750,9,9999,-1,0) );
+		bins_.push_back( Bin(1200,99999,500,750,9,9999,-1,0) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,9,9999,-1,0) );
+		
+		
+		// NJewts 9,9999 BTags=1
+		bins_.push_back( Bin(500,800,200,500,9,9999,1,1) );
+		bins_.push_back( Bin(800,1200,200,500,9,9999,1,1) );
+		bins_.push_back( Bin(1200,99999,200,500,9,9999,1,1) );
+		
+		bins_.push_back( Bin(500,1200,500,750,9,9999,1,1) );
+		bins_.push_back( Bin(1200,99999,500,750,9,9999,1,1) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,9,9999,1,1) );
+		
+		
+		// NJewts 9,9999 BTags=2
+		bins_.push_back( Bin(500,800,200,500,9,9999,2,2) );
+		bins_.push_back( Bin(800,1200,200,500,9,9999,2,2) );
+		bins_.push_back( Bin(1200,99999,200,500,9,9999,2,2) );
+		
+		bins_.push_back( Bin(500,1200,500,750,9,9999,2,2) );
+		bins_.push_back( Bin(1200,99999,500,750,9,9999,2,2) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,9,9999,2,2) );
+		
+		
+		// NJewts 9,9999 BTags=>3
+		bins_.push_back( Bin(500,800,200,500,9,9999,3,9999) );
+		bins_.push_back( Bin(800,1200,200,500,9,9999,3,9999) );
+		bins_.push_back( Bin(1200,99999,200,500,9,9999,3,9999) );
+		
+		bins_.push_back( Bin(500,1200,500,750,9,9999,3,9999) );
+		bins_.push_back( Bin(1200,99999,500,750,9,9999,3,9999) );
+		
+		bins_.push_back( Bin(800,99999,750,9999,9,9999,3,9999) );
+		
+	}
   std::cout<<"Loaded bins: "<<bins_.size()<<std::endl;
   for(unsigned int i=0; i<bins_.size();i++)
   {

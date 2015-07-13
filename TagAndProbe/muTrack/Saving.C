@@ -53,19 +53,26 @@ void Saving::SlaveBegin(TTree * /*tree*/)
 	 tExpectation_->Branch("Activity",&activity,"Activity/F");
 	 tExpectation_->Branch("Pass",&passing,"Pass/I");
 	 tExpectation_->Branch("InvariantMass",&mass,"InvariantMass/F");
-         tExpectation_->Branch("MTW",&MTW,"MTW/F");
-         tExpectation_->Branch("MTWClean",&MTWClean,"MTWClean/F");
-         tExpectation_->Branch("TagObjectsNum",&TagObjectsNum_,"TagObjectsNum/I");
-         tExpectation_->Branch("Weight",&Weight,"Weight/F");
-         tExpectation2_ = new TTree("TagAndProbeMuTrackIsoMTWFromDiLep","");
-         tExpectation2_->Branch("Eta",&eta,"Eta/F");
-         tExpectation2_->Branch("Pt",&pt,"Pt/F");
-         tExpectation2_->Branch("Activity",&activity,"Activity/F");
-         tExpectation2_->Branch("Pass",&passing,"Pass/I");
-         tExpectation2_->Branch("InvariantMass",&mass,"InvariantMass/F");
-         tExpectation2_->Branch("MTW",&MTWClean,"MTW/F");
-         tExpectation2_->Branch("TagObjectsNum",&TagObjectsNum_,"TagObjectsNum/I");
-         tExpectation2_->Branch("Weight",&Weight,"Weight/F");
+	 tExpectation_->Branch("MTW",&MTW,"MTW/F");
+	 tExpectation_->Branch("HT",&HT,"HT/F");
+	 tExpectation_->Branch("RecomputedMET",&RecomputedMET,"RecomputedMET/F");
+	 tExpectation_->Branch("NJets",&NJets_,"NJets/I");
+	 tExpectation_->Branch("MTWClean",&MTWClean,"MTWClean/F");
+	 tExpectation_->Branch("TagObjectsNum",&TagObjectsNum_,"TagObjectsNum/I");
+	 tExpectation_->Branch("Weight",&Weight,"Weight/F");
+	 tExpectation2_ = new TTree("TagAndProbeMuTrackIsoMTWFromDiLep","");
+	 tExpectation2_->Branch("Eta",&eta,"Eta/F");
+	 tExpectation2_->Branch("Pt",&pt,"Pt/F");
+	 tExpectation2_->Branch("Activity",&activity,"Activity/F");
+	 tExpectation2_->Branch("Pass",&passing,"Pass/I");
+	 tExpectation2_->Branch("InvariantMass",&mass,"InvariantMass/F");
+	 tExpectation2_->Branch("MTW",&MTWClean,"MTW/F");
+	 tExpectation2_->Branch("HT",&HT,"HT/F");
+	 tExpectation2_->Branch("RecomputedMET",&RecomputedMET,"RecomputedMET/F");
+	 tExpectation2_->Branch("NJets",&NJets_,"NJets/I");
+	 tExpectation2_->Branch("TagObjectsNum",&TagObjectsNum_,"TagObjectsNum/I");
+	 tExpectation2_->Branch("Weight",&Weight,"Weight/F");				 
+
 
 
 }
@@ -76,9 +83,12 @@ Bool_t Saving::Process(Long64_t entry)
 	if(Passing<0.5) passing=false;
 	else passing=true;
 	TagObjectsNum_ = TagObjectsNum;
+	NJets_=(int)NJets;
+	
 // 	std::cout<<"passing: "<<Passing<<std::endl;
- 	if(TagObjectsNum>0 && TagObjectsNum<1.5 && MTW <111)
+ 	if(TagObjectsNum>0 && TagObjectsNum<1.5 && HT>500 && NJets>3.4)
 {
+	if(MTW >111)passing=false;
  tExpectation_->Fill();
  tExpectation2_->Fill();
 //   std::cout<<"TagObjectsNum: "<<TagObjectsNum<<std::endl;

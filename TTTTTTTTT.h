@@ -1,12 +1,12 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Sat Jul  4 13:41:53 2015 by ROOT version 5.34/04
+// Sat Jul  4 13:43:57 2015 by ROOT version 5.34/04
 // from TTree LostLeptonExpectation/a simple Tree with simple variables
 // found on file: Expectation.root
 //////////////////////////////////////////////////////////
 
-#ifndef test_h
-#define test_h
+#ifndef TTTTTTTTT_h
+#define TTTTTTTTT_h
 
 #include <TROOT.h>
 #include <TChain.h>
@@ -17,7 +17,7 @@
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
-class test : public TSelector {
+class TTTTTTTTT : public TSelector {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
 
@@ -393,8 +393,8 @@ public :
    TBranch        *b_GenBosonPt;   //!
    TBranch        *b_GenBosonPhi;   //!
 
-   test(TTree * /*tree*/ =0) : fChain(0) { }
-   virtual ~test() { }
+   TTTTTTTTT(TTree * /*tree*/ =0) : fChain(0) { }
+   virtual ~TTTTTTTTT() { }
    virtual Int_t   Version() const { return 2; }
    virtual void    Begin(TTree *tree);
    virtual void    SlaveBegin(TTree *tree);
@@ -409,13 +409,13 @@ public :
    virtual void    SlaveTerminate();
    virtual void    Terminate();
 
-   ClassDef(test,0);
+   ClassDef(TTTTTTTTT,0);
 };
 
 #endif
 
-#ifdef test_cxx
-void test::Init(TTree *tree)
+#ifdef TTTTTTTTT_cxx
+void TTTTTTTTT::Init(TTree *tree)
 {
    // The Init() function is called when the selector needs to initialize
    // a new tree or chain. Typically here the branch addresses and branch
@@ -616,7 +616,7 @@ void test::Init(TTree *tree)
    fChain->SetBranchAddress("GenBosonPhi", GenBosonPhi, &b_GenBosonPhi);
 }
 
-Bool_t test::Notify()
+Bool_t TTTTTTTTT::Notify()
 {
    // The Notify() function is called when a new file is opened. This
    // can be either for a new TTree in a TChain or when when a new TTree
@@ -627,4 +627,4 @@ Bool_t test::Notify()
    return kTRUE;
 }
 
-#endif // #ifdef test_cxx
+#endif // #ifdef TTTTTTTTT_cxx

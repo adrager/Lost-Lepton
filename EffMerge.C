@@ -38,8 +38,12 @@ void EffMerge()
 	TFile *ElecIsoFile = new TFile("ElecIsoMC_TagAndProbe.root","READ");
 	TDirectory *dInputTagAndProbeMCIsoElec = (TDirectory*)ElecIsoFile->Get("ElecIso/ElecIsoActivityPt/fit_eff_plots");
 	TFile *ElecRecoFile = new TFile("ElecRecoMC_TagAndProbe.root","READ");
-	TDirectory *dInputTagAndProbeMCRecoElec = (TDirectory*)ElecRecoFile->Get("ElecReco/ElecRecoActivityPt/fit_eff_plots");
-	
+	TDirectory *dInputTagAndProbeMCRecoElec = (TDirectory*)ElecRecoFile->Get("ElecReco/ElecRecoActivityPt/fit_eff_plots"); 
+	// isoalted lepton tracks
+	TFile *MuIsoTrackFile = new TFile("MuTrackIsoMC_TagAndProbe.root","READ");
+	TDirectory *dInputTagAndProbeMCIsoMuTrack = (TDirectory*)MuIsoTrackFile->Get("MuIso/MuIsoActivityPt/fit_eff_plots");
+	TFile *ElecIsoTrackFile = new TFile("ElecTrackIsoMC_TagAndProbe.root","READ");
+	TDirectory *dInputTagAndProbeMCIsoElecTrack = (TDirectory*)ElecIsoTrackFile->Get("ElecIso/ElecIsoActivityPt/fit_eff_plots");
 	// get TH2F
 	
 	TCanvas* TMC00 = (TCanvas*)dInputTagAndProbeMCIsoMu->Get("Pt_Activity_PLOT")->Clone();
@@ -53,6 +57,13 @@ void EffMerge()
 	
 	TMC00 = (TCanvas*)dInputTagAndProbeMCRecoElec->Get("Pt_Activity_PLOT")->Clone();
 	TH2F *mc_tap_eff_elec_reco = (TH2F*)TMC00->GetPrimitive("Pt_Activity_PLOT")->Clone();
+	
+	TMC00 = (TCanvas*)dInputTagAndProbeMCIsoMuTrack->Get("Pt_Activity_PLOT")->Clone();
+	TH2F *mc_tap_eff_mu_isoTrack = (TH2F*)TMC00->GetPrimitive("Pt_Activity_PLOT")->Clone();
+	
+	TMC00 = (TCanvas*)dInputTagAndProbeMCIsoElecTrack->Get("Pt_Activity_PLOT")->Clone();
+	TH2F *mc_tap_eff_elec_isoTrack = (TH2F*)TMC00->GetPrimitive("Pt_Activity_PLOT")->Clone();
+	
 	TString name1 = "t#bar{t}, W#rightarrowl#nu+jets (truth)";
 	TString name2 = "Tag&Probe MC";
 	dTagAndProbe->cd();
@@ -84,6 +95,24 @@ void EffMerge()
 	TH2FCompare(name1, name2,(TH2F*) dTTbarWPJEff->Get("ElecRecoPTActivity"), mc_tap_eff_elec_reco, ttbarwpjEffInput, "ElecRecoPTActivity");
 	p->SaveEfficiency(mc_tap_eff_elec_reco);
 	mc_tap_eff_elec_reco->Write();
+	// iso tracks
+// 	std::cout<<"Isotrack starting..\n";
+	mc_tap_eff_mu_isoTrack->SetName("MuTrackTagAndProbeMC");
+	mc_tap_eff_mu_isoTrack->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu track Tag & Probe MC; p_{T} [GeV]; Activity");
+	mc_tap_eff_mu_isoTrack->SetMarkerSize(2.0);
+	mc_tap_eff_mu_isoTrack->UseCurrentStyle();
+// 	std::cout<<"1.\n";
+	TH2FCompare(name1, name2,(TH2F*) dTTbarWPJEff->Get("MuIsoTrackGenMuReductionPTActivity"), mc_tap_eff_mu_isoTrack, ttbarwpjEffInput, "MuIsoTrackGenMuPTActivity");
+// 	std::cout<<"2.\n";
+	p->SaveEfficiency(mc_tap_eff_mu_isoTrack);
+	mc_tap_eff_mu_isoTrack->Write();
+	mc_tap_eff_elec_isoTrack->SetName("ElecTrackTagAndProbeMC");
+	mc_tap_eff_elec_isoTrack->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV e track Tag & Probe MC; p_{T} [GeV]; Activity");
+	mc_tap_eff_elec_isoTrack->SetMarkerSize(2.0);
+	mc_tap_eff_elec_isoTrack->UseCurrentStyle();
+	TH2FCompare(name1, name2,(TH2F*) dTTbarWPJEff->Get("ElecIsoTrackGenElecReductionPTActivity"), mc_tap_eff_elec_isoTrack, ttbarwpjEffInput, "ElecIsoTrackGenElecPTActivity");
+	p->SaveEfficiency(mc_tap_eff_elec_isoTrack);
+	mc_tap_eff_elec_isoTrack->Write();
 	
 	ttbarwpjEffInput->Close();
 	MuIsoFile->Close();
@@ -98,7 +127,7 @@ void Plotting::SaveEfficiency(TH2F *input)
 	gROOT->SetBatch(true);
 	const TString th2Name = input->GetName();
 	const TString th2Title = input->GetTitle();
-	TCanvas *c1 = new TCanvas(th2Name,th2Title,1);
+	TCanvas *c1 = new TCanvas(th2Name,th2Title,650,500);
 	c1->cd();
 	c1->SetLogx();
 	c1->SetLogy();

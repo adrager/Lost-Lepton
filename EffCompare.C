@@ -39,7 +39,7 @@ void TH1FCompare::Compare()
 	gStyle->SetStatY(202);
 	gStyle->SetTitleYOffset(1.3);
  	gROOT->SetBatch(true);
- 	Both_ = new TCanvas(TH1Name_,TH1Name_,600,600);
+ 	Both_ = new TCanvas(TH1Name_,TH1Name_,650,500);
 	Both_->cd();
 // 	Both_->Divide(1,2,0.01,0.01);
 	TPad *mainPad = new TPad("pad","",0,0.185,1,1);
@@ -124,7 +124,7 @@ void TH2FCompare::Compare()
 	gStyle->SetStatY(202);
 	gStyle->SetTitleYOffset(1.3);
 	gROOT->SetBatch(true);
-	Both_ = new TCanvas(TH1Name_,TH1Name_,600,600);
+	Both_ = new TCanvas(TH1Name_,TH1Name_,650,500);
 	Both_->cd();
 	Both_->SetLogx();
 	Both_->SetLogy();
