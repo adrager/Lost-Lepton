@@ -28,6 +28,7 @@
 #include <TStyle.h>
 #include <iostream>
 #include "TSystem.h"
+#include "TLorentzVector.h"
 void ExpecMaker::Begin(TTree * /*tree*/)
 {
 	// The Begin() function is called at the start of the query.
@@ -50,6 +51,7 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("NJets",&NJets,"NJets/s");
 	tExpectation_->Branch("BTags",&BTags,"BTags/s");
 	tExpectation_->Branch("Leptons",&Leptons,"Leptons/s");
+        tExpectation_->Branch("DiLep",&DiLep_,"DiLep/s");
 	tExpectation_->Branch("isoTracks",&isoTracks,"isoTracks/s");
 	DY=DY_;
 	tExpectation_->Branch("DY",&DY,"DY/b");
@@ -64,7 +66,13 @@ void ExpecMaker::SlaveBegin(TTree * /*tree*/)
 	tExpectation_->Branch("DeltaPhiN3",&DeltaPhiN3,"DeltaPhiN3/F");
 	tExpectation_->Branch("Weight", &Weight, "Weight/F");
 	tExpectation_->Branch("MET",&METPt,"MET/F");
+	tExpectation_->Branch("NeutrinoPt",&NeutrinoPt_,"NeutrinoPt/F");
+	tExpectation_->Branch("NeutrinoPhi",&NeutrinoPhi_,"NeutrinoPhi/F");
+	tExpectation_->Branch("MTWClean",&mtwClean_,"MTWClean/F");
+	tExpectation_->Branch("InvariantMass",&invariantMass_,"InvariantMass/F");
 	tExpectation_->Branch("METPhi",&METPhi,"METPhi/F");
+        tExpectation_->Branch("GenDeltaR",&GenDeltaR_,"GenDeltaR/F");
+        tExpectation_->Branch("GenRelJetPT",&GenRelJetPT_,"GenRelJetPT/F");
 	tExpectation_->Branch("GenMuNum",&GenMuNum,"GenMuNum/s");
 	tExpectation_->Branch("GenMuFromTau",GenMu_GenMuFromTau,"GenMuFromTau[GenMuNum]/s");
 	tExpectation_->Branch("GenMuDeltaRJet",GenMuDeltaRJet_,"GenMuDeltaRJet[GenMuNum]/F");
@@ -288,12 +296,13 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 	if(applyFilters_ &&  !FiltersPass() ) return kTRUE;
   	if(DY_ && ( HT<minHT_ || NJets < minNJets_) ) return kTRUE;
 	Bin_ = SearchBins_->GetBinNumber(HT,MHT,NJets,BTags);
-	
+	if((GenMuNum+GenElecNum)==2) DiLep_=1;
 	// compute efficiencies 1 lepton
 	if( (GenMuNum==1 && GenElecNum==0) || (DY_ && GenMuNum==2) )
 	{
 		// compute W pt from gen lepton and reco MET
 		GenMuWPt_ = GenMuPt[0] + MHT * deltaR(0,METPhi,0,GenMuPhi[0]);
+		
 		
 		if ( GenMuPt[0] < minMuPt_ || std::abs(GenMuEta[0]) > maxMuEta_)
 		{
@@ -332,6 +341,16 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 							if(!DY_)mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoMuonsPt[ii], selectedIDIsoMuonsPhi[ii]);
 							MuDiLepControlSample_=2;
 							IsoMuonMTWPrompt_->Fill(selectedIDIsoMuons_MTW[ii],Weight);
+							// compute invariant mass from neutrino and iso mu & mtw clean
+							TLorentzVector tempTLorentz(0,0,0,0);
+							tempTLorentz.SetPtEtaPhiE(selectedIDIsoMuonsPt[ii],selectedIDIsoMuonsEta[ii],selectedIDIsoMuonsPhi[ii],selectedIDIsoMuonsE[ii]);
+							TLorentzVector tempTLorentz2(0,0,0,0);
+							tempTLorentz2.SetPtEtaPhiE(NeutrinoPt[0],NeutrinoEta[0],NeutrinoPhi[0],NeutrinoE[0]);
+// 							std::cout<<"Neutrino pt: "<<NeutrinoPt[0]<<" ["<<tempTLorentz.Pt()<<"] eta: "<<NeutrinoEta[0]<<" ["<<tempTLorentz.Eta()<<"] phi: "<<NeutrinoPhi[0]<<" ["<<tempTLorentz.Phi()<<"] E: "<<NeutrinoE[0]<<" ["<<tempTLorentz.E()<<"]\n";
+							tempTLorentz=tempTLorentz2+tempTLorentz;
+							invariantMass_=tempTLorentz.M();
+// 							std::cout<<"InvariantMass: "<<tempTLorentz.M2()<<" (M2) and: "<< tempTLorentz.M()<<" (M)\n";
+							mtwClean_ = MTWCalculator(NeutrinoPt[0],NeutrinoPhi[0], selectedIDIsoMuonsPt[ii], selectedIDIsoMuonsPhi[ii]);
 						}
 						else 
 						{
@@ -399,6 +418,16 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 							if(!DY_) mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoElectronsPt[ii], selectedIDIsoElectronsPhi[ii]);
 							ElecDiLepControlSample_=2;
 							IsoElectronMTWPrompt_->Fill(selectedIDIsoElectrons_MTW[ii],Weight);
+                                                        // compute invariant mass from neutrino and iso mu & mtw clean
+                                                        TLorentzVector tempTLorentz(0,0,0,0);
+                                                        tempTLorentz.SetPtEtaPhiE(selectedIDIsoElectronsPt[ii],selectedIDIsoElectronsEta[ii],selectedIDIsoElectronsPhi[ii],selectedIDIsoElectronsE[ii]);
+                                                        TLorentzVector tempTLorentz2(0,0,0,0);
+                                                        tempTLorentz2.SetPtEtaPhiE(NeutrinoPt[0],NeutrinoEta[0],NeutrinoPhi[0],NeutrinoE[0]);
+                                                        //                                                      std::cout<<"Neutrino pt: "<<NeutrinoPt[0]<<" ["<<tempTLorentz.Pt()<<"] eta: "<<NeutrinoEta[0]<<" ["<<tempTLorentz.Eta()<<"] phi: "<<NeutrinoPhi[0]<<" ["<<tempTLorentz.Phi()<<"] E: "<<NeutrinoE[0]<<" ["<<tempTLorentz.E()<<"]\n";
+                                                        tempTLorentz=tempTLorentz2+tempTLorentz;
+                                                        invariantMass_=tempTLorentz.M();
+                                                        //                                                      std::cout<<"InvariantMass: "<<tempTLorentz.M2()<<" (M2) and: "<< tempTLorentz.M()<<" (M)\n";
+                                                        mtwClean_ = MTWCalculator(NeutrinoPt[0],NeutrinoPhi[0], selectedIDIsoElectronsPt[ii], selectedIDIsoElectronsPhi[ii]);
 						}
 						else 
 						{
@@ -434,7 +463,9 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 		GenMuonActivity[i]=MuActivity(GenMuEta[i],GenMuPhi[i],muActivityMethod_);
 		std::pair<double, double> temp = deltaRClosestJet(GenMuEta[i],GenMuPhi[i],GenMuPt[i]);
 		GenMuDeltaRJet_[i]=temp.first;
-		GenMuDeltaPTJet_[i]=temp.second/GenMuPt[i];
+                GenMuDeltaPTJet_[i]=GenMuPt[i]/temp.second;
+                GenDeltaR_=temp.first;
+                GenRelJetPT_=temp.second/GenMuPt[i];
 	}
 	for(unsigned int i=0; i< selectedIDMuonsNum;i++)
 	{
@@ -449,7 +480,9 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 		GenElecActivity[i]=ElecActivity(GenElecEta[i],GenElecPhi[i],elecActivityMethod_);
 		std::pair<double, double> temp = deltaRClosestJet(GenElecEta[i],GenElecPhi[i],GenElecPt[i]);
 		GenElecDeltaRJet_[i]=temp.first;
-		GenElecDeltaPTJet_[i]=temp.second/GenElecPt[i];
+                GenElecDeltaPTJet_[i]=GenElecPt[i]/temp.second;
+                GenDeltaR_=temp.first;
+                GenRelJetPT_=temp.second/GenElecPt[i];
 	}
 	for(unsigned int i=0; i< selectedIDElectronsNum;i++)
 	{
@@ -1218,6 +1251,9 @@ void ExpecMaker::resetValues()
 	FallsVetoIsoTrackPT10=0;
 	FallsVetoIsoTrackPT10IsoCut08=0;
 	FallsVetoIsoTrackPT10IsoCut12=0;
+        // gen values
+        GenDeltaR_=0.;
+        GenRelJetPT_=0.;
 	// di lep
 	ExpectationDiLep_=0;
 	MuDiLepControlSample_=1;
@@ -1339,6 +1375,11 @@ void ExpecMaker::resetValues()
 	GenMuWPhi_=-1.;
 	GenElecWPt_=-1.;
 	GenElecWPhi_=-1.;
+	NeutrinoPhi_=0.;
+	NeutrinoPt_=0.;
+	mtwClean_=0.;
+	invariantMass_=0.;
+        DiLep_=0;
 }
 bool ExpecMaker::FiltersPass()
 {

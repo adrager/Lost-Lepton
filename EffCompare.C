@@ -8,11 +8,11 @@
 #include <TROOT.h>
 #include <TStyle.h>
 
-class TH1FCompare
+class TH1DCompare
 {
 public:
-	TH1FCompare(){}
-	TH1FCompare(TString name1, TString name2, TH1F *th1f1, TH1F *th1f2, TFile *outPutFile, TString TH1Name)
+	TH1DCompare(){}
+	TH1DCompare(TString name1, TString name2, TH1D *th1f1, TH1D *th1f2, TFile *outPutFile, TString TH1Name)
 	{
 		name1_=name1;
 		name2_=name2;
@@ -22,16 +22,16 @@ public:
 		TH1Name_=TH1Name;
 		Compare();
 	}
-	~TH1FCompare(){}
+	~TH1DCompare(){}
 private:
 	TString name1_, name2_, TH1Name_;
-	TH1F *th1f1_, *th1f2_;
+	TH1D *th1f1_, *th1f2_;
 	TFile *outPutFile_;
 	TCanvas *Both_;
 	void Compare();
 };
 	
-void TH1FCompare::Compare()
+void TH1DCompare::Compare()
 {
 	gStyle->SetPaintTextFormat("5.2f");
 	gStyle->SetStatW(0.1);
@@ -77,7 +77,7 @@ void TH1FCompare::Compare()
 	ratioPad->Draw();
 	ratioPad->cd();
 	ratioPad->SetLogx();
-	TH1F *ratio = (TH1F*) th1f1_->Clone();
+	TH1D *ratio = (TH1D*) th1f1_->Clone();
 	ratio->Divide(th1f2_);
 	ratio->SetTitle("");
 	ratio->SetYTitle("ratio");
@@ -153,9 +153,9 @@ void EffCompare()
 	TString FolderFile2 = "Efficiencies";
 	TString name2 = "DY (truth)";
 	
-	std::vector<TString> TH1FNames_, TH2FNames_;
+	std::vector<TString> TH1DNames_, TH2FNames_;
 	// list of TH1 and TH2 to compare
-	TH1FNames_.push_back("MuRecoActivity");
+	TH1DNames_.push_back("MuRecoActivity");
 	
 	TH2FNames_.push_back("MuRecoPTActivity");
 	TH2FNames_.push_back("MuIsoPTActivity");
@@ -170,9 +170,9 @@ void EffCompare()
 	TDirectory *Folder1 =   (TDirectory*)f1->Get(FolderFile1);
 	TDirectory *Folder2 =   (TDirectory*)f2->Get(FolderFile2);
 	std::cout<<"Folder loaded. \n";
-	for(unsigned int i=0; i< TH1FNames_.size();i++)
+	for(unsigned int i=0; i< TH1DNames_.size();i++)
 	{
-		TH1FCompare(name1, name2,(TH1F*) Folder1->Get(TH1FNames_[i]), (TH1F*) Folder2->Get(TH1FNames_[i]), out_, TH1FNames_[i]);
+		TH1DCompare(name1, name2,(TH1D*) Folder1->Get(TH1DNames_[i]), (TH1D*) Folder2->Get(TH1DNames_[i]), out_, TH1DNames_[i]);
 		
 	}
 	for(unsigned int i=0; i< TH2FNames_.size();i++)

@@ -16,6 +16,7 @@ public:
 		std::cout<<"plotting..."<<std::endl;
 	}
 	void SaveEfficiency(TH2F *input);
+        void SaveEfficiency(TH1D *input);
 	~Plotting(){}
 };
 void EffMerge()
@@ -33,10 +34,14 @@ void EffMerge()
 	TDirectory *dTTbarWPJEff = (TDirectory*)ttbarwpjEffInput->Get("Efficiencies");
 	TFile *MuIsoFile = new TFile("MuIsoMC_TagAndProbe.root","READ");
 	TDirectory *dInputTagAndProbeMCIsoMu = (TDirectory*)MuIsoFile->Get("MuIso/MuIsoActivityPt/fit_eff_plots");
+        TDirectory *dInputTagAndProbeMCIsoMuHT = (TDirectory*)MuIsoFile->Get("MuIso/MuIsoHT/fit_eff_plots");
+        TDirectory *dInputTagAndProbeMCIsoMuNJets = (TDirectory*)MuIsoFile->Get("MuIso/MuIsoNJets/fit_eff_plots");
 	TFile *MuRecoFile = new TFile("MuRecoMC_TagAndProbe.root","READ");
 	TDirectory *dInputTagAndProbeMCRecoMu = (TDirectory*)MuRecoFile->Get("MuReco/MuRecoActivityPt/fit_eff_plots");
 	TFile *ElecIsoFile = new TFile("ElecIsoMC_TagAndProbe.root","READ");
 	TDirectory *dInputTagAndProbeMCIsoElec = (TDirectory*)ElecIsoFile->Get("ElecIso/ElecIsoActivityPt/fit_eff_plots");
+        TDirectory *dInputTagAndProbeMCIsoElecHT = (TDirectory*)ElecIsoFile->Get("ElecIso/ElecIsoHT/fit_eff_plots");
+        TDirectory *dInputTagAndProbeMCIsoElecNJets = (TDirectory*)ElecIsoFile->Get("ElecIso/ElecIsoNJets/fit_eff_plots");
 	TFile *ElecRecoFile = new TFile("ElecRecoMC_TagAndProbe.root","READ");
 	TDirectory *dInputTagAndProbeMCRecoElec = (TDirectory*)ElecRecoFile->Get("ElecReco/ElecRecoActivityPt/fit_eff_plots"); 
 	// isoalted lepton tracks
@@ -45,15 +50,37 @@ void EffMerge()
 	TFile *ElecIsoTrackFile = new TFile("ElecTrackIsoMC_TagAndProbe.root","READ");
 	TDirectory *dInputTagAndProbeMCIsoElecTrack = (TDirectory*)ElecIsoTrackFile->Get("ElecIso/ElecIsoActivityPt/fit_eff_plots");
 	// get TH2F
-	
+	std::cout<<"Folders loaded...\n";
 	TCanvas* TMC00 = (TCanvas*)dInputTagAndProbeMCIsoMu->Get("Pt_Activity_PLOT")->Clone();
 	TH2F *mc_tap_eff_mu_iso = (TH2F*)TMC00->GetPrimitive("Pt_Activity_PLOT")->Clone();
-	
+        std::cout<<"MuIso: Pt_Activity_PLOT loaded...\n";
+        TMC00 = (TCanvas*)dInputTagAndProbeMCIsoMuHT->Get("HT_PLOT")->Clone();
+        std::cout<<"MuIso: HT_PLOT Canvas loaded\n";
+//         TIter next(TMC00->GetListOfPrimitives());
+//         TObject *obj;
+//         while ((obj=next())) {
+//           cout << "Reading: " << obj->GetName() << endl;
+//           if (obj->InheritsFrom("TH1")) {
+//              cout << "histo: " << obj->GetName() << endl;
+//              obj->Dump();
+//              }
+//            }
+        TH1D *mc_tap_eff_mu_iso_HT = (TH1D*)TMC00->GetPrimitive("HT_PLOT");
+        std::cout<<"MuIso: HT_PLOT loaded...\n";
+        TMC00 = (TCanvas*)dInputTagAndProbeMCIsoMuNJets->Get("NJets_PLOT")->Clone();
+        TH1D *mc_tap_eff_mu_iso_NJets = (TH1D*)TMC00->GetPrimitive("NJets_PLOT");
+        std::cout<<"MuIso: NJets_PLOT loaded...\n";
 	TMC00 = (TCanvas*)dInputTagAndProbeMCRecoMu->Get("Pt_Activity_PLOT")->Clone();
 	TH2F *mc_tap_eff_mu_reco = (TH2F*)TMC00->GetPrimitive("Pt_Activity_PLOT")->Clone();
-	
+        std::cout<<"MuReco: Pt_Activity_PLOT loaded\n";
 	TMC00 = (TCanvas*)dInputTagAndProbeMCIsoElec->Get("Pt_Activity_PLOT")->Clone();
 	TH2F *mc_tap_eff_elec_iso = (TH2F*)TMC00->GetPrimitive("Pt_Activity_PLOT")->Clone();
+        std::cout<<"ElecIso: Pt_Activity_PLOT loaded\n";
+        TMC00 = (TCanvas*)dInputTagAndProbeMCIsoElecHT->Get("HT_PLOT")->Clone();
+        TH1D *mc_tap_eff_elec_iso_HT = (TH1D*)TMC00->GetPrimitive("HT_PLOT");
+        std::cout<<"ElecIso: HT_PLOT loaded\n";
+        TMC00 = (TCanvas*)dInputTagAndProbeMCIsoElecNJets->Get("NJets_PLOT")->Clone();
+        TH1D *mc_tap_eff_elec_iso_NJets = (TH1D*)TMC00->GetPrimitive("NJets_PLOT");
 	
 	TMC00 = (TCanvas*)dInputTagAndProbeMCRecoElec->Get("Pt_Activity_PLOT")->Clone();
 	TH2F *mc_tap_eff_elec_reco = (TH2F*)TMC00->GetPrimitive("Pt_Activity_PLOT")->Clone();
@@ -63,6 +90,8 @@ void EffMerge()
 	
 	TMC00 = (TCanvas*)dInputTagAndProbeMCIsoElecTrack->Get("Pt_Activity_PLOT")->Clone();
 	TH2F *mc_tap_eff_elec_isoTrack = (TH2F*)TMC00->GetPrimitive("Pt_Activity_PLOT")->Clone();
+        
+        std::cout<<"All Tag \& Probe THXF loaded...\n";
 	
 	TString name1 = "t#bar{t}, W#rightarrowl#nu+jets (truth)";
 	TString name2 = "Tag&Probe MC";
@@ -74,6 +103,16 @@ void EffMerge()
 	TH2FCompare(name1, name2,(TH2F*) dTTbarWPJEff->Get("MuIsoPTActivity"), mc_tap_eff_mu_iso, ttbarwpjEffInput, "MuIsoPTActivity");
 	p->SaveEfficiency(mc_tap_eff_mu_iso);
 	mc_tap_eff_mu_iso->Write();
+//         mc_tap_eff_mu_iso_HT->Dump();
+//         mc_tap_eff_mu_iso_HT->SetName("MuIsoTagAndProbeMC_HT");
+//         mc_tap_eff_mu_iso_HT->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu iso Tag & Probe MC; H_{T} [GeV]");
+//         mc_tap_eff_mu_iso_HT->SetMarkerSize(2.0);
+//         mc_tap_eff_mu_iso_HT->UseCurrentStyle();
+//         std::cout<<"Mu Iso HT set ready to start compute comparison plots...\n";
+//         TH1DCompare(name1, name2,(TH1D*) dTTbarWPJEff->Get("MuIsoHT1D"), mc_tap_eff_mu_iso_HT, ttbarwpjEffInput, "MuIsoHT");
+//         p->SaveEfficiency(mc_tap_eff_mu_iso_HT);
+//         mc_tap_eff_mu_iso_HT->Write();
+        
 	mc_tap_eff_mu_reco->SetName("MuRecoTagAndProbeMC");
 	mc_tap_eff_mu_reco->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu reco Tag & Probe MC; p_{T} [GeV]; Activity");
 	mc_tap_eff_mu_reco->SetMarkerSize(2.0);
@@ -144,4 +183,28 @@ void Plotting::SaveEfficiency(TH2F *input)
 	delete c1;
 	gROOT->SetBatch(false);
 	
+}
+
+void Plotting::SaveEfficiency(TH1D *input)
+{
+  gROOT->SetBatch(true);
+  const TString th2Name = input->GetName();
+  const TString th2Title = input->GetTitle();
+  TCanvas *c1 = new TCanvas(th2Name,th2Title,650,500);
+  c1->cd();
+  c1->SetLogx();
+//   c1->SetLogy();
+  input->SetMarkerSize(2.0);
+  input->UseCurrentStyle();
+  input->SetMinimum(0.);
+  input->SetMaximum(1.);
+  input->GetZaxis()->SetLimits(0.,100.);
+  input->Draw("ColZ,Text,E");
+  c1->Update();
+  
+  // c1->SaveAs(s+"MuonAccEff3"+".png");
+  c1->SaveAs(th2Name+".pdf");
+  delete c1;
+  gROOT->SetBatch(false);
+  
 }

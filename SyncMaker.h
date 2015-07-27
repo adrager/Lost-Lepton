@@ -25,6 +25,8 @@ public :
    void ResetVariables();
    bool FiltersPass();
    TTree	*tOut_;
+   int lowDeltaPhi, highDeltaPhi;
+   double lowDeltaPhid, highDeltaPhid;
    int all, nJetcut, htcut, mhtcut, muveto, elecveto, deltaphiNcut, isotrakMuveto, isotrakElecveto, isotrakPionveto, btag0, btag1,btag2,btag3;
    double alld, nJetcutd, htcutd, mhtcutd, muvetod, elecvetod, isotrakMuvetod, isotrakElecvetod, isotrakPionvetod, deltaphiNcutd, isotrakvetod, btag0d, btag1d,btag2d,btag3d;
 	 int muonPtEtaCut, muonID, muonIso;

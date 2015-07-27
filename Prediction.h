@@ -21,13 +21,21 @@
 #include "TKey.h"
 // Header file for the classes stored in the TTree if any.
 
+// uncertainties
+const bool TagAndProbeIso_= false;
+const bool TagAndProbeReco_ = false;
+const double PDFUncertainty_ = 9.0; // in percentage of the full acceptance prediction
+const double MTW_ = 50.0; // percentage relative to the mtw correction
+const double DiLep_ = 50.0; // percentage relative to the mtw correction
+
+
 // Fixed size dimensions of array or collections stored in the TTree if any.
 // use gen infomation to fix purityy of muon controlsample
 const bool useGenInfoToMatchCSMuonToGen_=0; // changed 20 Nov from 1 to 0
 const double maxDeltaRGenToRecoIsoMuon_=0.3;
 const double maxDiffPtGenToRecoIsoMuon_=0.3;
 const double minHT_=500;
-const double minMHT_=200;
+const double minMHT_=100;
 const double minNJets_=3.5;
 const double deltaPhi1_=0.5;
 const double deltaPhi2_=0.5;
@@ -74,7 +82,7 @@ const bool ElecMTWSearchBinUse_=false;
 const bool ElecIsoSearchBinUse_=false; 
 const bool ElecRecoSearchBinUse_=false; 
 const bool ElecAccSearchBinUse_=false; 
-const bool ElecPuritySearchBinEff_=false;
+const bool ElecPuritySearchBinEffBool_=false;
 const bool ElecDiLepContributionMTWAppliedEffSearchBinUse_=false;
 
 // isolated track reduction parametrization
@@ -219,6 +227,7 @@ public :
 //   TH2F *ElecAccMHTNJets_;
   TH2F *ElecAccHTMHT_NJets46_, *ElecAccHTMHT_NJets7Inf_;
   TH2F *ElecPurityMHTNJets_;
+	TH1F *ElecPurityNJets_;
   //       TH2F *ElecMTWPTActivity_;
   TH1F *ElecMTWNJets_;
   TH1F *ElecDiLepContributionMTWAppliedNJets_;
@@ -280,6 +289,11 @@ public :
   THFeff *ElecMTWSearchBinEff_;
   THFeff *ElecDiLepContributionMTWAppliedSearchBinEff_;
   THFeff *ElecDiLepEffMTWAppliedSearchBinEff_;
+  
+  // uncertainties
+  Float_t muIsoWeightUp_, muIsoWeightDown_, muRecoWeightUp_, muRecoWeightDown_, muAccWeightUp_, muAccWeightDown_;
+  Float_t elecIsoWeightUp_, elecIsoWeightDown_, elecRecoWeightUp_, elecRecoWeightDown_, elecAccWeightUp_, elecAccWeightDown_;
+  Float_t mtwDown_, mtwUp_, diLepDown_, diLepUp_;
   
   Int_t          isoTracks;
   

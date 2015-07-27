@@ -26,16 +26,16 @@ const double mtwCut_ = 100;
 
 const int oneDHT_=14;
 double OneDHT_[oneDHT_] = {350,500,550,600,650,700,750,800,900,1000,1200,1500,2000,8000};
-const int oneDMHT_=12;
-double OneDMHT_[oneDMHT_] = {200,250,300,350,450,500,600,700,900,1200,1700,8000};
+const int oneDMHT_=14;
+double OneDMHT_[oneDMHT_] = {100,150,200,250,300,350,450,500,600,700,900,1200,1700,8000};
 const int oneDNJets_=6;
 double OneDNJets_[oneDNJets_] = {4,5,6,8,11,20};
 const int oneDBJets_=5;
 double OneDBJets_[oneDBJets_] = {0,1,2,3,10};
-const int oneDDeltaR_=12;
-double OneDDeltaR_[oneDDeltaR_]={0 ,0.4 ,0.7 ,0.8 ,0.9 ,1.0 ,1.1 ,1.3 ,1.5 ,1.8 ,2.0 , 5.0 };
-const int oneDPTRel_=14;
-double OneDPTRel_[oneDPTRel_]={0 ,0.1 ,0.2 ,0.4 ,0.5 ,0.6 ,0.7 ,0.8 ,0.9 ,1.0 ,1.1 ,1.5 ,1.8 , 5.0 };
+const int oneDDeltaR_=9;
+double OneDDeltaR_[oneDDeltaR_]={0.1, 0.2,0.3, 0.5 ,0.8 ,1.0 ,1.3 ,1.5 , 5.0 };
+const int oneDPTRel_=10;
+double OneDPTRel_[oneDPTRel_]={0.1, 0.2 ,0.3, 0.4 ,0.5 ,0.6 ,0.7 ,0.8 ,0.9  ,3 };
 const int oneDBTags_=5;
 double OneDBTags_[oneDBTags_] = {0,1,2,3,10};
 
@@ -59,8 +59,8 @@ double OneDActivity_[oneDActivity_]={1,20,40,60,150,1600};
 //1D
 
 //2D
-const int mupurityMHT_ = 5;
-double muPurityMHT_[mupurityMHT_] ={200,800,900,1200,9600};
+const int mupurityMHT_ = 7;
+double muPurityMHT_[mupurityMHT_] ={100,150,200,800,900,1200,9600};
 const int mupurityNJet_ = 3;
 double muPurityNJet_[mupurityNJet_] ={4,5,22};
 
@@ -76,9 +76,9 @@ double elecPurityNJet_[elecpurityNJet_] ={2,3,4,5,22};
 // mu acceptance
 // 2D
 const int muaccHT_ = 4;
-double muAccHT_ [muaccHT_] = {500,800,1100,2500};
-const int muaccMHT_ = 4;
-double muAccMHT_ [muaccMHT_] = {200,500,700,2500};
+double muAccHT_ [muaccHT_] = {500,800,1000,2500};
+const int muaccMHT_ = 6;
+double muAccMHT_ [muaccMHT_] = {100,150,200,550,700,2500};
 // const int muaccHT_ = 3;
 // double muAccHT_ [muaccHT_] = {500,1400,2500};
 // const int muaccMHT_ = 7;
@@ -91,9 +91,9 @@ double muAccNJets_ [muaccNJets_] = {4,5,6,9,20};
 // elec acceptance
 // 2D
 const int elecaccHT_ = 4;
-double elecAccHT_ [elecaccHT_] = {500,800,1100,2500};
-const int elecaccMHT_ = 4;
-double elecAccMHT_ [elecaccMHT_] = {200,500,700,2500};
+double elecAccHT_ [elecaccHT_] = {500,800,1000,2500};
+const int elecaccMHT_ = 6;
+double elecAccMHT_ [elecaccMHT_] = {100,150,200,550,700,2500};
 const int elecaccBTags_ = 5;
 double elecAccBTags_[elecaccBTags_] = {0,1,2,3,10};
 const int elecaccNJets_ = 6;
@@ -115,8 +115,8 @@ double ElecMTWActivity2D_[elecMTWActivity2D_]={0,5,10,20,40,60,80,100,1600};
 // 1D
 const int isotrackreductionHT_ = 3;
 double isoTrackReductionHT_ [isotrackreductionHT_] = {500,1300,2500};
-const int isotrackreductionMHT_ = 7;
-double isoTrackReductionMHT_ [isotrackreductionMHT_] = {200,250,300,500,700,900,2500};
+const int isotrackreductionMHT_ = 9;
+double isoTrackReductionMHT_ [isotrackreductionMHT_] = {100,150,200,250,300,500,700,900,2500};
 const int isotrackreductionBTags_ = 5;
 double isoTrackReductionBTags_[isotrackreductionBTags_] = {0,1,2,3,10};
 const int isotrackreductionNJets_ = 6;
@@ -129,8 +129,8 @@ double isoTrackReductionActivity_ [isotrackreductionActivity_] = {1,20,40,60,150
 // 2D
 const int isotrackreductionBTags2D_ = 3;
 double isoTrackReductionBTags2D_[isotrackreductionBTags2D_] = {0,1,10};
-const int isotrackreductionNJets2D_ = 5;
-double isoTrackReductionNJets2D_ [isotrackreductionNJets2D_] = {4,6,8,10,20};
+const int isotrackreductionNJets2D_ = 3;
+double isoTrackReductionNJets2D_ [isotrackreductionNJets2D_] = {4,8,20};
 
 //fine binning
 const int isotrackreductionPT2D_ = 8;

@@ -85,6 +85,20 @@ Bool_t SyncMaker::Process(Long64_t entry)
 	// *********************************************************************23 June 2015 sync with jack after fermilab ra2/b workshop********************************
 	allB++;
 	alldB+=Weight;
+        if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==0 && NJets>=4 && HT>=500 && MHT>200 && JetID>0 && (isoElectronTracks+isoMuonTracks+isoPionTracks)==0 && (GenMuNum+GenElecNum)==1 && JetID>0)
+        {
+          if(DeltaPhi1>0.5 && DeltaPhi2>0.5 && DeltaPhi3>0.3)
+          {
+            highDeltaPhi++;
+            highDeltaPhid+=Weight;
+          }
+          if(DeltaPhi1<0.5 || DeltaPhi2<0.5 || DeltaPhi3<0.3)
+          {
+            lowDeltaPhi++;
+            lowDeltaPhid+=Weight;
+          }
+          
+        }
 	if(selectedIDIsoMuonsNum==0)
 	{
 	  muvetoB++;
@@ -370,7 +384,13 @@ void SyncMaker::Terminate()
 {
 	TFile *outPutFile = new TFile("Sync.root","RECREATE"); 
 	outPutFile->cd();
-	tOut_->Write();
+// 	tOut_->Write();
+        std::cout<<"quick check for owen: event count (unweighted)\n";
+        std::cout<<"All:                       "<<alldB*10/4<<" ("<<allB<<")"<<std::endl;
+        std::cout<<"Inverted deltaPhi region:  "<<lowDeltaPhid*10/4<<" ("<<lowDeltaPhi<<")"<<std::endl;
+        std::cout<<"Normal deltaPhi region:    "<<highDeltaPhid*10/4<<" ("<<highDeltaPhi<<")"<<std::endl;
+        
+        
 	
 	 std::cout<<" *********************************************************************23 June 2015 sync with jack after fermilab ra2/b workshop****************************\n";
         std::cout<<"---------------------Baseline cuts------------------------"<<std::endl;
@@ -541,5 +561,10 @@ void SyncMaker::ResetVariables()
 	elecPtEtaCutd=0.;
 	elecIDd=0.;
 	elecIsod=0.;
+        
+        lowDeltaPhi=0;
+        highDeltaPhi=0;
+        lowDeltaPhid=0.;
+        highDeltaPhid=0.;
 
 }

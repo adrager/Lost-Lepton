@@ -117,6 +117,7 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
   ElecAccMHTNJetsEff_ =  new THFeff(TEffInputFolder,"ElecAccMHTNJets");
   
   ElecPurityMHTNJetsEff_ =  new THFeff(TEffInputFolder,"ElecPurity");
+	ElecPurityNJets_ = (TH1F*) EffInputFolder->Get("ElecPurityNJets1D");
   //       ElecMTWPTActivityEff_ =  new THFeff(TEffInputFolder,"ElecMTWPTActivity");
   ElecMTWNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ElecMTWNJets1D"));
   ElecDiLepContributionMTWAppliedNJetsEff_ = new THFeff( (TGraphAsymmErrors*) TEffInputFolder->Get("ElecDiLepContributionMTWNJets1D"));
@@ -307,6 +308,26 @@ void Prediction::SlaveBegin(TTree * /*tree*/)
           tPrediction_->Branch("GenMuNum",&GenMuNum,"GenMuNum/s");
           tPrediction_->Branch("GenElecNum",&GenElecNum,"GenElecNum/s");
         }
+  // Uncertainties
+  tPrediction_->Branch("muIsoWeightUp",&muIsoWeightUp_,"muIsoWeightUp/F");
+  tPrediction_->Branch("muIsoWeightDown",&muIsoWeightDown_,"muIsoWeightDown/F");
+  tPrediction_->Branch("muRecoWeightUp",&muRecoWeightUp_,"muRecoWeightUp/F");
+  tPrediction_->Branch("muRecoWeightDown",&muRecoWeightDown_,"muRecoWeightDown/F");
+  tPrediction_->Branch("muAccWeightUp",&muAccWeightUp_,"muAccWeightUp/F");
+  tPrediction_->Branch("muAccWeightDown",&muAccWeightDown_,"muAccWeightDown/F");  
+  
+  tPrediction_->Branch("elecIsoWeightUp",&elecIsoWeightUp_,"elecIsoWeightUp/F");
+  tPrediction_->Branch("elecIsoWeightDown",&elecIsoWeightDown_,"elecIsoWeightDown/F");
+  tPrediction_->Branch("elecRecoWeightUp",&elecRecoWeightUp_,"elecRecoWeightUp/F");
+  tPrediction_->Branch("elecRecoWeightDown",&elecRecoWeightDown_,"elecRecoWeightDown/F");
+  tPrediction_->Branch("elecAccWeightUp",&elecAccWeightUp_,"elecAccWeightUp/F");
+  tPrediction_->Branch("elecAccWeightDown",&elecAccWeightDown_,"elecAccWeightDown/F");  
+  
+  tPrediction_->Branch("mtwDown",&mtwDown_,"mtwDown/F"); 
+  tPrediction_->Branch("mtwUp",&mtwUp_,"mtwUp/F"); 
+  tPrediction_->Branch("diLepDown",&diLepDown_,"diLepDown/F");
+  tPrediction_->Branch("diLepUp",&diLepUp_,"diLepUp/F");
+  
   GetOutputList()->Add(tPrediction_);
   SearchBins_ = new SearchBins();
   std::cout<<"Applying filters: "<<applyFilters_<<std::endl;
@@ -555,8 +576,8 @@ Bool_t Prediction::Process(Long64_t entry)
 		}
 		
     if(!UseUpdatedTEfficiencies_) elecPurityCorrection_ =  getEff(ElecPurityMHTNJets_,MHT,NJets);
-    else elecPurityCorrection_ = ElecRecoPTActivityEff_->GetEff(MHT,NJets);
-    if(ElecPuritySearchBinEff_) elecPurityCorrection_ = ElecPuritySearchBinEff_->GetEff(searchBin_+0.01);
+    else elecPurityCorrection_ = getEff(ElecPurityNJets_,NJets+0.1);
+    if(ElecPuritySearchBinEffBool_) elecPurityCorrection_ = ElecPuritySearchBinEff_->GetEff(searchBin_+0.01);
     //              if(!UseUpdatedTEfficiencies_) elecMTWEff_ = getEff(ElecMTWPTActivity_,selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
     if(!UseUpdatedTEfficiencies_) elecMTWEff_ = getEff(ElecMTWNJets_,NJets);
     //              else elecMTWEff_= ElecMTWPTActivityEff_->GetEff(selectedIDIsoElectronsPt[0],selectedIDIsoElectronsActivity[0]);
@@ -758,7 +779,23 @@ void Prediction::resetValues()
 	totalWeightDiLepIsoTrackReducedCombined_=0.;
 	totalWeightDiLepIsoTrackReducedCombined2_=0.;
 	IsoTrackReductionCombined2_=0.;
-  
+         
+        muIsoWeightUp_=0.;
+        muIsoWeightDown_=0.;
+        muRecoWeightUp_=0.;
+        muRecoWeightDown_=0.;
+        muAccWeightUp_=0.;
+        muAccWeightDown_=0.;
+        elecIsoWeightUp_=0.;
+        elecIsoWeightDown_ =0.;
+        elecRecoWeightUp_=0.;
+        elecRecoWeightDown_=0.;
+        elecAccWeightUp_=0.;
+        elecAccWeightDown_=0.;
+        mtwDown_=0.;
+        mtwUp_=0.;
+        diLepDown_=0.;
+        diLepUp_=0.;
 }
 bool Prediction::FiltersPass()
 {
@@ -1432,7 +1469,7 @@ unsigned int SearchBins::GetBinNumber(double HT, double MHT, int NJets, int BTag
   }
   if(match==-1)
   {
-    std::cout<<"Error event fits in no bin!!! HT: "<<HT<<", MHT: "<<MHT<<", NJets: "<<NJets<<", BTags: "<<BTags<<std::endl;
+//     std::cout<<"Error event fits in no bin!!! HT: "<<HT<<", MHT: "<<MHT<<", NJets: "<<NJets<<", BTags: "<<BTags<<std::endl;
     result=999;
   }
   if(match>0)
