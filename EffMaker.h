@@ -33,9 +33,9 @@ double OneDNJets_[oneDNJets_] = {4,5,6,8,11,20};
 const int oneDBJets_=5;
 double OneDBJets_[oneDBJets_] = {0,1,2,3,10};
 const int oneDDeltaR_=9;
-double OneDDeltaR_[oneDDeltaR_]={0.1, 0.2,0.3, 0.5 ,0.8 ,1.0 ,1.3 ,1.5 , 5.0 };
+double OneDDeltaR_[oneDDeltaR_]={0.000001, 0.2,0.3, 0.5 ,0.8 ,1.0 ,1.3 ,1.5 , 20 };
 const int oneDPTRel_=10;
-double OneDPTRel_[oneDPTRel_]={0.1, 0.2 ,0.3, 0.4 ,0.5 ,0.6 ,0.7 ,0.8 ,0.9  ,3 };
+double OneDPTRel_[oneDPTRel_]={0.000001, 0.2 ,0.3, 0.4 ,0.5 ,0.6 ,0.7 ,0.8 ,0.9  ,20 };
 const int oneDBTags_=5;
 double OneDBTags_[oneDBTags_] = {0,1,2,3,10};
 
@@ -46,13 +46,13 @@ double OneDBTags_[oneDBTags_] = {0,1,2,3,10};
 // double OneDActivity_[oneDActivity_]={0,5,10,20,40,60,80,100,1600};
 // used to compare with tag and probe eff.
 const int oneDPT_=7;
-double OneDPT_[oneDPT_]={10,20,25,30,40,50,200};
+double OneDPT_[oneDPT_]={10,20,25,30,40,50,2000};
 const int oneDEta_=11;
 double OneDEta_[oneDEta_]={-2.5,-1.0,-0.5,-0.2,-0.1,0,0.1,0.2,0.5,1.0,2.5};
 const int oneDPhi_=7;
 double OneDPhi_[oneDPhi_]={-3,-2,-1,0,1,2,3};
 const int oneDActivity_=6;
-double OneDActivity_[oneDActivity_]={1,20,40,60,150,1600};
+double OneDActivity_[oneDActivity_]={0,20,40,60,150,3600};
 
 // purity
 //mu
@@ -443,6 +443,12 @@ public :
 	TH1F *MuDiLepPT_, *MuDiLepPTFail_;
 	TH1F *MuDiLepActivity_, *MuDiLepActivityFail_;
 	
+        
+        // Di lep combined
+        TH1F *DiLepBTag_, *DiLepBTagFail_;
+        TH1F *DiLepNJets_, *DiLepNJetsFail_;
+        TH1F *DiLepHT_, *DiLepHTFail_;
+        TH1F *DiLepMHT_, *DiLepMHTFail_;
 	
 	// elec
 	//1D

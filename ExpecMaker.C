@@ -465,7 +465,7 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 		GenMuDeltaRJet_[i]=temp.first;
                 GenMuDeltaPTJet_[i]=GenMuPt[i]/temp.second;
                 GenDeltaR_=temp.first;
-                GenRelJetPT_=temp.second/GenMuPt[i];
+								GenRelJetPT_=GenMuPt[i]/temp.second;
 	}
 	for(unsigned int i=0; i< selectedIDMuonsNum;i++)
 	{
@@ -482,7 +482,7 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 		GenElecDeltaRJet_[i]=temp.first;
                 GenElecDeltaPTJet_[i]=GenElecPt[i]/temp.second;
                 GenDeltaR_=temp.first;
-                GenRelJetPT_=temp.second/GenElecPt[i];
+								GenRelJetPT_=GenElecPt[i]/temp.second;
 	}
 	for(unsigned int i=0; i< selectedIDElectronsNum;i++)
 	{
@@ -821,18 +821,18 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 // 	  if(muIso!=2)
 	    if(GenMuNum<1)
 	  {
-	    MuPurity_=0;
+// 	    MuPurity_=0;
 	  }
-	  else MuPurity_=2;
+// 	  else MuPurity_=2;
 	}
 	if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1 && (GenMuNum+ GenElecNum)<2)
 	{
 // 	  if(elecIso!=2)
 	    if(GenElecNum<1)
 	  {
-	    ElecPurity_=0;
+// 	    ElecPurity_=0;
 	  }
-	  else ElecPurity_=2;
+// 	  else ElecPurity_=2;
 	}
 	//old purity calculations
 	for (UShort_t i=0; i< selectedIDIsoMuonsNum;i++)
@@ -847,11 +847,13 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 			{
 				RecoIsoMuonPromtMatched[i]=1;
 				matched=true;
+				MuPurity_=2;
 			}
 		}
 		if(!matched)
 		{
 			RecoIsoMuonPromtMatched[i]=0;
+// 			MuPurity_=0;
 		}
 		if(GenMuNum==0)
 		{
@@ -871,11 +873,13 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 			{
 				RecoIsoElecPromtMatched[i]=1;
 				matched=true;
+				ElecPurity_=2;
 			}
 		}
 		if(!matched)
 		{
 			RecoIsoElecPromtMatched[i]=0;
+// 			ElecPurity_=0;
 		}
 		if(GenElecNum==0)
 		{
@@ -1182,6 +1186,16 @@ Bool_t ExpecMaker::Process(Long64_t entry)
 	{
 		ExpectationReductionIsoPionTrack=1;
 	}
+	// added until **** on Aug 17 2015 begin
+	if(selectedIDMuonsNum==1 && selectedIDElectronsNum==0)
+	{
+		mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoMuonsPt[0], selectedIDIsoMuonsPhi[0]);
+	}
+	if(selectedIDMuonsNum==0 && selectedIDElectronsNum==1)
+	{
+		mtw =  MTWCalculator(METPt,METPhi, selectedIDIsoElectronsPt[0], selectedIDIsoElectronsPhi[0]);
+	}
+	// added until **** on Aug 17 2015 end
 	tExpectation_->Fill();
 	return kTRUE;
 }
@@ -1822,7 +1836,7 @@ unsigned int SearchBins::GetBinNumber(double HT, double MHT, int NJets, int BTag
   }
   if(match==-1 && !DY_)
   {
-    std::cout<<"Error event fits in no bin!!! HT: "<<HT<<", MHT: "<<MHT<<", NJets: "<<NJets<<", BTags: "<<BTags<<std::endl;
+//     std::cout<<"Error event fits in no bin!!! HT: "<<HT<<", MHT: "<<MHT<<", NJets: "<<NJets<<", BTags: "<<BTags<<std::endl;
     result=999;
   }
   if(match>0)

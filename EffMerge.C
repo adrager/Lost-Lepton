@@ -56,15 +56,29 @@ void EffMerge()
         std::cout<<"MuIso: Pt_Activity_PLOT loaded...\n";
         TMC00 = (TCanvas*)dInputTagAndProbeMCIsoMuHT->Get("HT_PLOT")->Clone();
         std::cout<<"MuIso: HT_PLOT Canvas loaded\n";
-//         TIter next(TMC00->GetListOfPrimitives());
-//         TObject *obj;
-//         while ((obj=next())) {
-//           cout << "Reading: " << obj->GetName() << endl;
-//           if (obj->InheritsFrom("TH1")) {
-//              cout << "histo: " << obj->GetName() << endl;
-//              obj->Dump();
-//              }
-//            }
+         TIter next(TMC00->GetListOfPrimitives());
+         TObject *obj;
+         while ((obj=next())) {
+           cout << "Reading: " << obj->GetName() << endl;
+           if (obj->InheritsFrom("TH1")) {
+              cout << "histo: " << obj->GetName() << endl;
+              obj->Dump();
+              
+              TString name1 = "t#bar{t}, W#rightarrowl#nu+jets (truth)";
+							TString name2 = "Tag&Probe MC";
+              TH1D *temp = (TH1D*)obj;
+							temp->SetName("MuIsoTagAndProbeMC_HT");
+							temp->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu iso Tag & Probe MC; H_{T} [GeV]");
+							temp->SetMarkerSize(2.0);
+							temp->UseCurrentStyle();
+							std::cout<<"Mu Iso HT set ready to start compute comparison plots...\n";
+// 							TH1DCompare(name1, name2,(TH1D*) dTTbarWPJEff->Get("MuIsoHT1D"), temp, ttbarwpjEffInput, "MuIsoHT");
+//  							TH1DCompare(name1, name2,temp, temp, ttbarwpjEffInput, "MuIsoHT");
+// 							p->SaveEfficiency(temp);
+// 							temp->Draw();
+// 							temp->Write();
+					 }
+            }
         TH1D *mc_tap_eff_mu_iso_HT = (TH1D*)TMC00->GetPrimitive("HT_PLOT");
         std::cout<<"MuIso: HT_PLOT loaded...\n";
         TMC00 = (TCanvas*)dInputTagAndProbeMCIsoMuNJets->Get("NJets_PLOT")->Clone();
@@ -103,7 +117,7 @@ void EffMerge()
 	TH2FCompare(name1, name2,(TH2F*) dTTbarWPJEff->Get("MuIsoPTActivity"), mc_tap_eff_mu_iso, ttbarwpjEffInput, "MuIsoPTActivity");
 	p->SaveEfficiency(mc_tap_eff_mu_iso);
 	mc_tap_eff_mu_iso->Write();
-//         mc_tap_eff_mu_iso_HT->Dump();
+ //       mc_tap_eff_mu_iso_HT->Dump();
 //         mc_tap_eff_mu_iso_HT->SetName("MuIsoTagAndProbeMC_HT");
 //         mc_tap_eff_mu_iso_HT->SetTitle("Simulation, L=4 fb-1, #sqrt{s}=13 TeV #mu iso Tag & Probe MC; H_{T} [GeV]");
 //         mc_tap_eff_mu_iso_HT->SetMarkerSize(2.0);

@@ -448,7 +448,7 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
   ElecMTWMHTFail_->SetName("ElecMTWMHT1DFail");
   //GetOutputList()->Add(ElecMTWMHTFail_); 
   
-  // di lep
+  // di-lep
   
   // mtw
   //muon
@@ -502,6 +502,33 @@ void EffMaker::SlaveBegin(TTree * /*tree*/)
   ElecDiLepMHTFail_ = (TH1F*)ElecDiLepMHT_->Clone();
   ElecDiLepMHTFail_->SetName("ElecDiLepMHT1DFail");
   //GetOutputList()->Add(ElecDiLepMHTFail_); 
+  
+  
+  // combined di lep eff
+  
+  DiLepBTag_ = new TH1F("DiLepBTag1D","DiLepBTag1D",oneDBJets_-1,OneDBJets_);
+  //GetOutputList()->Add(DiLepBTag_);
+  DiLepBTagFail_ = (TH1F*)DiLepBTag_->Clone();
+  DiLepBTagFail_->SetName("DiLepBTag1DFail");
+  //GetOutputList()->Add(DiLepBTagFail_); 
+  
+  DiLepNJets_ = new TH1F("DiLepNJets1D","DiLepNJets1D",oneDNJets_-1,OneDNJets_);
+  //GetOutputList()->Add(DiLepNJets_);
+  DiLepNJetsFail_ = (TH1F*)DiLepNJets_->Clone();
+  DiLepNJetsFail_->SetName("DiLepNJets1DFail");
+  //GetOutputList()->Add(DiLepNJetsFail_); 
+  
+  DiLepHT_ = new TH1F("DiLepHT1D","DiLepHT1D",oneDHT_-1,OneDHT_);
+  //GetOutputList()->Add(DiLepHT_);
+  DiLepHTFail_ = (TH1F*)DiLepHT_->Clone();
+  DiLepHTFail_->SetName("DiLepHT1DFail");
+  //GetOutputList()->Add(DiLepHTFail_); 
+  
+  DiLepMHT_ = new TH1F("DiLepMHT1D","DiLepMHT1D",oneDMHT_-1,OneDMHT_);
+  //GetOutputList()->Add(DiLepMHT_);
+  DiLepMHTFail_ = (TH1F*)DiLepMHT_->Clone();
+  DiLepMHTFail_->SetName("DiLepMHT1DFail");
+  //GetOutputList()->Add(DiLepMHTFail_); 
   
   
   // mtw
@@ -2712,7 +2739,8 @@ Bool_t EffMaker::Process(Long64_t entry)
   }
   // mtw
   // single muon control sample
-  if(muIso==2 && MTW < mtwCut_)
+//   if(selectedIDMuonsNum==1 && selectedIDElectronsNum==0 && MTW < mtwCut_) // added until **** on Aug 17 2015
+   if(muIso==2 && MTW < mtwCut_)
   {
     // 1D
     MuMTWBTag_->Fill(BTags,Weight);
@@ -2723,7 +2751,8 @@ Bool_t EffMaker::Process(Long64_t entry)
     MuMTWActivity_->Fill(RecoIsoMuonActivity[0],Weight);
     MuMTWPTActivity_->Fill(selectedIDIsoMuonsPt[0],RecoIsoMuonActivity[0],Weight );
   }
-  if(muIso==2 && MTW > mtwCut_)
+//   else if(selectedIDMuonsNum==1 && selectedIDElectronsNum==0 && MTW > mtwCut_) // added until **** on Aug 17 2015
+   if(muIso==2 && MTW > mtwCut_)
   {
     // 1D
     MuMTWBTagFail_->Fill(BTags,Weight);
@@ -2736,7 +2765,8 @@ Bool_t EffMaker::Process(Long64_t entry)
   }
   
   // single elec control sample
-  if(elecIso==2 && MTW < mtwCut_)
+//   if(selectedIDMuonsNum==0 && selectedIDElectronsNum==1 && MTW < mtwCut_) // added until **** on Aug 17 2015
+   if(elecIso==2 && MTW < mtwCut_)
   {
     // 1D
     ElecMTWBTag_->Fill(BTags,Weight);
@@ -2747,7 +2777,8 @@ Bool_t EffMaker::Process(Long64_t entry)
     ElecMTWActivity_->Fill(RecoIsoElectronActivity[0],Weight);
     ElecMTWPTActivity_->Fill(selectedIDIsoElectronsPt[0],RecoIsoElectronActivity[0],Weight );
   }
-  if(elecIso==2 && MTW > mtwCut_)
+//   if(selectedIDMuonsNum==0 && selectedIDElectronsNum==1 && MTW > mtwCut_) // added until **** on Aug 17 2015
+   if(elecIso==2 && MTW > mtwCut_)
   {
     // 1D
     ElecMTWBTagFail_->Fill(BTags,Weight);
@@ -2758,14 +2789,11 @@ Bool_t EffMaker::Process(Long64_t entry)
     ElecMTWActivityFail_->Fill(RecoIsoElectronActivity[0],Weight);
     ElecMTWPTActivityFail_->Fill(selectedIDIsoElectronsPt[0],RecoIsoElectronActivity[0],Weight );
   }
-  // di lep contribution
+  // di-lep contribution
   if(MuDiLepControlSample==2)
   {
     // 1D
-    MuDiLepBTag_->Fill(BTags,Weight);
-    MuDiLepNJets_->Fill(NJets,Weight);
-    MuDiLepHT_->Fill(HT,Weight);
-    MuDiLepMHT_->Fill(MHT,Weight);
+
     if(MTW <mtwCut_)
     {
       // 1D
@@ -2809,10 +2837,10 @@ Bool_t EffMaker::Process(Long64_t entry)
   if(MuDiLepControlSample==0)
   {
     // 1D
-    MuDiLepBTagFail_->Fill(BTags,Weight);
-    MuDiLepNJetsFail_->Fill(NJets,Weight);
-    MuDiLepHTFail_->Fill(HT,Weight);
-    MuDiLepMHTFail_->Fill(MHT,Weight);
+//     MuDiLepBTagFail_->Fill(BTags,Weight);
+//     MuDiLepNJetsFail_->Fill(NJets,Weight);
+//     MuDiLepHTFail_->Fill(HT,Weight);
+//     MuDiLepMHTFail_->Fill(MHT,Weight);
     
     // 1D
     MuDiLepMTWBTagFail_->Fill(BTags,Weight);
@@ -2871,19 +2899,81 @@ Bool_t EffMaker::Process(Long64_t entry)
   
   if(ElecDiLepControlSample==0)
   {
-    // 1D
-    ElecDiLepBTagFail_->Fill(BTags,Weight);
-    ElecDiLepNJetsFail_->Fill(NJets,Weight);
-    ElecDiLepHTFail_->Fill(HT,Weight);
-    ElecDiLepMHTFail_->Fill(MHT,Weight);
-    
+//     // 1D
+//     ElecDiLepBTagFail_->Fill(BTags,Weight);
+//     ElecDiLepNJetsFail_->Fill(NJets,Weight);
+//     ElecDiLepHTFail_->Fill(HT,Weight);
+//     ElecDiLepMHTFail_->Fill(MHT,Weight);
+//     
     // 1D
     ElecDiLepMTWBTagFail_->Fill(BTags,Weight);
     ElecDiLepMTWNJetsFail_->Fill(NJets,Weight);
     ElecDiLepMTWHTFail_->Fill(HT,Weight);
     ElecDiLepMTWMHTFail_->Fill(MHT,Weight);
   }
-  
+  // Aug 18 2015 added beginning
+  // di-lep efficiencies overall
+//   if((GenMuNum+GenElecNum)==2) 
+//   {
+//     if(ExpectationDiLep==1) // background
+//     {
+//       DiLepBTagFail_->Fill(BTags,Weight);
+//       DiLepNJetsFail_->Fill(NJets,Weight);
+//       DiLepHTFail_->Fill(HT,Weight);
+//       DiLepMHTFail_->Fill(MHT,Weight);
+//     }
+//     else if(MTW<100)// isolated at least one of them
+//     {
+//       DiLepBTag_->Fill(BTags,Weight);
+//       DiLepNJets_->Fill(NJets,Weight);
+//       DiLepHT_->Fill(HT,Weight);
+//       DiLepMHT_->Fill(MHT,Weight);
+//     }
+//   }
+  // 29 Sep 2015 di lep estimation
+  if((GenMuNum+GenElecNum)==2)
+  {
+    if(selectedIDIsoElectronsNum==0 && selectedIDIsoMuonsNum==0)
+    {
+      DiLepBTagFail_->Fill(BTags,Weight);
+      DiLepNJetsFail_->Fill(NJets,Weight);
+      DiLepHTFail_->Fill(HT,Weight);
+      DiLepMHTFail_->Fill(MHT,Weight);
+      
+      MuDiLepBTagFail_->Fill(BTags,Weight);
+      MuDiLepNJetsFail_->Fill(NJets,Weight);
+      MuDiLepHTFail_->Fill(HT,Weight);
+      MuDiLepMHTFail_->Fill(MHT,Weight);
+      
+      ElecDiLepBTagFail_->Fill(BTags,Weight);
+      ElecDiLepNJetsFail_->Fill(NJets,Weight);
+      ElecDiLepHTFail_->Fill(HT,Weight);
+      ElecDiLepMHTFail_->Fill(MHT,Weight);
+      
+    }
+  }
+  if((selectedIDIsoElectronsNum + selectedIDIsoMuonsNum)==1)
+  {
+    DiLepBTag_->Fill(BTags,Weight/2);
+    DiLepNJets_->Fill(NJets,Weight/2);
+    DiLepHT_->Fill(HT,Weight/2);
+    DiLepMHT_->Fill(MHT,Weight/2);
+  }
+  if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0)
+  {
+    MuDiLepBTag_->Fill(BTags,Weight);
+    MuDiLepNJets_->Fill(NJets,Weight);
+    MuDiLepHT_->Fill(HT,Weight);
+    MuDiLepMHT_->Fill(MHT,Weight);
+  }
+  if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1)
+  {
+    ElecDiLepBTag_->Fill(BTags,Weight);
+    ElecDiLepNJets_->Fill(NJets,Weight);
+    ElecDiLepHT_->Fill(HT,Weight);
+    ElecDiLepMHT_->Fill(MHT,Weight);
+  }
+  // Aug 18 2015 added end
   // isoalted track
   // muon
   if(GenMuNum==1 && GenElecNum==0)
@@ -3013,28 +3103,28 @@ Bool_t EffMaker::Process(Long64_t entry)
   //       
   //     }
   //   }
-  // di leptonic contribution
+  // di-leptonic contribution
   if((GenMuNum+GenElecNum)==2)
   {
-    // single muon control sample correction due to di lep contribution
+    // single muon control sample correction due to di-lep contribution
     if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0)
     {
-      // fill here for events that enter in the single muon control sample from di lep failing: POINT1
+      // fill here for events that enter in the single muon control sample from di-lep failing: POINT1
       // passing: point 4
     }
-    // single elec control sample correction due to di lep contribution
+    // single elec control sample correction due to di-lep contribution
     if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1)
     {
-      // fill here for events that enter in the single muon control sample from di lep failing: POINT2
+      // fill here for events that enter in the single muon control sample from di-lep failing: POINT2
       // passing: point 4
     }
-    // single isotrack control sample correction due to di lep contribution
+    // single isotrack control sample correction due to di-lep contribution
     //     if(IsolatedTracksNum==1)
     //     {
-    //       // fill here for events that enter in the single muon control sample from di lep failing: POINT3
+    //       // fill here for events that enter in the single muon control sample from di-lep failing: POINT3
     //       // passing: point 4
     //     }
-    // for efficiency for di leptonic decays check if non are isolated
+    // for efficiency for di-leptonic decays check if non are isolated
     if((selectedIDIsoMuonsNum+selectedIDIsoElectronsNum)==0)
     {
       // failing: point 4
@@ -3416,7 +3506,7 @@ Bool_t EffMaker::Process(Long64_t entry)
     // search bin efficiencies
     ElecMTWSearchBinEff_->Fill(HT,MHT,NJets,BTags,Weight,false);
   }
-  // di lep contribution
+  // di-lep contribution
   if(MuDiLepControlSample==2)
   {
     // 1D
@@ -3678,28 +3768,28 @@ Bool_t EffMaker::Process(Long64_t entry)
   //                      
   //              }
   //      }
-  // di leptonic contribution
+  // di-leptonic contribution
   if((GenMuNum+GenElecNum)==2)
   {
-    // single muon control sample correction due to di lep contribution
+    // single muon control sample correction due to di-lep contribution
     if(selectedIDIsoMuonsNum==1 && selectedIDIsoElectronsNum==0)
     {
-      // fill here for events that enter in the single muon control sample from di lep failing: POINT1
+      // fill here for events that enter in the single muon control sample from di-lep failing: POINT1
       // passing: point 4
     }
-    // single elec control sample correction due to di lep contribution
+    // single elec control sample correction due to di-lep contribution
     if(selectedIDIsoMuonsNum==0 && selectedIDIsoElectronsNum==1)
     {
-      // fill here for events that enter in the single muon control sample from di lep failing: POINT2
+      // fill here for events that enter in the single muon control sample from di-lep failing: POINT2
       // passing: point 4
     }
-    // single isotrack control sample correction due to di lep contribution
+    // single isotrack control sample correction due to di-lep contribution
     //              if(IsolatedTracksNum==1)
     //              {
-    //                      // fill here for events that enter in the single muon control sample from di lep failing: POINT3
+    //                      // fill here for events that enter in the single muon control sample from di-lep failing: POINT3
     //                      // passing: point 4
     //              }
-    // for efficiency for di leptonic decays check if non are isolated
+    // for efficiency for di-leptonic decays check if non are isolated
     if((selectedIDIsoMuonsNum+selectedIDIsoElectronsNum)==0)
     {
       // failing: point 4
@@ -5118,56 +5208,56 @@ void EffMaker::Terminate()
   //muon
   //1D
   MuDiLepBTag_ = ratioCalculator(MuDiLepBTag_,MuDiLepBTagFail_);   
-  MuDiLepBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; B_{Tags}");
+  MuDiLepBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep; B_{Tags}");
   MuDiLepBTag_->SetMarkerSize(2.0);
   MuDiLepBTag_->UseCurrentStyle();
   MuDiLepBTag_->Write();
   SaveEfficiency(MuDiLepBTag_);
   
   MuDiLepNJets_ = ratioCalculator(MuDiLepNJets_,MuDiLepNJetsFail_);   
-  MuDiLepNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; N_{Jets}");
+  MuDiLepNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep; N_{Jets}");
   MuDiLepNJets_->SetMarkerSize(2.0);
   MuDiLepNJets_->UseCurrentStyle();
   MuDiLepNJets_->Write();
   SaveEfficiency(MuDiLepNJets_);
   
   MuDiLepHT_ = ratioCalculator(MuDiLepHT_,MuDiLepHTFail_);   
-  MuDiLepHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; H_{T} [GeV]");
+  MuDiLepHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep; H_{T} [GeV]");
   MuDiLepHT_->SetMarkerSize(2.0);
   MuDiLepHT_->UseCurrentStyle();
   MuDiLepHT_->Write();
   SaveEfficiency(MuDiLepHT_);
   
   MuDiLepMHT_ = ratioCalculator(MuDiLepMHT_,MuDiLepMHTFail_);   
-  MuDiLepMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; #slash{H}_{T} [GeV]");
+  MuDiLepMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep; #slash{H}_{T} [GeV]");
   MuDiLepMHT_->SetMarkerSize(2.0);
   MuDiLepMHT_->UseCurrentStyle();
   MuDiLepMHT_->Write();
   SaveEfficiency(MuDiLepMHT_);
   
   MuDiLepMTWBTag_ = ratioCalculator(MuDiLepMTWBTag_,MuDiLepMTWBTagFail_);   
-  MuDiLepMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; B_{Tags}");
+  MuDiLepMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep; B_{Tags}");
   MuDiLepMTWBTag_->SetMarkerSize(2.0);
   MuDiLepMTWBTag_->UseCurrentStyle();
   MuDiLepMTWBTag_->Write();
   SaveEfficiency(MuDiLepMTWBTag_);
   
   MuDiLepMTWNJets_ = ratioCalculator(MuDiLepMTWNJets_,MuDiLepMTWNJetsFail_);   
-  MuDiLepMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; N_{Jets}");
+  MuDiLepMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep; N_{Jets}");
   MuDiLepMTWNJets_->SetMarkerSize(2.0);
   MuDiLepMTWNJets_->UseCurrentStyle();
   MuDiLepMTWNJets_->Write();
   SaveEfficiency(MuDiLepMTWNJets_);
   
   MuDiLepMTWHT_ = ratioCalculator(MuDiLepMTWHT_,MuDiLepMTWHTFail_);   
-  MuDiLepMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; H_{T} [GeV]");
+  MuDiLepMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep; H_{T} [GeV]");
   MuDiLepMTWHT_->SetMarkerSize(2.0);
   MuDiLepMTWHT_->UseCurrentStyle();
   MuDiLepMTWHT_->Write();
   SaveEfficiency(MuDiLepMTWHT_);
   
   MuDiLepMTWMHT_ = ratioCalculator(MuDiLepMTWMHT_,MuDiLepMTWMHTFail_);   
-  MuDiLepMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep; #slash{H}_{T} [GeV]");
+  MuDiLepMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep; #slash{H}_{T} [GeV]");
   MuDiLepMTWMHT_->SetMarkerSize(2.0);
   MuDiLepMTWMHT_->UseCurrentStyle();
   MuDiLepMTWMHT_->Write();
@@ -5176,56 +5266,56 @@ void EffMaker::Terminate()
   //muon
   //1D
   MuDiLepContributionBTag_ = ratioCalculator(MuDiLepContributionBTag_,MuDiLepContributionBTagFail_);   
-  MuDiLepContributionBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; B_{Tags}");
+  MuDiLepContributionBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep contri contri; B_{Tags}");
   MuDiLepContributionBTag_->SetMarkerSize(2.0);
   MuDiLepContributionBTag_->UseCurrentStyle();
   MuDiLepContributionBTag_->Write();
   SaveEfficiency(MuDiLepContributionBTag_);
   
   MuDiLepContributionNJets_ = ratioCalculator(MuDiLepContributionNJets_,MuDiLepContributionNJetsFail_);   
-  MuDiLepContributionNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; N_{Jets}");
+  MuDiLepContributionNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep contri contri; N_{Jets}");
   MuDiLepContributionNJets_->SetMarkerSize(2.0);
   MuDiLepContributionNJets_->UseCurrentStyle();
   MuDiLepContributionNJets_->Write();
   SaveEfficiency(MuDiLepContributionNJets_);
   
   MuDiLepContributionHT_ = ratioCalculator(MuDiLepContributionHT_,MuDiLepContributionHTFail_);   
-  MuDiLepContributionHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; H_{T} [GeV]");
+  MuDiLepContributionHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep contri contri; H_{T} [GeV]");
   MuDiLepContributionHT_->SetMarkerSize(2.0);
   MuDiLepContributionHT_->UseCurrentStyle();
   MuDiLepContributionHT_->Write();
   SaveEfficiency(MuDiLepContributionHT_);
   
   MuDiLepContributionMHT_ = ratioCalculator(MuDiLepContributionMHT_,MuDiLepContributionMHTFail_);   
-  MuDiLepContributionMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; #slash{H}_{T} [GeV]");
+  MuDiLepContributionMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep contri contri; #slash{H}_{T} [GeV]");
   MuDiLepContributionMHT_->SetMarkerSize(2.0);
   MuDiLepContributionMHT_->UseCurrentStyle();
   MuDiLepContributionMHT_->Write();
   SaveEfficiency(MuDiLepContributionMHT_);
   
   MuDiLepContributionMTWBTag_ = ratioCalculator(MuDiLepContributionMTWBTag_,MuDiLepContributionMTWBTagFail_);   
-  MuDiLepContributionMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; B_{Tags}");
+  MuDiLepContributionMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep contri contri; B_{Tags}");
   MuDiLepContributionMTWBTag_->SetMarkerSize(2.0);
   MuDiLepContributionMTWBTag_->UseCurrentStyle();
   MuDiLepContributionMTWBTag_->Write();
   SaveEfficiency(MuDiLepContributionMTWBTag_);
   
   MuDiLepContributionMTWNJets_ = ratioCalculator(MuDiLepContributionMTWNJets_,MuDiLepContributionMTWNJetsFail_);   
-  MuDiLepContributionMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; N_{Jets}");
+  MuDiLepContributionMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep contri contri; N_{Jets}");
   MuDiLepContributionMTWNJets_->SetMarkerSize(2.0);
   MuDiLepContributionMTWNJets_->UseCurrentStyle();
   MuDiLepContributionMTWNJets_->Write();
   SaveEfficiency(MuDiLepContributionMTWNJets_);
   
   MuDiLepContributionMTWHT_ = ratioCalculator(MuDiLepContributionMTWHT_,MuDiLepContributionMTWHTFail_);   
-  MuDiLepContributionMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; H_{T} [GeV]");
+  MuDiLepContributionMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep contri contri; H_{T} [GeV]");
   MuDiLepContributionMTWHT_->SetMarkerSize(2.0);
   MuDiLepContributionMTWHT_->UseCurrentStyle();
   MuDiLepContributionMTWHT_->Write();
   SaveEfficiency(MuDiLepContributionMTWHT_);
   
   MuDiLepContributionMTWMHT_ = ratioCalculator(MuDiLepContributionMTWMHT_,MuDiLepContributionMTWMHTFail_);   
-  MuDiLepContributionMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di lep contri contri; #slash{H}_{T} [GeV]");
+  MuDiLepContributionMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV #mu di-lep contri contri; #slash{H}_{T} [GeV]");
   MuDiLepContributionMTWMHT_->SetMarkerSize(2.0);
   MuDiLepContributionMTWMHT_->UseCurrentStyle();
   MuDiLepContributionMTWMHT_->Write();
@@ -5264,56 +5354,56 @@ void EffMaker::Terminate()
   SaveEfficiency(ElecMTWMHT_);
   
   ElecDiLepBTag_ = ratioCalculator(ElecDiLepBTag_,ElecDiLepBTagFail_);   
-  ElecDiLepBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; B_{Tags}");
+  ElecDiLepBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep; B_{Tags}");
   ElecDiLepBTag_->SetMarkerSize(2.0);
   ElecDiLepBTag_->UseCurrentStyle();
   ElecDiLepBTag_->Write();
   SaveEfficiency(ElecDiLepBTag_);
   
   ElecDiLepNJets_ = ratioCalculator(ElecDiLepNJets_,ElecDiLepNJetsFail_);   
-  ElecDiLepNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; N_{Jets}");
+  ElecDiLepNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep; N_{Jets}");
   ElecDiLepNJets_->SetMarkerSize(2.0);
   ElecDiLepNJets_->UseCurrentStyle();
   ElecDiLepNJets_->Write();
   SaveEfficiency(ElecDiLepNJets_);
   
   ElecDiLepHT_ = ratioCalculator(ElecDiLepHT_,ElecDiLepHTFail_);   
-  ElecDiLepHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; H_{T} [GeV]");
+  ElecDiLepHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep; H_{T} [GeV]");
   ElecDiLepHT_->SetMarkerSize(2.0);
   ElecDiLepHT_->UseCurrentStyle();
   ElecDiLepHT_->Write();
   SaveEfficiency(ElecDiLepHT_);
   
   ElecDiLepMHT_ = ratioCalculator(ElecDiLepMHT_,ElecDiLepMHTFail_);   
-  ElecDiLepMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; #slash{H}_{T} [GeV]");
+  ElecDiLepMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep; #slash{H}_{T} [GeV]");
   ElecDiLepMHT_->SetMarkerSize(2.0);
   ElecDiLepMHT_->UseCurrentStyle();
   ElecDiLepMHT_->Write();
   SaveEfficiency(ElecDiLepMHT_);
   
   ElecDiLepMTWBTag_ = ratioCalculator(ElecDiLepMTWBTag_,ElecDiLepMTWBTagFail_);   
-  ElecDiLepMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; B_{Tags}");
+  ElecDiLepMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep; B_{Tags}");
   ElecDiLepMTWBTag_->SetMarkerSize(2.0);
   ElecDiLepMTWBTag_->UseCurrentStyle();
   ElecDiLepMTWBTag_->Write();
   SaveEfficiency(ElecDiLepMTWBTag_);
   
   ElecDiLepMTWNJets_ = ratioCalculator(ElecDiLepMTWNJets_,ElecDiLepMTWNJetsFail_);   
-  ElecDiLepMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; N_{Jets}");
+  ElecDiLepMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep; N_{Jets}");
   ElecDiLepMTWNJets_->SetMarkerSize(2.0);
   ElecDiLepMTWNJets_->UseCurrentStyle();
   ElecDiLepMTWNJets_->Write();
   SaveEfficiency(ElecDiLepMTWNJets_);
   
   ElecDiLepMTWHT_ = ratioCalculator(ElecDiLepMTWHT_,ElecDiLepMTWHTFail_);   
-  ElecDiLepMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; H_{T} [GeV]");
+  ElecDiLepMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep; H_{T} [GeV]");
   ElecDiLepMTWHT_->SetMarkerSize(2.0);
   ElecDiLepMTWHT_->UseCurrentStyle();
   ElecDiLepMTWHT_->Write();
   SaveEfficiency(ElecDiLepMTWHT_);
   
   ElecDiLepMTWMHT_ = ratioCalculator(ElecDiLepMTWMHT_,ElecDiLepMTWMHTFail_);   
-  ElecDiLepMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep; #slash{H}_{T} [GeV]");
+  ElecDiLepMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep; #slash{H}_{T} [GeV]");
   ElecDiLepMTWMHT_->SetMarkerSize(2.0);
   ElecDiLepMTWMHT_->UseCurrentStyle();
   ElecDiLepMTWMHT_->Write();
@@ -5329,56 +5419,56 @@ void EffMaker::Terminate()
   //muon
   //1D
   ElecDiLepContributionBTag_ = ratioCalculator(ElecDiLepContributionBTag_,ElecDiLepContributionBTagFail_);   
-  ElecDiLepContributionBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; B_{Tags}");
+  ElecDiLepContributionBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep contri contri; B_{Tags}");
   ElecDiLepContributionBTag_->SetMarkerSize(2.0);
   ElecDiLepContributionBTag_->UseCurrentStyle();
   ElecDiLepContributionBTag_->Write();
   SaveEfficiency(ElecDiLepContributionBTag_);
   
   ElecDiLepContributionNJets_ = ratioCalculator(ElecDiLepContributionNJets_,ElecDiLepContributionNJetsFail_);   
-  ElecDiLepContributionNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; N_{Jets}");
+  ElecDiLepContributionNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep contri contri; N_{Jets}");
   ElecDiLepContributionNJets_->SetMarkerSize(2.0);
   ElecDiLepContributionNJets_->UseCurrentStyle();
   ElecDiLepContributionNJets_->Write();
   SaveEfficiency(ElecDiLepContributionNJets_);
   
   ElecDiLepContributionHT_ = ratioCalculator(ElecDiLepContributionHT_,ElecDiLepContributionHTFail_);   
-  ElecDiLepContributionHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; H_{T} [GeV]");
+  ElecDiLepContributionHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep contri contri; H_{T} [GeV]");
   ElecDiLepContributionHT_->SetMarkerSize(2.0);
   ElecDiLepContributionHT_->UseCurrentStyle();
   ElecDiLepContributionHT_->Write();
   SaveEfficiency(ElecDiLepContributionHT_);
   
   ElecDiLepContributionMHT_ = ratioCalculator(ElecDiLepContributionMHT_,ElecDiLepContributionMHTFail_);   
-  ElecDiLepContributionMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; #slash{H}_{T} [GeV]");
+  ElecDiLepContributionMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep contri contri; #slash{H}_{T} [GeV]");
   ElecDiLepContributionMHT_->SetMarkerSize(2.0);
   ElecDiLepContributionMHT_->UseCurrentStyle();
   ElecDiLepContributionMHT_->Write();
   SaveEfficiency(ElecDiLepContributionMHT_);
   
   ElecDiLepContributionMTWBTag_ = ratioCalculator(ElecDiLepContributionMTWBTag_,ElecDiLepContributionMTWBTagFail_);   
-  ElecDiLepContributionMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; B_{Tags}");
+  ElecDiLepContributionMTWBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep contri contri; B_{Tags}");
   ElecDiLepContributionMTWBTag_->SetMarkerSize(2.0);
   ElecDiLepContributionMTWBTag_->UseCurrentStyle();
   ElecDiLepContributionMTWBTag_->Write();
   SaveEfficiency(ElecDiLepContributionMTWBTag_);
   
   ElecDiLepContributionMTWNJets_ = ratioCalculator(ElecDiLepContributionMTWNJets_,ElecDiLepContributionMTWNJetsFail_);   
-  ElecDiLepContributionMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; N_{Jets}");
+  ElecDiLepContributionMTWNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep contri contri; N_{Jets}");
   ElecDiLepContributionMTWNJets_->SetMarkerSize(2.0);
   ElecDiLepContributionMTWNJets_->UseCurrentStyle();
   ElecDiLepContributionMTWNJets_->Write();
   SaveEfficiency(ElecDiLepContributionMTWNJets_);
   
   ElecDiLepContributionMTWHT_ = ratioCalculator(ElecDiLepContributionMTWHT_,ElecDiLepContributionMTWHTFail_);   
-  ElecDiLepContributionMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; H_{T} [GeV]");
+  ElecDiLepContributionMTWHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep contri contri; H_{T} [GeV]");
   ElecDiLepContributionMTWHT_->SetMarkerSize(2.0);
   ElecDiLepContributionMTWHT_->UseCurrentStyle();
   ElecDiLepContributionMTWHT_->Write();
   SaveEfficiency(ElecDiLepContributionMTWHT_);
   
   ElecDiLepContributionMTWMHT_ = ratioCalculator(ElecDiLepContributionMTWMHT_,ElecDiLepContributionMTWMHTFail_);   
-  ElecDiLepContributionMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di lep contri contri; #slash{H}_{T} [GeV]");
+  ElecDiLepContributionMTWMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV e di-lep contri contri; #slash{H}_{T} [GeV]");
   ElecDiLepContributionMTWMHT_->SetMarkerSize(2.0);
   ElecDiLepContributionMTWMHT_->UseCurrentStyle();
   ElecDiLepContributionMTWMHT_->Write();
@@ -5761,6 +5851,36 @@ void EffMaker::Terminate()
   ElecIsoPTActivity_->UseCurrentStyle();
   ElecIsoPTActivity_->Write();
   SaveEfficiency(ElecIsoPTActivity_);
+  
+  // Aug 18 2015 added start
+  DiLepBTag_ = ratioCalculator(DiLepBTag_,DiLepBTagFail_);   
+  DiLepBTag_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV di-lep eff.; B_{Tags}");
+  DiLepBTag_->SetMarkerSize(2.0);
+  DiLepBTag_->UseCurrentStyle();
+  DiLepBTag_->Write();
+  SaveEfficiency(DiLepBTag_);
+  
+  DiLepNJets_ = ratioCalculator(DiLepNJets_,DiLepNJetsFail_);   
+  DiLepNJets_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV di-lep eff.; N_{Jets}");
+  DiLepNJets_->SetMarkerSize(2.0);
+  DiLepNJets_->UseCurrentStyle();
+  DiLepNJets_->Write();
+  SaveEfficiency(DiLepNJets_);
+  
+  DiLepHT_ = ratioCalculator(DiLepHT_,DiLepHTFail_);   
+  DiLepHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV di-lep eff.; H_{T} [GeV]");
+  DiLepHT_->SetMarkerSize(2.0);
+  DiLepHT_->UseCurrentStyle();
+  DiLepHT_->Write();
+  SaveEfficiency(DiLepHT_);
+  
+  DiLepMHT_ = ratioCalculator(DiLepMHT_,DiLepMHTFail_);   
+  DiLepMHT_->SetTitle("Simulation, L=4 fb^{-1}, #sqrt{s}=13 TeV di-lep eff.; #slash{H}_{T} [GeV]");
+  DiLepMHT_->SetMarkerSize(2.0);
+  DiLepMHT_->UseCurrentStyle();
+  DiLepMHT_->Write();
+  SaveEfficiency(DiLepMHT_);
+  // Aug 18 2015 added end
   
   //1D
   ExpectationReductionIsoTrackBTagEff = ratioCalculator(ExpectationReductionIsoTrackBTagEff,ExpectationReductionIsoTrackBTagEffFail);   
@@ -7390,17 +7510,19 @@ void EffMaker::SaveEfficiency(TH2F *input)
   c1->cd();
   
   std::cout<<"EffMaker::SaveEfficiency(TH2F): Name: "<<input->GetName()<<" xMin: "<<input->GetXaxis()->GetXmin()<<" xMax: "<<input->GetXaxis()->GetXmax()<<" diff: "<<(input->GetXaxis()->GetXmax() - input->GetXaxis()->GetXmin() )<<"\n";
-  if(0.0001 < input->GetXaxis()->GetXmin() )
+  if(0.000001 < input->GetXaxis()->GetXmin() )
   {
     
-    if( (input->GetXaxis()->GetXmax() - input->GetXaxis()->GetXmin() ) >100)                      c1->SetLogx();
+//     if( (input->GetXaxis()->GetXmax() - input->GetXaxis()->GetXmin() ) >100)                      c1->SetLogx();
+		if( (input->GetXaxis()->GetXmax() - input->GetXaxis()->GetXmin() )/input->GetXaxis()->GetXmax() >0.5) c1->SetLogx();
     
   }
   //      std::cout<<"EffMaker::SaveEfficiency(TH2F): Name: "<<input->GetName()<<" yMin: "<<input->GetYaxis()->GetXmin()<<" yMax: "<<input->GetYaxis()->GetXmax()<<" diff: "<<(input->GetYaxis()->GetXmax() - input->GetYaxis()->GetXmin() )<<"\n";
-  if(0.0001 < input->GetYaxis()->GetXmin() )
+  if(0.000001 < input->GetYaxis()->GetXmin() )
   {
     
-    if( (input->GetYaxis()->GetXmax() - input->GetYaxis()->GetXmin() ) >100)                      c1->SetLogy();
+//     if( (input->GetYaxis()->GetXmax() - input->GetYaxis()->GetXmin() ) >100)                      c1->SetLogy();
+if( (input->GetYaxis()->GetXmax() - input->GetYaxis()->GetXmin() )/input->GetYaxis()->GetXmax() >0.5) c1->SetLogy();
     
   }
 //   if(0.0001 < input->GetXaxis()->GetXmin() )  c1->SetLogx();
@@ -7442,9 +7564,10 @@ void EffMaker::SaveEfficiency(TH1F *input)
   //c1->SetLogy();
   
   //      std::cout<<"EffMaker::SaveEfficiency(TH1F): Name: "<<input->GetName()<<" xMin: "<<input->GetXaxis()->GetXmin()<<" xMax: "<<input->GetXaxis()->GetXmax()<<" diff: "<<(input->GetXaxis()->GetXmax() - input->GetXaxis()->GetXmin() )<<"\n";
-  if(0.0001 < input->GetXaxis()->GetXmin() )
+  if(0.000001 < input->GetXaxis()->GetXmin() )
   {
-    if( (input->GetXaxis()->GetXmax() - input->GetXaxis()->GetXmin() ) >100)      c1->SetLogx();
+//     if( (input->GetXaxis()->GetXmax() - input->GetXaxis()->GetXmin() ) >100)      c1->SetLogx();
+		if( (input->GetXaxis()->GetXmax() - input->GetXaxis()->GetXmin() )/input->GetXaxis()->GetXmax() >0.5) c1->SetLogx();
     
   }
   input->SetMarkerSize(2.0);
